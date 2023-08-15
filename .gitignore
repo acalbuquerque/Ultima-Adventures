@@ -1,0 +1,10 @@
+**/Logs/
+**/Saves/
+**/Backups/
+**/ClassicUO/
+**/ClassicUO Launcher/
+**/.vs/
+**/Info/
+**/Scripts/obj/
+*.log
+*.vs
