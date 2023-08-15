@@ -70,7 +70,7 @@ namespace Server.Spells.Research
 				Effects.PlaySound( m, m.Map, 0x201 );
 
 				int percentage = (int)(SpellHelper.GetOffsetScalar( Caster, m, false )*100);
-				TimeSpan length = SpellHelper.GetDuration( Caster, m );
+				TimeSpan length = SpellHelper.NMSGetDuration( Caster, m, true );
 
 				int MyHide = 100 - (int)m.Skills[SkillName.Hiding].Base;
 					if ( MyHide < 0 ){ MyHide = 0; }

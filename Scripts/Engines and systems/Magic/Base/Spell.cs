@@ -237,13 +237,46 @@ namespace Server.Spells
 
 		public virtual bool OnCasterMoving( Direction d )
 		{
-			if ( IsCasting && BlocksMovement )
+            /*if (IsCasting && BlocksMovement)
 			{
-				m_Caster.SendLocalizedMessage( 500111 ); // You are frozen and can not move.
+				m_Caster.SendLocalizedMessage(500111); // You are frozen and can not move.
 				return false;
-			}
+			}*/
+            bool running = (d & Direction.Running) != 0;
+            if (m_Caster is PlayerMobile)
+            {
+                PlayerMobile pm = m_Caster as PlayerMobile;
+                if (pm.StepsAllowedForCastingSpells >= 0)
+                {
+                    //m_Caster.SendMessage("passos restantes ->> " + pm.StepsAllowedForCastingSpells);
+                    if (running)
+                    {
+                        pm.StepsAllowedForCastingSpells -= 2;
+                    }
+                    else
+                    {
+                        pm.StepsAllowedForCastingSpells--;
+                    }
+                }
+                else
+                {
+                    TimeSpan castDelay = this.GetCastDelay();
+                    int totalHoldingSecs = (int)Math.Ceiling(6 - ((0.25 * (int)((MagerySpell)this).Circle) + castDelay.TotalSeconds));
+                    double expirationInSecs = (DateTime.UtcNow - m_StartCastTime).TotalSeconds;
 
-			return true;
+                    //m_Caster.SendMessage("totalHoldingSecs: " + totalHoldingSecs + "Expire: " + expirationInSecs);
+
+                    if (expirationInSecs > totalHoldingSecs)
+                    {
+                        m_Caster.SendMessage("Você perdeu a concentração após ter segurado o feitiço por aproximadamente: " + Math.Truncate(expirationInSecs) + " segundos");
+                        DoFizzle();
+                        Disturb(DisturbType.UseRequest);
+                        return false;
+                    }
+                }
+            }
+
+            return true;
 		}
 
 		public virtual bool OnCasterEquiping( Item item )
@@ -514,7 +547,51 @@ namespace Server.Spells
 				caster.SendMessage("You can't cast anything in this state.");
 				return false;
 			}
-			return true;
+
+            if (caster is PlayerMobile)
+            {
+                int maxSteps = 2;
+                if (caster.Skills[SkillName.Magery].Value >= 40.0)
+                {
+                    maxSteps = 4;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 50.0)
+                {
+                    maxSteps = 6;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 60.0)
+                {
+                    maxSteps = 8;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 70.0)
+                {
+                    maxSteps = 10;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 80.0)
+                {
+                    maxSteps = 12;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 90.0)
+                {
+                    maxSteps = 14;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 100.0)
+                {
+                    maxSteps = 16;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 110.0)
+                {
+                    maxSteps = 18;
+                }
+                if (caster.Skills[SkillName.Magery].Value >= 120.0)
+                {
+                    maxSteps = 20;
+                }
+                PlayerMobile pm = caster as PlayerMobile;
+                pm.StepsAllowedForCastingSpells = maxSteps;
+                caster.SendMessage("Após " + maxSteps + " passos o seu feitiço ficará instável!");
+            }
+            return true;
 		}
 
 		public virtual bool SayMantra()

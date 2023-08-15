@@ -67,7 +67,7 @@ namespace Server.Spells.Third
 						((BaseCreature)m).IsBlessed = true;
 
 					int percentage = (int)(SpellHelper.GetOffsetScalar(Caster, m, false) * 100);
-					TimeSpan length = SpellHelper.GetDuration(Caster, m);
+					TimeSpan length = SpellHelper.NMSGetDuration(Caster, m, true);
 
 					if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer())
 					{

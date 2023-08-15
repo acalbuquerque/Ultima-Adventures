@@ -61,8 +61,8 @@ namespace Server.Spells
 
 	public class SpellHelper
 	{
-		private static TimeSpan AosDamageDelay = TimeSpan.FromSeconds( 1.0 );
-		private static TimeSpan OldDamageDelay = TimeSpan.FromSeconds( 0.5 );
+		private static TimeSpan AosDamageDelay = TimeSpan.FromSeconds( 0.5 );
+		private static TimeSpan OldDamageDelay = TimeSpan.FromSeconds( 0.3 );
 
 		public static TimeSpan GetDamageDelayForSpell( Spell sp )
 		{
@@ -221,7 +221,7 @@ namespace Server.Spells
 
 		public static bool AddStatBonus( Mobile caster, Mobile target, StatType type )
 		{
-			return AddStatBonus( caster, target, type, GetOffset( caster, target, type, false ), GetDuration( caster, target ) );
+			return AddStatBonus( caster, target, type, GetOffset( caster, target, type, false ), NMSGetDuration( caster, target, true ) );
 		}
 
 		public static bool AddStatBonus( Mobile caster, Mobile target, StatType type, int bonus, TimeSpan duration )
@@ -247,7 +247,7 @@ namespace Server.Spells
 
 		public static bool AddStatCurse( Mobile caster, Mobile target, StatType type )
 		{
-			return AddStatCurse( caster, target, type, GetOffset( caster, target, type, true ), GetDuration( caster, target ) );
+			return AddStatCurse( caster, target, type, GetOffset( caster, target, type, true ), NMSGetDuration( caster, target, false ) );
 		}
 
 		public static bool AddStatCurse( Mobile caster, Mobile target, StatType type, int curse, TimeSpan duration )
@@ -271,9 +271,70 @@ namespace Server.Spells
 			return false;
 		}
 
+		public static TimeSpan NMSGetDuration(Mobile caster, Mobile target, bool isBeneficial) 
+		{
+            double skillMageryValue = caster.Skills[SkillName.Magery].Value;
+            Random r = new Random();
+            int rInt = r.Next(8, 16);
+			int flag = 0;
+
+            int durationBonus = 0;
+			if (isBeneficial) {
+                double skillIncriptionValue = caster.Skills[SkillName.Inscribe].Value;
+				durationBonus = (int)Math.Ceiling(skillIncriptionValue * 0.1);
+
+				if (skillIncriptionValue >= 120.0)
+				{
+                    rInt = r.Next(12, 20);
+                }
+				else if (skillIncriptionValue < 120 && skillIncriptionValue >= 100)
+				{
+                    rInt = r.Next(10, 18);
+                }
+                else if (skillIncriptionValue < 100 && skillIncriptionValue >= 80)
+                {
+                    rInt = r.Next(8, 16);
+                }
+                else if (skillIncriptionValue < 80 && skillIncriptionValue >= 60)
+                {
+                    rInt = r.Next(6, 14);
+                }
+            }
+			else {
+                double skillEvalValue = caster.Skills[SkillName.EvalInt].Value;
+				durationBonus = (int)Math.Ceiling(skillEvalValue * 0.1);
+
+                if (skillEvalValue >= 120.0)
+                {
+                    rInt = r.Next(12, 20);
+                }
+                else if (skillEvalValue < 120 && skillEvalValue >= 100)
+                {
+                    rInt = r.Next(10, 18);
+                }
+                else if (skillEvalValue < 100 && skillEvalValue >= 80)
+                {
+                    rInt = r.Next(8, 16);
+                }
+                else if (skillEvalValue < 80 && skillEvalValue >= 60)
+                {
+                    rInt = r.Next(6, 14);
+                }
+            }
+
+			int total = rInt + durationBonus;
+			if (flag == 0)
+			{
+                caster.SendMessage("O feitiço terá a duração de aproximadamente " + total + " segundos");
+				flag = 1;
+			}
+
+            return TimeSpan.FromSeconds(total);
+        }
+
 		public static TimeSpan GetDuration( Mobile caster, Mobile target )
 		{
-			if( Core.AOS )
+            if( Core.AOS )
 				return TimeSpan.FromSeconds( ((6 * caster.Skills.EvalInt.Fixed) / 50) + 1 );
 
 			return TimeSpan.FromSeconds( caster.Skills[SkillName.Magery].Value * 1.2 );
@@ -622,28 +683,31 @@ namespace Server.Spells
 			if (AdventuresFunctions.IsInMidland((object)caster) && caster.AccessLevel == AccessLevel.Player)
 				return false;
 			
-			// Final: Can't teleport into a dungeon 
+			// Final: Can't teleport/gate into a dungeon or house
 			Region reg = Region.Find( loc, map );
 			if ( map != null && (type == TravelCheckType.RecallTo || type == TravelCheckType.GateTo) )
 			{
-				if ( reg.IsPartOf( typeof( DungeonRegion ) )  )
-					return false;
+				if (reg.IsPartOf(typeof(DungeonRegion)) || reg.IsPartOf(typeof(HouseRegion))) {
+                    caster.SendMessage("Este local possui proteção anti-magia de teleportar.");
+                    return false;
+                }	
 			}
 			// End
 
 			if( caster != null && caster.AccessLevel == AccessLevel.Player && caster.Region.IsPartOf( typeof( Regions.Jail ) ) )
 			{
-				caster.SendLocalizedMessage( 1042632 ); // You'll need a better jailbreak plan then that!
+                caster.SendMessage("Este local possui proteção anti-magia de teleportar.");
+                caster.SendLocalizedMessage( 1042632 ); // You'll need a better jailbreak plan then that!
 				return false;
 			}
 
 			string world = Worlds.GetMyWorld( map, loc, loc.X, loc.Y );
 
-			if ( caster is PlayerMobile && !CharacterDatabase.GetDiscovered( caster, world ))
+/*			if (caster is PlayerMobile && !CharacterDatabase.GetDiscovered(caster, world))
 			{
-				caster.SendMessage( "You don't know this location and change your mind." );
+				caster.SendMessage("Você não conhece ou descobriu este local ainda.");
 				return false;
-			}
+			}*/
 
 			m_TravelCaster = caster;
 			m_TravelType = type;
@@ -654,7 +718,7 @@ namespace Server.Spells
 			for( int i = 0; isValid && i < m_Validators.Length; ++i )
 				isValid = (m_Rules[v, i] || !m_Validators[i]( map, loc ));
 
-            if ( caster != null && caster.AccessLevel > AccessLevel.Player )  // Staff can always recall to a marked rune
+            if ( caster != null && caster.AccessLevel >= AccessLevel.Player )  // can always recall to a marked rune
                 return isValid;
 				
 			if( !isValid && caster != null )
@@ -1301,7 +1365,7 @@ namespace Server.Spells
 			
 			if (caster is PlayerMobile && ((PlayerMobile)caster).Alchemist())
 			{
-				caster.SendMessage("You can't seem to grasp magic forces!"); 
+				caster.SendMessage("Você não consegue entender as forças mágicas!"); 
 				return false;
 			}
 			
@@ -1310,12 +1374,14 @@ namespace Server.Spells
 
 			if( !caster.CanBeginAction( typeof( PolymorphSpell ) ) )
 			{
-				caster.SendLocalizedMessage( 1061628 ); // You can't do that while polymorphed.
+                caster.SendMessage("O Polimorfismo já está utilizando bastante de sua magia.");
+                // caster.SendLocalizedMessage( 1061628 ); // You can't do that while polymorphed.
 				return false;
 			}
 			else if( AnimalForm.UnderTransformation( caster ) )
 			{
-				caster.SendLocalizedMessage( 1061091 ); // You cannot cast that spell in this form.
+                caster.SendMessage("A transmutação já está utilizando bastante de sua magia.");
+                // caster.SendLocalizedMessage( 1061091 ); // You cannot cast that spell in this form.
 				return false;
 			}
 
@@ -1331,16 +1397,19 @@ namespace Server.Spells
 			
 			if( !caster.CanBeginAction( typeof( PolymorphSpell ) ) )
 			{
-				caster.SendLocalizedMessage( 1061628 ); // You can't do that while polymorphed.
+                caster.SendMessage("O Polimorfismo já está utilizando bastante de sua magia.");
+                // caster.SendLocalizedMessage( 1061628 ); // You can't do that while polymorphed.
 			}
-			else if ( DisguiseTimers.IsDisguised( caster ) )
+/*			else if ( DisguiseTimers.IsDisguised( caster ) )
 			{
+
 				caster.SendLocalizedMessage( 1061631 ); // You can't do that while disguised.
 				return false;
-			}
+			}*/
 			else if( AnimalForm.UnderTransformation( caster ) )
 			{
-				caster.SendLocalizedMessage( 1061091 ); // You cannot cast that spell in this form.
+                caster.SendMessage("A transmutação já está utilizando bastante de sua magia.");
+                // caster.SendLocalizedMessage( 1061091 ); // You cannot cast that spell in this form.
 			}
 			else if( !caster.CanBeginAction( typeof( IncognitoSpell ) ) || (caster.IsBodyMod && GetContext( caster ) == null) )
 			{

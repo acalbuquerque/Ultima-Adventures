@@ -41,7 +41,7 @@ namespace Server.Spells.Second
 				m.PlaySound( 0x1EE );
 
 				int percentage = (int)(SpellHelper.GetOffsetScalar( Caster, m, false )*100);
-				TimeSpan length = SpellHelper.GetDuration( Caster, m );
+				TimeSpan length = SpellHelper.NMSGetDuration( Caster, m, true );
 
 				BuffInfo.AddBuff( m, new BuffInfo( BuffIcon.Strength, 1075845, length, m, percentage.ToString() ) );
 			}

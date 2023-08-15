@@ -120,7 +120,8 @@ namespace Server.Mobiles
 		private TimeSpan m_NpcGuildGameTime;
 		private PlayerFlag m_Flags;
 		public bool High;
-		private int m_StepsTaken;
+        private int m_StepsAllowedForCastingSpells;
+        private int m_StepsTaken;
 		private int m_Profession;
 		private bool m_IsStealthing; // IsStealthing should be moved to Server.Mobiles
 		private bool m_IgnoreMobiles; // IgnoreMobiles should be moved to Server.Mobiles
@@ -294,7 +295,13 @@ namespace Server.Mobiles
 			set{ m_Profession = value; }
 		}
 
-		public int StepsTaken
+        public int StepsAllowedForCastingSpells
+        {
+            get { return m_StepsAllowedForCastingSpells; }
+            set { m_StepsAllowedForCastingSpells = value; }
+        }
+
+        public int StepsTaken
 		{
 			get{ return m_StepsTaken; }
 			set{ m_StepsTaken = value; }
