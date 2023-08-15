@@ -22,7 +22,7 @@ namespace Server.Misc
 		{
 			// THE NAME OF YOUR SERVER
 			// DON'T MAKE THE NAME LONGER THAN THE CHARACTERS BELOW OR IT GETS CUT OFF
-			return "Ultima Adventures";
+			return "Nimeria Shard";
 		}
 
 		public static string FilesPath()
@@ -32,10 +32,10 @@ namespace Server.Misc
 			// SET THE BELOW PATH TO WHERE THIS FOLDER IS LOCATED
 
 			//Windows
-			//return @"C:\Ultima-Adventures\Files";
+			return @"C:\UOShard\Ultima-Adventures\Files";
 
 			//Linux
-			return @"./Files";
+			//return @"./Files";
 		}
 
 		public static bool AllowSaveFunction()
