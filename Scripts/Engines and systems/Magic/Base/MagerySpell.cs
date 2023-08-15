@@ -80,11 +80,23 @@ namespace Server.Spells
 
 		public virtual double GetResistPercentForCircle( Mobile target, SpellCircle circle )
 		{
-			double firstPercent = target.Skills[SkillName.MagicResist].Value / 5.0;
+			/*double firstPercent = target.Skills[SkillName.MagicResist].Value / 5.0;
 			double secondPercent = target.Skills[SkillName.MagicResist].Value - (((Caster.Skills[CastSkill].Value - 20.0) / 5.0) + (1 + (int)circle) * 5.0);
 
-			return (firstPercent > secondPercent ? firstPercent : secondPercent) / 2.0; // Seems should be about half of what stratics says.
-		}
+			return (firstPercent > secondPercent ? firstPercent : secondPercent) / 2.0; // Seems should be about half of what stratics says.*/
+			double firstPercent = (target.Skills[SkillName.MagicResist].Value / 5.0) - (int)circle;
+            Random r = new Random();
+            int rInt = r.Next(0, 3);
+
+			if (target.Skills[SkillName.MagicResist].Value >= 100.0) 
+			{
+                rInt = r.Next(1, 5);
+            }
+			double secondPercent = firstPercent + rInt;
+            double final = (secondPercent > 0 ? secondPercent : 1);
+            target.SendMessage("Você teve " + final + "% de chance de resistir a magia.");
+			return final;
+        }
 
 		public virtual double GetResistPercent( Mobile target )
 		{
