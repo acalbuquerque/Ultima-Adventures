@@ -46,7 +46,8 @@ namespace Server.Regions
 
 		public override bool OnBeginSpellCast( Mobile m, ISpell s )
 		{
-			if ( m_House.IsOwner( m ) || m_House.IsCoOwner( m ) || m_House.IsFriend( m ) )
+			return true;
+/*			if ( m_House.IsOwner( m ) || m_House.IsCoOwner( m ) || m_House.IsFriend( m ) )
 			{
 				return true;
 			}
@@ -54,7 +55,7 @@ namespace Server.Regions
 			{
 				m.SendMessage( "You cannot use magic in this home." );
 				return false;
-			}
+			}*/
 		}
 
 		public override void OnEnter( Mobile m )
@@ -364,7 +365,7 @@ namespace Server.Regions
 				{
 					//from.SendLocalizedMessage( 502097 ); // Lock what down?
 					//from.Target = new LockdownTarget( false, m_House );
-					from.SendMessage("Simply place an item in the house to lock it down.");
+					from.SendMessage("Apenas adicione um item na casa para travar ele.");
 				}
 				else if ( isFriend )
 				{
