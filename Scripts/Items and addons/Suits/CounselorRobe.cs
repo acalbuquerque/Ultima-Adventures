@@ -8,7 +8,10 @@ namespace Server.Items
 		[Constructable]
 		public CounselorRobe() : base( AccessLevel.Counselor, 0x3, 0x204F )
 		{
-		}
+            Hue = 2256;
+            Weight = 1.0;
+            LootType = LootType.Blessed;
+        }
 
 		public CounselorRobe( Serial serial ) : base( serial )
 		{

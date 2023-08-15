@@ -8,7 +8,7 @@
         public BloodOathHide()
             : base(AccessLevel.GameMaster, 0xCB, 0x1ECD)
         {
-            Hue = 1172;
+            Hue = 2235;
             Name = "GM BloodOath Ball";
         }
         public BloodOathHide(Serial serial)
@@ -35,8 +35,8 @@
                 if (!from.Hidden == true)
                 {
                     from.Emote("*" + from.Name + " expands into a mist a floats away*");
-                    from.FixedParticles(0x375A, 1, 17, 9919, 33, 7, EffectLayer.Waist);
-                    from.FixedParticles(0x3728, 1, 13, 9502, 33, 7, (EffectLayer)255);
+                    from.FixedParticles(0x375A, 1, 17, 9919, 2235, 7, EffectLayer.Waist);
+                    from.FixedParticles(0x3728, 1, 13, 9502, 2235, 7, (EffectLayer)255);
                     from.PlaySound(0x175);
                     from.Hidden = true;
 
@@ -45,8 +45,8 @@
                 {
                     from.Hidden = false;
                     from.Emote("*" + from.Name + " pulls together in front of you from the air*");
-                    from.FixedParticles(0x375A, 1, 17, 9919, 33, 7, EffectLayer.Waist);
-                    from.FixedParticles(0x3728, 1, 13, 9502, 33, 7, (EffectLayer)255);
+                    from.FixedParticles(0x375A, 1, 17, 9919, 2235, 7, EffectLayer.Waist);
+                    from.FixedParticles(0x3728, 1, 13, 9502, 2235, 7, (EffectLayer)255);
                     from.PlaySound(0x175);
 
                 }

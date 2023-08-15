@@ -8,7 +8,10 @@ namespace Server.Items
 		[Constructable]
 		public GMRobe() : base( AccessLevel.GameMaster, 0x26, 0x204F )
 		{
-		}
+            Hue = 2262;
+            Weight = 1.0;
+            LootType = LootType.Blessed;
+        }
 
 		public GMRobe( Serial serial ) : base( serial )
 		{

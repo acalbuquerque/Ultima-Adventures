@@ -8,7 +8,10 @@ namespace Server.Items
 		[Constructable]
 		public SeerRobe() : base( AccessLevel.Seer, 0x1D3, 0x204F )
 		{
-		}
+            Hue = 2253;
+            Weight = 1.0;
+            LootType = LootType.Blessed;
+        }
 
 		public SeerRobe( Serial serial ) : base( serial )
 		{
