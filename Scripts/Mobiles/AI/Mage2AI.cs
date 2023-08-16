@@ -344,7 +344,7 @@ namespace Server.Mobiles
                 double activePrio = 0.0;
 
                 // Check if enemy still is there and no pet:
-                if (m_Mobile.Combatant != null && !m_Mobile.Combatant.Deleted && m_Mobile.Combatant.Alive && !m_Mobile.Combatant.IsDeadBondedPet && m_Mobile.InRange(m_Mobile.Combatant, Core.ML ? 10 : 12) && CanDispel(m_Mobile.Combatant))
+                if (m_Mobile.Combatant != null && !m_Mobile.Combatant.Deleted && m_Mobile.Combatant.Alive && !m_Mobile.Combatant.IsDeadBondedPet && m_Mobile.InRange(m_Mobile.Combatant, Core.ML ? 12 : 14) && CanDispel(m_Mobile.Combatant))
                 {
                     active = m_Mobile.Combatant;
                     activePrio = m_Mobile.GetDistanceToSqrt(m_Mobile.Combatant);
@@ -358,7 +358,7 @@ namespace Server.Mobiles
                     AggressorInfo info = aggressed[i];
                     Mobile m = info.Defender;
 
-                    if (m != m_Mobile.Combatant && m.Combatant == m_Mobile && m_Mobile.InRange(m, Core.ML ? 10 : 12) && CanDispel(m))
+                    if (m != m_Mobile.Combatant && m.Combatant == m_Mobile && m_Mobile.InRange(m, Core.ML ? 12 : 14) && CanDispel(m))
                     {
                         double prio = m_Mobile.GetDistanceToSqrt(m);
 
@@ -378,7 +378,7 @@ namespace Server.Mobiles
                     AggressorInfo info = aggressors[i];
                     Mobile m = info.Attacker;
 
-                    if (m != m_Mobile.Combatant && m.Combatant == m_Mobile && m_Mobile.InRange(m, Core.ML ? 10 : 12) && CanDispel(m))
+                    if (m != m_Mobile.Combatant && m.Combatant == m_Mobile && m_Mobile.InRange(m, Core.ML ? 12 : 14) && CanDispel(m))
                     {
                         double prio = m_Mobile.GetDistanceToSqrt(m);
 
@@ -410,7 +410,7 @@ namespace Server.Mobiles
                         actPrio = inactPrio = m_Mobile.GetDistanceToSqrt(m_Mobile.Combatant);
                     }
 
-                    foreach (Mobile m in m_Mobile.GetMobilesInRange(Core.ML ? 10 : 12))
+                    foreach (Mobile m in m_Mobile.GetMobilesInRange(Core.ML ? 12 : 14))
                     {
                         if (m != m_Mobile && CanDispel(m))
                         {
@@ -646,7 +646,7 @@ namespace Server.Mobiles
             }
 
             // Prepare casting if it is time and the enemy is in range:
-            if (m_Mobile.Spell == null && DateTime.UtcNow > m_NextCastTime && m_Mobile.InRange(m_Mobile.Combatant, Core.ML ? 10 : 12))
+            if (m_Mobile.Spell == null && DateTime.UtcNow > m_NextCastTime && m_Mobile.InRange(m_Mobile.Combatant, Core.ML ? 12 : 14))
             {
 
                 Mobile toDispel = FindDispelTarget(true);

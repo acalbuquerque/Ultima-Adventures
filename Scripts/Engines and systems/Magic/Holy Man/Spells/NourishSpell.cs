@@ -63,7 +63,7 @@ namespace Server.Spells.HolyMan
 		{
 			private NourishSpell m_Owner;
 
-			public InternalTarget( NourishSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Beneficial )
+			public InternalTarget( NourishSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}

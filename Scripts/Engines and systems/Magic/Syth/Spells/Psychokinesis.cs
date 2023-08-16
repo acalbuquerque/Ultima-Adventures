@@ -105,7 +105,7 @@ namespace Server.Spells.Syth
         public class InternalTarget : Target
         {
             private readonly Psychokinesis m_Owner;
-            public InternalTarget(Psychokinesis owner) : base(Core.ML ? 10 : 12, false, TargetFlags.None)
+            public InternalTarget(Psychokinesis owner) : base(Core.ML ? 12 : 14, false, TargetFlags.None)
             {
                 this.m_Owner = owner;
             }

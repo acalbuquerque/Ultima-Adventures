@@ -1127,6 +1127,7 @@ namespace Server.Spells
 				}
 	
 			}
+            //atcker.SendMessage("iDamage---> " + iDamage);
 
             if (AdventuresFunctions.IsInMidland((object)from) && from is PlayerMobile)
 				damage = (int)((double)damage * (1.25 * ((PlayerMobile)from).Lucidity()));
@@ -1143,7 +1144,7 @@ namespace Server.Spells
 
 				int damageGiven = AOS.Damage( target, from, iDamage, false, phys, fire, cold, pois, nrgy, 0, 0, false, false, false, true );
 
-				if ( from != null ) // sanity check
+                if ( from != null ) // sanity check
 				{
 					DoLeech( damageGiven, from, target );
 				}
@@ -1152,7 +1153,7 @@ namespace Server.Spells
 			}
 			else
 			{
-				new SpellDamageTimerAOS( spell, target, from, iDamage, phys, fire, cold, pois, nrgy, delay, dfa ).Start();
+                new SpellDamageTimerAOS( spell, target, from, iDamage, phys, fire, cold, pois, nrgy, delay, dfa ).Start();
 			}
 
 			if( target is BaseCreature && from != null && delay == TimeSpan.Zero )

@@ -117,7 +117,7 @@ namespace Server.Spells.Necromancy
 			private PoisonStrikeSpell m_Owner;
 
 			public InternalTarget( PoisonStrikeSpell owner )
-				: base( Core.ML ? 10 : 12, false, TargetFlags.Harmful )
+				: base( Core.ML ? 12 : 14, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

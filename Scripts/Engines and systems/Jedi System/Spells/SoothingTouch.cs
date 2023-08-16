@@ -114,7 +114,7 @@ namespace Server.Spells.Jedi
 		{
 			private SoothingTouch m_Owner;
 
-			public InternalTarget( SoothingTouch owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Beneficial )
+			public InternalTarget( SoothingTouch owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}

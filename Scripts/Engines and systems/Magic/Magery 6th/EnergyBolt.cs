@@ -51,15 +51,16 @@ namespace Server.Spells.Sixth
 					nBenefit = CalculateMobileBenefit(Caster, 7, 2);
 				}
 
-				damage = GetNewAosDamage( 35, 1, 5, m ) + nBenefit;
+                damage = GetNMSDamage( 35, 1, 5, m ) + nBenefit;
+                //damage = GetNewAosDamage(35, 1, 5, m);
 
-				// Do the effects
-				source.MovingParticles( m, 0x3818, 7, 0, false, true, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 3043, 4043, 0x211, 0 );
+                // Do the effects
+                source.MovingParticles( m, 0x3818, 7, 0, false, true, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 3043, 4043, 0x211, 0 );
 				source.PlaySound( 0x20A );
 
 				// Deal the damage
 				SpellHelper.Damage( this, m, damage, 0, 0, 0, 0, 100 );
-				if (Scroll is SoulShard) {
+                if (Scroll is SoulShard) {
 					((SoulShard)Scroll).SuccessfulCast = true;
 				}
 			}
@@ -71,7 +72,7 @@ namespace Server.Spells.Sixth
 		{
 			private EnergyBoltSpell m_Owner;
 
-			public InternalTarget( EnergyBoltSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Harmful )
+			public InternalTarget( EnergyBoltSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

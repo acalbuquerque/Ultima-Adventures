@@ -98,7 +98,7 @@ namespace Server.Spells.Third
 		{
 			private PoisonSpell m_Owner;
 
-			public InternalTarget( PoisonSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Harmful )
+			public InternalTarget( PoisonSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

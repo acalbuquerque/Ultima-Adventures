@@ -84,7 +84,7 @@ namespace Server.Spells.Mystic
 		{
 			private PsionicBlast m_Owner;
 
-			public InternalTarget( PsionicBlast owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Harmful )
+			public InternalTarget( PsionicBlast owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

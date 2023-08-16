@@ -166,7 +166,7 @@ namespace Server.Spells.Chivalry
 		{
 			private RemoveCurseSpell m_Owner;
 
-			public InternalTarget( RemoveCurseSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Beneficial )
+			public InternalTarget( RemoveCurseSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}

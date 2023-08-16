@@ -114,7 +114,7 @@ namespace Server.Spells.Research
 		{
 			private ResearchAvalanche m_Owner;
 
-			public InternalTarget( ResearchAvalanche owner ) : base( Core.ML ? 10 : 12, true, TargetFlags.None )
+			public InternalTarget( ResearchAvalanche owner ) : base( Core.ML ? 12 : 14, true, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}

@@ -47,11 +47,12 @@ namespace Server.Spells.Seventh
 				if ( Caster is PlayerMobile ) // WIZARD
 				{
 					nBenefit = CalculateMobileBenefit(Caster, 5, 2);
-				}
+                    
+                }
+                damage = GetNMSDamage( 55, 1, 6, m ) + nBenefit;
+                //damage = GetNewAosDamage(55, 1, 6, m);
 
-				damage = GetNewAosDamage( 55, 1, 6, m ) + nBenefit;
-
-				m.FixedParticles( 0x3709, 10, 30, 5052, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.LeftFoot );
+                m.FixedParticles( 0x3709, 10, 30, 5052, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.LeftFoot );
 				m.PlaySound( 0x208 );
 
 				SpellHelper.Damage( this, m, damage, 0, 100, 0, 0, 0 );
@@ -67,7 +68,7 @@ namespace Server.Spells.Seventh
 		{
 			private FlameStrikeSpell m_Owner;
 
-			public InternalTarget( FlameStrikeSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Harmful )
+			public InternalTarget( FlameStrikeSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

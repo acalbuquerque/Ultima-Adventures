@@ -120,15 +120,63 @@ namespace Server.Spells
 			m_Info = info;
 		}
 
-		public virtual int GetNewAosDamage( int bonus, int dice, int sides, Mobile singleTarget )
+        public virtual int GetNMSDamage(int bonus, int dice, int sides, Mobile singleTarget)
+        {
+            return GetNMSDamage(bonus, dice, sides, (Caster.Player && singleTarget.Player)); // PvP Damage or PvM
+        }
+
+        public virtual int GetNMSDamage(int bonus, int dice, int sides, bool playerVsPlayer)
+        {
+            int realDamage = Utility.Dice(dice, sides, bonus);
+            //Caster.SendMessage("realDamage-> " + realDamage + "");
+
+			// TODO: NOT WORKING
+/*            int SDICap = MyServerSettings.RealSpellDamageCap();
+            int sdiBonus = AosAttributes.GetValue(m_Caster, AosAttribute.SpellDamage); // check magic items bonus
+
+            if (sdiBonus > SDICap)
+            {
+                sdiBonus = SDICap;
+            }
+            Caster.SendMessage("sdiBonus-> " + sdiBonus);
+
+			double test = (double)((100 + sdiBonus) / 100);
+            Caster.SendMessage("test----------> " + test + "");
+            realDamage = (int)Math.Floor(realDamage * test);
+            Caster.SendMessage("realDamage + SDI bonus-> " + realDamage + "");*/
+			
+            // Adding Eval + Int Bonus
+            double skillStatBonus = 0;
+            double evalSkill = GetEvalFixed(m_Caster) / 10;
+            //Caster.SendMessage("evalSkill-> " + evalSkill + "");
+            double evalBonus = (evalSkill * (evalSkill / 200)) / 2;
+            //Caster.SendMessage("Eval Bonus-> " + evalBonus + "");
+
+            int intBonus = Caster.Int / 10;
+            if (Caster.Int >= 100) // Super´s have a little more bonus percentage
+            {
+                intBonus = Caster.Int / 9;
+            }
+            //Caster.SendMessage("intBonus Bonus-> " + intBonus + "");
+
+            skillStatBonus += (evalBonus + intBonus) / 100;
+            //Caster.SendMessage("DamageBonus Skill+Int % -> " + skillStatBonus + "");
+
+            int finalDamage = (int)Math.Floor(realDamage * (1 + skillStatBonus));
+            //Caster.SendMessage("final Damage-> " + finalDamage);
+
+            return finalDamage;
+        }
+
+        public virtual int GetNewAosDamage( int bonus, int dice, int sides, Mobile singleTarget )
 		{
 			if( singleTarget != null )
 			{
-				return GetNewAosDamage( bonus, dice, sides, (Caster.Player && singleTarget.Player), GetDamageScalar( singleTarget ) );
-			}
+                return GetNewAosDamage( bonus, dice, sides, (Caster.Player && singleTarget.Player), GetDamageScalar( singleTarget ) );
+            }
 			else
 			{
-				return GetNewAosDamage( bonus, dice, sides, false );
+                return GetNewAosDamage( bonus, dice, sides, false );
 			}
 		}
 
@@ -137,7 +185,7 @@ namespace Server.Spells
 			return GetNewAosDamage( bonus, dice, sides, playerVsPlayer, 1.0 );
 		}
 
-		public virtual int GetNewAosDamage( int bonus, int dice, int sides, bool playerVsPlayer, double scalar )
+        public virtual int GetNewAosDamage( int bonus, int dice, int sides, bool playerVsPlayer, double scalar )
 		{
 			int damage = Utility.Dice( dice, sides, bonus ) * 100;
 			int damageBonus = 0;
@@ -319,15 +367,31 @@ namespace Server.Spells
 			return false;
 		}
 
-		public virtual double GetInscribeSkill( Mobile m )
-		{
-			// There is no chance to gain
-			// m.CheckSkill( SkillName.Inscribe, 0.0, 120.0 );
+        public virtual double GetEvalSkill(Mobile m)
+        {
+            // There is no chance to gain
+            // m.CheckSkill( SkillName.EvalInt, 0.0, 120.0 );
 
-			return m.Skills[SkillName.Inscribe].Value;
-		}
+            return m.Skills[SkillName.EvalInt].Value;
+        }
 
-		public virtual int GetInscribeFixed( Mobile m )
+        public virtual int GetEvalFixed(Mobile m)
+        {
+            // There is no chance to gain
+            // m.CheckSkill( SkillName.EvalInt, 0.0, 120.0 );
+
+            return m.Skills[SkillName.EvalInt].Fixed;
+        }
+
+        public virtual double GetInscribeSkill(Mobile m)
+        {
+            // There is no chance to gain
+            // m.CheckSkill( SkillName.Inscribe, 0.0, 120.0 );
+
+            return m.Skills[SkillName.Inscribe].Value;
+        }
+
+        public virtual int GetInscribeFixed( Mobile m )
 		{
 			// There is no chance to gain
 			// m.CheckSkill( SkillName.Inscribe, 0.0, 120.0 );
@@ -977,11 +1041,15 @@ namespace Server.Spells
 			}
 			else if ( !ConsumeReagents() )
 			{
-				m_Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 502630 ); // More reagents are needed for this spell.
+                m_Caster.SendLocalizedMessage(502630); // More reagents are needed for this spell.
+                DoFizzle();
+                //m_Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 502630 ); // More reagents are needed for this spell.
 			}
 			else if ( m_Caster.Mana < mana )
 			{
-				m_Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 502625 ); // Insufficient mana for this spell.
+                m_Caster.SendLocalizedMessage(502625); // Insufficient mana for this spell.
+                DoFizzle();
+                m_Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 502625 ); // Insufficient mana for this spell.
 			}
 			else if ( Core.AOS && (m_Caster.Frozen || m_Caster.Paralyzed) )
 			{

@@ -46,7 +46,7 @@ namespace Server.Spells.Second
 
 		private static Hashtable m_Table = new Hashtable();
 
-		public static void Toggle( Mobile caster, Mobile target )
+		public static void Toggle( Mobile caster, Mobile target ) // TODO: COOP3R - Remove part of this nonsense
 		{
 			/* Players under the protection spell effect can no longer have their spells "disrupted" when hit.
 			 * Players under the protection spell have decreased physical resistance stat value (-15 + (Inscription/20),
@@ -57,42 +57,65 @@ namespace Server.Spells.Second
 			 * even after dying�until you �turn them off� by casting them again.
 			 */
 
-			object[] mods = (object[])m_Table[target];
-
-			if ( mods == null )
+			//object[] mods = (object[])m_Table[target];
+            ResistanceMod[] mods = (ResistanceMod[])m_Table[target];
+            if ( mods == null )
 			{
-				target.PlaySound( 0x1E9 );
+                target.SendMessage("Add Prot");
+                target.PlaySound( 0x1E9 );
 				target.FixedParticles( 0x375A, 9, 20, 5016, Server.Items.CharacterDatabase.GetMySpellHue( caster, 0 ), 0, EffectLayer.Waist );
 
-				mods = new object[2]
-					{
-						new ResistanceMod( ResistanceType.Physical, -15 + Math.Min( (int)(caster.Skills[SkillName.Inscribe].Value / 20), 15 ) ),
-						new DefaultSkillMod( SkillName.MagicResist, true, -35 + Math.Min( (int)(caster.Skills[SkillName.Inscribe].Value / 20), 35 ) )
-					};
+                /*				mods = new object[2]
+                                    {
+                                                        new ResistanceMod( ResistanceType.Physical, -15 + Math.Min( (int)(caster.Skills[SkillName.Inscribe].Value / 20), 15 ) ),
+                                                        new DefaultSkillMod( SkillName.MagicResist, true, -35 + Math.Min( (int)(caster.Skills[SkillName.Inscribe].Value / 20), 35 ) )
+                                    };*/
 
-				m_Table[target] = mods;
-				Registry[target] = 100.0;
+                mods = new ResistanceMod[5]
+                            {
+                                new ResistanceMod( ResistanceType.Physical, -8 ),
+                                new ResistanceMod( ResistanceType.Fire, -8 ),
+                                new ResistanceMod( ResistanceType.Cold, -8 ),
+                                new ResistanceMod( ResistanceType.Poison, -8 ),
+                                new ResistanceMod( ResistanceType.Energy, -8 )
+                            };
 
-				target.AddResistanceMod( (ResistanceMod)mods[0] );
-				target.AddSkillMod( (SkillMod)mods[1] );
+                m_Table[target] = mods;
 
-				int physloss = -15 + (int) (caster.Skills[SkillName.Inscribe].Value / 20);
-				int resistloss = -35 + (int) (caster.Skills[SkillName.Inscribe].Value / 20);
-				string args = String.Format("{0}\t{1}", physloss, resistloss);
-				BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Protection, 1075814, 1075815, args.ToString()));
+                for (int i = 0; i < mods.Length; ++i)
+                    target.AddResistanceMod(mods[i]);
+                
+				string args = "";
+                args = String.Format("{0}\t{1}\t{2}\t{3}\t{4}", 8, 8, 8, 8, 8);
+
+                /*                m_Table[target] = mods;
+                                Registry[target] = 100.0;
+
+                                target.AddResistanceMod((ResistanceMod)mods[0]);*/
+                //target.AddSkillMod((SkillMod)mods[1]);
+
+                //int physloss = -15 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
+                //int resistloss = -35 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
+                //string args = String.Format("{0}", physloss); // String.Format("{0}\t{1}", physloss, resistloss);
+
+                BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Protection, 1075814, 1075815, args.ToString()));
 			}
 			else
 			{
-				target.PlaySound( 0x1ED );
+                target.SendMessage("Remove Prot");
+                target.PlaySound( 0x1ED );
 				target.FixedParticles( 0x375A, 9, 20, 5016, Server.Items.CharacterDatabase.GetMySpellHue( caster, 0 ), 0, EffectLayer.Waist );
 
-				m_Table.Remove( target );
-				Registry.Remove( target );
+				m_Table.Remove(target);
+				//Registry.Remove(target);
 
-				target.RemoveResistanceMod( (ResistanceMod)mods[0] );
-				target.RemoveSkillMod( (SkillMod)mods[1] );
+				//target.RemoveResistanceMod((ResistanceMod)mods[0]);
+                //target.RemoveSkillMod((SkillMod)mods[1]);
 
-				BuffInfo.RemoveBuff(target, BuffIcon.Protection);
+                for(int i = 0; i < mods.Length; ++i )
+                    target.RemoveResistanceMod(mods[i]);
+
+                BuffInfo.RemoveBuff(target, BuffIcon.Protection);
 			}
 		}
 
@@ -106,9 +129,9 @@ namespace Server.Spells.Second
 				Registry.Remove( m );
 
 				m.RemoveResistanceMod( (ResistanceMod) mods[ 0 ] );
-				m.RemoveSkillMod( (SkillMod) mods[ 1 ] );
-
-				BuffInfo.RemoveBuff( m, BuffIcon.Protection );
+                //m.RemoveSkillMod( (SkillMod) mods[ 1 ] );
+                m.PlaySound(0x1ED);
+                BuffInfo.RemoveBuff( m, BuffIcon.Protection );
 			}
 		}
 
@@ -135,13 +158,13 @@ namespace Server.Spells.Second
 				{
 					if ( Caster.BeginAction( typeof( DefensiveSpell ) ) )
 					{
-						double value = (int)(Caster.Skills[SkillName.EvalInt].Value + Caster.Skills[SkillName.Meditation].Value + Caster.Skills[SkillName.Inscribe].Value);
-						value /= 4;
+						double value = (int)(Caster.Skills[SkillName.Inscribe].Value); // inscript give benefits
+                        value /= 4;
 
 						if ( value < 0 )
 							value = 0;
-						else if ( value > 75 )
-							value = 75.0;
+						else if ( value > 30 )
+							value = 30.0;
 
 						Registry.Add( Caster, value );
 						new InternalTimer( Caster ).Start();
@@ -165,11 +188,11 @@ namespace Server.Spells.Second
 
 			public InternalTimer( Mobile caster ) : base( TimeSpan.FromSeconds( 0 ) )
 			{
-				double val = caster.Skills[SkillName.Magery].Value * 2.0;
-				if ( val < 15 )
+                double val = caster.Skills[SkillName.Magery].Value * 2.0;
+				if ( val < 15 ) // min secs
 					val = 15;
-				else if ( val > 240 )
-					val = 240;
+				else if ( val > 30 )
+					val = 30; // max secs
 
 				m_Caster = caster;
 				Delay = TimeSpan.FromSeconds( val );
@@ -178,7 +201,8 @@ namespace Server.Spells.Second
 
 			protected override void OnTick()
 			{
-				ProtectionSpell.Registry.Remove( m_Caster );
+                m_Caster.SendMessage("Remove Prottt");
+                ProtectionSpell.Registry.Remove( m_Caster );
 				DefensiveSpell.Nullify( m_Caster );
 			}
 		}

@@ -22,16 +22,16 @@ namespace Server.Spells.First
 
 		private static FoodInfo[] m_Food = new FoodInfo[]
 			{
-				new FoodInfo( typeof( Grapes ), "a grape bunch" ),
-				new FoodInfo( typeof( Ham ), "a ham" ),
-				new FoodInfo( typeof( CheeseWedge ), "a wedge of cheese" ),
+				new FoodInfo( typeof( Grapes ), "cacho de uvas" ),
+				new FoodInfo( typeof( Ham ), "presunto" ),
+				new FoodInfo( typeof( CheeseWedge ), "fatia de queijo" ),
 				new FoodInfo( typeof( Muffins ), "muffins" ),
-				new FoodInfo( typeof( FishSteak ), "a fish steak" ),
-				new FoodInfo( typeof( Ribs ), "cut of ribs" ),
-				new FoodInfo( typeof( CookedBird ), "a cooked bird" ),
-				new FoodInfo( typeof( Sausage ), "sausage" ),
-				new FoodInfo( typeof( Apple ), "an apple" ),
-				new FoodInfo( typeof( Peach ), "a peach" )
+				new FoodInfo( typeof( FishSteak ), "filé de peixe" ),
+				new FoodInfo( typeof( Ribs ), "costelinhas" ),
+				new FoodInfo( typeof( CookedBird ), "frango cozido" ),
+				new FoodInfo( typeof( Sausage ), "salsicha" ),
+				new FoodInfo( typeof( Apple ), "maça" ),
+				new FoodInfo( typeof( Peach ), "pera" )
 			};
 
 		public override void OnCast()
@@ -59,7 +59,7 @@ namespace Server.Spells.First
 					}
 					else 
 					{ 
-						FoodInfo foodInfobad = new FoodInfo( typeof( FoodStaleBread ), "Magical Bread" );
+						FoodInfo foodInfobad = new FoodInfo( typeof( FoodStaleBread ), "Pão mágico" );
 						//new FoodInfo( typeof( FoodStaleBread ), "Magical Bread" );
 						Item foodbad = foodInfobad.Create();
 						Caster.AddToBackpack( foodbad );
