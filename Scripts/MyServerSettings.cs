@@ -89,7 +89,7 @@ namespace Server.Misc
 		{
 			// CHANCE THAT ITEMS ARE UNIDENTIFIED
 			// IF YOU SET THIS VERY LOW, THEN ITEM IDENTIFICATION STARTS TO BECOME A USELESS SKILL
-			return 40;
+			return 50;
 		}
 
 		public static bool NoMacroing()
@@ -102,7 +102,7 @@ namespace Server.Misc
 
 		public static int GetTimeBetweenQuests()
 		{
-			return 1; // MINUTES
+			return 5; // MINUTES
 		}
 
 		public static int GetTimeBetweenArtifactQuests()
@@ -224,17 +224,17 @@ namespace Server.Misc
 			// IF SET TO TRUE, THEN CHARACTERS HAVE TO PUT UNIDENTIFIED ITEMS IN THEIR PACK TO IDENTIFY THEM
 			// IF SET TO FALSE, THEN CHARACTERS CAN IDENITIFY ITEMS THEY ARE ABLE TO DOUBLE CLICK
 			// THIS OPTION IS ONLY PROVIDED IF YOU NEED THE SECURITY OF MULTI-PLAYER ENVIRONMENTS
-			return false;
+			return true;
 		}
 
 		public static int SpellDamageIncreaseVsMonsters()
 		{
-			return 300;
+			return 150;
 		}
 
 		public static int SpellDamageIncreaseVsPlayers()
 		{
-			return 100;
+			return 70;
 		}
 
 		public static int SoulForceCap() {
@@ -442,12 +442,12 @@ namespace Server.Misc
 
 		public static double BoatDecay() // HOW MANY DAYS A BOAT WILL LAST BEFORE IT DECAYS, WHERE USING IT REFRESHES THE TIME
 		{
-			return 9999.0;
+			return 15.0;
 		}
 
 		public static double HomeDecay() // HOW MANY DAYS A HOUSE WILL LAST BEFORE IT DECAYS, WHERE USING IT REFRESHES THE TIME
 		{
-			return 60.0;
+			return 30.0;
 		}
 
 		public static bool HousesDecay(object house) // DO HOUSES DECAY IN YOUR GAME AT ALL?
@@ -455,12 +455,12 @@ namespace Server.Misc
 			if (house is TownHouse)
 				return true;
 			
-			return false;
+			return true;
 		}
 
 		public static int HousesPerAccount() // HOW MANY HOUSES CAN ONE ACCOUNT HAVE, WHERE -1 IS NOT LIMIT
 		{
-			return -1;
+			return 2;
 		}
 
 		public static bool EnableDungeonSoundEffects() // DO THE DUNGEONS HAVE RANDOM SOUND EFFECTS?
@@ -481,7 +481,8 @@ namespace Server.Misc
 
 		public static bool SellChance() // CHANCE A VENDOR SELLS A REGULAR ITEM. SET "chance" HIGHER FOR MORE OFTEN
 		{
-			int chance = 50;	if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
+			int chance = 50;	
+			if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
 			return false;
 		}
 
@@ -547,22 +548,22 @@ namespace Server.Misc
 		
 		public static int skillcap() // This server can accomodate unlimited skillcap.  What should a NEW CHARACTER's skillcap be?
 		{
-			return 25000;
+			return 1000;
 		}
 		
 		public static int skillcapbarbaric() // Skill cap for Barbaric characters
 		{
-			return 100000;
+			return 4000;
 		}
 
 		public static int skillcapwanted() // Skill cap for Wanted characters
 		{
-			return 100000;
+			return 4000;
 		}
 
 		public static int skillcapalien() // Skill cap for Alien characters
 		{
-			return 100000;
+			return 4000;
 		}
 
 		public static int newstatcap() // This server can accomodate unlimited statcap.  What should a NEW CHARACTER's statcap be?
@@ -594,7 +595,7 @@ namespace Server.Misc
 
 		public static int SpellDamage() 
 		{
-			return 300;
+			return 100;
 		}
 
 		public static int ReflectDamageCap() {
@@ -618,11 +619,11 @@ namespace Server.Misc
 		}
 
 		public static int LuckCap() {
-			return 4000;
+			return 100;
 		}
 
 		public static double BandageSpeedMin() {
-			return 3.0;
+			return 3.5;
 		}
 
 		public static double MinimumSwingDelaySeconds() {
@@ -634,11 +635,11 @@ namespace Server.Misc
 		}
 
 		public static int HitChanceCap() {
-			return 45;
+			return 47;
 		}
 
 		public static int DefendChanceCap() {
-			return 45;
+			return 47;
 		}
 
 		public static int CastSpeedCap() {
@@ -654,7 +655,7 @@ namespace Server.Misc
 		}
 
 		public static int DamageIncreaseCap() {
-			return 300;
+			return 150;
 		}
 
 		public static int RealSpellDamageCap() {
