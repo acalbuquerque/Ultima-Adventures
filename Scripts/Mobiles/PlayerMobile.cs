@@ -5732,8 +5732,10 @@ A little mouse catches sight of you and flees into a small hole in the ground.*/
 			}
 
 			base.GetProperties( list );
+            if (AccessLevel > AccessLevel.Player)
+                list.Add(1060847, "{0}\t{1}", "Shard", Enum.GetName(typeof(AccessLevel), AccessLevel));
 
-			string sTitle = "" + GetPlayerInfo.GetSkillTitle( this ) + GetPlayerInfo.GetNPCGuild( this );
+            string sTitle = "" + GetPlayerInfo.GetSkillTitle( this ) + GetPlayerInfo.GetNPCGuild( this );
 			list.Add( Utility.FixHtml( sTitle ) );
 			
 			if ( this.SoulBound)
