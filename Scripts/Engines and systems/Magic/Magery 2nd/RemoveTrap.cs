@@ -65,7 +65,7 @@ namespace Server.Spells.Second
 		{
 			private RemoveTrapSpell m_Owner;
 
-			public InternalTarget( RemoveTrapSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.None )
+			public InternalTarget( RemoveTrapSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}

@@ -255,7 +255,7 @@ namespace Server.Spells.Research
 		{
 			private ResearchSleepField m_Owner;
 
-			public InternalTarget( ResearchSleepField owner ) : base( Core.ML ? 12 : 14, true, TargetFlags.None )
+			public InternalTarget( ResearchSleepField owner ) : base( Core.ML ? 10 : 12, true, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}

@@ -36,7 +36,7 @@ namespace Server.Spells.Research
 			private ResearchCreateGold m_Owner;
 			private int m_SpellIndex;
 
-			public InternalTarget( ResearchCreateGold owner, int spellIndex ) : base( Core.ML ? 12 : 14, false, TargetFlags.None )
+			public InternalTarget( ResearchCreateGold owner, int spellIndex ) : base( Core.ML ? 10 : 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 				m_SpellIndex = spellIndex;

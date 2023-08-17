@@ -94,7 +94,7 @@ namespace Server.Spells
             }
 			double secondPercent = firstPercent + rInt;
             double final = (secondPercent > 0 ? secondPercent : 1);
-            target.SendMessage("Você teve " + final + "% de chance de resistir a magia.");
+            target.SendMessage(95, "Você teve " + final + "% de chance de resistir a magia.");
 			return final;
         }
 

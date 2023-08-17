@@ -275,57 +275,57 @@ namespace Server.Spells
 		{
             double skillMageryValue = caster.Skills[SkillName.Magery].Value;
             Random r = new Random();
-            int rInt = r.Next(8, 16);
+            int rInt = r.Next(10, 30);
 			int flag = 0;
 
             int durationBonus = 0;
 			if (isBeneficial) {
                 double skillIncriptionValue = caster.Skills[SkillName.Inscribe].Value;
-				durationBonus = (int)Math.Ceiling(skillIncriptionValue * 0.1);
+				durationBonus = (int)Math.Ceiling(skillIncriptionValue * 0.25);
 
 				if (skillIncriptionValue >= 120.0)
 				{
-                    rInt = r.Next(12, 20);
+                    durationBonus += r.Next(20, 40);
                 }
 				else if (skillIncriptionValue < 120 && skillIncriptionValue >= 100)
 				{
-                    rInt = r.Next(10, 18);
+                    durationBonus += r.Next(18, 30);
                 }
                 else if (skillIncriptionValue < 100 && skillIncriptionValue >= 80)
                 {
-                    rInt = r.Next(8, 16);
+                    durationBonus += r.Next(16, 25);
                 }
                 else if (skillIncriptionValue < 80 && skillIncriptionValue >= 60)
                 {
-                    rInt = r.Next(6, 14);
+                    durationBonus += r.Next(10, 20);
                 }
             }
 			else {
                 double skillEvalValue = caster.Skills[SkillName.EvalInt].Value;
-				durationBonus = (int)Math.Ceiling(skillEvalValue * 0.1);
+				durationBonus = (int)Math.Ceiling(skillEvalValue * 0.25);
 
                 if (skillEvalValue >= 120.0)
                 {
-                    rInt = r.Next(12, 20);
+                    durationBonus += r.Next(20, 40);
                 }
                 else if (skillEvalValue < 120 && skillEvalValue >= 100)
                 {
-                    rInt = r.Next(10, 18);
+                    durationBonus += r.Next(18, 30);
                 }
                 else if (skillEvalValue < 100 && skillEvalValue >= 80)
                 {
-                    rInt = r.Next(8, 16);
+                    durationBonus += r.Next(16, 25);
                 }
                 else if (skillEvalValue < 80 && skillEvalValue >= 60)
                 {
-                    rInt = r.Next(6, 14);
+                    durationBonus += r.Next(10, 20);
                 }
             }
 
 			int total = rInt + durationBonus;
 			if (flag == 0)
 			{
-                caster.SendMessage("O feitiço terá a duração de aproximadamente " + total + " segundos");
+                caster.SendMessage(95, "O feitiço terá a duração de aproximadamente " + total + " segundos");
 				flag = 1;
 			}
 

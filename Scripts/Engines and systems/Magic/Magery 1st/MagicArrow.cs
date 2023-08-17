@@ -51,7 +51,7 @@ namespace Server.Spells.First
 					nBenefit = CalculateMobileBenefit(Caster, 60, 5);
 				}
 				
-				damage = GetNMSDamage( 3, 1, 3, m ) + nBenefit;
+				damage = GetNewAosDamage( 3, 1, 3, m ) + nBenefit;
 
 				source.MovingParticles( m, 0x36E4, 5, 0, false, false, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 3600, 0, 0, 0 );
 				source.PlaySound( 0x1E5 );
@@ -66,7 +66,7 @@ namespace Server.Spells.First
 		{
 			private MagicArrowSpell m_Owner;
 
-			public InternalTarget( MagicArrowSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Harmful )
+			public InternalTarget( MagicArrowSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

@@ -105,7 +105,7 @@ namespace Server.Spells.Third
         public class InternalTarget : Target
         {
             private readonly TelekinesisSpell m_Owner;
-            public InternalTarget(TelekinesisSpell owner) : base(Core.ML ? 12 : 14, false, TargetFlags.None)
+            public InternalTarget(TelekinesisSpell owner) : base(Core.ML ? 10 : 12, false, TargetFlags.None)
             {
                 this.m_Owner = owner;
             }

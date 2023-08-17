@@ -27,7 +27,8 @@ namespace Server.Spells.Third
 		{
 			if ( Server.Misc.WeightOverloading.IsOverloaded( Caster ) )
 			{
-				Caster.SendLocalizedMessage( 502359, "", 0x22 ); // Thou art too encumbered to move.
+                Caster.SendMessage(33, "Você está muito pesado para se teletransportar!");
+                //Caster.SendLocalizedMessage( 502359, "", 0x22 ); // Thou art too encumbered to move.
 				return false;
 			}
 
@@ -50,7 +51,7 @@ namespace Server.Spells.Third
             {
                 if (mob is BaseCursed && Caster.Karma > -5000)
                 {
-                    Caster.SendMessage("You fail to teleport away from this creature!");
+                    Caster.SendMessage(33, "Você falhou em se teletransportar para longe desta criatura!");
                     DoFizzle();
                     return;
                 }
@@ -58,22 +59,26 @@ namespace Server.Spells.Third
 
 			if ( Server.Misc.WeightOverloading.IsOverloaded( Caster ) )
 			{
-				Caster.SendLocalizedMessage( 502359, "", 0x22 ); // Thou art too encumbered to move.
-			}
+                DoFizzle();
+                Caster.SendMessage(33, "Você está muito pesado para se teletransportar!");
+                //Caster.SendLocalizedMessage( 502359, "", 0x22 ); // Thou art too encumbered to move.
+            }
 			else if ( !SpellHelper.CheckTravel( Caster, TravelCheckType.TeleportFrom ) )
 			{
 			}
 			else if ( !SpellHelper.CheckTravel( Caster, map, new Point3D( p ), TravelCheckType.TeleportTo ) )
 			{
 			}
-			else if ( map == null || !map.CanSpawnMobile( p.X, p.Y, p.Z ) )
-			{
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
+			else if ( map == null) // || !map.CanSpawnMobile( p.X, p.Y, p.Z )
+            {
+                Caster.SendMessage(95, "Esse local está bloqueado com aura anti-magia.");
+                //Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
 			}
 			else if ( SpellHelper.CheckMulti( new Point3D( p ), map ) )
 			{
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
-			}
+                Caster.SendMessage(95, "Esse local está bloqueado com aura anti-magia.");
+                //Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
+            }
 			else if ( CheckSequence() )
 			{
 				if (Caster is PlayerMobile)

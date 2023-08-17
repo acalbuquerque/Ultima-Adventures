@@ -83,7 +83,7 @@ namespace Server.Spells.Necromancy
 		{
 			private VengefulSpiritSpell m_Owner;
 
-			public InternalTarget( VengefulSpiritSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Harmful )
+			public InternalTarget( VengefulSpiritSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

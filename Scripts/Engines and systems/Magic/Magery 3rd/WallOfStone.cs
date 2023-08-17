@@ -4,6 +4,8 @@ using Server.Network;
 using Server.Misc;
 using Server.Items;
 using Server.Mobiles;
+using Server.Regions;
+using System.Collections.Generic;
 
 namespace Server.Spells.Third
 {
@@ -67,17 +69,49 @@ namespace Server.Spells.Third
 
 				Effects.PlaySound( p, Caster.Map, 0x1F6 );
 
-				for ( int i = -1; i <= 1; ++i )
+				for ( int i = -2; i <= 2; ++i )
 				{
 					Point3D loc = new Point3D( eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z );
-					bool canFit = SpellHelper.AdjustField( ref loc, Caster.Map, 22, true );
+					//bool canFit = SpellHelper.AdjustField( ref loc, Caster.Map, 22, true );
 
-					if ( !canFit )
+                    IPooledEnumerable eable = Caster.Map.GetMobilesInRange(loc, 0);
+                    bool canFit = true;
+
+                    foreach (Mobile m in eable)
+                    {
+                        if (m.AccessLevel != AccessLevel.Player || !m.Alive)
+                            continue;
+
+                        if (m.Location.Z - loc.Z < 18 && m.Location.Z - loc.Z > -10)
+                        {
+                            //The whole field counts as a harmful action, not just the target
+                            //Caster.DoHarmful(m);
+                            //Make a hole in the wall if a mobile is there
+                            canFit = false;
+                            break;
+                        }
+                    }
+                    eable.Free();
+
+
+                    if ( !canFit )
 						continue;
 
-					Item item = new InternalItem( loc, Caster.Map, Caster );
+                    //remove existing wall items
+                    List<Item> itemsFound = new List<Item>();
 
-					Effects.SendLocationParticles( item, 0x376A, 9, 10, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5025, 0 );
+                    foreach (Item item in Caster.Map.GetItemsInRange(loc, 0))
+                    {
+                        if (item is InternalItem) itemsFound.Add(item);
+                    }
+
+                    eable.Free();
+
+                    for (int j = itemsFound.Count - 1; j >= 0; --j) itemsFound[j].Delete();
+
+                    Item wall = new InternalItem( loc, Caster.Map, Caster );
+
+					Effects.SendLocationParticles(wall, 0x376A, 9, 10, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5025, 0 );
 				}
 			}
 
@@ -93,7 +127,7 @@ namespace Server.Spells.Third
 
 			public override bool BlocksFit{ get{ return true; } }
 
-			public InternalItem( Point3D loc, Map map, Mobile caster ) : base( 0x82 )
+			public InternalItem( Point3D loc, Map map, Mobile caster ) : base( 0x80 )
 			{
 				Visible = false;
 				Movable = false;
@@ -113,13 +147,13 @@ namespace Server.Spells.Third
 				int nBenefit = 0;
 				if ( caster is PlayerMobile ) // WIZARD
 				{
-					nBenefit = (int)(caster.Skills[SkillName.Magery].Value / 2);
+					nBenefit = (int)(caster.Skills[SkillName.Inscribe].Value / 4);
 				}
 
-				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 10.0 + nBenefit ) );
+				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 5.0 + nBenefit ) );
 				m_Timer.Start();
 
-				m_End = DateTime.Now + TimeSpan.FromSeconds( 10.0 );
+				m_End = DateTime.Now + TimeSpan.FromSeconds( 5.0 );
 			}
 
 			public InternalItem( Serial serial ) : base( serial )
@@ -208,7 +242,7 @@ namespace Server.Spells.Third
 		{
 			private WallOfStoneSpell m_Owner;
 
-			public InternalTarget( WallOfStoneSpell owner ) : base( Core.ML ? 12 : 14, true, TargetFlags.None )
+			public InternalTarget( WallOfStoneSpell owner ) : base( Core.ML ? 10 : 12, true, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}

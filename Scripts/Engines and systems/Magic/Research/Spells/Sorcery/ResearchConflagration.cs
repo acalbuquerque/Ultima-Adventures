@@ -281,7 +281,7 @@ namespace Server.Spells.Research
 		{
 			private ResearchConflagration m_Owner;
 
-			public InternalTarget( ResearchConflagration owner ) : base( Core.ML ? 12 : 14, true, TargetFlags.None )
+			public InternalTarget( ResearchConflagration owner ) : base( Core.ML ? 10 : 12, true, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}

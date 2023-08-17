@@ -235,15 +235,15 @@ namespace Server.Spells
 
 		public virtual int CalculateMobileBenefit(Mobile mobile, double modifier, double phylacteryModifier) {
 			int nBenefit = 0;
-			if (mobile is PlayerMobile) {
-				Phylactery phylactery = ((PlayerMobile)mobile).FindPhylactery();
+			if (mobile is PlayerMobile) { // TODO - COOP3R - Remove this for a while
+				/*Phylactery phylactery = ((PlayerMobile)mobile).FindPhylactery();
 				if (phylactery != null && (m_Scroll is SoulShard)) {
 					// dont factor magery, use the power of the phylactery to determine it
 					// a phylactery max power is 10, so to replicate magery strength just 
 					// multiply by 10 then apply the divider.
 					nBenefit = (int)((phylactery.PowerLevel*10)/phylacteryModifier);
 					return nBenefit;					
-				}
+				}*/
 			} 
 			nBenefit = (int)(mobile.Skills[SkillName.Magery].Value / modifier);
 			return nBenefit;
@@ -653,7 +653,7 @@ namespace Server.Spells
                 }
                 PlayerMobile pm = caster as PlayerMobile;
                 pm.StepsAllowedForCastingSpells = maxSteps;
-                caster.SendMessage("Após " + maxSteps + " passos o seu feitiço ficará instável!");
+                caster.SendMessage(95, "Após " + maxSteps + " passos o seu feitiço ficará instável!");
             }
             return true;
 		}
@@ -1149,8 +1149,9 @@ namespace Server.Spells
 		{
 			if ( !target.Alive )
 			{
-				m_Caster.SendLocalizedMessage( 501857 ); // This spell won't work on that!
-				return false;
+                m_Caster.SendMessage(95, "O alvo já está morto!");
+                //m_Caster.SendLocalizedMessage( 501857 ); // This spell won't work on that!
+                return false;
 			}
 			else if ( Caster.CanBeHarmful( target ) && CheckSequence() )
 			{
@@ -1159,7 +1160,8 @@ namespace Server.Spells
 			}
 			else
 			{
-				return false;
+                m_Caster.SendMessage(33, "Algo de estranho aconteceu e não permitiu usar o feitiço.");
+                return false;
 			}
 		}
 

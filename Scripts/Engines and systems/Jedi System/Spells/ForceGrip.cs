@@ -105,7 +105,7 @@ namespace Server.Spells.Jedi
         public class InternalTarget : Target
         {
             private readonly ForceGrip m_Owner;
-            public InternalTarget(ForceGrip owner) : base(Core.ML ? 12 : 14, false, TargetFlags.None)
+            public InternalTarget(ForceGrip owner) : base(Core.ML ? 10 : 12, false, TargetFlags.None)
             {
                 this.m_Owner = owner;
             }

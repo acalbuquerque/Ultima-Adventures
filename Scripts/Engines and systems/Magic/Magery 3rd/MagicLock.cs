@@ -43,13 +43,15 @@ namespace Server.Spells.Third
 					LockableContainer box = (LockableContainer)targ;
 					if ( Multis.BaseHouse.CheckLockedDownOrSecured( box ) )
 					{
-						// You cannot cast this on a locked down item.
-						Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 501761 );
+                        // You cannot cast this on a locked down item.
+                        Caster.SendMessage(95, "Você não pode lançar isso em um alvo bloqueado!");
+                        //Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 501761 );
 					}
 					else if ( box.Locked || box.LockLevel == 0 || box is ParagonChest )
 					{
-						// Target must be an unlocked chest.
-						Caster.SendLocalizedMessage( 501762 );
+                        // Target must be an unlocked chest.
+                        Caster.SendMessage(95, "O alvo deve ser um baú desbloqueado!");
+                        //Caster.SendLocalizedMessage( 501762 );
 					}
 					else if ( CheckSequence() )
 					{
@@ -63,13 +65,15 @@ namespace Server.Spells.Third
 
 						Effects.PlaySound( loc, box.Map, 0x1FA );
 
-						// The chest is now locked!
-						Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, 501763 );
+                        // The chest is now locked!
+                        Caster.SendMessage(2253, "O alvo foi trancado com magia!");
+                        //Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, 501763 );
 
-						box.LockLevel = (int)(Caster.Skills[SkillName.Magery].Value);
-							if ( box.LockLevel > 90 ){ box.LockLevel = 90; }
-							if ( box.LockLevel < 0 ){ box.LockLevel = 0; }
-						box.MaxLockLevel = box.LockLevel + 20;
+						box.LockLevel = (int)(Caster.Skills[SkillName.Magery].Value) - 10;
+						//if ( box.LockLevel >= 120 ){ box.LockLevel = 110; }
+						if ( box.LockLevel <= 0 ){ box.LockLevel = 0; }
+						
+						box.MaxLockLevel = 120;
 						box.RequiredSkill = box.LockLevel;
 
 						//box.LockLevel = -255; // signal magic lock
@@ -82,7 +86,7 @@ namespace Server.Spells.Third
 					if ( Server.Items.DoorType.IsDungeonDoor( door ) )
 					{
 						if ( door.Locked == true )
-							Caster.SendMessage( "That door is already locked!" );
+							Caster.SendMessage(95, "Essa porta já está trancada!");
 						else
 						{
 							SpellHelper.Turn( Caster, door );
@@ -95,7 +99,7 @@ namespace Server.Spells.Third
 
 							Effects.PlaySound( loc, door.Map, 0x1FA );
 
-							Caster.SendMessage( "That door is now locked!" );
+							Caster.SendMessage(95, "Essa porta agora está trancada!");
 
 							door.Locked = true;
 							Server.Items.DoorType.LockDoors( door );
@@ -104,17 +108,17 @@ namespace Server.Spells.Third
 						}
 					}
 					else
-						Caster.SendMessage( "This spell has no effect on that!" );
+						Caster.SendMessage(95, "Este feitiço não tem efeito sobre isso!");
 				}
 				else
 				{
-					Caster.SendMessage( "This spell has no effect on that!" );
-				}
+                    Caster.SendMessage(95, "Este feitiço não tem efeito sobre isso!");
+                }
 				
 			}
 			else if ( o is PlayerMobile )
 			{
-				Caster.SendMessage( "That soul seems too strong to trap in the flask!" );
+				Caster.SendMessage(95, "Essa alma parece forte demais para ficar presa no frasco!");
 			}
 			else if ( o is BaseCreature )
 			{
@@ -122,50 +126,50 @@ namespace Server.Spells.Third
 
 				if ( !bc.Alive )
 				{
-					Caster.SendMessage( "You cannot trap something that is dead!" );
+					Caster.SendMessage(33, "Você não pode capturar algo que está morto!");
 				}
 				else if ( o is LockedCreature )
 				{
-					Caster.SendMessage( "That creature cannot be trapped again!" );
+					Caster.SendMessage(95, "Essa criatura não pode ser presa novamente!");
 				}
 				else if ( bc.Controlled )
 				{
-					Caster.SendMessage( "That is under the control of another!" );
+					Caster.SendMessage( 95, "Isso está sob o controle de outro!");
 				}
 				else if ( bc.Blessed )
 				{
-					Caster.SendMessage( "That is protected by a mysterious aura!" );
+					Caster.SendMessage(95, "Este ser é protegido por uma aura misteriosa.");
 				}
 				else if ( bc.IsHitchStabled )
 				{
-					Caster.SendMessage( "That is secured by the post." );
+					Caster.SendMessage(95, "Isso é assegurado pelo correio.");
 				}
 				else if ( (double)bc.Fame / 35000 > (double)Caster.Fame / 15000 )
 				{
-					Caster.SendMessage( "You fail... That creature's soul is stronger than yours." );
+					Caster.SendMessage(95, "Você falhou... A alma daquela criatura é mais forte que a sua.");
 				}
 				else if ( bc is CloneCharacterOnLogout.CharacterClone )
 				{
-					Caster.SendMessage( "This player is protected by a mysterious aura." );
+					Caster.SendMessage(95, "Este ser é protegido por uma aura misteriosa.");
 				}
 				else if ( bc is BaseVendor && ((BaseVendor)bc).IsInvulnerable )
 				{
-					Caster.SendMessage( "This appears to be protected in some way." );
+					Caster.SendMessage( 95, "Este ser parece estar protegido de alguma forma.");
 				}
 				else if ( bc.EmoteHue == 505 || bc.ControlSlots >= 100 ) // SUMMON QUEST AND QUEST MONSTERS
 				{
 					Server.Misc.IntelligentAction.FizzleSpell( Caster );
-					Caster.SendMessage( "You are not powerful enough to trap that!" );
+					Caster.SendMessage(95, "Você não é poderoso o suficiente para prender isso!");
 				}
-				else if (bc is EpicCharacter || bc is TimeLord )
+				else if (bc is EpicCharacter || bc is TimeLord || bc is TownGuards)
 				{
-					bc.Say("Do you think you can capture me??  Let me show you what I can do to you, ant.");
-					Caster.SendMessage( "You feel a powerful force hit you!" );
+					bc.Say("Você acha que pode me capturar? Deixe-me mostrar o que posso fazer com você, seu inseto!");
+					Caster.SendMessage(33, "Você sente uma força poderosa bater em você!");
 					Caster.Kill();
 				}
 				else if ( Caster.Backpack.FindItemByType( typeof ( IronFlask ) ) == null )
 				{
-					Caster.SendMessage( "You need an empty iron flask to trap them!" );
+					Caster.SendMessage(95, "Você precisa de um frasco de ferro vazio para prendê-lo!");
 				}
 				else
 				{
@@ -179,14 +183,14 @@ namespace Server.Spells.Third
 						if ( Utility.RandomMinMax( 1, 100 ) > success )
 						{
 							Server.Misc.IntelligentAction.FizzleSpell( Caster );
-							Caster.SendMessage( "You fail to trap them in the flask!" );
+							Caster.SendMessage(95, "Você falha em prendê-lo no frasco!");
 						}
 						else
 						{
 							Item flask = Caster.Backpack.FindItemByType( typeof ( IronFlask ) );
 							if ( flask != null ){ flask.Consume(); }
 
-							Caster.SendMessage( "You trap " + bc.Name + " in the flask!" );
+							Caster.SendMessage( "Você prendeu " + bc.Name + " em um frasco!" );
 
 							IronFlaskFilled bottle = new IronFlaskFilled();
 
@@ -264,7 +268,7 @@ namespace Server.Spells.Third
 					else
 					{
 						Server.Misc.IntelligentAction.FizzleSpell( Caster );
-						Caster.SendMessage( "You are not powerful enough to trap that!" );
+						Caster.SendMessage(33, "Você não é poderoso o suficiente para prender isso!");
 					}
 				}
 			}
@@ -276,7 +280,7 @@ namespace Server.Spells.Third
 		{
 			private MagicLockSpell m_Owner;
 
-			public InternalTarget( MagicLockSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.None )
+			public InternalTarget( MagicLockSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}
@@ -375,7 +379,7 @@ namespace Server.Items
 
 			if ( TrappedBody > 0 )
 			{
-				trapped = "Contains A Trapped Soul";
+				trapped = "Contém uma alma presa";
 				list.Add( 1070722, trapped );
 
 				prisoner = TrappedName;
@@ -391,11 +395,11 @@ namespace Server.Items
 
 			if ( !IsChildOf( from.Backpack ) )
 			{
-				from.SendMessage( "This must be in your backpack to use." );
+				from.SendMessage(95, "Isso deve estar em sua mochila para usar.");
 			}
 			else if ( nFollowers < 1 )
 			{
-				from.SendMessage("You already have enough henchman in your group.");
+				from.SendMessage(95, "Você já tem capangas suficientes em seu grupo.");
 			}
 			else if ( HenchmanFunctions.IsInRestRegion( from ) == false )
 			{
@@ -450,12 +454,12 @@ namespace Server.Items
 				from.PlaySound(0x665);
 				from.PlaySound(0x03E);
 				prisoner.MoveToWorld( loc, map );
-				from.SendMessage( "You smash the bottle, releasing " + prisoner.Name + "!" );
+				from.SendMessage(95, "Você quebra a garrafa, liberando " + prisoner.Name + "!" );
 				this.Delete();
 			}
 			else
 			{
-				from.SendMessage("You don't think it would be a good idea to do that here.");
+				from.SendMessage(95, "Você não acha que seria uma boa ideia fazer isso aqui.");
 			}
 		}
 

@@ -41,7 +41,7 @@ namespace Server.Spells.Research
 			private ResearchDivination m_Owner;
 			private int m_SpellIndex;
 
-			public InternalTarget( ResearchDivination owner, int spellIndex ) : base( Core.ML ? 12 : 14, false, TargetFlags.None )
+			public InternalTarget( ResearchDivination owner, int spellIndex ) : base( Core.ML ? 10 : 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 				m_SpellIndex = spellIndex;

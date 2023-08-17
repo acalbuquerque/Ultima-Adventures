@@ -132,7 +132,7 @@ namespace Server.Spells.Mystic
 		{
 			private AstralTravel m_Owner;
 
-			public InternalTarget( AstralTravel owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.None )
+			public InternalTarget( AstralTravel owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 

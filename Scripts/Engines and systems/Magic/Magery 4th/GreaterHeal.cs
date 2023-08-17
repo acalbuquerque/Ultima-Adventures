@@ -84,7 +84,7 @@ namespace Server.Spells.Fourth
 		{
 			private GreaterHealSpell m_Owner;
 
-			public InternalTarget( GreaterHealSpell owner ) : base( Core.ML ? 12 : 14, false, TargetFlags.Beneficial )
+			public InternalTarget( GreaterHealSpell owner ) : base( Core.ML ? 10 : 12, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}
