@@ -193,7 +193,7 @@ namespace Server.Items
             protected override void OnTick()
             {
                 m_Mobile.Resurrect();
-                m_Mobile.SendMessage("Como membro do time de Staffs, você deveria ser mais cuidadoso no futuro.");
+                m_Mobile.SendMessage(95, "Como membro do time de Staffs, você deveria ser mais cuidadoso no futuro.");
                 Stop();
             }
 
