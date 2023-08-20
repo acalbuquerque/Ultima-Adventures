@@ -35,7 +35,7 @@ namespace Server.Spells.Third
 			}
 			else if (m is BaseCreature && ((BaseCreature)m).IsBlessed)
 			{
-				Caster.SendMessage("That is already blessed.");
+				Caster.SendMessage(55, "Isso já está abençoado.");
 			}
 			else if ( CheckBSequence( m ) )
 			{
@@ -46,13 +46,12 @@ namespace Server.Spells.Third
 					if (Utility.RandomBool())
 					{
 						CurseSpell.RemoveEffect(m);
-						m.SendMessage("You are no longer cursed!");
+						m.SendMessage(55, "Você não está mais amaldiçoado!");
 						m.UpdateResistances();
 					}
 					else
-						m.SendMessage("You try to remove your curse, but fail!");
+						m.SendMessage(55, "Você tenta remover sua maldição, mas falha!");
 				}
-					
 				else 
 				{
 

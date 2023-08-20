@@ -31,8 +31,8 @@ namespace Server.Spells.Third
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				Mobile source = Caster;
@@ -49,7 +49,7 @@ namespace Server.Spells.Third
 					nBenefit = CalculateMobileBenefit(Caster, 40, 5);
 				}
 
-				damage = GetNewAosDamage( 9, 1, 5, m ) + nBenefit;
+				damage = GetNMSDamage( 9, 1, 5, m ) + nBenefit;
 
 				source.MovingParticles( m, 0x36D4, 7, 0, false, true, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 9502, 4019, 0x160, 0 );
 				source.PlaySound( Core.AOS ? 0x15E : 0x44B );

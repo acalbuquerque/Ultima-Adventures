@@ -30,7 +30,8 @@ namespace Server.Spells.Third
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+                //Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
 			}
 			else if ( CheckHSequence( m ) )
 			{
@@ -45,41 +46,55 @@ namespace Server.Spells.Third
 
 				if ( CheckResisted( m ) )
 				{
-					m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
+                    m.SendMessage(55, "Você se sente resistindo à energia mágica.");
+					// m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
 				}
 				else
 				{
 					int level;
 
-					if ( Caster.InRange( m, 2 ) )
+                    int total = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Poisoning].Value);
+                    bool empoweredFromPhylactery = false;
+                    if (Caster is PlayerMobile)
+                    {
+                        PlayerMobile player = (PlayerMobile)Caster;
+                        Phylactery phylactery = player.FindPhylactery();
+                        if (phylactery != null && (Scroll is SoulShard))
+                        {
+                            empoweredFromPhylactery = true;
+                        }
+                    }
+                    if (total >= 240 || empoweredFromPhylactery)
+                    {
+                        level = 4;
+                    }
+                    else if ((int)(Caster.Skills[SkillName.Magery].Value >= 120 && (int)(Caster.Skills[SkillName.Poisoning].Value >= 100)
+                    {
+                        level = 3;
+                    }
+                    else if ((int)(Caster.Skills[SkillName.Magery].Value >= 100 && (int)(Caster.Skills[SkillName.Poisoning].Value >= 80)
+                    {
+                        level = 2;
+                    }
+                    else if ((int)(Caster.Skills[SkillName.Magery].Value >= 100 && (int)(Caster.Skills[SkillName.Poisoning].Value >= 60)
+                    {
+                        level = 1;
+                    }
+                    else
+                    {
+                        level = 0;
+                    }
+
+                    /*if ( Caster.InRange( m, 2 ) )
 					{
-						int total = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Poisoning].Value);
-						bool empoweredFromPhylactery = false;
-						if (Caster is PlayerMobile) {
-							PlayerMobile player = (PlayerMobile) Caster;
-							Phylactery phylactery = player.FindPhylactery();
-							if (phylactery != null && (Scroll is SoulShard)) {
-								empoweredFromPhylactery = true;
-							} 
-						}
-						if ( total >= 250 || empoweredFromPhylactery ) {
-							level = 4;
-						} else if ( total >= 200 ) {
-							level = 3;
-						} else if ( total > 150 ) {
-							level = 2;
-						} else if ( total > 100 ) {
-							level = 1;
-						} else {
-							level = 0;
-						}
+
 					}
 					else
 					{
 						level = 0;
-					}
+					}*/
 
-					m.ApplyPoison( Caster, Poison.GetPoison( level ) );
+                    m.ApplyPoison( Caster, Poison.GetPoison( level ) );
 					if (Scroll is SoulShard) {
 						((SoulShard)Scroll).SuccessfulCast = true;
 					}
