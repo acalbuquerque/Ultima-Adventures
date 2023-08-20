@@ -36,8 +36,8 @@ namespace Server.Spells.Fourth
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckSequence() )
 			{
 				SpellHelper.Turn( Caster, p );
@@ -59,17 +59,23 @@ namespace Server.Spells.Fourth
 
 					foreach ( Mobile m in eable )
 					{
+						if (Caster.CanBeBeneficial(m, false) && (m != m_directtarget && m is PlayerMobile) || (m == Caster && m != m_directtarget) || IsAllyTo(Caster, m))
+                        {
+                            targets.Add(m);
+                        }
+
+
 						// Archcure area effect won't cure aggressors or victims, nor murderers, criminals or monsters 
 						// plus Arch Cure Area will NEVER work on summons/pets if you are in Felucca facet
 						// red players can cure only themselves and guildies with arch cure area.
 
-						if ( map.Rules == MapRules.FeluccaRules )
+						/*if ( map.Rules == MapRules.FeluccaRules )
 							{
 								if ( Caster.CanBeBeneficial( m, false ) && ( !Core.AOS || !IsAggressor( m ) && !IsAggressed( m ) && (( IsInnocentTo ( Caster, m ) && IsInnocentTo ( m, Caster ) ) || ( IsAllyTo ( Caster, m ) )) && m != m_directtarget && m is PlayerMobile || m == Caster && m != m_directtarget ))
 									targets.Add( m );
 							}
 						else if ( Caster.CanBeBeneficial( m, false ) && ( !Core.AOS || !IsAggressor( m ) && !IsAggressed( m ) && (( IsInnocentTo ( Caster, m ) && IsInnocentTo ( m, Caster ) ) || ( IsAllyTo ( Caster, m ) )) && m != m_directtarget || m == Caster && m != m_directtarget ))
-							targets.Add( m );
+							targets.Add( m );*/
 					}
 
 					eable.Free();
@@ -91,11 +97,38 @@ namespace Server.Spells.Fourth
 
 						if ( poison != null )
 						{
-							int chanceToCure = 10000 + (int)(Caster.Skills[SkillName.Magery].Value * 75) - ((poison.Level + 1) * 1750);
-							chanceToCure /= 100;
-							chanceToCure -= 1;
+							int chanceToCure = 0;
+                            int totalSkills = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Inscribe].Value);
 
-							if ( chanceToCure > Utility.Random( 100 ) && m.CurePoison( Caster ) )
+							if (totalSkills >= 240)
+							{
+								chanceToCure = 60;
+							}
+							else if ((Caster.Skills[SkillName.Magery].Value >= 120 && (Caster.Skills[SkillName.Inscribe].Value >= 100)))
+							{
+								chanceToCure = 50;
+							}
+							else if ((Caster.Skills[SkillName.Magery].Value >= 100 && (Caster.Skills[SkillName.Inscribe].Value >= 80)))
+							{
+								chanceToCure = 40;
+							}
+							else if ((Caster.Skills[SkillName.Magery].Value >= 80 && (Caster.Skills[SkillName.Inscribe].Value >= 60)))
+							{
+								chanceToCure = 30;
+							}
+							else 
+							{
+                                chanceToCure = 20;
+                            }
+							chanceToCure -= (poison.Level * 2);
+							if (chanceToCure < 0) chanceToCure = 0;
+
+
+                            /*int chanceToCure = 10000 + (int)(Caster.Skills[SkillName.Magery].Value * 75) - ((poison.Level + 1) * 1750);
+							chanceToCure /= 100;
+							chanceToCure -= 1;*/
+
+							if ( chanceToCure >= Utility.Random( 100 ) && m.CurePoison( Caster ) )
 								++cured;
 						}
 
@@ -104,8 +137,11 @@ namespace Server.Spells.Fourth
 					}
 
 					if ( cured > 0 )
-						Caster.SendLocalizedMessage( 1010058 ); // You have cured the target of all poisons!
-				}
+                        Caster.SendMessage(2253, "Você curou todos os venenos do alvo!");
+					else
+                        Caster.SendMessage(55, "Você não conseguiu curar os venenos do alvo!");
+                    //Caster.SendLocalizedMessage( 1010058 ); // You have cured the target of all poisons!
+                }
 			}
 
 			FinishSequence();

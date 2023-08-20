@@ -16,19 +16,19 @@ namespace Server
 		{
 			if ( Core.AOS )
 			{
-				Register( new PoisonImpl( "Lesser",		0,  4, 16,  7.5, 3.0, 2.25, 10, 4 ) );
-				Register( new PoisonImpl( "Regular",	1,  8, 18, 10.0, 3.0, 3.25, 10, 3 ) );
-				Register( new PoisonImpl( "Greater",	2, 12, 20, 15.0, 3.0, 4.25, 10, 2 ) );
-				Register( new PoisonImpl( "Deadly",		3, 16, 30, 30.0, 3.0, 5.25, 15, 2 ) );
-				Register( new PoisonImpl( "Lethal",		4, 20, 50, 35.0, 3.0, 5.25, 20, 2 ) );
+				Register( new PoisonImpl("Lesser",	0,  1, 6,  7.5, 3.0, 2.25, 10, 5 ) );
+				Register( new PoisonImpl("Regular",	1,  2, 10, 10.0, 3.0, 3.25, 10, 5 ) );
+				Register( new PoisonImpl("Greater",	2, 4, 14, 15.0, 3.0, 4.25, 10, 3 ) );
+				Register( new PoisonImpl("Deadly",	3, 6, 18, 30.0, 3.0, 5.25, 15, 3 ) );
+				Register( new PoisonImpl("Lethal",	4, 8, 22, 35.0, 3.0, 5.25, 20, 3 ) );
 			}
 			else
 			{
-				Register( new PoisonImpl( "Lesser",		0, 4, 26,  2.500, 3.5, 3.0, 10, 2 ) );
-				Register( new PoisonImpl( "Regular",	1, 5, 26,  3.125, 3.5, 3.0, 10, 2 ) );
-				Register( new PoisonImpl( "Greater",	2, 6, 26,  6.250, 3.5, 3.0, 10, 2 ) );
-				Register( new PoisonImpl( "Deadly",		3, 7, 26, 12.500, 3.5, 4.0, 10, 2 ) );
-				Register( new PoisonImpl( "Lethal",		4, 9, 26, 25.000, 3.5, 5.0, 10, 2 ) );
+				Register( new PoisonImpl("Lesser",	0, 1, 22,  2.500, 3.5, 3.0, 10, 2 ) );
+				Register( new PoisonImpl("Regular",	1, 2, 22,  3.125, 3.5, 3.0, 10, 2 ) );
+				Register( new PoisonImpl("Greater",	2, 4, 22,  6.250, 3.5, 3.0, 10, 2 ) );
+				Register( new PoisonImpl("Deadly",	3, 6, 22, 12.500, 3.5, 4.0, 10, 2 ) );
+				Register( new PoisonImpl("Lethal",	4, 8, 22, 25.000, 3.5, 5.0, 10, 2 ) );
 			}
 		}
 
@@ -94,10 +94,10 @@ namespace Server
 					if ( m_Mobile.CurePoison( m_Mobile ) )
 					{
 						m_Mobile.LocalOverheadMessage( MessageType.Emote, 0x3F, true,
-							"* You feel yourself resisting the effects of the poison *" );
+                            "* Você se sente resistindo aos efeitos do veneno *");
 
 						m_Mobile.NonlocalOverheadMessage( MessageType.Emote, 0x3F, true,
-							String.Format( "* {0} seems resistant to the poison *", m_Mobile.Name ) );
+							String.Format("* {0} parece resistente ao veneno *", m_Mobile.Name ) );
 
 						Stop();
 						return;
@@ -106,7 +106,7 @@ namespace Server
 
 				if ( m_Index++ == m_Poison.m_Count )
 				{
-					m_Mobile.SendLocalizedMessage( 502136 ); // The poison seems to have worn off.
+					m_Mobile.SendLocalizedMessage( 2253, "O veneno parece ter passado."); // The poison seems to have worn off.
 					m_Mobile.Poison = null;
 
 					Stop();

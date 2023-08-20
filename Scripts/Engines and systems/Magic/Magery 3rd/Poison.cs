@@ -68,15 +68,15 @@ namespace Server.Spells.Third
                     {
                         level = 4;
                     }
-                    else if ((int)(Caster.Skills[SkillName.Magery].Value >= 120 && (int)(Caster.Skills[SkillName.Poisoning].Value >= 100)
+                    else if ((Caster.Skills[SkillName.Magery].Value >= 120) && (Caster.Skills[SkillName.Poisoning].Value >= 100))
                     {
                         level = 3;
                     }
-                    else if ((int)(Caster.Skills[SkillName.Magery].Value >= 100 && (int)(Caster.Skills[SkillName.Poisoning].Value >= 80)
+                    else if ((Caster.Skills[SkillName.Magery].Value >= 100) && ( (Caster.Skills[SkillName.Poisoning].Value >= 80 || (Caster.Skills[SkillName.EvalInt].Value >= 100 ))))
                     {
                         level = 2;
                     }
-                    else if ((int)(Caster.Skills[SkillName.Magery].Value >= 100 && (int)(Caster.Skills[SkillName.Poisoning].Value >= 60)
+                    else if ((Caster.Skills[SkillName.Magery].Value >= 100) && ( (Caster.Skills[SkillName.Poisoning].Value >= 60 || (Caster.Skills[SkillName.EvalInt].Value >= 80))))
                     {
                         level = 1;
                     }
