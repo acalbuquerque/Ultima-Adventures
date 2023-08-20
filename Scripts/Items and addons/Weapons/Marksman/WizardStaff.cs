@@ -39,7 +39,7 @@ namespace Server.Items
 
 		public override Type AmmoType{ get{ return typeof( MageEye ); } }
 
-		public override WeaponAbility PrimaryAbility
+/*		public override WeaponAbility PrimaryAbility
 		{
 			get
 			{
@@ -49,17 +49,17 @@ namespace Server.Items
 				else if ( damageType == 4 ){ return WeaponAbility.ZapStrStrike;} 	// Poison
 				return WeaponAbility.ZapManaStrike;
 			}
-		}
-		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.MagicProtection; } }
+		}*/
+/*		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.MagicProtection; } }
 		public override WeaponAbility ThirdAbility{ get{ return WeaponAbility.ElementalStrike; } }
 		public override WeaponAbility FourthAbility{ get{ return WeaponAbility.ArmorIgnore; } }
-		public override WeaponAbility FifthAbility{ get{ return WeaponAbility.MagicProtection2; } }
+		public override WeaponAbility FifthAbility{ get{ return WeaponAbility.MagicProtection2; } }*/
 
 		public override int AosStrengthReq{ get{ return 20; } }
 		public override int AosMinDamage{ get{ return Core.ML ? 15 : 16; } }
-		public override int AosMaxDamage{ get{ return Core.ML ? 19 : 18; } }
+		public override int AosMaxDamage{ get{ return Core.ML ? 25 : 24; } }
 		public override int AosSpeed{ get{ return 25; } }
-		public override float MlSpeed{ get{ return 5.00f; } }
+		public override float MlSpeed{ get{ return 3.00f; } }
 
 		public override int OldStrengthReq{ get{ return 15; } }
 		public override int OldMinDamage{ get{ return 9; } }
@@ -76,11 +76,12 @@ namespace Server.Items
 		[Constructable]
 		public WizardStaff() : base( 0x0908 )
 		{
-			Name = "stave";
-			Weight = 7.0;
+			Name = "bastão de mago";
+			Weight = 6.0;
 			Layer = Layer.TwoHanded;
-			Hue = 0xB3A;
-		}
+			Hue = 0xB3A;// Utility.RandomDyedHue();
+
+        }
 
 		public WizardStaff( Serial serial ) : base( serial )
 		{
@@ -103,7 +104,7 @@ namespace Server.Items
 
 	public class WizardStick : BaseWizardStaff
 	{
-		public override int EffectID
+        public override int EffectID
 		{
 			get
 			{
@@ -133,23 +134,23 @@ namespace Server.Items
 		{
 			get
 			{
-				if ( damageType == 1 ){ return WeaponAbility.ZapStamStrike; } 		// Fire
-				else if ( damageType == 2 ){ return WeaponAbility.ZapDexStrike; } 	// Cold
-				else if ( damageType == 3 ){ return WeaponAbility.ZapIntStrike; } 	// Energy
-				else if ( damageType == 4 ){ return WeaponAbility.ZapStrStrike;} 	// Poison
-				return WeaponAbility.ZapManaStrike;
+				if (damageType == 1) { return WeaponAbility.ZapStamStrike; }        // Fire
+				else if (damageType == 2) { return WeaponAbility.ZapDexStrike; }    // Cold
+				else if (damageType == 3) { return WeaponAbility.ZapIntStrike; }    // Energy
+				else if (damageType == 4) { return WeaponAbility.ZapStrStrike; }    // Poison
+				return null;//WeaponAbility.ZapManaStrike;
 			}
 		}
-		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.MagicProtection; } }
-		public override WeaponAbility ThirdAbility{ get{ return WeaponAbility.ElementalStrike; } }
-		public override WeaponAbility FourthAbility{ get{ return WeaponAbility.ArmorIgnore; } }
-		public override WeaponAbility FifthAbility{ get{ return WeaponAbility.MagicProtection2; } }
+		public override WeaponAbility SecondaryAbility { get { return null;/*return WeaponAbility.MagicProtection;*/ } }
+		public override WeaponAbility ThirdAbility { get { return null;  /*return WeaponAbility.ElementalStrike;*/ } }
+		public override WeaponAbility FourthAbility { get { return null;  /*return WeaponAbility.ArmorIgnore;*/ } }
+		public override WeaponAbility FifthAbility { get { return null;  /*return WeaponAbility.MagicProtection2;*/ } }
 
 		public override int AosStrengthReq{ get{ return 15; } }
-		public override int AosMinDamage{ get{ return Core.ML ? 11 : 12; } }
-		public override int AosMaxDamage{ get{ return Core.ML ? 15 : 14; } }
+		public override int AosMinDamage{ get{ return Core.ML ? 11 : 16; } }
+		public override int AosMaxDamage{ get{ return Core.ML ? 19 : 24; } }
 		public override int AosSpeed{ get{ return 25; } }
-		public override float MlSpeed{ get{ return 5.00f; } }
+		public override float MlSpeed{ get{ return 4.00f; } }
 
 		public override int OldStrengthReq{ get{ return 15; } }
 		public override int OldMinDamage{ get{ return 9; } }
@@ -166,17 +167,32 @@ namespace Server.Items
 		[Constructable]
 		public WizardStick() : base( 0xDF2 )
 		{
-			Name = "sceptre";
+			Name = "cetro mágico";
 			Weight = 3.0;
 			Layer = Layer.OneHanded;
-			Hue = 0xB3A;
-		}
+            Attributes.LowerManaCost = 3;
+            Attributes.LowerRegCost = 5;
+        }
 
 		public WizardStick( Serial serial ) : base( serial )
 		{
 		}
 
-		public override void Serialize( GenericWriter writer )
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            base.AddNameProperties(list);
+            string subtitle = "Este é um item de curto alcance";
+            list.Add(1070722, subtitle);
+        }
+
+        public override bool OnEquip(Mobile from)
+		{
+            //from.SendMessage(55, "Este é um item de curto alcance!");
+            return base.OnEquip(from);
+        }
+
+
+        public override void Serialize( GenericWriter writer )
 		{
 			base.Serialize( writer );
 			writer.Write( (int) 0 ); // version
@@ -197,22 +213,24 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.Owner)]
 		public int damage_Type { get { return damageType; } set { damageType = value; InvalidateProperties(); } }
 
+		//public abstract int PhysicalHitSound { get; }
 		public abstract int EffectID{ get; }
 		public abstract Type AmmoType{ get; }
 
 		public override int DefHitSound{ get{ return 0x54A; } }
 		public override int DefMissSound{ get{ return 0x4BB; } }
 
-		public override SkillName DefSkill{ get{ return SkillName.Archery; } }
+		public override SkillName DefSkill{ get{ return SkillName.Magery; } }
 		public override WeaponType DefType{ get{ return WeaponType.Ranged; } }
 		public override WeaponAnimation DefAnimation{ get{ return WeaponAnimation.Pierce2H; } }
 
-		public override SkillName AccuracySkill{ get{ return SkillName.Archery; } }
+		public override SkillName AccuracySkill{ get{ return SkillName.Magery; } }
 
 		public BaseWizardStaff( int itemID ) : base( itemID )
 		{
 			damageType = 0;
-		}
+			Attributes.SpellChanneling = 1;
+        }
 
 		public override void OnLocationChange( Point3D oldLocation )
 		{
@@ -226,11 +244,11 @@ namespace Server.Items
 
 			if ( !IsChildOf( from.Backpack ) && !(Parent == from) )
 			{
-				from.SendMessage( "The item must be in your possession to use it." );
+				from.SendMessage(55, "Este item precisa estar sob sua posse para usa-lo.");
 			}
 			else
 			{
-				from.SendMessage( "What gems do you want to transmorph?" );
+				from.SendMessage( 55, "Quais gemas você deseja utilizar?" );
 				t = new GemTarget();
 				from.Target = t;
 			}
@@ -238,23 +256,38 @@ namespace Server.Items
 
 		public override bool OnEquip( Mobile from )
 		{
-			int necro = (int)(from.Skills[SkillName.Necromancy].Base);
-			int mages = (int)(from.Skills[SkillName.Magery].Base);
+			//int necro = (int)(from.Skills[SkillName.Necromancy].Base);
+			//int mages = (int)(from.Skills[SkillName.Magery].Base);
 
-			string job = "mage";
+			/*string job = "mage";
 				if ( necro > mages ){ job = "necromancer"; }
 
 			if ( necro < 30 && mages < 30 )
 			{
 				from.SendMessage ("You are not a powerful enough " + job + " to use this!");
 				return false;
-			}
+			}*/
 
-			from.SendMessage( "You need mage eye crystals to power this item, and you can turn common gems into that with this." );
+			from.SendMessage( 55, "Você precisa de cristais de olhos mágicos para alimentar este item e você pode transformar gemas nisso." );
 			return base.OnEquip( from );
 		}
 
-		private class GemTarget : Target
+/*        public override double GetBaseDamage(Mobile attacker)
+        {
+            double damage = base.GetBaseDamage(attacker);
+            attacker.SendMessage("BaseDamage - " + damage);
+            if (!Core.AOS && (attacker.Player || attacker.Body.IsHuman) && Layer == Layer.TwoHanded && (attacker.Skills[SkillName.Anatomy].Value / 400.0) >= Utility.RandomDouble())
+            {
+                damage *= 1.5;
+
+                attacker.SendMessage("You deliver a crushing blow!"); // Is this not localized?
+                attacker.PlaySound(0x11C);
+            }
+            attacker.SendMessage("BaseDamage - " + damage);
+            return damage;
+        }*/
+
+        private class GemTarget : Target
 		{
 			public GemTarget() : base( 1, false, TargetFlags.None )
 			{
@@ -268,32 +301,31 @@ namespace Server.Items
 				{
 					if ( !iGem.IsChildOf( from.Backpack ) )
 					{
-						from.SendMessage( "You can only transmorph gems in your pack." );
+						from.SendMessage( 55, "Você só pode transformar gemas em sua mochila." );
 					}
 					else
 					{
 						int amount = 4;
-						if ( iGem is StarSapphire ){ amount = iGem.Amount * 62; }
-						else if ( iGem is Emerald ){ amount = iGem.Amount * 50; }
-						else if ( iGem is Sapphire ){ amount = iGem.Amount * 50; }
-						else if ( iGem is Ruby ){ amount = iGem.Amount * 37; }
-						else if ( iGem is Citrine ){ amount = iGem.Amount * 25; }
-						else if ( iGem is Amethyst ){ amount = iGem.Amount * 50; }
-						else if ( iGem is Tourmaline ){ amount = iGem.Amount * 47; }
-						else if ( iGem is Amber ){ amount = iGem.Amount * 25; }
-						else if ( iGem is Diamond ){ amount = iGem.Amount * 100; }
+
+						if (iGem is Diamond) { amount = iGem.Amount * 65; }
+						else if (iGem is StarSapphire) { amount = iGem.Amount * 50; }
+						else if (iGem is Emerald || iGem is Sapphire || iGem is Ruby) { amount = iGem.Amount * 40; }
+						else if (iGem is Citrine || iGem is Amethyst || iGem is Tourmaline) { amount = iGem.Amount * 30; }
+						else if (iGem is Amber) { amount = iGem.Amount * 20; }
+						else { amount = iGem.Amount * 10;  }
+						
 						amount = (int)(amount/4);
 
 						from.RevealingAction();
 						from.PlaySound( 0x243 );
 						from.AddToBackpack( new MageEye(amount) );
-						from.SendMessage( "You transmorph the gems into mage eyes." );
+						from.SendMessage( 55, "Você transforma as gemas em olhos de mago." );
 						iGem.Delete();
 					}
 				}
 				else
 				{
-					from.SendMessage( "This can only transmorph certain gems." );
+					from.SendMessage( 55, "Este objeto só pode transformar certas gemas." );
 				}
 			}
 		}
@@ -301,7 +333,8 @@ namespace Server.Items
 		public void EnergyType()
 		{
 			int physical = 100 - AosElementDamages.Fire - AosElementDamages.Cold - AosElementDamages.Energy - AosElementDamages.Poison;
-			damageType = 0;
+            //from.SendMessage(35, AosElementDamages.Fire + "-" + AosElementDamages.Cold + "-" + AosElementDamages.Energy + "-" + AosElementDamages.Poison);
+            damageType = 0;
 			if ( AosElementDamages.Fire > AosElementDamages.Cold && AosElementDamages.Fire > AosElementDamages.Poison && AosElementDamages.Fire > AosElementDamages.Energy && AosElementDamages.Fire > physical ){ damageType = 1; }
 			else if ( AosElementDamages.Cold > AosElementDamages.Fire && AosElementDamages.Cold > AosElementDamages.Poison && AosElementDamages.Cold > AosElementDamages.Energy && AosElementDamages.Cold > physical ){ damageType = 2; }
 			else if ( AosElementDamages.Energy > AosElementDamages.Cold && AosElementDamages.Energy > AosElementDamages.Fire && AosElementDamages.Energy > AosElementDamages.Poison && AosElementDamages.Energy > physical ){ damageType = 3; }
@@ -337,14 +370,19 @@ namespace Server.Items
 				{
 					attacker.DisruptiveAction();
 					attacker.Send( new Swing( 0, attacker, defender ) );
-
-					if ( OnFired( attacker, defender ) )
+                    
+                    if (OnFired(attacker, defender))
 					{
-						if ( CheckHit( attacker, defender ) )
+						if (CheckHit(attacker, defender))
 							OnHit( attacker, defender );
 						else
 							OnMiss( attacker, defender );
 					}
+					else {
+                        attacker.SendMessage(55, "Este objeto não está carregado para causar de dano físico!");
+                        attacker.PlaySound(73); // TODO achar um som melhor ?
+						//InitMaxHits -= 2;
+                    }
 				}
 
 				attacker.RevealingAction();
@@ -401,27 +439,32 @@ namespace Server.Items
 
 		public override void OnHit( Mobile attacker, Mobile defender, double damageBonus )
 		{
-			base.OnHit( attacker, defender, damageBonus );
+            //attacker.SendMessage(55, "OnHit trigged - " + damageBonus);
+            base.OnHit( attacker, defender, damageBonus );
 		}
 
 		public override void OnMiss( Mobile attacker, Mobile defender )
 		{
-			base.OnMiss( attacker, defender );
+            base.OnMiss( attacker, defender );
 		}
 
 		public virtual bool OnFired( Mobile attacker, Mobile defender )
 		{
-			BaseQuiver quiver = attacker.FindItemOnLayer( Layer.Cloak ) as BaseQuiver;
+            BaseQuiver quiver = attacker.FindItemOnLayer( Layer.Cloak ) as BaseQuiver;
 			Container pack = attacker.Backpack;
 
-			if ( attacker.Player )
+            if ( attacker.Player )
 			{
 				if ( quiver == null || quiver.LowerAmmoCost == 0 || quiver.LowerAmmoCost > Utility.Random( 100 ) )
 				{
-					if ( quiver != null && quiver.ConsumeTotal( AmmoType, 1 ) )
+					if (quiver != null && quiver.ConsumeTotal(AmmoType, 1))
+					{
 						quiver.InvalidateWeight();
-					else if ( pack == null || !pack.ConsumeTotal( AmmoType, 1 ) )
+					}
+					else if (pack == null || !pack.ConsumeTotal(AmmoType, 1)) // do not cause physical damage
+					{
 						return false;
+					}
 				}
 			}
 
@@ -450,7 +493,7 @@ namespace Server.Items
 		public MageEye( int amount ) : base( 0xF19 )
 		{
 			Hue = 0xB78;
-			Name = "mage eye";
+			Name = "olhos de mago";
 			Stackable = true;
 			Amount = amount;
 			Light = LightType.Circle150;

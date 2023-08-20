@@ -227,11 +227,11 @@ namespace Server.Items
 
 			if ( !IsChildOf( from.Backpack ) && !(Parent == from) )
 			{
-				from.SendMessage( "The item must be in your possession to use it." );
+				from.SendMessage( 55, "Este item precisa estar sob sua posse para usa-lo.");
 			}
 			else
 			{
-				from.SendMessage( "What gems do you want to transmorph?" );
+				from.SendMessage( 55, "Quais gemas você deseja utilizar?" );
 				t = new GemTarget();
 				from.Target = t;
 			}
@@ -251,7 +251,7 @@ namespace Server.Items
 				return false;
 			}
 
-			from.SendMessage( "You need mage eye crystals to power this item, and you can turn common gems into that with this." );
+			from.SendMessage( 55, "Você precisa de cristais de olhos mágicos para alimentar este item, e você pode transformar gemas comuns nisso com isso." );
 			return base.OnEquip( from );
 		}
 
@@ -269,7 +269,7 @@ namespace Server.Items
 				{
 					if ( !iGem.IsChildOf( from.Backpack ) )
 					{
-						from.SendMessage( "You can only transmorph gems in your pack." );
+						from.SendMessage( 55, "Você só pode transformar gemas em sua mochila." );
 					}
 					else
 					{
@@ -288,13 +288,13 @@ namespace Server.Items
 						from.RevealingAction();
 						from.PlaySound( 0x243 );
 						from.AddToBackpack( new MageEye(amount) );
-						from.SendMessage( "You transmorph the gems into mage eyes." );
+						from.SendMessage( 55, "Você transforma as gemas em olhos de mago." );
 						iGem.Delete();
 					}
 				}
 				else
 				{
-					from.SendMessage( "This can only transmorph certain gems." );
+					from.SendMessage( 55, "Isso só pode transformar certas gemas." );
 				}
 			}
 		}

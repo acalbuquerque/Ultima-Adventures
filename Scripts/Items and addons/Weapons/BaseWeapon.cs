@@ -135,6 +135,7 @@ namespace Server.Items
 		private float m_Speed;
 		private int m_MaxRange;
 		private SkillName m_Skill;
+		private int m_hitSound;
 		private WeaponType m_Type;
 		private WeaponAnimation m_Animation;
 		#endregion
@@ -147,7 +148,7 @@ namespace Server.Items
 		public virtual WeaponAbility FifthAbility{ get{ return null; } }
 
 		public virtual int DefMaxRange{ get{ return 1; } }
-		public virtual int DefHitSound{ get{ return 0; } }
+		public virtual int DefHitSound{ get{ return 0; } set { m_hitSound = value; } }
 		public virtual int DefMissSound{ get{ return 0; } }
 		public virtual SkillName DefSkill{ get{ return SkillName.Swords; } }
 		public virtual WeaponType DefType{ get{ return WeaponType.Slashing; } }
@@ -1962,9 +1963,9 @@ namespace Server.Items
 			}
 
 			int damageGiven = damage;
+            //attacker.SendMessage(55, "damage given  - " + damageGiven);
 
-
-			if ( ( defender is IMount && ((IMount)defender).Rider != null ) ) // mount getting hit
+            if ( ( defender is IMount && ((IMount)defender).Rider != null ) ) // mount getting hit
 			{
 				if (defender.Hits <= damage)
 					Server.Mobiles.BaseMount.Dismount( ((IMount)defender).Rider );
@@ -1996,8 +1997,8 @@ namespace Server.Items
 			}
 
 			damageGiven = AOS.Damage( defender, attacker, damage, ignoreArmor, phys, fire, cold, pois, nrgy, chaos, direct, false, this is BaseRanged, false );
-
-			double propertyBonus = ( move == null ) ? 1.0 : move.GetPropertyBonus( attacker );
+            //attacker.SendMessage(55, "damage given AOS - " + damageGiven);
+            double propertyBonus = ( move == null ) ? 1.0 : move.GetPropertyBonus( attacker );
 
 				Phylactery vault = null;
 				if (attacker is PlayerMobile && ((PlayerMobile)attacker).SoulBound)

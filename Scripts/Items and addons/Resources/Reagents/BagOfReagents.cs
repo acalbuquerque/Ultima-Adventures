@@ -9,12 +9,14 @@ namespace Server.Items
 		[Constructable]
 		public BagOfReagents()
 		{
-			Weight = 10.0;
+            Name = "bolsa de reags";
+            Weight = 12.0;
+			Hue = 1497;
 		}
 
 		public override void Open( Mobile from )
 		{
-			int amount = 50;
+			int amount = 35;
 			if ( this.Weight > 2.0 )
 			{
 				Item i = null;

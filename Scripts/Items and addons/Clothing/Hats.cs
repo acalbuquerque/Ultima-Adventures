@@ -502,25 +502,33 @@ namespace Server.Items
 	public class WitchHat : BaseHat
 	{
 		public override int BasePhysicalResistance{ get{ return 0; } }
-		public override int BaseFireResistance{ get{ return 5; } }
-		public override int BaseColdResistance{ get{ return 9; } }
-		public override int BasePoisonResistance{ get{ return 5; } }
+		public override int BaseFireResistance{ get{ return 6; } }
+		public override int BaseColdResistance{ get{ return 5; } }
+		public override int BasePoisonResistance{ get{ return 6; } }
 		public override int BaseEnergyResistance{ get{ return 5; } }
 
 		public override int InitMinHits{ get{ return 20; } }
-		public override int InitMaxHits{ get{ return 30; } }
+		public override int InitMaxHits{ get{ return 35; } }
 
-		[Constructable]
+        public override int BaseIntBonus { get { return +1; } }
+
+        [Constructable]
 		public WitchHat() : this( 0 )
 		{
-		}
+            Attributes.Luck = 3;
+            Attributes.SpellDamage = 2;
+            Attributes.CastRecovery = 2;
+        }
 
 		[Constructable]
 		public WitchHat( int hue ) : base( 0x2FC3, hue )
 		{
-			Name = "witch hat";
+			Name = "chapéu de bruxa";
 			Weight = 1.0;
-		}
+			Hue = hue;
+            Attributes.LowerManaCost = 5;
+            Attributes.LowerRegCost = 5;
+        }
 
 		public WitchHat( Serial serial ) : base( serial )
 		{
@@ -1388,29 +1396,38 @@ namespace Server.Items
 	{
 		public override int BasePhysicalResistance{ get{ return 0; } }
 		public override int BaseFireResistance{ get{ return 5; } }
-		public override int BaseColdResistance{ get{ return 9; } }
+		public override int BaseColdResistance{ get{ return 6; } }
 		public override int BasePoisonResistance{ get{ return 5; } }
-		public override int BaseEnergyResistance{ get{ return 5; } }
+		public override int BaseEnergyResistance{ get{ return 6; } }
 
 		public override int InitMinHits{ get{ return 20; } }
-		public override int InitMaxHits{ get{ return 30; } }
+		public override int InitMaxHits{ get{ return 35; } }
 
 		public override int LabelNumber{ get{ return 1041072; } } // a magical wizard's hat
 
-		public override int BaseStrBonus{ get{ return -5; } }
-		public override int BaseDexBonus{ get{ return -5; } }
-		public override int BaseIntBonus{ get{ return +5; } }
+		//public override int BaseStrBonus{ get{ return -5; } }
+		//public override int BaseDexBonus{ get{ return -5; } }
+		public override int BaseIntBonus{ get{ return +2; } }
 
-		[Constructable]
+        //public override SkillName DefSkill { get { return SkillName.Magery; } }
+
+        [Constructable]
 		public MagicWizardsHat() : this( 0 )
 		{
-		}
+			Attributes.Luck = 3;
+			Attributes.SpellDamage = 3;
+			Attributes.CastRecovery = 1;
+        }
 
 		[Constructable]
 		public MagicWizardsHat( int hue ) : base( 0x1718, hue )
 		{
-			Weight = 1.0;
-		}
+            Name = "chapéu de mago";
+            Weight = 1.0;
+            Attributes.LowerManaCost = 6;
+            Attributes.LowerRegCost = 4;
+			Hue = hue;
+        }
 
 		public MagicWizardsHat( Serial serial ) : base( serial )
 		{

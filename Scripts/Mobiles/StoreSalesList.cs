@@ -8,6 +8,7 @@ using Server.Custom;
 using Server.Multis;
 using Server.Guilds;
 using Server.Engines.Mahjong;
+using Server.Gumps;
 
 namespace Server.Mobiles
 {
@@ -6922,38 +6923,45 @@ namespace Server.Mobiles
 		{
 			public InternalBuyInfo()
 			{
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Spellbook ), 18, Utility.Random( 1,100 ), 0xEFA, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( NecromancerSpellbook ), 115, Utility.Random( 1,100 ), 0x2253, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( ScribesPen ), 8, Utility.Random( 1,100 ), 0x2051, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BlankScroll ), 5, Utility.Random( 1,100 ), 0x0E34, 0 ) ); }
-				if ( 1 > 0 ){Add( new GenericBuyInfo( "1041072", typeof( MagicWizardsHat ), 11, Utility.Random( 1,100 ), 0x1718, Utility.RandomDyedHue() ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WitchHat ), 11, Utility.Random( 1,100 ), 0x2FC3, Utility.RandomDyedHue() ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( RecallRune ), 100, Utility.Random( 1,100 ), 0x1F14, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BlackPearl ), 5, Utility.Random( 1,100 ), 0x266F, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Bloodmoss ), 5, Utility.Random( 1,100 ), 0xF7B, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Garlic ), 3, Utility.Random( 1,100 ), 0xF84, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Ginseng ), 3, Utility.Random( 1,100 ), 0xF85, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( MandrakeRoot ), 3, Utility.Random( 1,100 ), 0xF86, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Nightshade ), 3, Utility.Random( 1,100 ), 0xF88, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( SpidersSilk ), 3, Utility.Random( 1,100 ), 0xF8D, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( SulfurousAsh ), 3, Utility.Random( 1,100 ), 0xF8C, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BatWing ), 3, Utility.Random( 1,100 ), 0xF78, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( DaemonBlood ), 6, Utility.Random( 1,100 ), 0xF7D, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( PigIron ), 5, Utility.Random( 1,100 ), 0xF8A, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( NoxCrystal ), 6, Utility.Random( 1,100 ), 0xF8E, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( GraveDust ), 3, Utility.Random( 1,100 ), 0xF8F, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BloodOathScroll ), 25, Utility.Random( 1,100 ), 0x2263, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( CorpseSkinScroll ), 28, Utility.Random( 1,100 ), 0x2263, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( CurseWeaponScroll ), 12, Utility.Random( 1,100 ), 0x2263, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( IronFlask ), 500, Utility.Random( 1,100 ), 0x282E, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WizardStaff ), 40, Utility.Random( 1,5 ), 0x0908, 0xB3A ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WizardStick ), 38, Utility.Random( 1,5 ), 0xDF2, 0xB3A ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( MageEye ), 2, Utility.Random( 10,150 ), 0xF19, 0xB78 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( "Stable Gates", typeof( LinkedGateBag ), 300000, 1, 0xE76, 0xABE ) ); }
-				Add( new GenericBuyInfo( typeof( BagOfReagents ), 500, 25, 0xE76, 0 ) ); 
+
+                //if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( NecromancerSpellbook ), 115, Utility.Random( 1,100 ), 0x2253, 0 ) ); }
+                //if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( ScribesPen ), 8, Utility.Random( 1,100 ), 0x2051, 0 ) ); }
+                //if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BlankScroll ), 5, Utility.Random( 1,100 ), 0x0E34, 0 ) ); }
+                //if ( MyServerSettings.SellChance() ){ }
+
+                
+                Add(new GenericBuyInfo(typeof(Spellbook), 66, 8, 0xEFA, 0));
+                //Add(new GenericBuyInfo(typeof(WizardStaff), 120, Utility.Random(1, 5), 0x0908, 0xB3A));
+                Add(new GenericBuyInfo(typeof(WizardStick), 118, Utility.Random(1, 5), 0xDF2, 0xB3A));
+                Add(new GenericBuyInfo(typeof(WitchHat), 79, Utility.Random(1, 10), 0x2FC3, Utility.RandomDyedHue()));
+                Add(new GenericBuyInfo("1041072", typeof(MagicWizardsHat), 78, Utility.Random(2, 10), 0x1718, Utility.RandomDyedHue()));
+                Add(new GenericBuyInfo(typeof(BagOfReagents), 1088, 10, 0xE76, 0)); // pay 34 group reags and win 1 group for free
+                Add( new GenericBuyInfo( typeof( RecallRune ), 8, 50, 0x1F14, 0 ) );
+				Add( new GenericBuyInfo( typeof( BlackPearl ), 6, 50, 0x266F, 0 ) );
+				Add( new GenericBuyInfo( typeof( Bloodmoss ), 5, 50, 0xF7B, 0 ) );
+				Add( new GenericBuyInfo( typeof( Garlic ), 3, 50, 0xF84, 0 ) );
+				Add( new GenericBuyInfo( typeof( Ginseng ), 4, 50, 0xF85, 0 ) );
+				Add( new GenericBuyInfo( typeof( MandrakeRoot ), 4, 50, 0xF86, 0 ) );
+				Add( new GenericBuyInfo( typeof( Nightshade ), 3, 50, 0xF88, 0 ) );
+				Add( new GenericBuyInfo( typeof( SpidersSilk ), 3, 50, 0xF8D, 0 ) );
+				Add( new GenericBuyInfo( typeof( SulfurousAsh ), 4, 50, 0xF8C, 0 ) );
+                Add(new GenericBuyInfo(typeof(MageEye), 5, Utility.Random(10, 50), 0xF19, 0xB78));
+                /*				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BatWing ), 3, Utility.Random( 1,100 ), 0xF78, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( DaemonBlood ), 6, Utility.Random( 1,100 ), 0xF7D, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( PigIron ), 5, Utility.Random( 1,100 ), 0xF8A, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( NoxCrystal ), 6, Utility.Random( 1,100 ), 0xF8E, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( GraveDust ), 3, Utility.Random( 1,100 ), 0xF8F, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BloodOathScroll ), 25, Utility.Random( 1,100 ), 0x2263, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( CorpseSkinScroll ), 28, Utility.Random( 1,100 ), 0x2263, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( CurseWeaponScroll ), 12, Utility.Random( 1,100 ), 0x2263, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( ElectrumFlask ), 2500, Utility.Random( 1,5 ), 0x282E, 0 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WizardStaff ), 40, Utility.Random( 1,5 ), 0x0908, 0xB3A ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WizardStick ), 38, Utility.Random( 1,5 ), 0xDF2, 0xB3A ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( MageEye ), 2, Utility.Random( 10,150 ), 0xF19, 0xB78 ) ); }
+                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( "Stable Gates", typeof( LinkedGateBag ), 300000, 1, 0xE76, 0xABE ) ); }*/
 
 
-				Type[] types = Loot.RegularScrollTypes;
+                Type[] types = Loot.RegularScrollTypes;
 
 				int circles = 3;
 
@@ -6966,7 +6974,7 @@ namespace Server.Mobiles
 					else if ( i > 6 )
 						--itemID;
 
-					if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( types[i], 12 + ((i / 8) * 10), 20, itemID, 0 ) ); }
+					if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( types[i], 12 + ((i / 8) * 10), Utility.Random(1, 12), itemID, 0 ) ); }
 				}
 			}
 		}
@@ -6975,120 +6983,126 @@ namespace Server.Mobiles
 		{
 			public InternalSellInfo()
 			{
-				if ( MyServerSettings.BuyChance() ){Add( typeof( MagicTalisman ), Utility.Random( 50,100 ) ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( WizardsHat ), 5 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( WitchHat ), 5 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( BlackPearl ), 3 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( Bloodmoss ),4 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( MandrakeRoot ), 2 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( Garlic ), 2 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( Ginseng ), 2 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( Nightshade ), 2 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( SpidersSilk ), 2 ); }  
-				if ( MyServerSettings.BuyRareChance() ){Add( typeof( SulfurousAsh ), 1 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( BatWing ), 1 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( DaemonBlood ), 3 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( PigIron ), 2 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( NoxCrystal ), 3 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( GraveDust ), 1 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( RecallRune ), 13 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( Spellbook ), 25 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( NecromancerSpellbook ), 55 ); } 
-				if ( MyServerSettings.SellCommonChance() ){Add( typeof( MysticalPearl ), 250 ); } 
 
-				Type[] types = Loot.RegularScrollTypes;
+                //if (MyServerSettings.BuyChance()) { Add(typeof(WizardStaff), 60); }
+                if (MyServerSettings.SellChance()) { Add(typeof(WizardStick), 49); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(WizardsHat), 50); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(WitchHat), 49); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(BlackPearl), 5); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(Bloodmoss), 4); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(MandrakeRoot), 3); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(Garlic), 2); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(Ginseng), 3); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(Nightshade), 2); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(SpidersSilk), 2); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(SulfurousAsh), 3); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(RecallRune), 7); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(Spellbook), 60); }
+                if (MyServerSettings.BuyChance()) { Add(typeof(MageEye), 3); }
+                //if (MyServerSettings.BuyRareChance()) { Add(typeof(MySpellbook), Utility.Random(4500, 9000)); }
+
+                /*                if (MyServerSettings.BuyChance()) { Add(typeof(MagicTalisman), Utility.Random(50, 100)); }
+                                if (MyServerSettings.BuyChance()) { Add(typeof(BatWing), 1); }
+                                if (MyServerSettings.BuyChance()) { Add(typeof(DaemonBlood), 3); }
+                                if (MyServerSettings.BuyChance()) { Add(typeof(PigIron), 2); }
+                                if (MyServerSettings.BuyChance()) { Add(typeof(NoxCrystal), 3); }
+                                if (MyServerSettings.BuyChance()) { Add(typeof(GraveDust), 1); }
+
+                                if (MyServerSettings.BuyChance()) { Add(typeof(NecromancerSpellbook), 55); }
+                                if (MyServerSettings.SellCommonChance()) { Add(typeof(MysticalPearl), 250); }*/
+
+                Type[] types = Loot.RegularScrollTypes;
 
 				for ( int i = 0; i < types.Length; ++i )
-					if ( MyServerSettings.BuyChance() ){Add(types[i], i + 3 + (i / 4)); } 
-			
-				if ( MyServerSettings.BuyChance() ){Add( typeof( ExorcismScroll ), 1 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( AnimateDeadScroll ), 26 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( BloodOathScroll ), 26 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( CorpseSkinScroll ), 26 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( CurseWeaponScroll ), 26 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( EvilOmenScroll ), 26 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( PainSpikeScroll ), 26 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( SummonFamiliarScroll ), 26 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( HorrificBeastScroll ), 27 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( MindRotScroll ), 39 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( PoisonStrikeScroll ), 39 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( WraithFormScroll ), 51 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( LichFormScroll ), 64 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( StrangleScroll ), 64 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( WitherScroll ), 64 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( VampiricEmbraceScroll ), 101 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( VengefulSpiritScroll ), 114 ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ClumsyMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CreateFoodMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FeebleMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( HealMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicArrowMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( NightSightMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ReactiveArmorMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( WeaknessMagicStaff ), Utility.Random( 10,20 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( AgilityMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CunningMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CureMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( HarmMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicTrapMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicUntrapMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ProtectionMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( StrengthMagicStaff ), Utility.Random( 20,40 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( BlessMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FireballMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicLockMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicUnlockMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( PoisonMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( TelekinesisMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( TeleportMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( WallofStoneMagicStaff ), Utility.Random( 30,60 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ArchCureMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ArchProtectionMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CurseMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FireFieldMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( GreaterHealMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( LightningMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ManaDrainMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( RecallMagicStaff ), Utility.Random( 40,80 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( BladeSpiritsMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( DispelFieldMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( IncognitoMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicReflectionMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MindBlastMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ParalyzeMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( PoisonFieldMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( SummonCreatureMagicStaff ), Utility.Random( 50,100 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( DispelMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EnergyBoltMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ExplosionMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( InvisibilityMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MarkMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MassCurseMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ParalyzeFieldMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( RevealMagicStaff ), Utility.Random( 60,120 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ChainLightningMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EnergyFieldMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FlameStrikeMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( GateTravelMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ManaVampireMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MassDispelMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MeteorSwarmMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( PolymorphMagicStaff ), Utility.Random( 70,140 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( AirElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EarthElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EarthquakeMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EnergyVortexMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FireElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ResurrectionMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( SummonDaemonMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){ Add( typeof( WaterElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){Add( typeof( MyNecromancerSpellbook ), Utility.Random( 250,1000 ) ); } 
-				if ( MyServerSettings.BuyRareChance() ){Add( typeof( MySpellbook ), Utility.Random( 250,1000 ) ); } 
-				Add( typeof( TomeOfWands ), Utility.Random( 100,400 ) );
-				if ( MyServerSettings.SellChance() ){Add( typeof( DemonPrison ), Utility.Random( 500,1000 ) ); } 
-				if ( MyServerSettings.SellChance() ){ Add( typeof( WizardStaff ), 20 ); } 
-				if ( MyServerSettings.SellChance() ){ Add( typeof( WizardStick ), 19 ); } 
-				if ( MyServerSettings.SellChance() ){ Add( typeof( MageEye ), 1 ); } 
+					if ( MyServerSettings.BuyChance() ){ Add(types[i], i + 3 + (i / 4)); }
+
+                /*				if ( MyServerSettings.BuyChance() ){Add( typeof( ExorcismScroll ), 1 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( AnimateDeadScroll ), 26 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( BloodOathScroll ), 26 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( CorpseSkinScroll ), 26 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( CurseWeaponScroll ), 26 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( EvilOmenScroll ), 26 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( PainSpikeScroll ), 26 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( SummonFamiliarScroll ), 26 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( HorrificBeastScroll ), 27 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( MindRotScroll ), 39 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( PoisonStrikeScroll ), 39 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( WraithFormScroll ), 51 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( LichFormScroll ), 64 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( StrangleScroll ), 64 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( WitherScroll ), 64 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( VampiricEmbraceScroll ), 101 ); } 
+                                if ( MyServerSettings.BuyChance() ){Add( typeof( VengefulSpiritScroll ), 114 ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ClumsyMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CreateFoodMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FeebleMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( HealMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicArrowMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( NightSightMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ReactiveArmorMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( WeaknessMagicStaff ), Utility.Random( 10,20 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( AgilityMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CunningMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CureMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( HarmMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicTrapMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicUntrapMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ProtectionMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( StrengthMagicStaff ), Utility.Random( 20,40 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( BlessMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FireballMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicLockMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicUnlockMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( PoisonMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( TelekinesisMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( TeleportMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( WallofStoneMagicStaff ), Utility.Random( 30,60 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ArchCureMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ArchProtectionMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( CurseMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FireFieldMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( GreaterHealMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( LightningMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ManaDrainMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( RecallMagicStaff ), Utility.Random( 40,80 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( BladeSpiritsMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( DispelFieldMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( IncognitoMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MagicReflectionMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MindBlastMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ParalyzeMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( PoisonFieldMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( SummonCreatureMagicStaff ), Utility.Random( 50,100 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( DispelMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EnergyBoltMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ExplosionMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( InvisibilityMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MarkMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MassCurseMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ParalyzeFieldMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( RevealMagicStaff ), Utility.Random( 60,120 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ChainLightningMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EnergyFieldMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FlameStrikeMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( GateTravelMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ManaVampireMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MassDispelMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( MeteorSwarmMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( PolymorphMagicStaff ), Utility.Random( 70,140 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( AirElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EarthElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EarthquakeMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( EnergyVortexMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( FireElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( ResurrectionMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( SummonDaemonMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){ Add( typeof( WaterElementalMagicStaff ), Utility.Random( 80,160 ) ); } 
+                                if ( MyServerSettings.BuyRareChance() ){Add( typeof( MyNecromancerSpellbook ), Utility.Random( 250,1000 ) ); } */
+
+                
+/*				Add( typeof( TomeOfWands ), Utility.Random( 100,400 ) );
+				if ( MyServerSettings.SellChance() ){Add( typeof( DemonPrison ), Utility.Random( 500,1000 ) ); } */
+				
 			}
 		}
 	}
