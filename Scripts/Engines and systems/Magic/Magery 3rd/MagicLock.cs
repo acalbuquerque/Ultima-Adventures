@@ -44,7 +44,7 @@ namespace Server.Spells.Third
 					if ( Multis.BaseHouse.CheckLockedDownOrSecured( box ) )
 					{
                         // You cannot cast this on a locked down item.
-                        Caster.SendMessage(95, "Você não pode lançar isso em um alvo bloqueado!");
+                        Caster.SendMessage(95, "Você não pode lançar isso em um baú já trancado!");
                         //Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 501761 );
 					}
 					else if ( box.Locked || box.LockLevel == 0 || box is ParagonChest )
@@ -118,165 +118,217 @@ namespace Server.Spells.Third
 			}
 			else if ( o is PlayerMobile )
 			{
-				Caster.SendMessage(95, "Essa alma parece forte demais para ficar presa no frasco!");
-			}
+                FailToCaptureTheSoul(95, "Esta alma é forte demais para ficar presa no frasco!");
+            }
 			else if ( o is BaseCreature )
 			{
 				BaseCreature bc = (BaseCreature)o;
 
-				if ( !bc.Alive )
+                if (Caster.Backpack.FindItemByType(typeof(ElectrumFlask)) == null)
+                {
+                    Caster.SendMessage(55, "Você precisa de um frasco de electrum vazio!");
+                }
+                else if ( !bc.Alive )
 				{
-					Caster.SendMessage(33, "Você não pode capturar algo que está morto!");
-				}
+                    FailToCaptureTheSoul(95, "Você não pode capturar algo que está morto!");
+                }
 				else if ( o is LockedCreature )
 				{
-					Caster.SendMessage(95, "Essa criatura não pode ser presa novamente!");
-				}
+                    FailToCaptureTheSoul(95, "Este ser já foi preso uma vez e não se deixará ser subjugado novamente!");
+                }
 				else if ( bc.Controlled )
 				{
-					Caster.SendMessage( 95, "Isso está sob o controle de outro!");
-				}
-				else if ( bc.Blessed )
+                    FailToCaptureTheSoul(95, "Este ser já está está sob o controle de outro!");
+                }
+				else if ( bc.Blessed || bc is CloneCharacterOnLogout.CharacterClone || (bc is BaseVendor && ((BaseVendor)bc).IsInvulnerable) || bc.IsHitchStabled)
 				{
-					Caster.SendMessage(95, "Este ser é protegido por uma aura misteriosa.");
-				}
-				else if ( bc.IsHitchStabled )
+                    FailToCaptureTheSoul(95, "Este ser é protegido por uma aura misteriosa.");
+                }
+/*				else if ( (double)bc.Fame / 30000 > (double)Caster.Fame / 15000 )
 				{
-					Caster.SendMessage(95, "Isso é assegurado pelo correio.");
-				}
-				else if ( (double)bc.Fame / 35000 > (double)Caster.Fame / 15000 )
-				{
-					Caster.SendMessage(95, "Você falhou... A alma daquela criatura é mais forte que a sua.");
-				}
-				else if ( bc is CloneCharacterOnLogout.CharacterClone )
-				{
-					Caster.SendMessage(95, "Este ser é protegido por uma aura misteriosa.");
-				}
-				else if ( bc is BaseVendor && ((BaseVendor)bc).IsInvulnerable )
-				{
-					Caster.SendMessage( 95, "Este ser parece estar protegido de alguma forma.");
-				}
+					Caster.SendMessage(95, "Você falhou em capturar alma deste ser por ele ter uma reputação elevada.");
+				}*/
 				else if ( bc.EmoteHue == 505 || bc.ControlSlots >= 100 ) // SUMMON QUEST AND QUEST MONSTERS
 				{
-					Server.Misc.IntelligentAction.FizzleSpell( Caster );
-					Caster.SendMessage(95, "Você não é poderoso o suficiente para prender isso!");
+                    FailToCaptureTheSoul(95, "Você não é capaz o suficiente para captura-lo!");
 				}
 				else if (bc is EpicCharacter || bc is TimeLord || bc is TownGuards)
 				{
-					bc.Say("Você acha que pode me capturar? Deixe-me mostrar o que posso fazer com você, seu inseto!");
-					Caster.SendMessage(33, "Você sente uma força poderosa bater em você!");
-					Caster.Kill();
-				}
-				else if ( Caster.Backpack.FindItemByType( typeof ( IronFlask ) ) == null )
-				{
-					Caster.SendMessage(95, "Você precisa de um frasco de ferro vazio para prendê-lo!");
+                    bc.Say("Você acha que pode capturar minha alma?");
+                    bc.Say("Deixe-me mostrar o que posso fazer com você, seu inseto!");
+                    
+                    Timer.DelayCall(TimeSpan.FromSeconds(2), () =>
+                    {
+                        FailToCaptureTheSoul(55, "Você sente uma força poderosa bater em você!");
+                        Caster.Kill();
+                    });                   
 				}
 				else
 				{
-					int level = Server.Misc.IntelligentAction.GetCreatureLevel( (Mobile)o ) + 10;
-					int magery = (int)(Caster.Skills[SkillName.Magery].Value);
+					int playerMagery = (int)(Caster.Skills[SkillName.Magery].Value);
+                    int playerEval = (int)(Caster.Skills[SkillName.EvalInt].Value);
+					int playerInt = (int)(Caster.RawInt);
 
-					if ( magery >= level )
+                    Caster.CriminalAction(true); // this is a criminal action. Dude, you are stealing a soul...
+
+                    // This is a very tricky spell. The player must be a very strong wizzard/sorcerer.
+
+                    if (playerMagery >= 100 && playerEval >= 100 && playerInt >= 100)
 					{
-						int success = 10 + ( magery - level );
-
-						if ( Utility.RandomMinMax( 1, 100 ) > success )
+						int requiredMana = 80;
+						if (Caster.Mana > requiredMana) 
 						{
-							Server.Misc.IntelligentAction.FizzleSpell( Caster );
-							Caster.SendMessage(95, "Você falha em prendê-lo no frasco!");
-						}
-						else
+                            double successPercentage = 0.0;
+                            int random = (Utility.RandomMinMax(1, 100));
+                            // percentage change of success == min 5% or max 20%
+                            if (playerMagery >= 120 && playerEval >= 120) { successPercentage = 20; }
+                            else if (playerMagery >= 110 && playerEval >= 110) { successPercentage = 10; }
+                            else { successPercentage = 5; }
+
+                            // success
+                            if (successPercentage >= random)
+                            {
+                                // Consume the empty electrum flask
+                                Item flask = Caster.Backpack.FindItemByType(typeof(ElectrumFlask));
+                                if (flask != null) { flask.Consume(); }
+
+                                // trap a human soul means kills
+                                if (bc.Body == 400 || bc.Body == 401 || bc.Body == 605 || bc.Body == 606)
+                                {
+                                    Caster.Kills = Caster.Kills + 1;
+                                    Caster.SendMessage(33, "Aprisionar uma alma humana significa assassinato!");
+                                }
+
+                                // Create the flask with the soul
+                                ElectrumFlaskFilled flaskWithASoul = CreateCapturedSoulInAFlask(bc);
+
+                                // Increase or Decrease fame/karma
+                                IncreaseOrDecreaseFameKarma(bc);
+
+                                // Delete the original creature
+                                bc.BoltEffect(0);
+                                bc.PlaySound(0x665);
+                                bc.Delete();
+
+                                Caster.BoltEffect(0);
+                                Caster.PlaySound(0x665);
+								Caster.Mana -= requiredMana;
+                                Caster.AddToBackpack(flaskWithASoul);
+                                Caster.SendMessage(55, "Você capturou a alma de " + bc.Name + " em um frasco de electrum!");
+                            }
+                            else
+                            {
+								FailToCaptureTheSoul(95, "Você falha na tentativa de capturar a alma deste ser!");
+                            }
+                        }
+						else 
 						{
-							Item flask = Caster.Backpack.FindItemByType( typeof ( IronFlask ) );
-							if ( flask != null ){ flask.Consume(); }
-
-							Caster.SendMessage( "Você prendeu " + bc.Name + " em um frasco!" );
-
-							IronFlaskFilled bottle = new IronFlaskFilled();
-
-							int hitpoison = 0;
-
-							if ( bc.HitPoison == Poison.Lesser ){ hitpoison = 1; }
-							else if ( bc.HitPoison == Poison.Regular ){ hitpoison = 2; }
-							else if ( bc.HitPoison == Poison.Greater ){ hitpoison = 3; }
-							else if ( bc.HitPoison == Poison.Deadly ){ hitpoison = 4; }
-							else if ( bc.HitPoison == Poison.Lethal ){ hitpoison = 5; }
-
-							int immune = 0;
-
-							if ( bc.PoisonImmune == Poison.Lesser ){ immune = 1; }
-							else if ( bc.PoisonImmune == Poison.Regular ){ immune = 2; }
-							else if ( bc.PoisonImmune == Poison.Greater ){ immune = 3; }
-							else if ( bc.PoisonImmune == Poison.Deadly ){ immune = 4; }
-							else if ( bc.PoisonImmune == Poison.Lethal ){ immune = 5; }
-
-							bottle.TrappedName = bc.Name;
-							bottle.TrappedTitle = bc.Title;
-							bottle.TrappedBody = bc.Body;
-							bottle.TrappedBaseSoundID = bc.BaseSoundID;
-							bottle.TrappedHue = bc.Hue;
-
-								// TURN HUMANOIDS TO GHOSTS SO I DON'T NEED TO WORRY ABOUT CLOTHES AND GEAR
-								if ( bc.Body == 400 || bc.Body == 401 || bc.Body == 605 || bc.Body == 606 )
-								{
-									bottle.TrappedBody = 0x3CA;
-									bottle.TrappedHue = 0x9C4;
-									bottle.TrappedBaseSoundID = 0x482;
-								}
-
-							bottle.TrappedAI = 2; if ( bc.AI == AIType.AI_Mage ){ bottle.TrappedAI = 1; }
-							bottle.TrappedStr = bc.RawStr;
-							bottle.TrappedDex = bc.RawDex;
-							bottle.TrappedInt = bc.RawInt;
-							bottle.TrappedHits = bc.HitsMax;
-							bottle.TrappedStam = bc.StamMax;
-							bottle.TrappedMana = bc.ManaMax;
-							bottle.TrappedDmgMin = bc.DamageMin;
-							bottle.TrappedDmgMax = bc.DamageMax;
-							bottle.TrappedColdDmg = bc.ColdDamage;
-							bottle.TrappedEnergyDmg = bc.EnergyDamage;
-							bottle.TrappedFireDmg = bc.FireDamage;
-							bottle.TrappedPhysicalDmg = bc.PhysicalDamage;
-							bottle.TrappedPoisonDmg = bc.PoisonDamage;
-							bottle.TrappedColdRst = bc.ColdResistSeed;
-							bottle.TrappedEnergyRst = bc.EnergyResistSeed;
-							bottle.TrappedFireRst = bc.FireResistSeed;
-							bottle.TrappedPhysicalRst = bc.PhysicalResistanceSeed;
-							bottle.TrappedPoisonRst = bc.PoisonResistSeed;
-							bottle.TrappedVirtualArmor = bc.VirtualArmor;
-							bottle.TrappedCanSwim = bc.CanSwim;
-							bottle.TrappedCantWalk = bc.CantWalk;
-							bottle.TrappedSkills = level + 5;
-							bottle.TrappedPoison = hitpoison;
-							bottle.TrappedImmune = immune;
-							bottle.TrappedAngerSound = bc.GetAngerSound();
-							bottle.TrappedIdleSound = bc.GetIdleSound();
-							bottle.TrappedDeathSound = bc.GetDeathSound();
-							bottle.TrappedAttackSound = bc.GetAttackSound();
-							bottle.TrappedHurtSound = bc.GetHurtSound();
-
-							Caster.BoltEffect( 0 );
-							Caster.PlaySound(0x665);
-
-							Caster.AddToBackpack( bottle );
-
-							bc.BoltEffect( 0 );
-							bc.PlaySound(0x665);
-							bc.Delete();
-						}
-					}
-					else
-					{
-						Server.Misc.IntelligentAction.FizzleSpell( Caster );
-						Caster.SendMessage(33, "Você não é poderoso o suficiente para prender isso!");
-					}
+							FailToCaptureTheSoul(95, "Você não possui mana o suficiente!");
+                        }
+                    }
+					else {
+						FailToCaptureTheSoul(95, "Você não possui habilidades o suficiente para capturar essa alma.");
+                    }
 				}
 			}
 
 			FinishSequence();
 		}
 
-		private class InternalTarget : Target
+		private void IncreaseOrDecreaseFameKarma(BaseCreature bc) 
+		{
+			int fameWonLost = ((int)bc.Fame / 10); // + 10% of creature fame
+            int karmaWonLost = ((int)bc.Karma / 10); // + 10% of creature Karma
+
+			Caster.Fame += fameWonLost;
+			Caster.Karma += karmaWonLost * -1;
+
+            if (fameWonLost >= 0) { Caster.SendMessage(2253, "Você ganhou " + fameWonLost + " pontos de fama!"); } else { Caster.SendMessage(33, "Você perdeu " + fameWonLost + " pontos de fama!"); }
+            if (karmaWonLost >= 0) { Caster.SendMessage(33, "Você ganhou " + karmaWonLost + " pontos de karma!"); } else { Caster.SendMessage(2253, "Você perdeu " + karmaWonLost * -1 + " pontos de karma!"); }
+        }
+
+		private static ElectrumFlaskFilled CreateCapturedSoulInAFlask(BaseCreature bc) 
+		{
+            int level = Server.Misc.IntelligentAction.GetCreatureLevel((Mobile)bc);
+
+            ElectrumFlaskFilled bottle = new ElectrumFlaskFilled();
+
+            int hitpoison = 0;
+
+            if (bc.HitPoison == Poison.Lesser) { hitpoison = 1; }
+            else if (bc.HitPoison == Poison.Regular) { hitpoison = 2; }
+            else if (bc.HitPoison == Poison.Greater) { hitpoison = 3; }
+            else if (bc.HitPoison == Poison.Deadly) { hitpoison = 4; }
+            else if (bc.HitPoison == Poison.Lethal) { hitpoison = 5; }
+
+            int immune = 0;
+
+            if (bc.PoisonImmune == Poison.Lesser) { immune = 1; }
+            else if (bc.PoisonImmune == Poison.Regular) { immune = 2; }
+            else if (bc.PoisonImmune == Poison.Greater) { immune = 3; }
+            else if (bc.PoisonImmune == Poison.Deadly) { immune = 4; }
+            else if (bc.PoisonImmune == Poison.Lethal) { immune = 5; }
+
+            bottle.TrappedName = bc.Name;
+            bottle.TrappedTitle = bc.Title;
+            bottle.TrappedHue = 2778; // branco/preto espectral // 0x9C4;
+            bottle.TrappedSkills = level; // all knowledge are keeped in after life 
+            bottle.TrappedAI = 2; if (bc.AI == AIType.AI_Mage) { bottle.TrappedAI = 1; }
+            bottle.TrappedPoison = hitpoison;
+            bottle.TrappedImmune = immune;
+            bottle.TrappedCanSwim = bc.CanSwim;
+            bottle.TrappedCantWalk = bc.CantWalk;
+            bottle.TrappedAngerSound = bc.GetAngerSound();
+            bottle.TrappedIdleSound = bc.GetIdleSound();
+            bottle.TrappedDeathSound = bc.GetDeathSound();
+            bottle.TrappedAttackSound = bc.GetAttackSound();
+            bottle.TrappedHurtSound = bc.GetHurtSound();
+            // a traped soul cannot have 100% of the creature stats. Lets make 80%.
+            bottle.TrappedStr = (int)Math.Round(bc.RawStr * 0.8);
+            bottle.TrappedDex = (int)Math.Round(bc.RawDex * 0.8);
+            bottle.TrappedInt = (int)Math.Round(bc.RawInt * 0.8);
+            bottle.TrappedHits = (int)Math.Round(bc.HitsMax * 0.8);             
+			bottle.TrappedStam = (int)Math.Round(bc.StamMax * 0.8);
+            bottle.TrappedMana = (int)Math.Round(bc.ManaMax * 0.8);
+            bottle.TrappedDmgMin = (int)Math.Round(bc.DamageMin * 0.8);
+            bottle.TrappedDmgMax = (int)Math.Round(bc.DamageMax * 0.8);
+            bottle.TrappedColdDmg = (int)Math.Round(bc.ColdDamage * 0.8);
+            bottle.TrappedEnergyDmg = (int)Math.Round(bc.EnergyDamage * 0.8);
+            bottle.TrappedFireDmg = (int)Math.Round(bc.FireDamage * 0.8);
+            bottle.TrappedPhysicalDmg = (int)Math.Round(bc.PhysicalDamage * 0.8);
+            bottle.TrappedPoisonDmg = (int)Math.Round(bc.PoisonDamage * 0.8);
+            bottle.TrappedColdRst = (int)Math.Round(bc.ColdResistSeed * 0.8);
+            bottle.TrappedEnergyRst = (int)Math.Round(bc.EnergyResistSeed * 0.8);
+            bottle.TrappedFireRst = (int)Math.Round(bc.FireResistSeed * 0.8);
+            bottle.TrappedPhysicalRst = (int)Math.Round(bc.PhysicalResistanceSeed * 0.8);
+            bottle.TrappedPoisonRst = (int)Math.Round(bc.PoisonResistSeed * 0.8);
+            bottle.TrappedVirtualArmor = (int)Math.Round(bc.VirtualArmor * 0.8);
+
+			// TURN HUMANOIDS TO GHOSTS SO I DON'T NEED TO WORRY ABOUT CLOTHES AND GEAR
+			if (bc.Body == 400 || bc.Body == 401 || bc.Body == 605 || bc.Body == 606)
+			{
+				bottle.TrappedBody = 0x3CA;
+				bottle.TrappedBaseSoundID = 0x482;
+			}
+            else  // keep original body form
+            {
+                bottle.TrappedBaseSoundID = bc.BaseSoundID; 
+				bottle.TrappedBody = bc.Body; 
+			}
+
+			return bottle;
+        }
+
+        private void FailToCaptureTheSoul(int msgColor, String msg) 
+		{
+            Item flask = Caster.Backpack.FindItemByType(typeof(ElectrumFlask));
+            if (flask != null) { flask.Consume(); Caster.SendMessage(33, "Um frasco de electrum foi destruido."); ; }
+
+            Server.Misc.IntelligentAction.FizzleSpell(Caster);
+            Caster.SendMessage(msgColor, msg);
+        }
+
+        private class InternalTarget : Target
 		{
 			private MagicLockSpell m_Owner;
 
@@ -328,24 +380,25 @@ namespace Server.Spells.Third
 
 namespace Server.Items
 {
-	public class IronFlask : Item
+	public class ElectrumFlask : Item
 	{
 		[Constructable]
-		public IronFlask() : base( 0x282E )
+		public ElectrumFlask() : base( 0x282E )
 		{
-			Name = "iron flask";
+			Name = "frasco de electrum";
 			Weight = 5.0;
-		}
+            Hue = 2822;//2369
+        }
 
 		public override void OnDoubleClick( Mobile from )
 		{
 			if ( !IsChildOf( from.Backpack ) )
 			{
-				from.SendMessage( "This flask is empty." );
+				from.SendMessage(55, "Esse frasco está vazio." );
 			}
 		}
 
-		public IronFlask(Serial serial) : base(serial)
+		public ElectrumFlask(Serial serial) : base(serial)
 		{
 		}
 
@@ -361,14 +414,17 @@ namespace Server.Items
             int version = reader.ReadInt();
 		}
 	}
-	public class IronFlaskFilled : Item
+
+
+	public class ElectrumFlaskFilled : Item
 	{
 		[Constructable]
-		public IronFlaskFilled() : base( 0x282D )
+		public ElectrumFlaskFilled() : base( 0x282D )
 		{
-			Name = "iron flask";
+			Name = "frasco de electrum";
 			Weight = 5.0;
-		}
+			Hue = 2778;//2369
+        }
 
         public override void AddNameProperties(ObjectPropertyList list)
 		{
@@ -399,7 +455,7 @@ namespace Server.Items
 			}
 			else if ( nFollowers < 1 )
 			{
-				from.SendMessage(95, "Você já tem capangas suficientes em seu grupo.");
+				from.SendMessage(55, "Você já está controlando muitos capangas.");
 			}
 			else if ( HenchmanFunctions.IsInRestRegion( from ) == false )
 			{
@@ -454,18 +510,18 @@ namespace Server.Items
 				from.PlaySound(0x665);
 				from.PlaySound(0x03E);
 				prisoner.MoveToWorld( loc, map );
-				from.SendMessage(95, "Você quebra a garrafa, liberando " + prisoner.Name + "!" );
+				from.SendMessage(95, "Você quebra o frasco e libera " + prisoner.Name + "!" );
 				this.Delete();
 			}
 			else
 			{
-				from.SendMessage(95, "Você não acha que seria uma boa ideia fazer isso aqui.");
+				from.SendMessage(55, "Você não acha que seria uma boa ideia fazer isso aqui.");
 			}
 		}
 
-		public IronFlaskFilled(Serial serial) : base(serial)
+		public ElectrumFlaskFilled(Serial serial) : base(serial)
 		{
-		}
+        }
 
 		public override void Serialize( GenericWriter writer )
 		{
@@ -694,7 +750,7 @@ namespace Server.Items
 
 namespace Server.Mobiles
 {
-	[CorpseName( "a corpse" )]
+	[CorpseName( "corpo espiritual" )]
 	public class LockedCreature : BaseCreature
 	{
 		public int BCPoison;
@@ -808,7 +864,8 @@ namespace Server.Mobiles
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			Timer.DelayCall( TimeSpan.FromSeconds( 10.0 ), new TimerCallback( Delete ) );
+            //Caster.SendMessage(55, "Seu prisioneiro sumiu do mundo fisico!");
+            Timer.DelayCall( TimeSpan.FromSeconds( 10.0 ), new TimerCallback( Delete ) );
 		}
 	}
 }
