@@ -323,8 +323,8 @@ namespace Server
 				}
 			}			
 
-			m.Damage( totalDamage, from );
-			return totalDamage;
+			m.Damage(totalDamage / 2, from ); // TODO COOP3R - check calibration
+			return totalDamage / 2;
 		}
 
 		public static void Fix( ref int val )
