@@ -58,7 +58,7 @@ namespace Server
 			m_Level = level;
 			m_Minimum = min;
 			m_Maximum = max;
-			m_Scalar = percent * 0.01;
+			m_Scalar = percent * 0.02;
 			m_Delay = TimeSpan.FromSeconds( delay );
 			m_Interval = TimeSpan.FromSeconds( interval );
 			m_Count = count;
