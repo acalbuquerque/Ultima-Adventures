@@ -353,16 +353,25 @@ namespace Server.Spells
 			double percent;
 
 			if( curse )
-				percent = 8 + (caster.Skills.EvalInt.Fixed / 100) - (target.Skills.MagicResist.Fixed / 100);
+				percent = 6 + (caster.Skills.EvalInt.Fixed / 100) - (target.Skills.MagicResist.Fixed / 100);
 			else
-				percent = 1 + (caster.Skills.EvalInt.Fixed / 100);
+				percent = 1 + (caster.Skills.Inscribe.Fixed / 100);
+            //caster.SendMessage(35, "percnt scalar - " + percent);
+            percent *= 0.01;
 
-			percent *= 0.01;
+			if (caster.Skills.Inscribe.Fixed / 10 >= 120)
+			{
+				percent *= 0.8;
+			}
+			else 
+			{
+                percent *= 0.6;
+            }
 
-			if( percent < 0 )
-				percent = 0;
-
-			return percent;
+            if ( percent < 0.01)
+				percent = 0.01;
+            //caster.SendMessage(55, "percnt scalar - " + percent);
+            return percent;
 		}
 
 		public static int GetOffset( Mobile caster, Mobile target, StatType type, bool curse )
