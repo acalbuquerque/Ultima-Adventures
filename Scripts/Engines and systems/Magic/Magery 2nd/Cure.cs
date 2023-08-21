@@ -62,7 +62,7 @@ namespace Server.Spells.Second
                     {
                         chanceToCure = 20;
                     }
-                    chanceToCure -= (poison.Level * 2);
+                    chanceToCure -= (p.Level * 2);
                     if (chanceToCure < 0) chanceToCure = 0;
 
                     if ( chanceToCure >= Utility.Random( 100 ) )
@@ -78,7 +78,7 @@ namespace Server.Spells.Second
 					}
 					else
 					{
-                        m.SendMessage(2253, "Você falhou em curar o veneno!"); //m.SendLocalizedMessage( 1010060 ); // You have failed to cure your target!
+                        m.SendMessage(33, "Você falhou em curar o veneno!"); //m.SendLocalizedMessage( 1010060 ); // You have failed to cure your target!
 					}
 				}
 

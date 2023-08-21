@@ -9,7 +9,8 @@ namespace Server.Spells.Sixth
 {
 	public class DispelSpell : MagerySpell
 	{
-		private static SpellInfo m_Info = new SpellInfo(
+
+        private static SpellInfo m_Info = new SpellInfo(
 				"Dispel", "An Ort",
 				218,
 				9002,
@@ -45,51 +46,56 @@ namespace Server.Spells.Sixth
 					Mobile m = (Mobile)o;
 					BaseCreature bc = m as BaseCreature;
 
-					if ( !from.CanSee( m ) )
-					{
-						from.SendLocalizedMessage( 500237 ); // Target can not be seen.
-					}
-					else if ( bc.ControlSlots == 666 ) // FOR SPECIAL SUMMONED WIZARD CREATURES
-					{
-						SpellHelper.Turn( from, m );
+                    int caosMomentum = Utility.RandomMinMax(0, 10);
+                    double percentageLimit = NMSUtils.getSummonDispelPercentage(bc, caosMomentum);
+                    double dispelChance = NMSUtils.getDispelChance(from, bc, caosMomentum);
 
-						if ( from.Skills.Magery.Value > Utility.RandomMinMax( 1, 100 ) )
-						{
-							Effects.SendLocationParticles( EffectItem.Create( m.Location, m.Map, EffectItem.DefaultDuration ), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue( from, 0 ), 0, 5042, 0 );
-							Effects.PlaySound( m, m.Map, 0x201 );
+                    if (!from.CanSee(m))
+                    {
+                        from.SendMessage(55, "O alvo não pode ser visto.");
+                    }
+                    else if (bc == null || !bc.IsDispellable || (bc is BaseVendor) || o is PlayerMobile)
+                    {
+                        from.SendMessage(55, "Não é possível dissipar " + m.Name);
+                        //from.SendLocalizedMessage( 1005049 ); // That cannot be dispelled.
+                    }
+                    else if (bc.IsDispellable || bc.ControlSlots == 666 || m_Owner.CheckHSequence(m) ) // FOR SPECIAL SUMMONED WIZARD CREATURES
+                    {
+                        SpellHelper.Turn(from, m);
 
-							m.Delete();
-						}
-						else
-						{
-							m.FixedEffect( 0x3779, 10, 20, Server.Items.CharacterDatabase.GetMySpellHue( from, 0 ), 0 );
-							from.SendLocalizedMessage( 1010084 ); // The creature resisted the attempt to dispel it!
-						}
-					}
-					else if ( bc == null || !bc.IsDispellable )
-					{
-						from.SendLocalizedMessage( 1005049 ); // That cannot be dispelled.
-					}
-					else if ( m_Owner.CheckHSequence( m ) )
-					{
-						SpellHelper.Turn( from, m );
+                        if (dispelChance >= percentageLimit)
+                        {
+                            Effects.SendLocationParticles(EffectItem.Create(m.Location, m.Map, EffectItem.DefaultDuration), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue(from, 0), 0, 5042, 0);
+                            Effects.PlaySound(m, m.Map, 0x201);
 
-						double dispelChance = (50.0 + ((100 * (from.Skills.Magery.Value - bc.DispelDifficulty)) / (bc.DispelFocus*2))) / 100;
+                            m.Delete();
+                        }
+                        else
+                        {
+                            if (bc.Hits < bc.HitsMax * 0.2) // if creature health is less than 20%
+                            {
+                                if (dispelChance >= (bc.Hits / 10))
+                                {
+                                    from.SendMessage(20, bc.Name + " já estava sem forças e foi dissipado!");
+                                    Effects.SendLocationParticles(EffectItem.Create(bc.Location, bc.Map, EffectItem.DefaultDuration), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue(from, 0), 0, 5042, 0);
+                                    Effects.PlaySound(bc, bc.Map, 0x201);
+                                    bc.Delete();
+                                }
+                            }
+                            else
+                            {
+                                from.DoHarmful(bc);
+                                bc.FixedEffect(0x3779, 10, 20, Server.Items.CharacterDatabase.GetMySpellHue(from, 0), 0);
+                                from.SendMessage(33, "Você conseguiu irritar " + bc.Name);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        from.SendMessage(55, "Algo de estranho aconteceu neste feitiço.");
+                    }
 
-						if ( dispelChance > Utility.RandomDouble() )
-						{
-							Effects.SendLocationParticles( EffectItem.Create( m.Location, m.Map, EffectItem.DefaultDuration ), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue( from, 0 ), 0, 5042, 0 );
-							Effects.PlaySound( m, m.Map, 0x201 );
-
-							m.Delete();
-						}
-						else
-						{
-							m.FixedEffect( 0x3779, 10, 20, Server.Items.CharacterDatabase.GetMySpellHue( from, 0 ), 0 );
-							from.SendLocalizedMessage( 1010084 ); // The creature resisted the attempt to dispel it!
-						}
-					}
-				}
+                }
 			}
 
 			protected override void OnTargetFinish( Mobile from )

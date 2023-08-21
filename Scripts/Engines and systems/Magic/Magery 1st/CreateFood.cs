@@ -22,7 +22,8 @@ namespace Server.Spells.First
 
 		private static FoodInfo[] m_Food = new FoodInfo[]
 			{
-				new FoodInfo( typeof( Grapes ), "cacho de uvas" ),
+				new FoodInfo( typeof( FoodStaleBread ), "pão mágico" ),
+                new FoodInfo( typeof( Grapes ), "cacho de uvas" ),
 				new FoodInfo( typeof( Ham ), "presunto" ),
 				new FoodInfo( typeof( CheeseWedge ), "fatia de queijo" ),
 				new FoodInfo( typeof( Muffins ), "muffins" ),
@@ -43,27 +44,17 @@ namespace Server.Spells.First
 
 				if ( food != null )
 				{
-					if (Utility.RandomDouble() < 0.05)
+                    Caster.AddToBackpack(food);
+                    Caster.FixedParticles(0, 10, 5, 2003, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.RightHand);
+                    Caster.PlaySound(0x1E2);
+                    Caster.SendMessage(55, "Magicamente um pouco de " + foodInfo.Name + " apareceu em sua mochila.");
+					//Caster.SendLocalizedMessage(1042695, true, " " + foodInfo.Name);
+
+					if (Utility.RandomMinMax(1, 10) <= 3) // 30% chance
 					{
-						Caster.AddToBackpack( food );
-						
-						if (Utility.RandomDouble() < 0.50)
-							Caster.AddToBackpack( new WaterFlask() );
-
-						// You magically create food in your backpack:
-						Caster.SendLocalizedMessage( 1042695, true, " " + foodInfo.Name );
-						//Caster.SendMessage( "Some food and drink magically appear in your backpack." );
-
-						Caster.FixedParticles( 0, 10, 5, 2003, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.RightHand );
-						Caster.PlaySound( 0x1E2 );
-					}
-					else 
-					{ 
-						FoodInfo foodInfobad = new FoodInfo( typeof( FoodStaleBread ), "Pão mágico" );
-						//new FoodInfo( typeof( FoodStaleBread ), "Magical Bread" );
-						Item foodbad = foodInfobad.Create();
-						Caster.AddToBackpack( foodbad );
-					}
+                        Caster.AddToBackpack(new WaterFlask());
+                        Caster.SendMessage(20, "Uma garrafa de água surgiu magicamente!");
+                    }
 				}
 
 			}

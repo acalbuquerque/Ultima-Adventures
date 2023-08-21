@@ -39,8 +39,8 @@ namespace Server.Spells.First
 
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				SpellHelper.Turn( Caster, m );

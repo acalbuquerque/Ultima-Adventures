@@ -30,17 +30,17 @@ namespace Server.Spells.First
 		public void Target( Mobile m )
 		{
 			// cant get cursed when wearing those
-			if (m is PlayerMobile && ((PlayerMobile)m).Sorcerer())
+/*			if (m is PlayerMobile && ((PlayerMobile)m).Sorcerer())
 			{
 					Item pants = ((PlayerMobile)m).FindItemOnLayer( Layer.OuterLegs );
 					if (pants != null && pants is SkirtOfPower)
 						return;
-			}
+			}*/
 
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				SpellHelper.Turn( Caster, m );

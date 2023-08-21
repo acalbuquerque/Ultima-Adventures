@@ -26,15 +26,15 @@ namespace Server.Spells.Second
 		public override void OnCast()
 		{
 			Caster.Target = new InternalTarget( this );
-			Caster.SendMessage( "Select a trapped container, or yourself to summon a magical wand." );
+			Caster.SendMessage( 95, "Selecione uma armadilha ou você mesmo para invocar um amuleto de proteção." );
 		}
 
 		public void Target( TrapableContainer item )
 		{
 			if ( !Caster.CanSee( item ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckSequence() )
 			{
 				int nTrapLevel = item.TrapLevel * 12;
@@ -46,7 +46,7 @@ namespace Server.Spells.Second
 					Effects.SendLocationParticles( EffectItem.Create( loc, item.Map, EffectItem.DefaultDuration ), 0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5015, 0 );
 					Effects.PlaySound( loc, item.Map, 0x1F0 );
 
-					Caster.SendMessage( "Any traps on that container are now disabled." );
+					Caster.SendMessage(55, "Todas as armadilhas aqui foram desativadas.");
 
 					item.TrapType = TrapType.None;
 					item.TrapPower = 0;
@@ -54,7 +54,7 @@ namespace Server.Spells.Second
 				}
 				else
 				{
-					Caster.SendMessage( "That trap seems to complicated to be affected by your magic." );
+					Caster.SendMessage(55, "Essa armadilha parece complicada demais para ser afetada por sua magia.");
 					base.DoFizzle();
 				}
 			}
@@ -98,10 +98,11 @@ namespace Server.Spells.Second
 
 						from.PlaySound( 0x1ED );
 						from.FixedParticles( 0x376A, 9, 32, 5008, Server.Items.CharacterDatabase.GetMySpellHue( from, 0 ), 0, EffectLayer.Waist );
-						from.SendMessage( "You summon a magical orb into your pack." );
+						from.SendMessage(2253, "Você invoca um orbe mágico em sua mochila.");
 						Item iWand = new TrapWand(from);
-						int nPower = (int)(from.Skills[SkillName.Magery].Value / 2 ) + 25;
-						if (nPower > 100){nPower = 100;}
+						int nPower = (int)(NMSUtils.getBeneficialMageryInscribePercentage(from) + 30);//(int)(from.Skills[SkillName.Magery].Value / 2 ) + 25;
+
+                        if (nPower > 75){nPower = 75;}
 						TrapWand xWand = (TrapWand)iWand;
 						xWand.WandPower = nPower;
 						from.AddToBackpack( xWand );
@@ -110,7 +111,7 @@ namespace Server.Spells.Second
 				}
 				else
 				{
-					from.SendMessage( "This spell has no effect on that!" );
+					from.SendMessage( 55, "Este feitiço não tem efeito sobre isso!");
 				}
 			}
 

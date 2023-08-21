@@ -30,13 +30,13 @@ namespace Server.Spells.First
 
 			if ( Caster.MeleeDamageAbsorb > 0 )
 			{
-				Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
+                Caster.SendMessage(55, "O alvo já está sob efeito do feitiço."); //Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
 				return false;
 			}
 			else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 			{
-				Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
-				return false;
+                Caster.SendMessage(55, "O feitiço não adere em você.");//Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                return false;
 			}
 
 			return true;
@@ -48,8 +48,8 @@ namespace Server.Spells.First
 		{
 			if ( Core.AOS )
 			{
-
-				if ( CheckSequence() )
+                //Caster.SendMessage(55, "AOS");
+                if ( CheckSequence() )
 				{
 					Mobile targ = Caster;
 
@@ -60,54 +60,73 @@ namespace Server.Spells.First
 						targ.PlaySound( 0x1E9 );
 						targ.FixedParticles( 0x376A, 9, 32, 5008, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Waist );
 
-						double affinitybonus = 120 * ((Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.EvalInt].Value)/250);
-						
-						if (Caster.Int < 50)
-							affinitybonus /= 2;
-						
-						int val = (int)affinitybonus/2;
-						
-						if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer())
+						double affinitybonus = (Caster.Skills[SkillName.Magery].Value * ((Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Inscribe].Value)/350));
+
+                        /*if (Caster.Int < 50)
+							affinitybonus /= 2;*/
+                        Caster.SendMessage(20, "AOS affinitybonus -> " + affinitybonus);
+                        int val = (int)affinitybonus + (Caster.Int / 100);
+                        Caster.SendMessage(55, "AOS VAL -> " + val);
+
+                        if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer())
 						{
-							mods = new ResistanceMod[5]
+                            mods = new ResistanceMod[1]
 							{
-								new ResistanceMod( ResistanceType.Physical, val + (int)(targ.Skills[SkillName.Inscribe].Value / 20) ),
-								new ResistanceMod( ResistanceType.Fire, (int)affinitybonus ),
-								new ResistanceMod( ResistanceType.Cold, (int)affinitybonus ),
-								new ResistanceMod( ResistanceType.Poison, (int)affinitybonus ),
-								new ResistanceMod( ResistanceType.Energy, (int)affinitybonus )
+								new ResistanceMod( ResistanceType.Physical, 10 )
 							};
-						}
+                            /*                            mods = new ResistanceMod[1]
+                                                        {
+                                                            new ResistanceMod( ResistanceType.Physical, val )
+                            *//*								new ResistanceMod( ResistanceType.Fire, val ),
+                                                            new ResistanceMod( ResistanceType.Cold, val ),
+                                                            new ResistanceMod( ResistanceType.Poison, val ),
+                                                            new ResistanceMod( ResistanceType.Energy, val )*//*
+                                                        };*/
+                        }
 						else
 						{
-							mods = new ResistanceMod[5]
-							{
-								new ResistanceMod( ResistanceType.Physical, (15) + (int)(targ.Skills[SkillName.Inscribe].Value / 20) ),
-								new ResistanceMod( ResistanceType.Fire, -5 ),
-								new ResistanceMod( ResistanceType.Cold, -5 ),
-								new ResistanceMod( ResistanceType.Poison, -5 ),
-								new ResistanceMod( ResistanceType.Energy, -5 )
-							};
-						}
+                            mods = new ResistanceMod[1]
+                            {
+                                new ResistanceMod( ResistanceType.Physical, 50 )
+                            };
+                            /*                            mods = new ResistanceMod[1]
+                                                        {
+                                                            new ResistanceMod( ResistanceType.Physical, 5 )
+                            *//*								new ResistanceMod( ResistanceType.Fire, 5 ),
+                                                            new ResistanceMod( ResistanceType.Cold, 5 ),
+                                                            new ResistanceMod( ResistanceType.Poison, 5 ),
+                                                            new ResistanceMod( ResistanceType.Energy, 5 )*//*
+                                                        };*/
+                        }
+                        
+                        m_Table[targ] = mods;
+                        /*
+                                                for (int i = 0; i < mods.Length; ++i) 
+                                                {
+                                                    Caster.SendMessage(55, "MOD -> " + mods[i]);
+                                                    targ.AddResistanceMod(mods[i]);
+                                                }*/
 
-						m_Table[targ] = mods;
+                        for (int i = 0; i < mods.Length; ++i)
+                            targ.AddResistanceMod(mods[i]);
 
-						for ( int i = 0; i < mods.Length; ++i )
-							targ.AddResistanceMod( mods[i] );
+                        double TotalTime = 15;
+                        new InternalTimer(targ, TimeSpan.FromSeconds(TotalTime)).Start();
 
-						string args = "";
-						if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer())
-						{
-							args = String.Format("{0}\t{1}\t{2}\t{3}\t{4}", val, affinitybonus, affinitybonus, affinitybonus, affinitybonus);
-						}
-						else
-						{
-							int physresist = 15 + (int)(targ.Skills[SkillName.Inscribe].Value / 20);
-							args = String.Format("{0}\t{1}\t{2}\t{3}\t{4}", physresist, 5, 5, 5, 5);
-						}
 
-						BuffInfo.AddBuff(Caster, new BuffInfo(BuffIcon.ReactiveArmor, 1075812, 1075813, args.ToString()));
-					}
+                        /*						string args = "";
+                                                if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer())
+                                                {
+                                                    args = String.Format("{0}\t{1}\t{2}\t{3}\t{4}", val, affinitybonus, affinitybonus, affinitybonus, affinitybonus);
+                                                }
+                                                else
+                                                {
+                                                    int physresist = 5;// 15 + (int)(targ.Skills[SkillName.Inscribe].Value / 20);
+                                                    args = String.Format("{0}\t{1}\t{2}\t{3}\t{4}", physresist, 5, 5, 5, 5);
+                                                }
+
+                                                BuffInfo.AddBuff(Caster, new BuffInfo(BuffIcon.ReactiveArmor, 1075812, 1075813, args.ToString()));*/
+                    }
 					else
 					{
 						targ.PlaySound( 0x1ED );
@@ -126,14 +145,15 @@ namespace Server.Spells.First
 			}
 			else
 			{
-				if ( Caster.MeleeDamageAbsorb > 0 )
+                //Caster.SendMessage(20, "!AOS");
+                if ( Caster.MeleeDamageAbsorb > 0 )
 				{
-					Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
-				}
+                    Caster.SendMessage(55, "O alvo já está sob um efeito semelhante.");//Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
+                }
 				else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 				{
-					Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
-				}
+                    Caster.SendMessage(55, "O feitiço não adere em você neste momento.");//Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                }
 				else if ( CheckSequence() )
 				{
 					if ( Caster.BeginAction( typeof( DefensiveSpell ) ) )
@@ -177,5 +197,39 @@ namespace Server.Spells.First
 				BuffInfo.RemoveBuff( m, BuffIcon.ReactiveArmor );
 			}
 		}
-	}
+
+        private class InternalTimer : Timer
+        {
+            private Mobile m_m;
+            private DateTime m_Expire;
+
+            public InternalTimer(Mobile Caster, TimeSpan duration) : base(TimeSpan.Zero, TimeSpan.FromSeconds(0.1))
+            {
+                m_m = Caster;
+                m_Expire = DateTime.UtcNow + duration;
+            }
+
+            protected override void OnTick()
+            {
+                if (DateTime.UtcNow >= m_Expire)
+                {
+                    if (m_Table.Contains(m_m))
+                    {
+                        ResistanceMod[] mods = (ResistanceMod[])m_Table[m_m];
+
+                        if (mods != null)
+                        {
+                            for (int i = 0; i < mods.Length; ++i)
+                                m_m.RemoveResistanceMod(mods[i]);
+                        }
+
+                        m_Table.Remove(m_m);
+                        BuffInfo.RemoveBuff(m_m, BuffIcon.ReactiveArmor);
+                    }
+                    //ResearchRockFlesh.RemoveEffect(m_m);
+                    Stop();
+                }
+            }
+        }
+    }
 }

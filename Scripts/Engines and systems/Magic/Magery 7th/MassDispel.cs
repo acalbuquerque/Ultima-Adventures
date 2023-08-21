@@ -35,23 +35,25 @@ namespace Server.Spells.Seventh
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckSequence() )
 			{
-				SpellHelper.Turn( Caster, p );
+                int caosMomentum = Utility.RandomMinMax(0, 10);
+                SpellHelper.Turn( Caster, p );
 
 				SpellHelper.GetSurfaceTop( ref p );
 
 				List<Mobile> targets = new List<Mobile>();
+                List<Item> fields = new List<Item>();
 
-				Map map = Caster.Map;
-
+                Map map = Caster.Map;
+				// Mapping all targets and fields
 				if ( map != null )
 				{
 					IPooledEnumerable eable = map.GetMobilesInRange( new Point3D( p ), 8 );
 
-					foreach ( Mobile m in eable )
+                    foreach ( Mobile m in eable )
 					{
 						if ( m is BaseCreature )
 						{
@@ -65,45 +67,78 @@ namespace Server.Spells.Seventh
 					}
 
 					eable.Free();
-				}
 
-				for ( int i = 0; i < targets.Count; ++i )
+                    eable = map.GetItemsInRange(new Point3D(p), 4);
+                    foreach (Item i in eable)
+                        if (i.GetType().IsDefined(typeof(DispellableFieldAttribute), false))
+                            fields.Add(i);
+                    eable.Free();
+                }
+
+				// Dispeling all fields in range
+                foreach (Item targ in fields)
+                {
+                    if (targ == null)
+                        continue;
+
+                    Effects.SendLocationParticles(EffectItem.Create(targ.Location, targ.Map, EffectItem.DefaultDuration), 0x376A, 9, 20, 5042);
+                    Effects.PlaySound(targ.GetWorldLocation(), targ.Map, 0x201);
+                    targ.Delete();
+                }
+
+				// Dispeling all targets in range
+                foreach (Mobile m in targets)
 				{
-					Mobile m = targets[i];
+                    BaseCreature bc = m as BaseCreature;
+                    if (bc == null)
+                        continue;
 
-					BaseCreature bc = m as BaseCreature;
+                    double percentageLimit = NMSUtils.getSummonDispelPercentage(bc, caosMomentum);
+                    double dispelChance =  NMSUtils.getDispelChance(Caster, bc, caosMomentum);
 
-					if ( bc == null )
-						continue;
-
-					double dispelChance = (50.0 + ((100 * (Caster.Skills.Magery.Value - bc.DispelDifficulty)) / (bc.DispelFocus*2))) / 100;
-
-					if ( dispelChance > Utility.RandomDouble() )
+                    if (bc == null || !bc.IsDispellable || (bc is BaseVendor) || bc is PlayerMobile)
+                    {
+                        Caster.SendMessage(55, "Não é possível dissipar " + m.Name);
+                        //from.SendLocalizedMessage( 1005049 ); // That cannot be dispelled.
+                    }
+					else 
 					{
-						Effects.SendLocationParticles( EffectItem.Create( m.Location, m.Map, EffectItem.DefaultDuration ), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5042, 0 );
-						Effects.PlaySound( m, m.Map, 0x201 );
+                        if (dispelChance >= percentageLimit)
+                        {
+                            Caster.SendMessage(55, bc.Name + " foi dissipado!");
+                            Effects.SendLocationParticles(EffectItem.Create(bc.Location, bc.Map, EffectItem.DefaultDuration), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, 5042, 0);
+                            Effects.PlaySound(bc, bc.Map, 0x201);
+                            bc.Delete();
+                        }
+                        else
+                        {
+                            if (bc.Hits < bc.HitsMax * 0.2) // if creature health is less than 20%
+                            {
+                                if (dispelChance >= (bc.Hits / 10))
+                                {
+                                    Caster.SendMessage(20, bc.Name + " já estava sem forças e foi dissipado!");
+                                    Effects.SendLocationParticles(EffectItem.Create(bc.Location, bc.Map, EffectItem.DefaultDuration), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, 5042, 0);
+                                    Effects.PlaySound(bc, bc.Map, 0x201);
+                                    bc.Delete();
+                                }
+                            }
+                            else
+                            {
+                                Caster.DoHarmful(bc);
+                                bc.FixedEffect(0x3779, 10, 20, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0);
+                                Caster.SendMessage(33, "Você conseguiu irritar " + bc.Name);
+                            }
 
-						m.Delete();
-					}
-					else if ( bc.ControlSlots == 666 ) // FOR SPECIAL SUMMONED WIZARD CREATURES
-					{
-						if ( Caster.Skills.Magery.Value > Utility.RandomMinMax( 1, 100 ) )
-						{
-							Effects.SendLocationParticles( EffectItem.Create( m.Location, m.Map, EffectItem.DefaultDuration ), 0x3728, 8, 20, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5042, 0 );
-							Effects.PlaySound( m, m.Map, 0x201 );
-							m.Delete();
-						}
-					}
-					else
-					{
-						Caster.DoHarmful( m );
-
-						m.FixedEffect( 0x3779, 10, 20, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0 );
-					}
+                        }
+                    }
 				}
 			}
 
 			FinishSequence();
+		}
+
+		private void dispelTarget() {
+		
 		}
 
 		private class InternalTarget : Target

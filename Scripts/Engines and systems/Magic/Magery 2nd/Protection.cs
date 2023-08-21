@@ -32,12 +32,14 @@ namespace Server.Spells.Second
 
 			if ( m_Registry.ContainsKey( Caster ) )
 			{
-				Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
+                Caster.SendMessage(55, "O alvo já está sob efeito do feitiço.");
+                //Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
 				return false;
 			}
 			else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 			{
-				Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                Caster.SendMessage(55, "O feitiço não pode ser aplicado nesse momento.");
+                //Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
 				return false;
 			}
 
@@ -97,8 +99,10 @@ namespace Server.Spells.Second
                 //int physloss = -15 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
                 //int resistloss = -35 + (int)(caster.Skills[SkillName.Inscribe].Value / 20);
                 //string args = String.Format("{0}", physloss); // String.Format("{0}\t{1}", physloss, resistloss);
+                TimeSpan length = SpellHelper.NMSGetDuration(caster, target, true);
+                BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Protection, 1075814, length, target, args.ToString()));
+                //BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Protection, 1075814, 1075815, args.ToString()));
 
-                BuffInfo.AddBuff(target, new BuffInfo(BuffIcon.Protection, 1075814, 1075815, args.ToString()));
 			}
 			else
 			{
@@ -148,12 +152,12 @@ namespace Server.Spells.Second
 			{
 				if ( m_Registry.ContainsKey( Caster ) )
 				{
-					Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
-				}
+                    Caster.SendMessage(55, "O alvo já está sob efeito do feitiço.");//Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
+                }
 				else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 				{
-					Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
-				}
+                    Caster.SendMessage(55, "O feitiço não pode ser aplicado nesse momento.");//Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                }
 				else if ( CheckSequence() )
 				{
 					if ( Caster.BeginAction( typeof( DefensiveSpell ) ) )
@@ -174,8 +178,8 @@ namespace Server.Spells.Second
 					}
 					else
 					{
-						Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
-					}
+                        Caster.SendMessage(55, "O feitiço não pode ser aplicado nesse momento.");//Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                    }
 				}
 
 				FinishSequence();

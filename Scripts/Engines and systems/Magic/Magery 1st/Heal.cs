@@ -33,41 +33,39 @@ namespace Server.Spells.First
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
-			else if ( m.IsDeadBondedPet )
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
+			else if ( m.IsDeadBondedPet || m is BaseCreature && ((BaseCreature)m).IsAnimatedDead)
 			{
-				Caster.SendLocalizedMessage( 1060177 ); // You cannot heal a creature that is already dead!
+                Caster.SendMessage(55, "Você não pode curar aquilo que já está morto.");
+                //Caster.SendLocalizedMessage( 1060177 ); // You cannot heal a creature that is already dead!
 			}
 			else if ( m is PlayerMobile && m.FindItemOnLayer( Layer.Ring ) != null && m.FindItemOnLayer( Layer.Ring ) is OneRing)
 			{
-				Caster.SendMessage( "The ONE RING convinces you not to do that, and you listen to it... " );
+				Caster.SendMessage(33, "O UM ANEL desfez o feitiço e te diz para não fazer isso... " );
 				return;
-			}
-			else if ( m is BaseCreature && ((BaseCreature)m).IsAnimatedDead )
-			{
-				Caster.SendLocalizedMessage( 1061654 ); // You cannot heal that which is not alive.
 			}
 			else if ( m is Golem )
 			{
-				Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, 500951 ); // You cannot heal that.
+				Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, false, "* Não sei como curar isso *"); // You cannot heal that.
 			}
-			else if ( m.Poisoned || Server.Items.MortalStrike.IsWounded( m ) )
+			else if ( (m.Poisoned && m.Poison.Level >= 3) || Server.Items.MortalStrike.IsWounded( m ) )
 			{
-				Caster.LocalOverheadMessage( MessageType.Regular, 0x22, (Caster == m) ? 1005000 : 1010398 );
+                Caster.SendMessage(33, ((Caster == m) ? "Você sente o veneno penetrar em suas veias." : "O seu alvo está mortalmente envenenado e não poderá ser curado com esse feitiço!"));
+                //Caster.LocalOverheadMessage( MessageType.Regular, 0x22, (Caster == m) ? 1005000 : 1010398 );
 			}
 			else if ( CheckBSequence( m ) )
 			{
 				SpellHelper.Turn( Caster, m );
 
-				int toHeal;
+				int toHeal = (int)NMSUtils.getBeneficialMageryInscribePercentage(Caster) / 3;
 
-				toHeal = Caster.Skills.Magery.Fixed / 120;
+				/*toHeal = Caster.Skills.Magery.Fixed / 120;
 				toHeal += Utility.RandomMinMax( 1, 4 );
-				toHeal = Server.Misc.MyServerSettings.PlayerLevelMod( toHeal, Caster );
+				toHeal = Server.Misc.MyServerSettings.PlayerLevelMod( toHeal, Caster );*/
 
-				if( Caster != m )
-					toHeal = (int)(toHeal * 1.5);
+                if ( Caster != m )
+					toHeal = (int)(toHeal * 1.2); // 20% more heal points if is another person.
 
 				//m.Heal( toHeal, Caster );
 				SpellHelper.Heal( toHeal, m, Caster );

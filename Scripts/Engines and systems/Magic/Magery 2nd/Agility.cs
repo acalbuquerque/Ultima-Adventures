@@ -29,21 +29,35 @@ namespace Server.Spells.Second
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckBSequence( m ) )
 			{
-				SpellHelper.Turn( Caster, m );
-
-				SpellHelper.AddStatBonus( Caster, m, StatType.Dex );
-
-				m.FixedParticles( 0x375A, 10, 15, 5010, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Waist );
-				m.PlaySound( 0x1e7 );
-
 				int percentage = (int)(SpellHelper.GetOffsetScalar( Caster, m, false )*100);
-				TimeSpan length = SpellHelper.NMSGetDuration( Caster, m, true );
+/*                Caster.SendMessage(55, "percentual - " + percentage);
+                if (Caster.RawInt < 60)
+				{
+					percentage -= Utility.RandomMinMax(5, 7);
+				}
+				else if (Caster.RawInt >= 60 && Caster.RawInt < 80)
+				{
+					percentage -= Utility.RandomMinMax(3, 6);
+				}
+				else if (Caster.RawInt >= 80 && Caster.RawInt < 100)
+                {
+					percentage -= 2;
+                }
 
-				BuffInfo.AddBuff( m, new BuffInfo( BuffIcon.Agility, 1075841, length, m, percentage.ToString() ) );
+				if (percentage < 0)
+					percentage = 1;*/
+                TimeSpan length = SpellHelper.NMSGetDuration( Caster, m, true );
+                //Caster.SendMessage(35, "percentual final - " + percentage);
+
+                SpellHelper.Turn(Caster, m);
+                SpellHelper.AddStatBonus(Caster, m, StatType.Dex);
+                m.FixedParticles(0x375A, 10, 15, 5010, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
+                m.PlaySound(0x1e7);
+                BuffInfo.AddBuff( m, new BuffInfo( BuffIcon.Agility, 1075841, length, m, percentage.ToString() ) );
 			}
 
 			FinishSequence();

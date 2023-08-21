@@ -36,8 +36,8 @@ namespace Server.Spells.Second
 		{
 			if ( !Caster.CanSee( item ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( item.TrapType != TrapType.None && item.TrapType != TrapType.MagicTrap )
 			{
 				base.DoFizzle();
@@ -71,8 +71,8 @@ namespace Server.Spells.Second
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
 				int traps = 0;
@@ -85,11 +85,11 @@ namespace Server.Spells.Second
 
 				if ( traps > 2 )
 				{
-					Caster.SendMessage( "There are too many magical traps in the area!" );
+					Caster.SendMessage(55, "Existem muitas armadilhas mágicas na área!");
 				}
 				else if ( !Caster.Region.AllowHarmful( Caster, Caster ) )
 				{
-					Caster.SendMessage( "That doesn't feel like a good idea." ); 
+					Caster.SendMessage(55, "Isso não parece uma boa ideia."); 
 					return;
 				}
 				else
@@ -133,7 +133,7 @@ namespace Server.Spells.Second
 				}
 				else
 				{
-					from.SendMessage( "You can't trap that!" );
+					from.SendMessage(55, "Você não pode criar uma armadilha aqui." );
 				}
 			}
 

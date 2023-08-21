@@ -40,8 +40,8 @@ namespace Server.Spells.Second
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				SpellHelper.Turn( Caster, m );
@@ -55,13 +55,13 @@ namespace Server.Spells.Second
 					nBenefit = CalculateMobileBenefit(Caster, 50, 5);
 				}
 				
-				double damage = GetNewAosDamage( 6, 1, 4, m ) + nBenefit;
+				double damage = GetNMSDamage( 6, 1, 4, m ) + nBenefit;
 
 
-				if ( !m.InRange( Caster, 2 ) )
+/*				if ( !m.InRange( Caster, 2 ) )
 					damage *= 0.25; // 1/4 damage at > 2 tile range
 				else if ( !m.InRange( Caster, 1 ) )
-					damage *= 0.50; // 1/2 damage at 2 tile range
+					damage *= 0.50; // 1/2 damage at 2 tile range*/
 
 				m.FixedParticles( 0x374A, 10, 30, 5013, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 2, EffectLayer.Waist );
 				m.PlaySound( 0x0FC );
