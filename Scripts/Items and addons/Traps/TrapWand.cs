@@ -48,19 +48,19 @@ namespace Server.Items
         public override void AddNameProperties(ObjectPropertyList list)
 		{
             base.AddNameProperties(list);
-			list.Add( 1070722, WandPower + "% Avoiding Traps on the Walls or Floors");
-			list.Add( 1049644, "Must be in backpack and lasts 30 minutes"); // PARENTHESIS
+			list.Add( 1070722, "Evita armadilhas em paredes e pisos em " + WandPower + "%");
+			list.Add( 1049644, "Deve estar na mochila e dura 10 minutos"); // PARENTHESIS
         }
 
 		private void RenameWand()
 		{
 			if ( owner != null )
 			{
-				this.Name = "orb of trap finding for " + owner.Name;
+				this.Name = "orbe anti-armadilha de " + owner.Name;
 			}
 			else
 			{
-				this.Name = "orb of trap finding";
+				this.Name = "orbe anti-armadilha";
 			}		
 		}
 
@@ -90,7 +90,7 @@ namespace Server.Items
 		public class ItemRemovalTimer : Timer 
 		{ 
 			private Item i_item; 
-			public ItemRemovalTimer( Item item ) : base( TimeSpan.FromMinutes( 30.0 ) ) 
+			public ItemRemovalTimer( Item item ) : base( TimeSpan.FromMinutes( 10.0 ) ) 
 			{ 
 				Priority = TimerPriority.OneSecond; 
 				i_item = item; 
@@ -102,7 +102,7 @@ namespace Server.Items
 				{
 					TrapWand wands = (TrapWand)i_item;
 					Mobile from = wands.owner;
-					from.LocalOverheadMessage(Network.MessageType.Emote, 0x3B2, false, "Your trap finding orb has vanished.");
+					from.LocalOverheadMessage(Network.MessageType.Emote, 0x3B2, false, "* Seu orbe anti-armadilha desapareceu. *");
 					from.PlaySound( 0x1F0 );
 					i_item.Delete();
 				}
