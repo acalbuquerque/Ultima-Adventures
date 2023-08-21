@@ -40,17 +40,15 @@ namespace Server.Misc
 
 		public static string GetOddityAdjective()
 		{
-			string sAdjective = "an odd";
+			string sAdjective = "um estranho";
 
 			switch( Utility.RandomMinMax( 0, 6 ) )
 			{
-				case 0: sAdjective = "an odd"; break;
-				case 1: sAdjective = "an unusual"; break;
-				case 2: sAdjective = "a bizarre"; break;
-				case 3: sAdjective = "a curious"; break;
-				case 4: sAdjective = "a peculiar"; break;
-				case 5: sAdjective = "a strange"; break;
-				case 6: sAdjective = "a weird"; break;
+				case 0: sAdjective = "um estranho"; break;
+				case 1: sAdjective = "um incomum"; break;
+				case 2: sAdjective = "um bizarro"; break;
+				case 3: sAdjective = "um curioso"; break;
+				case 4: sAdjective = "um peculiar"; break;
 			}
 			return sAdjective;
 		}
