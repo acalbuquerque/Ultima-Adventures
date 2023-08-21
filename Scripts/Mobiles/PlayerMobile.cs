@@ -4679,9 +4679,9 @@ A little mouse catches sight of you and flees into a small hole in the ground.*/
 
 		public bool Sorcerer() 
 		{
-			bool yeah = true;
+			bool yeah = false;
 			
-			Item magebook = this.FindItemOnLayer( Layer.Talisman );
+			/*Item magebook = this.FindItemOnLayer( Layer.Talisman );
 			if ( (magebook != null && ( !(magebook is Spellbook) && !(magebook is NecromancerSpellbook) )) || magebook == null )
 				yeah = false;
 
@@ -4723,16 +4723,10 @@ A little mouse catches sight of you and flees into a small hole in the ground.*/
 
 			Item firstvalid = this.FindItemOnLayer( Layer.FirstValid );
 			if (firstvalid != null && (firstvalid is BaseWeapon || firstvalid is BaseArmor))	
-				yeah = false;
+				yeah = false;*/
 
-			if (Skills[SkillName.Magery].Value < 90)
-				yeah = false;
-
-			if (Skills[SkillName.EvalInt].Value < 90)
-				yeah = false;
-				
-			if (Int < 50)
-				yeah = false;
+			if (Skills[SkillName.Magery].Value >= 90 && Int > 80 && (Skills[SkillName.EvalInt].Value >= 90 || Skills[SkillName.Inscribe].Value >= 90) )
+				yeah = true;
 
 			if (yeah && !m_sorc) // new status
 			{
