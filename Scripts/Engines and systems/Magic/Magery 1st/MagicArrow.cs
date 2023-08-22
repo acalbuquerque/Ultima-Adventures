@@ -46,13 +46,12 @@ namespace Server.Spells.First
 				double damage;
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+/*				if ( Caster is PlayerMobile ) // WIZARD
 				{
 					nBenefit = CalculateMobileBenefit(Caster, 60, 5);
-				}
+				}*/
 				
 				damage = GetNMSDamage( 3, 1, 3, m ) + nBenefit;
-
 				if (damage >= 8) {
 					damage = 8;
 				}

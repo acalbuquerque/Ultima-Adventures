@@ -905,6 +905,14 @@ namespace Server.Spells
 		public static bool IsTown( Point3D loc, Mobile caster )
 		{
 			return false;
+            /*Map map = caster.Map;
+
+            if (map == null)
+                return false;
+
+            GuardedRegion reg = (GuardedRegion)Region.Find(loc, map).GetRegion(typeof(GuardedRegion));
+
+            return (reg != null && !reg.IsDisabled());*/
 		}
 
 		public static bool CheckTown( IPoint3D loc, Mobile caster )

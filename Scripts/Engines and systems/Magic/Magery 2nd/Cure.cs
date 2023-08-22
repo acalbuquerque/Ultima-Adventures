@@ -39,51 +39,34 @@ namespace Server.Spells.Second
 
 				if ( p != null )
 				{
-                    int chanceToCure = 0;
-                    int totalSkills = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Inscribe].Value);
-
-                    if (totalSkills >= 240)
-                    {
-                        chanceToCure = 60;
-                    }
-                    else if ((Caster.Skills[SkillName.Magery].Value >= 120 && (Caster.Skills[SkillName.Inscribe].Value >= 100)))
-                    {
-                        chanceToCure = 50;
-                    }
-                    else if ((Caster.Skills[SkillName.Magery].Value >= 100 && (Caster.Skills[SkillName.Inscribe].Value >= 80)))
-                    {
-                        chanceToCure = 40;
-                    }
-                    else if ((Caster.Skills[SkillName.Magery].Value >= 80 && (Caster.Skills[SkillName.Inscribe].Value >= 60)))
-                    {
-                        chanceToCure = 30;
-                    }
-                    else
-                    {
-                        chanceToCure = 20;
-                    }
-                    chanceToCure -= (p.Level * 2);
+					int chanceToCure = (int)NMSUtils.getBeneficialMageryInscribePercentage(Caster);
+                    chanceToCure -= p.Level;
                     if (chanceToCure < 0) chanceToCure = 0;
 
-                    if ( chanceToCure >= Utility.Random( 100 ) )
+                    if ((m.Poisoned && m.Poison.Level >= 4) || Server.Items.MortalStrike.IsWounded(m))
+                    {
+                        m.LocalOverheadMessage(MessageType.Emote, 33, true, "* Ouch! *");
+                        m.PlaySound(343);
+                        m.FixedParticles(0x374A, 10, 15, 5021, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
+                        Caster.SendMessage(33, ((Caster == m) ? "Você está mortalmente envenenado e não poderá se curar com esse feitiço simples!" : "O seu alvo está mortalmente envenenado e não poderá ser curado com esse feitiço simples!"));
+                    }
+                    else if (chanceToCure <= Utility.RandomMinMax(p.Level * 2, 100))
 					{
-						if ( m.CurePoison( Caster ) )
-						{
-							if ( Caster != m )
-                                m.SendMessage(2253, "Você curou o veneno do alvo!");//Caster.SendLocalizedMessage( 1010058 ); // You have cured the target of all poisons!
-
-                            m.SendMessage(2253, "Você curou o veneno!");
-                            //m.SendLocalizedMessage( 1010059 ); // You have been cured of all poisons.
-                        }
-					}
-					else
-					{
+                        m.PlaySound(342);
                         m.SendMessage(33, "Você falhou em curar o veneno!"); //m.SendLocalizedMessage( 1010060 ); // You have failed to cure your target!
-					}
-				}
+                        m.FixedParticles(0x374A, 10, 15, 5028, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
+                    }
+                    else
+					{
+                        m.CurePoison(Caster);
+                        m.PlaySound(0x1E0);
 
-				m.FixedParticles( 0x373A, 10, 15, 5012, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Waist );
-				m.PlaySound( 0x1E0 );
+                        Misc.Titles.AwardKarma(Caster, 10, true);
+                        Caster.SendMessage(2253, ((Caster == m) ? "Você curou o veneno!" : "Você curou o veneno do alvo!"));
+                        m.FixedParticles(0x373A, 10, 15, 5012, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
+                        //m.SendLocalizedMessage( 1010059 ); // You have been cured of all poisons.
+                    }
+                }
 			}
 
 			FinishSequence();

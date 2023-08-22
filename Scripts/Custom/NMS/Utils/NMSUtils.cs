@@ -5,22 +5,39 @@ using Server.Network;
 using Server.Items;
 using Server.Targeting;
 using Server.Mobiles;
+using Server.Misc;
 
 namespace Server
 {
     public static class NMSUtils
     {
+        public static double getDamageEvalBenefit(Mobile Caster) 
+        {
+            //double magery = Caster.Skills.Magery.Value;
+            double eval = Caster.Skills.EvalInt.Value;
+            double value = ((eval * 3) / 100) + 1;
+            return value;
+        }
+
+        public static double getBonusIncriptBenefit(Mobile Caster)
+        {
+            //double magery = Caster.Skills.Magery.Value;
+            double inscr = Caster.Skills.Inscribe.Value;
+            double value = ((inscr * 3) / 100) + 1;
+            return value;
+        }
+
         public static double getBeneficialMageryInscribePercentage(Mobile Caster) 
         {
             double magery = Caster.Skills.Magery.Value;
             double inscribe = Caster.Skills.Inscribe.Value;
 
-            double maxPercent = inscribe / 4;
+            double maxPercent = inscribe / 3;
             if (maxPercent <= 1)
                 maxPercent = 1;
 
             double influence = (maxPercent / 100) + 1;
-            double points = (magery * influence) / 4;
+            double points = (magery * influence) / 3;
 
             return points;
         }
@@ -45,5 +62,12 @@ namespace Server
             return Utility.RandomMinMax((int)getSummonDispelDifficulty(bc), (int)(bc.DispelDifficulty / 2)) + caosBonus;
         }
 
+        //towns
+        public static void makeCriminalAction(Mobile caster, bool status)
+        {
+            caster.CriminalAction(status);
+            caster.SendMessage(55, "Você cometeu um ato criminoso.");
+            Misc.Titles.AwardKarma(caster, 50, true);
+        }
     }
 }

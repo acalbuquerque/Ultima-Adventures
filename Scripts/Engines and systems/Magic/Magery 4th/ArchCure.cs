@@ -52,19 +52,21 @@ namespace Server.Spells.Fourth
 				if ( map != null )
 				{
 					//you can target directly someone/something and become criminal if it's a criminal action
-					 if ( m_directtarget != null )
-						targets.Add ( m_directtarget );
+					 /*if ( m_directtarget != null )
+						targets.Add ( m_directtarget );*/
 
 					IPooledEnumerable eable = map.GetMobilesInRange( new Point3D( p ), 2 );
 
 					foreach ( Mobile m in eable )
 					{
-						if (Caster.CanBeBeneficial(m, false) && (m != m_directtarget && m is PlayerMobile) || (m == Caster && m != m_directtarget) || IsAllyTo(Caster, m))
-                        {
+						if (m.Poisoned) 
+						{
                             targets.Add(m);
                         }
-
-
+/*                        if (Caster.CanBeBeneficial(m, false) && (m != m_directtarget && m is PlayerMobile) || (m == Caster && m != m_directtarget) || IsAllyTo(Caster, m))
+                        {
+                            
+                        }*/
 						// Archcure area effect won't cure aggressors or victims, nor murderers, criminals or monsters 
 						// plus Arch Cure Area will NEVER work on summons/pets if you are in Felucca facet
 						// red players can cure only themselves and guildies with arch cure area.
@@ -80,10 +82,12 @@ namespace Server.Spells.Fourth
 
 					eable.Free();
 				}
-
 				Effects.PlaySound( p, Caster.Map, 0x299 );
+                //Caster.SendMessage(20, "targets.Count -> " + targets.Count);
 
-				if ( targets.Count > 0 )
+				// TODO - Maybe we can limit that only >=100 mage can cure more than 5 ?
+
+                if ( targets.Count > 0 )
 				{
 					int cured = 0;
 
@@ -97,49 +101,39 @@ namespace Server.Spells.Fourth
 
 						if ( poison != null )
 						{
-							int chanceToCure = 0;
-                            int totalSkills = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Inscribe].Value);
+                            int chanceToCure = (int)NMSUtils.getBeneficialMageryInscribePercentage(Caster);
+                            chanceToCure -= poison.Level;
+                            if (chanceToCure < 0) chanceToCure = 0;
 
-							if (totalSkills >= 240)
+                            //Caster.SendMessage(22, "chanceToCure -> " + chanceToCure);
+                            if (chanceToCure >= Utility.RandomMinMax(poison.Level * 2, 100) && m.CurePoison(Caster)) // success
 							{
-								chanceToCure = 60;
-							}
-							else if ((Caster.Skills[SkillName.Magery].Value >= 120 && (Caster.Skills[SkillName.Inscribe].Value >= 100)))
-							{
-								chanceToCure = 50;
-							}
-							else if ((Caster.Skills[SkillName.Magery].Value >= 100 && (Caster.Skills[SkillName.Inscribe].Value >= 80)))
-							{
-								chanceToCure = 40;
-							}
-							else if ((Caster.Skills[SkillName.Magery].Value >= 80 && (Caster.Skills[SkillName.Inscribe].Value >= 60)))
-							{
-								chanceToCure = 30;
+								++cured;
+                                m.PlaySound(0x1E0);
+                                m.FixedParticles(0x373A, 10, 15, 5012, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
 							}
 							else 
 							{
-                                chanceToCure = 20;
+                                m.PlaySound(342);
+                                m.FixedParticles(0x374A, 10, 15, 5028, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
                             }
-							chanceToCure -= (poison.Level * 2);
-							if (chanceToCure < 0) chanceToCure = 0;
-
-
-                            /*int chanceToCure = 10000 + (int)(Caster.Skills[SkillName.Magery].Value * 75) - ((poison.Level + 1) * 1750);
-							chanceToCure /= 100;
-							chanceToCure -= 1;*/
-
-							if ( chanceToCure >= Utility.Random( 100 ) && m.CurePoison( Caster ) )
-								++cured;
 						}
-
-						m.FixedParticles( 0x373A, 10, 15, 5012, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Waist );
-						m.PlaySound( 0x1E0 );
 					}
 
-					if ( cured > 0 )
-                        Caster.SendMessage(2253, "Você curou todos os venenos do alvo!");
-					else
-                        Caster.SendMessage(55, "Você não conseguiu curar os venenos do alvo!");
+					if ( cured > 0 && cured == targets.Count)
+					{
+                        Misc.Titles.AwardKarma(Caster, (-10 * cured), true);
+                        Caster.PlaySound(Caster.Female ? 783 : 1054); Caster.Say("*woohoo!*");
+                        Caster.SendMessage(2253, "Você curou todos os venenos próximos do alvo!");
+                        Caster.FixedParticles(0x376A, 9, 32, 5030, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
+                    }
+					else if (cured > 0)
+					{
+                        Misc.Titles.AwardKarma(Caster, (-10 * cured), true);
+                        Caster.SendMessage(55, "Você curou alguns dos venenos próximos do alvo!");
+                    }
+                    else
+                        Caster.SendMessage(33, "Você não conseguiu curar nenhum dos venenos próximos do alvo!");
                     //Caster.SendLocalizedMessage( 1010058 ); // You have cured the target of all poisons!
                 }
 			}

@@ -44,10 +44,10 @@ namespace Server.Spells.Third
 				double damage;
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+/*				if ( Caster is PlayerMobile ) // WIZARD
 				{
 					nBenefit = CalculateMobileBenefit(Caster, 40, 5);
-				}
+				}*/
 
 				damage = GetNMSDamage( 9, 1, 5, m ) + nBenefit;
 

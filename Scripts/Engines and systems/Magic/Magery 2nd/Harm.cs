@@ -49,11 +49,11 @@ namespace Server.Spells.Second
 				SpellHelper.CheckReflect( (int)this.Circle, Caster, ref m );
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+/*				if ( Caster is PlayerMobile ) // WIZARD
 				{
 					// make a Harm spell much more powerful if from a soul shard
 					nBenefit = CalculateMobileBenefit(Caster, 50, 5);
-				}
+				}*/
 				
 				double damage = GetNMSDamage( 6, 1, 4, m ) + nBenefit;
 

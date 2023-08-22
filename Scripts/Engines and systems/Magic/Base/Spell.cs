@@ -128,44 +128,49 @@ namespace Server.Spells
         public virtual int GetNMSDamage(int bonus, int dice, int sides, bool playerVsPlayer)
         {
             int realDamage = Utility.Dice(dice, sides, bonus);
+			int finalDamage = (int)Math.Floor((realDamage * NMSUtils.getDamageEvalBenefit(Caster)) / 2);
+            Caster.SendMessage(20, "realDamage-> " + realDamage);
+            Caster.SendMessage(21, "getDamageEvalBenefit-> " + NMSUtils.getDamageEvalBenefit(Caster));
+            Caster.SendMessage(22, "finalDamage-> " + finalDamage);
+            return (int)Math.Floor((realDamage * NMSUtils.getDamageEvalBenefit(Caster)) / 2);
             //Caster.SendMessage("realDamage-> " + realDamage + "");
 
-			// TODO: NOT WORKING
-/*            int SDICap = MyServerSettings.RealSpellDamageCap();
-            int sdiBonus = AosAttributes.GetValue(m_Caster, AosAttribute.SpellDamage); // check magic items bonus
+            // TODO: NOT WORKING
+            /*            int SDICap = MyServerSettings.RealSpellDamageCap();
+                        int sdiBonus = AosAttributes.GetValue(m_Caster, AosAttribute.SpellDamage); // check magic items bonus
 
-            if (sdiBonus > SDICap)
-            {
-                sdiBonus = SDICap;
-            }
-            Caster.SendMessage("sdiBonus-> " + sdiBonus);
+                        if (sdiBonus > SDICap)
+                        {
+                            sdiBonus = SDICap;
+                        }
+                        Caster.SendMessage("sdiBonus-> " + sdiBonus);
 
-			double test = (double)((100 + sdiBonus) / 100);
-            Caster.SendMessage("test----------> " + test + "");
-            realDamage = (int)Math.Floor(realDamage * test);
-            Caster.SendMessage("realDamage + SDI bonus-> " + realDamage + "");*/
-			
-            // Adding Eval + Int Bonus
-            double skillStatBonus = 0;
-            double evalSkill = GetEvalFixed(m_Caster) / 10;
-            //Caster.SendMessage("evalSkill-> " + evalSkill + "");
-            double evalBonus = (evalSkill * (evalSkill / 200)) / 2;
-            //Caster.SendMessage("Eval Bonus-> " + evalBonus + "");
+                        double test = (double)((100 + sdiBonus) / 100);
+                        Caster.SendMessage("test----------> " + test + "");
+                        realDamage = (int)Math.Floor(realDamage * test);
+                        Caster.SendMessage("realDamage + SDI bonus-> " + realDamage + "");*/
 
-            int intBonus = Caster.Int / 10;
-            if (Caster.Int >= 100) // Super´s have a little more bonus percentage
-            {
-                intBonus = Caster.Int / 9;
-            }
-            //Caster.SendMessage("intBonus Bonus-> " + intBonus + "");
+            /*            // Adding Eval + Int Bonus
+                        double skillStatBonus = 0;
+                        double evalSkill = GetEvalFixed(m_Caster) / 10;
+                        //Caster.SendMessage("evalSkill-> " + evalSkill + "");
+                        double evalBonus = (evalSkill * (evalSkill / 200)) / 2;
+                        //Caster.SendMessage("Eval Bonus-> " + evalBonus + "");
 
-            skillStatBonus += (evalBonus + intBonus) / 100;
-            //Caster.SendMessage("DamageBonus Skill+Int % -> " + skillStatBonus + "");
+                        int intBonus = Caster.Int / 10;
+                        if (Caster.Int >= 100) // Super´s have a little more bonus percentage
+                        {
+                            intBonus = Caster.Int / 9;
+                        }
+                        //Caster.SendMessage("intBonus Bonus-> " + intBonus + "");
 
-            int finalDamage = (int)Math.Floor(realDamage * (1 + skillStatBonus));
-            //Caster.SendMessage("final Damage-> " + finalDamage);
+                        skillStatBonus += (evalBonus + intBonus) / 100;
+                        //Caster.SendMessage("DamageBonus Skill+Int % -> " + skillStatBonus + "");
 
-            return finalDamage;
+                        int finalDamage = (int)Math.Floor(realDamage * (1 + skillStatBonus));
+                        //Caster.SendMessage("final Damage-> " + finalDamage);
+
+                        return finalDamage;*/
         }
 
         public virtual int GetNewAosDamage( int bonus, int dice, int sides, Mobile singleTarget )
