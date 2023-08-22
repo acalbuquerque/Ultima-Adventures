@@ -43,12 +43,12 @@ namespace Server.Items
             LootType = LootType.Blessed;
 
             this.StaffOwner = from;
-            string StaffName = "Belongs to " + StaffOwner.Name + "";
+            string StaffName = "Pertence a " + StaffOwner.Name + "";
 
             EngravedText = StaffName;
             //
             Name = "God staff";
-            Weight = 3.0;
+            Weight = 1.0;
             LootType = LootType.Blessed;
             AccuracyLevel = WeaponAccuracyLevel.Supremely;
             DurabilityLevel = WeaponDurabilityLevel.Indestructible;
@@ -63,7 +63,7 @@ namespace Server.Items
             Attributes.CastSpeed = 2;
             Attributes.LowerManaCost = 40;
             Attributes.LowerRegCost = 100;
-            WeaponAttributes.LowerStatReq = 150;
+            WeaponAttributes.LowerStatReq = 100;
             this.Hue = 2254; //0x8D6; // special red
         }
 

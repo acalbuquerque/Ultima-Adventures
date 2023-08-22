@@ -159,15 +159,15 @@ namespace Server.Commands
 
 					PackItem(new BootsofHermes());
 
-					from.RawStr = 200;
-					from.RawDex = 200;
-					from.RawInt = 200;
+					from.RawStr = 100;
+					from.RawDex = 100;
+					from.RawInt = 100;
 					from.Hits = from.HitsMax;
 					from.Mana = from.ManaMax;
 					from.Stam = from.StamMax;
 
 					for (int i = 0; i < targ.Skills.Length; ++i)
-						targ.Skills[i].Base = 125;
+						targ.Skills[i].Base = 120;
 				}
 
 				if (from.AccessLevel == AccessLevel.Counselor)

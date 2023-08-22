@@ -776,7 +776,7 @@ namespace Server.Mobiles
 
 			Timer.DelayCall( TimeSpan.FromSeconds( (double)(10+(3*time)) ), new TimerCallback( Delete ) );
 
-			Name = "a creature";
+			Name = "um prisioneiro espiritual";
 			Body = 2;
 
 			SetStr( str );
@@ -864,7 +864,7 @@ namespace Server.Mobiles
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-            //Caster.SendMessage(55, "Seu prisioneiro sumiu do mundo fisico!");
+            //Caster.SendMessage(55, "Seu prisioneiro espiritual sumiu do mundo fisico!");
             Timer.DelayCall( TimeSpan.FromSeconds( 10.0 ), new TimerCallback( Delete ) );
 		}
 	}
