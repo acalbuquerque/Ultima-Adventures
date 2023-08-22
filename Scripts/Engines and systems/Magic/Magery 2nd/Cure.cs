@@ -48,7 +48,7 @@ namespace Server.Spells.Second
                         m.LocalOverheadMessage(MessageType.Emote, 33, true, "* Ouch! *");
                         m.PlaySound(343);
                         m.FixedParticles(0x374A, 10, 15, 5021, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
-                        Caster.SendMessage(33, ((Caster == m) ? "Você está mortalmente envenenado e não poderá se curar com esse feitiço simples!" : "O seu alvo está mortalmente envenenado e não poderá ser curado com esse feitiço simples!"));
+                        Caster.SendMessage(33, ((Caster == m) ? "Você está mortalmente envenenado e não poderá se curar com esse simples feitiço!" : "O seu alvo está mortalmente envenenado e não poderá ser curado com esse simples feitiço!"));
                     }
                     else if (chanceToCure <= Utility.RandomMinMax(p.Level * 2, 100))
 					{

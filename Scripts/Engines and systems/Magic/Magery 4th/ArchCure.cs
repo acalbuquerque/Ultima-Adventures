@@ -102,7 +102,7 @@ namespace Server.Spells.Fourth
 						if ( poison != null )
 						{
                             int chanceToCure = (int)NMSUtils.getBeneficialMageryInscribePercentage(Caster);
-                            chanceToCure -= poison.Level;
+                            chanceToCure -= (poison.Level >= 4) ? poison.Level * 2 : poison.Level; // lethal poison double the reduce the chance to cure
                             if (chanceToCure < 0) chanceToCure = 0;
 
                             //Caster.SendMessage(22, "chanceToCure -> " + chanceToCure);
