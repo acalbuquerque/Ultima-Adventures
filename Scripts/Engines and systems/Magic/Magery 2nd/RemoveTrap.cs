@@ -37,16 +37,15 @@ namespace Server.Spells.Second
             }
 			else if ( CheckSequence() )
 			{
-				int nTrapLevel = item.TrapLevel * 12;
-
-				if ( (int)(Caster.Skills[SkillName.Magery].Value ) > nTrapLevel )
+				int mageLvl = (int)((Caster.Skills[SkillName.Magery].Value) / 3) - Utility.RandomMinMax(0, 1); // 50% chance to be weaker than the top
+                Point3D loc = item.GetWorldLocation();
+                if ( mageLvl >= item.TrapLevel)
 				{
-					Point3D loc = item.GetWorldLocation();
-
 					Effects.SendLocationParticles( EffectItem.Create( loc, item.Map, EffectItem.DefaultDuration ), 0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5015, 0 );
 					Effects.PlaySound( loc, item.Map, 0x1F0 );
+                    Effects.PlaySound(loc, item.Map, 61);
 
-					Caster.SendMessage(55, "Todas as armadilhas aqui foram desativadas.");
+                    Caster.SendMessage(55, "Todas as armadilhas aqui foram desativadas.");
 
 					item.TrapType = TrapType.None;
 					item.TrapPower = 0;
@@ -54,9 +53,11 @@ namespace Server.Spells.Second
 				}
 				else
 				{
-					Caster.SendMessage(55, "Essa armadilha parece complicada demais para ser afetada por sua magia.");
-					base.DoFizzle();
-				}
+                    Caster.LocalOverheadMessage(MessageType.Emote, 55, true, "* aff! *");
+                    Caster.SendMessage(55, "Essa armadilha parece complicada demais para ser desfeita por sua magia.");
+                    Effects.PlaySound(loc, item.Map, 10);
+                    //base.DoFizzle();
+                }
 			}
 			FinishSequence();
 		}

@@ -48,10 +48,14 @@ namespace Server.Spells.Second
 
 				item.TrapType = TrapType.MagicTrap;
 				//item.TrapPower = Core.AOS ? Utility.RandomMinMax( 10, 50 ) : 1;
-				item.TrapPower = (int)(Caster.Skills[SkillName.Magery].Value);
-				item.TrapLevel = (int)(Caster.Skills[SkillName.Magery].Value);
-					if ( item.TrapLevel > 90 ){ item.TrapLevel = 90; }
-					if ( item.TrapLevel < 0 ){ item.TrapLevel = 0; }
+				double power = (int)(Caster.Skills[SkillName.Magery].Value) / 3;
+				int powerDamage = (int)Math.Floor((power * NMSUtils.getDamageEvalBenefit(Caster)) / 3) + 1;
+
+                item.TrapPower = powerDamage;
+				item.TrapLevel = (int)(Caster.Skills[SkillName.Magery].Value / 3);
+
+                if ( item.TrapLevel > 60 ){ item.TrapLevel = 60; }
+				if ( item.TrapLevel < 0 ){ item.TrapLevel = 0; }
 
 				Point3D loc = item.GetWorldLocation();
 
@@ -69,43 +73,47 @@ namespace Server.Spells.Second
 
 		public void MTarget( IPoint3D p )
 		{
-			if ( !Caster.CanSee( p ) )
+            Point3D loc = new Point3D(p.X, p.Y, p.Z);
+
+			if (!Caster.CanSee(p))
 			{
-                Caster.SendMessage(55, "O alvo não pode ser visto.");
-            }
-			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+				Caster.SendMessage(55, "O alvo não pode ser visto.");
+			}
+			else if (SpellHelper.CheckTown(p, Caster) && CheckSequence())
 			{
 				int traps = 0;
 
-				foreach ( Item m in Caster.GetItemsInRange( 10 ) )
+				foreach (Item m in Caster.GetItemsInRange(10))
 				{
-					if ( m is SpellTrap )
+					if (m is SpellTrap)
 						++traps;
 				}
 
-				if ( traps > 2 )
+				if (traps > 2)
 				{
 					Caster.SendMessage(55, "Existem muitas armadilhas mágicas na área!");
 				}
-				else if ( !Caster.Region.AllowHarmful( Caster, Caster ) )
+				else if (!Caster.Region.AllowHarmful(Caster, Caster))
 				{
-					Caster.SendMessage(55, "Isso não parece uma boa ideia."); 
+					Caster.SendMessage(55, "Não parece ser uma boa ideia fazer isso aqui.");
 					return;
 				}
 				else
-				{
-					SpellHelper.Turn( Caster, p );
-					SpellHelper.GetSurfaceTop( ref p );
+				{ // Runas no chao
+					SpellHelper.Turn(Caster, p);
+					SpellHelper.GetSurfaceTop(ref p);
 
-					Point3D loc = new Point3D( p.X, p.Y, p.Z );
+					NMSUtils.makeCriminalAction(Caster, true);
 
-					int TrapPower = (int)(Caster.Skills[SkillName.Magery].Value/2);
-					SpellTrap mtrap = new SpellTrap( Caster, TrapPower ); 
-					mtrap.Map = Caster.Map; 
+                    double power = (int)(Caster.Skills[SkillName.Magery].Value) / 3;
+					int powerDamage = (int)Math.Floor((power * NMSUtils.getDamageEvalBenefit(Caster)) / 5) + 1;
+					int TrapPower = powerDamage;
+					SpellTrap mtrap = new SpellTrap(Caster, TrapPower);
+					mtrap.Map = Caster.Map;
 					mtrap.Location = loc;
 
-					Effects.SendLocationParticles( EffectItem.Create( loc, Caster.Map, EffectItem.DefaultDuration ), 0x376A, 9, 10, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 9502, 0 );
-					Effects.PlaySound( loc, Caster.Map, 0x1EF );
+					Effects.SendLocationParticles(EffectItem.Create(loc, Caster.Map, EffectItem.DefaultDuration), 0x376A, 9, 10, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, 9502, 0);
+					Effects.PlaySound(loc, Caster.Map, 0x1EF);
 				}
 			}
 
