@@ -52,8 +52,8 @@ namespace Server.Spells.Fourth
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				SpellHelper.Turn( Caster, m );
@@ -64,10 +64,32 @@ namespace Server.Spells.Fourth
 					m.Spell.OnCasterHurt();
 
 				m.Paralyzed = false;
+				double magebonus = (Caster.Skills.Magery.Value * NMSUtils.getDamageEvalBenefit(Caster));
+                int toDrain = (int)((magebonus / 10)*1.25);
+                if (toDrain < 0)
+                    toDrain = 0;
+                else if (toDrain > m.Mana)
+                    toDrain = m.Mana;
 
-				if ( Core.AOS )
+                if (m_Table.ContainsKey(m))
+                    toDrain = 0;
+
+                m.FixedParticles(0x3789, 10, 25, 5032, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Head);
+                m.PlaySound(0x1F8);
+
+                if (toDrain > 0)
+                {
+                    //Caster.SendMessage(33, "==> " + toDrain);
+                    m.Mana -= toDrain;
+					int seconds = (int)(5 * NMSUtils.getDamageEvalBenefit(Caster));
+                    Caster.SendMessage(33, "==> " + NMSUtils.getDamageEvalBenefit(Caster));
+                    Caster.SendMessage(22, "====> " + seconds);
+                    m_Table[m] = Timer.DelayCall(TimeSpan.FromSeconds(seconds), new TimerStateCallback(AosDelay_Callback), new object[] { m, toDrain });
+                }
+/*                if ( Core.AOS )
 				{
-					int toDrain = 40 + (int)(GetDamageSkill( Caster ) - GetResistSkill( m ));
+                    Caster.SendMessage(33, "AOS");
+                    int toDrain = 40 + (int)(GetDamageSkill( Caster ) - GetResistSkill( m ));
 
 					if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer() )
 						toDrain = (int)((double)toDrain*1.25);
@@ -92,7 +114,8 @@ namespace Server.Spells.Fourth
 				}
 				else
 				{
-					if ( CheckResisted( m ) )
+                    Caster.SendMessage(22, "!AOS");
+                    if ( CheckResisted( m ) )
 						m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
 					else if ( m.Mana >= 100 )
 						m.Mana -= Utility.Random( 1, 100 );
@@ -101,7 +124,7 @@ namespace Server.Spells.Fourth
 
 					m.FixedParticles( 0x374A, 10, 15, 5032, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Head );
 					m.PlaySound( 0x1F8 );
-				}
+				}*/
 
 				HarmfulSpell( m );
 			}
@@ -109,10 +132,10 @@ namespace Server.Spells.Fourth
 			FinishSequence();
 		}
 
-		public override double GetResistPercent( Mobile target )
+/*		public override double GetResistPercent( Mobile target )
 		{
 			return 99.0;
-		}
+		}*/
 
 		private class InternalTarget : Target
 		{

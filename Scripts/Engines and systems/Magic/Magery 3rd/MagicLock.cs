@@ -44,13 +44,17 @@ namespace Server.Spells.Third
 					if ( Multis.BaseHouse.CheckLockedDownOrSecured( box ) )
 					{
                         // You cannot cast this on a locked down item.
-                        Caster.SendMessage(95, "Você não pode lançar isso em um baú já trancado!");
+                        Caster.PlaySound(Caster.Female ? 812 : 1086);
+                        Caster.Say("*oops*");
+                        Caster.SendMessage(95, "Você não pode lançar um feitiço em um baú seguro!");
                         //Caster.LocalOverheadMessage( MessageType.Regular, 0x22, 501761 );
 					}
-					else if ( box.Locked || box.LockLevel == 0 || box is ParagonChest )
+					else if ( box.Locked ||  box is ParagonChest || box is TreasureMapChest || box is PirateChest)
 					{
                         // Target must be an unlocked chest.
-                        Caster.SendMessage(95, "O alvo deve ser um baú desbloqueado!");
+                        Caster.PlaySound(Caster.Female ? 812 : 1086);
+                        Caster.Say("*oops*");
+                        Caster.SendMessage(95, "Você não pode lançar um feitiço em um baú já trancado.");
                         //Caster.SendLocalizedMessage( 501762 );
 					}
 					else if ( CheckSequence() )
@@ -59,65 +63,74 @@ namespace Server.Spells.Third
 
 						Point3D loc = box.GetWorldLocation();
 
-						Effects.SendLocationParticles(
-							EffectItem.Create( loc, box.Map, EffectItem.DefaultDuration ),
+						Effects.SendLocationParticles( EffectItem.Create( loc, box.Map, EffectItem.DefaultDuration ), 
 							0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5020, 0 );
 
 						Effects.PlaySound( loc, box.Map, 0x1FA );
 
                         // The chest is now locked!
-                        Caster.SendMessage(2253, "O alvo foi trancado com magia!");
+                        Caster.SendMessage(2253, "O baú foi trancado com magia!");
+                        Caster.PlaySound(Caster.Female ? 779 : 1050);
+                        Caster.Say("*ah ha!*");
                         //Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, 501763 );
 
-						box.LockLevel = (int)(Caster.Skills[SkillName.Magery].Value) - 10;
-						//if ( box.LockLevel >= 120 ){ box.LockLevel = 110; }
+                        box.LockLevel = ((int)(Caster.Skills[SkillName.Magery].Value) >= 75) ? 75 : (int)(Caster.Skills[SkillName.Magery].Value);
 						if ( box.LockLevel <= 0 ){ box.LockLevel = 0; }
-						
-						box.MaxLockLevel = 120;
 						box.RequiredSkill = box.LockLevel;
-
-						//box.LockLevel = -255; // signal magic lock
-						box.Locked = true;
-					}
+                        box.MaxLockLevel = 120;
+                        box.Locked = true;
+                        //box.LockLevel = -255; // signal magic lock
+                    }
 				}
 				else if ( targ is BaseDoor )
 				{
 					BaseDoor door = (BaseDoor)targ;
-					if ( Server.Items.DoorType.IsDungeonDoor( door ) )
+					if (Server.Items.DoorType.IsDungeonDoor(door))
 					{
-						if ( door.Locked == true )
+						if (door.Locked == true)
+						{
+							Caster.PlaySound(Caster.Female ? 812 : 1086);
+							Caster.Say("*oops*");
 							Caster.SendMessage(95, "Essa porta já está trancada!");
+						}
 						else
 						{
-							SpellHelper.Turn( Caster, door );
+							SpellHelper.Turn(Caster, door);
 
 							Point3D loc = door.GetWorldLocation();
 
 							Effects.SendLocationParticles(
-								EffectItem.Create( loc, door.Map, EffectItem.DefaultDuration ),
-								0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5020, 0 );
+								EffectItem.Create(loc, door.Map, EffectItem.DefaultDuration),
+								0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, 5020, 0);
 
-							Effects.PlaySound( loc, door.Map, 0x1FA );
+							Effects.PlaySound(loc, door.Map, 0x1FA);
 
-							Caster.SendMessage(95, "Essa porta agora está trancada!");
+							Caster.SendMessage(95, "Essa porta agora foi trancada com magia!");
 
 							door.Locked = true;
-							Server.Items.DoorType.LockDoors( door );
+							Server.Items.DoorType.LockDoors(door);
 
-							new InternalTimer( door, Caster ).Start();
+							new InternalTimer(door, Caster).Start();
 						}
 					}
-					else
-						Caster.SendMessage(95, "Este feitiço não tem efeito sobre isso!");
+					else 
+					{
+                        Caster.PlaySound(Caster.Female ? 812 : 1086);
+                        Caster.Say("*oops*");
+                        Caster.SendMessage(95, "Este feitiço não tem efeito sobre essa porta!");
+                    }
 				}
 				else
 				{
+                    Caster.PlaySound(Caster.Female ? 812 : 1086);
+                    Caster.Say("*oops*");
                     Caster.SendMessage(95, "Este feitiço não tem efeito sobre isso!");
                 }
 				
 			}
 			else if ( o is PlayerMobile )
 			{
+                Caster.CriminalAction(true);
                 FailToCaptureTheSoul(95, "Esta alma é forte demais para ficar presa no frasco!");
             }
 			else if ( o is BaseCreature )
@@ -156,10 +169,11 @@ namespace Server.Spells.Third
 				{
                     bc.Say("Você acha que pode capturar minha alma?");
                     bc.Say("Deixe-me mostrar o que posso fazer com você, seu inseto!");
-                    
+                    Caster.PlaySound(Caster.Female ? 799 : 1071);
+                    Caster.Say("*huh?*");
+                    FailToCaptureTheSoul(55, "Você sente uma força poderosa bater em você!");
                     Timer.DelayCall(TimeSpan.FromSeconds(2), () =>
                     {
-                        FailToCaptureTheSoul(55, "Você sente uma força poderosa bater em você!");
                         Caster.Kill();
                     });                   
 				}
@@ -170,7 +184,7 @@ namespace Server.Spells.Third
 					int playerInt = (int)(Caster.RawInt);
 
                     Caster.CriminalAction(true); // this is a criminal action. Dude, you are stealing a soul...
-
+                    
                     // This is a very tricky spell. The player must be a very strong wizzard/sorcerer.
 
                     if (playerMagery >= 100 && playerEval >= 100 && playerInt >= 100)
@@ -188,6 +202,8 @@ namespace Server.Spells.Third
                             // success
                             if (successPercentage >= random)
                             {
+                                Misc.Titles.AwardFame(Caster, (30), true); // ganha fama pela açao
+
                                 // Consume the empty electrum flask
                                 Item flask = Caster.Backpack.FindItemByType(typeof(ElectrumFlask));
                                 if (flask != null) { flask.Consume(); }
@@ -197,13 +213,14 @@ namespace Server.Spells.Third
                                 {
                                     Caster.Kills = Caster.Kills + 1;
                                     Caster.SendMessage(33, "Aprisionar uma alma humana significa assassinato!");
+                                    Misc.Titles.AwardKarma(Caster, (-100), true); // ganha karma negativo
                                 }
 
                                 // Create the flask with the soul
                                 ElectrumFlaskFilled flaskWithASoul = CreateCapturedSoulInAFlask(bc);
 
                                 // Increase or Decrease fame/karma
-                                IncreaseOrDecreaseFameKarma(bc);
+                                //IncreaseOrDecreaseFameKarma(bc);
 
                                 // Delete the original creature
                                 bc.BoltEffect(0);
@@ -234,7 +251,7 @@ namespace Server.Spells.Third
 
 			FinishSequence();
 		}
-
+		// DEPRECATED
 		private void IncreaseOrDecreaseFameKarma(BaseCreature bc) 
 		{
 			int fameWonLost = ((int)bc.Fame / 10); // + 10% of creature fame

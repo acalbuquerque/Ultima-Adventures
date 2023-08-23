@@ -89,7 +89,7 @@ namespace Server.Misc
 		{
 			// CHANCE THAT ITEMS ARE UNIDENTIFIED
 			// IF YOU SET THIS VERY LOW, THEN ITEM IDENTIFICATION STARTS TO BECOME A USELESS SKILL
-			return 50;
+			return 65;
 		}
 
 		public static bool NoMacroing()
@@ -250,7 +250,7 @@ namespace Server.Misc
 		}
 
 		public static int StatBonusCap() {
-			return 115;
+			return 105;
 		}
 
 		public static int KarmaMax() {
@@ -500,7 +500,7 @@ namespace Server.Misc
 
 		public static bool SellVeryRareChance() // CHANCE A VENDOR SELLS A VERY RARE ITEM. SET "chance" HIGHER FOR MORE OFTEN
 		{
-			int chance = 5;	if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
+			int chance = 10;	if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
 			return false;
 		}
 
@@ -518,12 +518,12 @@ namespace Server.Misc
 
 		public static bool BuyRareChance() // CHANCE A VENDOR BUYS A RARE ITEM. SET "chance" HIGHER FOR MORE OFTEN
 		{
-			int chance = 40;	if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
+			int chance = 50;	if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
 			return false;
 		}
 		public static bool BuyVeryRareChance() // CHANCE A VENDOR BUYS A RARE ITEM. SET "chance" HIGHER FOR MORE OFTEN
 		{
-			int chance = 5;	if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
+			int chance = 10;	if ( chance >= Utility.RandomMinMax( 1, 100 ) ){ return true; }
 			return false;
 		}
 
@@ -537,8 +537,8 @@ namespace Server.Misc
 		
 		public static bool buysellcontext() // do you want vendors to have clickable context menus for buy/sell? (comment one OR the other)
 		{
-			//return true; 
-			return false;
+			return true; 
+			//return false;
 		}
 		
 		public static int decayrate() // note, itemdecay was disabled in this release.  if you want itemdecay, run runuo.exe.itemdecay instead and set the value here to the amount of time you want for item decay .  
@@ -548,7 +548,7 @@ namespace Server.Misc
 		
 		public static int skillcap() // This server can accomodate unlimited skillcap.  What should a NEW CHARACTER's skillcap be?
 		{
-			return 1000;
+			return 850;
 		}
 		
 		public static int skillcapbarbaric() // Skill cap for Barbaric characters
@@ -568,7 +568,7 @@ namespace Server.Misc
 
 		public static int newstatcap() // This server can accomodate unlimited statcap.  What should a NEW CHARACTER's statcap be?
 		{
-			return 250;
+			return 235;
 		}
 		
 		public static bool powerscrolllevel() // this sets whether you need to use a +5 powerscroll before using a +10, and +10 before using a +15, etc.
@@ -599,15 +599,15 @@ namespace Server.Misc
 		}
 
 		public static int ReflectDamageCap() {
-			return 100;
+			return 80;
 		}
 
 		public static int LowerReagentCostCap() {
-			return 100;
+			return 50;
 		}
 
 		public static int LowerManaCostCap() {
-			return 90;
+			return 50;
 		}
 
 		public static int EnhancePotionCap(Mobile m) 
@@ -623,7 +623,7 @@ namespace Server.Misc
 		}
 
 		public static double BandageSpeedMin() {
-			return 3.5;
+			return 2.5;
 		}
 
 		public static double MinimumSwingDelaySeconds() {
@@ -635,7 +635,7 @@ namespace Server.Misc
 		}
 
 		public static int HitChanceCap() {
-			return 47;
+			return 52;
 		}
 
 		public static int DefendChanceCap() {
@@ -655,7 +655,7 @@ namespace Server.Misc
 		}
 
 		public static int DamageIncreaseCap() {
-			return 150;
+			return 120;
 		}
 
 		public static int RealSpellDamageCap() {
@@ -726,7 +726,7 @@ namespace Server.Misc
 
 		public static bool AllowFreePVPlacement() // If enabled, Player Vendors can be placed anywhere on the map except in other player's houses and in private houses
 		{
-		    return true;
+		    return false;
 		}
 		// ******************************************************************************************************************************************
 

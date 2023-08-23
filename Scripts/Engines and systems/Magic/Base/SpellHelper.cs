@@ -428,59 +428,61 @@ namespace Server.Spells
 
 		public static bool ValidIndirectTarget( Mobile from, Mobile to )
 		{
-			if( from == to )
-				return true;
+/*			if( from == to )
+				return true;*/
 
-			if( to.Hidden && to.AccessLevel > from.AccessLevel )
+			if( to.Hidden || to.AccessLevel >= AccessLevel.Counselor) 
 				return false;
 
-			Guild fromGuild = GetGuildFor( from );
-			Guild toGuild = GetGuildFor( to );
+			return true;
 
-			if( fromGuild != null && toGuild != null && (fromGuild == toGuild || fromGuild.IsAlly( toGuild )) )
+/*			Guild fromGuild = GetGuildFor(from);
+			Guild toGuild = GetGuildFor(to);
+
+			if (fromGuild != null && toGuild != null && (fromGuild == toGuild || fromGuild.IsAlly(toGuild)))
 				return false;
 
-			Party p = Party.Get( from );
+			Party p = Party.Get(from);
 
-			if( p != null && p.Contains( to ) )
-				return false;
+			if (p != null && p.Contains(to))
+				return false;*/
 
-			if( to is BaseCreature )
-			{
-				BaseCreature c = (BaseCreature)to;
+			/*			if( to is BaseCreature )
+						{
+							BaseCreature c = (BaseCreature)to;
 
-				if( c.Controlled || c.Summoned )
-				{
-					if( c.ControlMaster == from || c.SummonMaster == from )
-						return false;
+							if( c.Controlled || c.Summoned )
+							{
+								if( c.ControlMaster == from || c.SummonMaster == from )
+									return false;
 
-					if( p != null && (p.Contains( c.ControlMaster ) || p.Contains( c.SummonMaster )) )
-						return false;
-				}
-			}
+								if( p != null && (p.Contains( c.ControlMaster ) || p.Contains( c.SummonMaster )) )
+									return false;
+							}
+						}*/
 
-			if( from is BaseCreature )
-			{
-				BaseCreature c = (BaseCreature)from;
+			/*			if( from is BaseCreature )
+						{
+							BaseCreature c = (BaseCreature)from;
 
-				if( c.Controlled || c.Summoned )
-				{
-					if( c.ControlMaster == to || c.SummonMaster == to )
-						return false;
+							if( c.Controlled || c.Summoned )
+							{
+								if( c.ControlMaster == to || c.SummonMaster == to )
+									return false;
 
-					p = Party.Get( to );
+								p = Party.Get( to );
 
-					if( p != null && (p.Contains( c.ControlMaster ) || p.Contains( c.SummonMaster )) )
-						return false;
-				}
-			}
+								if( p != null && (p.Contains( c.ControlMaster ) || p.Contains( c.SummonMaster )) )
+									return false;
+							}
+						}*/
 
-			if( to is BaseCreature && !((BaseCreature)to).Controlled && ((BaseCreature)to).InitialInnocent )
-				return true;
+			/*			if( to is BaseCreature && !((BaseCreature)to).Controlled && ((BaseCreature)to).InitialInnocent )
+							return true;
 
-			int noto = Notoriety.Compute( from, to );
+						int noto = Notoriety.Compute( from, to );
 
-			return (noto != Notoriety.Innocent || from.Kills >= 1);
+						return (noto != Notoriety.Innocent || from.Kills >= 1);*/
 		}
 
 		private static int[] m_Offsets = new int[]

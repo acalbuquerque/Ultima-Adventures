@@ -206,7 +206,7 @@ namespace Server.Misc
 
 				if (message) {
 					if (offset > 0) {
-						player.SendMessage( 0,  "You gain Soul Force." ); 		
+						player.SendMessage( 2253,  "Você ganhou força em sua alma." ); 		
 					} 
 				}
 			} 

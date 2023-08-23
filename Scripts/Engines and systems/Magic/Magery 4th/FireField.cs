@@ -5,6 +5,8 @@ using Server.Network;
 using Server.Misc;
 using Server.Items;
 using Server.Mobiles;
+using Server.Guilds;
+using Server.Engines.PartySystem;
 
 namespace Server.Spells.Fourth
 {
@@ -35,8 +37,8 @@ namespace Server.Spells.Fourth
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
 				SpellHelper.Turn( Caster, p );
@@ -72,22 +74,21 @@ namespace Server.Spells.Fourth
 				int itemID = eastToWest ? 0x398C : 0x3996;
 
 				TimeSpan duration;
+                int nBenefit = 0;
+                int damage = GetNMSDamage(1, 2, 6, Caster) + nBenefit; //(int)(Caster.Skills[SkillName.Magery].Value / 35 );
+                duration = SpellHelper.NMSGetDuration(Caster, Caster, false);
+                /*				if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer() )
+                                    damage *= 7;*/
 
-				int damage = (int)(Caster.Skills[SkillName.Magery].Value / 35 );
-				
-				if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer() )
-					damage *= 7;
+                /*				if ( Caster is PlayerMobile ) // WIZARD
+                                {
+                                    nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 3);
+                                }*/
 
-				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
-				{
-					nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 3);
-				}
-
-				if ( Core.AOS )
+/*                if ( Core.AOS )
 					duration = TimeSpan.FromSeconds( ((15 + (Caster.Skills.Magery.Fixed / 5)) / 4) + nBenefit );
 				else
-					duration = TimeSpan.FromSeconds( 4.0 + (Caster.Skills[SkillName.Magery].Value * 0.5) + nBenefit );
+					duration = TimeSpan.FromSeconds( 4.0 + (Caster.Skills[SkillName.Magery].Value * 0.5) + nBenefit );*/
 
 				for ( int i = -2; i <= 2; ++i )
 				{
@@ -100,7 +101,7 @@ namespace Server.Spells.Fourth
 			FinishSequence();
 		}
 
-		[DispellableField]
+        [DispellableField]
 		public class FireFieldItem : Item
 		{
 			private Timer m_Timer;
@@ -128,12 +129,12 @@ namespace Server.Spells.Fourth
 				m_Caster = caster;
 
 				int nBenefit = 0;
-				if ( caster is PlayerMobile ) // WIZARD
-				{
-					nBenefit = (int)(caster.Skills[SkillName.Magery].Value / 15);
-				}
+                /*				if ( caster is PlayerMobile ) // WIZARD
+                                {
+                                    nBenefit = (int)(caster.Skills[SkillName.Magery].Value / 15);
+                                }*/
 
-				m_Damage = damage + nBenefit;
+                m_Damage = damage + nBenefit;
 
 				m_End = DateTime.UtcNow + duration;
 
@@ -198,35 +199,59 @@ namespace Server.Spells.Fourth
 					m_Damage = 2;
 			}
 
-			public override bool OnMoveOver( Mobile m )
+            private void doFireDamage(Mobile m)
+            {
+                int damage = m_Damage;
+                Mobile to = m;
+                Mobile from = m_Caster;
+                Guild fromGuild = SpellHelper.GetGuildFor(from);
+                Guild toGuild = SpellHelper.GetGuildFor(to);
+                Party p = Party.Get(from);
+
+                if (SpellHelper.ValidIndirectTarget(m_Caster, m) && m_Caster.CanBeHarmful(m, false))
+                {
+                    if (SpellHelper.CanRevealCaster(m))
+                        m_Caster.RevealingAction();
+
+                    m_Caster.DoHarmful(m);
+
+                    // o proprio player OU players da mesma guilda/aliados OU membros em party, tem no maximo metade do dano esperado.
+                    if (to == from ||
+                        (fromGuild != null && toGuild != null && (fromGuild == toGuild || fromGuild.IsAlly(toGuild))) ||
+                        (p != null && p.Contains(to))
+                        )
+                    {
+                        damage = Utility.RandomMinMax(1, damage / 2);
+                    }
+                    else if (m is BaseCreature)
+                    {
+                        BaseCreature c = (BaseCreature)m;
+                        if ((c.Controlled || c.Summoned) && (c.ControlMaster == from || c.SummonMaster == from)) // proprio summon / pet
+                        {
+                            damage = Utility.RandomMinMax(damage / 2, damage);
+                        }
+                        else
+                        {
+                            damage -= Utility.RandomMinMax(0, 1); // just to create a fake-random damage
+                        }
+                        ((BaseCreature)m).OnHarmfulSpell(m_Caster);
+                    }
+                    if (damage < 1) { damage = 1; }
+
+                    if (Utility.RandomMinMax(0, 1) > 0) // 50% delay
+                    {
+                        AOS.Damage(to, from, damage, 0, 100, 0, 0, 0);
+                        m.PlaySound(0x208);
+                        if (m is PlayerMobile)
+                            m.PlaySound(m.Female ? 0x32E : 0x440);
+                    }
+                }
+            }
+
+            public override bool OnMoveOver( Mobile m )
 			{
-				if ( Visible && m_Caster != null && (!Core.AOS || m != m_Caster) && SpellHelper.ValidIndirectTarget( m_Caster, m ) && m_Caster.CanBeHarmful( m, false ) )
-				{
-					if ( SpellHelper.CanRevealCaster( m ) )
-						m_Caster.RevealingAction();
-					
-					m_Caster.DoHarmful( m );
-
-					int damage = m_Damage;
-
-					if (m == m_Caster && m is BaseCreature) //mobs can cast this now.. so they need reduced damage
-						damage = 1;
-
-					if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 0.0, 30.0 ) )
-					{
-						damage = 1;
-
-						m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
-					}
-
-					AOS.Damage( m, m_Caster, damage, 0, 100, 0, 0, 0 );
-					m.PlaySound( 0x208 );
-
-					if ( m is BaseCreature )
-						((BaseCreature) m).OnHarmfulSpell( m_Caster );
-				}
-
-				return true;
+				doFireDamage(m);
+                return true;
 			}
 
 			private class InternalTimer : Timer
@@ -245,7 +270,57 @@ namespace Server.Spells.Fourth
 					Priority = TimerPriority.FiftyMS;
 				}
 
-				protected override void OnTick()
+                private void doDamage(Mobile m)
+                {
+                    int damage = m_Item.m_Damage;
+                    Mobile caster = m_Item.m_Caster;
+                    Mobile to = m;
+                    Mobile from = caster;
+                    Guild fromGuild = SpellHelper.GetGuildFor(from);
+                    Guild toGuild = SpellHelper.GetGuildFor(to);
+                    Party p = Party.Get(from);
+
+                    if (SpellHelper.ValidIndirectTarget(caster, m) && caster.CanBeHarmful(m, false))
+                    {
+                        if (SpellHelper.CanRevealCaster(m))
+                            caster.RevealingAction();
+
+                        caster.DoHarmful(m);
+
+                        // o proprio player OU players da mesma guilda/aliados OU membros em party, tem no maximo metade do dano esperado.
+                        if (to == from ||
+                            (fromGuild != null && toGuild != null && (fromGuild == toGuild || fromGuild.IsAlly(toGuild))) ||
+                            (p != null && p.Contains(to))
+                            )
+                        {
+                            damage = Utility.RandomMinMax(1, damage/2);
+                        }
+                        else if (m is BaseCreature)
+                        {
+                            BaseCreature c = (BaseCreature)m;
+                            if ((c.Controlled || c.Summoned) && (c.ControlMaster == from || c.SummonMaster == from)) // proprio summon / pet
+                            {
+                                damage = Utility.RandomMinMax(damage/2, damage);
+                            }
+							else {
+                                damage -= Utility.RandomMinMax(0, 1); // just to create a fake-random damage
+                            }
+                            ((BaseCreature)m).OnHarmfulSpell(caster);
+                        }
+
+                        if (damage < 1) { damage = 1; }
+
+                        if (Utility.RandomMinMax(0, 1) > 0) // 50% delay
+                        {
+                            AOS.Damage(to, from, damage, 0, 100, 0, 0, 0);
+                            m.PlaySound(0x208);
+							if (m is PlayerMobile)
+								m.PlaySound(m.Female ? 0x32E : 0x440);
+                        }
+                    }
+                }
+
+                protected override void OnTick()
 				{
 					if ( m_Item.Deleted )
 						return;
@@ -277,34 +352,17 @@ namespace Server.Spells.Fourth
 						{
 							foreach ( Mobile m in m_Item.GetMobilesInRange( 0 ) )
 							{
-								if ( (m.Z + 16) > m_Item.Z && (m_Item.Z + 12) > m.Z && (!Core.AOS || m != caster) && SpellHelper.ValidIndirectTarget( caster, m ) && caster.CanBeHarmful( m, false ) )
+								if ( (m.Z + 16) > m_Item.Z && (m_Item.Z + 12) > m.Z && 
+									SpellHelper.ValidIndirectTarget( caster, m ) && 
+									caster.CanBeHarmful( m, false ) )
 									m_Queue.Enqueue( m );
 							}
 
 							while ( m_Queue.Count > 0 )
 							{
 								Mobile m = (Mobile)m_Queue.Dequeue();
-								
-								if ( SpellHelper.CanRevealCaster( m ) )
-									caster.RevealingAction();
-
-								caster.DoHarmful( m );
-
-								int damage = m_Item.m_Damage;
-
-								if ( !Core.AOS && m.CheckSkill( SkillName.MagicResist, 0.0, 30.0 ) )
-								{
-									damage = 1;
-
-									m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
-								}
-
-								AOS.Damage( m, caster, damage, 0, 100, 0, 0, 0 );
-								m.PlaySound( 0x208 );
-
-								if ( m is BaseCreature )
-									((BaseCreature) m).OnHarmfulSpell( caster );
-							}
+                                doDamage(m);
+                            }
 						}
 					}
 				}

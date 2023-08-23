@@ -51,81 +51,117 @@ namespace Server.Spells.Third
 
 					if ( o is Mobile )
 					{
+                        from.PlaySound(from.Female ? 812 : 1086);
+                        from.Say("*oops*");
                         from.SendMessage(55, "Você não tem o que destrancar.");
                         //from.LocalOverheadMessage( MessageType.Regular, 0x3B2, 503101 ); // That did not need to be unlocked.
 					}
 					else if ( o is BaseHouseDoor )  // house door check
 					{
-						from.SendMessage(55, "Este feitiço é para destravar certos recipientes e outros tipos de portas.");
+                        from.PlaySound(from.Female ? 812 : 1086);
+                        from.Say("*oops*");
+                        from.SendMessage(55, "Este feitiço é para destrancar baús, caixas, cofres e algumas portas.");
 					}
 					else if ( o is BookBox )  // cursed box of books
 					{
-						from.SendMessage(55, "Este feitiço nunca pode desbloquear esta caixa amaldiçoada.");
+                        from.PlaySound(from.Female ? 812 : 1086);
+                        from.Say("*oops*");
+                        from.SendMessage(55, "Este feitiço nunca será capaz de destrancar uma caixa amaldiçoada.");
 					}
 					else if ( o is UnidentifiedArtifact || o is UnidentifiedItem || o is CurseItem )
 					{
-						from.SendMessage(55, "Este feitiço é usado para desbloquear qualquer contêiner.");
+                        from.PlaySound(from.Female ? 812 : 1086);
+                        from.Say("*oops*");
+                        from.SendMessage(55, "Este feitiço não serve para destrancar isto.");
 					}
 					else if ( o is BaseDoor )
 					{
-						if ( Server.Items.DoorType.IsDungeonDoor( (BaseDoor)o ) )
+						if (Server.Items.DoorType.IsDungeonDoor((BaseDoor)o))
 						{
-							if (((BaseDoor)o).Locked == false) {
-                                //from.SendMessage(55, "Isso não precisava ser desbloqueado.");
-                                from.LocalOverheadMessage(MessageType.Regular, 55, false, "Isso não precisava ser desbloqueado."); // That did not need to be unlocked.
-                            }
+							if (((BaseDoor)o).Locked == false)
+							{
+								//from.SendMessage(55, "Isso não precisava ser desbloqueado.");
+								from.PlaySound(from.Female ? 812 : 1086);
+								from.Say("*oops*");
+								from.LocalOverheadMessage(MessageType.Regular, 55, false, "Isso não precisava ser destrancado."); // That did not need to be unlocked.
+							}
 							else
 							{
-								if (((BaseDoor)o).KeyValue <= 65 && Utility.RandomDouble() < (double)( (100- ((BaseDoor)o).KeyValue) / 100) )
-								{	
+								if (((BaseDoor)o).KeyValue <= 65 && Utility.RandomDouble() < (double)((100 - ((BaseDoor)o).KeyValue) / 100))
+								{
 									((BaseDoor)o).Locked = false;
 									((BaseDoor)o).KeyValue = 0;
-									Server.Items.DoorType.UnlockDoors( (BaseDoor)o );
-                                    from.SendMessage(2253, "Você ouve a fechadura abrir.");
-                                }
-								else 
-									from.SendMessage(55, "A fechadura é muito complexa para um feitiço simples.");
+									Server.Items.DoorType.UnlockDoors((BaseDoor)o);
+									from.SendMessage(2253, "Você ouve a fechadura abrir.");
+									from.PlaySound(from.Female ? 779 : 1050);
+									from.Say("*ah ha!*");
+								}
+								else
+								{
+									from.SendMessage(55, "A fechadura é muito complexa para este feitiço.");
+									from.PlaySound(from.Female ? 811 : 1085);
+									from.Say("*oooh*");
+								}
+
 							}
 						}
-						else
-                            from.LocalOverheadMessage(MessageType.Regular, 55, false, "Isso não precisava ser desbloqueado.");
-                        //from.LocalOverheadMessage( MessageType.Regular, 0x3B2, 503101 ); // That did not need to be unlocked.
-					}
+						else {
+                            from.PlaySound(from.Female ? 812 : 1086);
+                            from.Say("*oops*");
+                            from.LocalOverheadMessage(MessageType.Regular, 55, false, "Isso não precisava ser destrancado.");
+                            //from.LocalOverheadMessage( MessageType.Regular, 0x3B2, 503101 ); // That did not need to be unlocked.
+                        }
+                    }
 					else if ( !( o is LockableContainer ) )
 					{
-                        from.SendMessage(55, "Você não pode desbloquear isso!");
+                        from.SendMessage(55, "Você não pode destrancar isso!");
+                        from.PlaySound(from.Female ? 812 : 1086);
+                        from.Say("*oops*");
                         //from.SendLocalizedMessage( 501666 ); // You can't unlock that!
-					}
+                    }
 					else {
 						LockableContainer cont = (LockableContainer)o;
 
-						if ( Multis.BaseHouse.CheckSecured( cont ) ) 
-							from.SendLocalizedMessage( 55, "Você não pode lançar isso em um item seguro."); // You cannot cast this on a secure item.
-						else if ( !cont.Locked )
-                            from.LocalOverheadMessage(MessageType.Regular, 55, false, "Isso não precisava ser desbloqueado.");
-                        else if ( cont.LockLevel == 0 )
-                            from.SendMessage(55, "Você não pode desbloquear isso!");
-                        else if ( this is TreasureMapChest || this is ParagonChest )
+						if (Multis.BaseHouse.CheckSecured(cont))
 						{
-							from.SendMessage( 55, "Uma aura mágica neste baú de tesouro impede o funcionamento do seu feitiço." );
+                            from.SendMessage(55, "Você não pode usar magia em um item seguro.");
+                            from.PlaySound(from.Female ? 811 : 1085);
+                            from.Say("*oooh*");
 						}
-						else if ( this is PirateChest )
+						else if (!cont.Locked || cont.LockLevel == 0) 
 						{
-							from.SendMessage(55, "Isso parece estar protegido da magia, mas talvez um ladrão possa abri-lo.");
+                            from.PlaySound(from.Female ? 812 : 1086);
+                            from.Say("*oops*");
+                            from.SendMessage(55, "Este baú não parece estar trancado ou não possuir um nível de trava.");
+                            from.LocalOverheadMessage(MessageType.Regular, 55, false, "* Aff! Isso parece já estar destrancado! *");
+                        }
+                        else if ( this is TreasureMapChest || this is ParagonChest || this is PirateChest)
+						{
+                            from.PlaySound(from.Female ? 778 : 1049);
+                            from.Say("*ah!*");
+                            from.SendMessage(55, "Uma forte aura mágica neste baú impede o funcionamento do seu feitiço mas talvez um ladrão possa abri-lo");
 						}
 						else {
-							int level = (int)(from.Skills[SkillName.Magery].Value) + 20; // WIZARD CHANGED FOR WANDS AND SUCH
+                            // Max lvl gonna be 76 (120x120 supers), SO THIEF (lockpick) IS SPECIAL AND IS THE ONLY ABLE THE UNLOCK +75 lvl locked container
+                            int level = (int)NMSUtils.getBeneficialMageryInscribePercentage(from) + 20; 
 
-							if ( level > 50 ){ level = 50; } // WIZARD ADDED FOR A MAXIMUM SO THIEF IS SPECIAL
-
-							if ( level >= cont.RequiredSkill && !(cont is TreasureMapChest && ((TreasureMapChest)cont).Level > 2) ) {
+                            if (level >= cont.RequiredSkill && !(cont is TreasureMapChest && ((TreasureMapChest)cont).Level > 2))
+							{
 								cont.Locked = false;
-                                from.SendMessage(2253, "Você ouve a fechadura abrir.");
-                                if ( cont.LockLevel == -255 )
+								from.SendMessage(2253, "Você ouve a fechadura abrir.");
+								from.PlaySound(from.Female ? 783 : 1054);
+								from.Say("*woohoo!*");
+
+								if (cont.LockLevel == -255)
 									cont.LockLevel = cont.RequiredSkill - 10;
 							}
-							else
-								from.LocalOverheadMessage( MessageType.Regular, 55, false, "Meu feitiço não parece ter efeito nessa fechadura."); // My spell does not seem to have an effect on that lock.
+							else 
+							{
+                                from.PlaySound(from.Female ? 799 : 1071);
+                                from.Say("*huh?*");
+                                from.SendMessage(55, "Esta fechadura parece ser muito complexa para o seu feitiço.");
+                                //from.LocalOverheadMessage(MessageType.Regular, 55, false, "Esta fechadura parece ser muito complexa para o seu feitiço."); // My spell does not seem to have an effect on that lock.
+                            }
 						}		
 					}
 				}

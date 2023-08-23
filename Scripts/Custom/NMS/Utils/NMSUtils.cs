@@ -67,7 +67,7 @@ namespace Server
         {
             caster.CriminalAction(status);
             caster.SendMessage(55, "Você cometeu um ato criminoso.");
-            Misc.Titles.AwardKarma(caster, 50, true);
+            Misc.Titles.AwardKarma(caster, -30, true);
         }
     }
 }

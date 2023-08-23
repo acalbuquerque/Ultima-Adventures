@@ -122,14 +122,14 @@ namespace Server.Spells.Fourth
 
 					if ( cured > 0 && cured == targets.Count)
 					{
-                        Misc.Titles.AwardKarma(Caster, (-10 * cured), true);
+                        Misc.Titles.AwardKarma(Caster, (10 * cured), true);
                         Caster.PlaySound(Caster.Female ? 783 : 1054); Caster.Say("*woohoo!*");
                         Caster.SendMessage(2253, "Você curou todos os venenos próximos do alvo!");
                         Caster.FixedParticles(0x376A, 9, 32, 5030, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 0), 0, EffectLayer.Waist);
                     }
 					else if (cured > 0)
 					{
-                        Misc.Titles.AwardKarma(Caster, (-10 * cured), true);
+                        Misc.Titles.AwardKarma(Caster, (10 * cured), true);
                         Caster.SendMessage(55, "Você curou alguns dos venenos próximos do alvo!");
                     }
                     else

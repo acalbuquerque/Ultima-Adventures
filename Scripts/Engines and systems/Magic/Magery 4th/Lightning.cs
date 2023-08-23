@@ -33,8 +33,8 @@ namespace Server.Spells.Fourth
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				SpellHelper.Turn( Caster, m );
@@ -44,14 +44,14 @@ namespace Server.Spells.Fourth
 				double damage;
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+/*				if ( Caster is PlayerMobile ) // WIZARD
 				{
 					nBenefit = CalculateMobileBenefit(Caster, 25, 4);
-				}
+				}*/
 
-				damage = GetNewAosDamage( 15, 1, 6, m ) + nBenefit;
+                damage = GetNMSDamage(9, 1, 5, m) + nBenefit;
 
-				if ( Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ) > 0 )
+                if ( Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ) > 0 )
 				{
 					Point3D blast = new Point3D( ( m.X ), ( m.Y ), m.Z+10 );
 					Effects.SendLocationEffect( blast, m.Map, 0x2A4E, 30, 10, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0 );
@@ -63,9 +63,9 @@ namespace Server.Spells.Fourth
 				}
 
 				SpellHelper.Damage( this, m, damage, 0, 0, 0, 0, 100 );
-				if (Scroll is SoulShard) {
+/*				if (Scroll is SoulShard) {
 					((SoulShard)Scroll).SuccessfulCast = true;
-				}
+				}*/
 			}
 
 			FinishSequence();
