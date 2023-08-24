@@ -67,9 +67,9 @@ namespace Server.Spells.Second
 				m.PlaySound( 0x0FC );
 
 				SpellHelper.Damage( this, m, damage, 0, 0, 100, 0, 0 );
-				if (Scroll is SoulShard) {
+/*				if (Scroll is SoulShard) {
 					((SoulShard)Scroll).SuccessfulCast = true;
-				}
+				}*/
 			}
 
 			FinishSequence();
