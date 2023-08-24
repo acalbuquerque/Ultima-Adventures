@@ -43,15 +43,17 @@ namespace Server.Spells.First
 			else if ( m is PlayerMobile && m.FindItemOnLayer( Layer.Ring ) != null && m.FindItemOnLayer( Layer.Ring ) is OneRing)
 			{
 				Caster.SendMessage(33, "O UM ANEL desfez o feitiço e te diz para não fazer isso... " );
-				return;
+                DoFizzle();
+                return;
 			}
 			else if ( m is Golem )
 			{
-				Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, false, "* Não sei como curar isso *"); // You cannot heal that.
+                DoFizzle();
+                Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, false, "* Não sei como curar isso *"); // You cannot heal that.
 			}
 			else if ( (m.Poisoned && m.Poison.Level >= 3) || Server.Items.MortalStrike.IsWounded( m ) )
 			{
-                Caster.SendMessage(33, ((Caster == m) ? "Você sente o veneno penetrar em suas veias." : "O seu alvo está mortalmente envenenado e não poderá ser curado com esse feitiço!"));
+                Caster.SendMessage(33, ((Caster == m) ? "Você sente o veneno penetrar mais em suas veias." : "O seu alvo está mortalmente envenenado e não poderá ser curado com esse feitiço!"));
                 //Caster.LocalOverheadMessage( MessageType.Regular, 0x22, (Caster == m) ? 1005000 : 1010398 );
 			}
 			else if ( CheckBSequence( m ) )

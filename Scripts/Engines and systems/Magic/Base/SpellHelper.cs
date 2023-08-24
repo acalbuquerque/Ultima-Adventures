@@ -666,11 +666,11 @@ namespace Server.Spells
 		public static void SendInvalidMessage( Mobile caster, TravelCheckType type )
 		{
 			if( type == TravelCheckType.RecallTo || type == TravelCheckType.GateTo )
-				caster.SendLocalizedMessage( 1019004 ); // You are not allowed to travel there.
+                caster.SendMessage(55, "Você não tem permissão para se teletransportar para lá."); //caster.SendLocalizedMessage( 1019004 ); // You are not allowed to travel there.
 			else if( type == TravelCheckType.TeleportTo )
-				caster.SendLocalizedMessage( 501035 ); // You cannot teleport from here to the destination.
+                caster.SendMessage(55, "Você não pode se teletransportar para o destino."); //caster.SendLocalizedMessage( 501035 ); // You cannot teleport from here to the destination.
 			else
-				caster.SendLocalizedMessage( 501802 ); // Thy spell doth not appear to work...
+                caster.SendMessage(55, "Seu feitiço parece não funcionar."); //caster.SendLocalizedMessage( 501802 ); // Thy spell doth not appear to work...
 		}
 
 		public static bool CheckTravel( Map map, Point3D loc, TravelCheckType type )
@@ -699,7 +699,7 @@ namespace Server.Spells
 			if ( map != null && (type == TravelCheckType.RecallTo || type == TravelCheckType.GateTo) )
 			{
 				if (reg.IsPartOf(typeof(DungeonRegion)) || reg.IsPartOf(typeof(HouseRegion))) {
-                    caster.SendMessage("Este local possui proteção anti-magia de teleportar.");
+                    caster.SendMessage("Este local possui proteção anti-magia de teletransporte.");
                     return false;
                 }	
 			}
@@ -707,8 +707,8 @@ namespace Server.Spells
 
 			if( caster != null && caster.AccessLevel == AccessLevel.Player && caster.Region.IsPartOf( typeof( Regions.Jail ) ) )
 			{
-                caster.SendMessage("Este local possui proteção anti-magia de teleportar.");
-                caster.SendLocalizedMessage( 1042632 ); // You'll need a better jailbreak plan then that!
+                caster.SendMessage("Este local possui proteção anti-magia de teletransporte.");
+                //caster.SendLocalizedMessage( 1042632 ); // You'll need a better jailbreak plan then that!
 				return false;
 			}
 

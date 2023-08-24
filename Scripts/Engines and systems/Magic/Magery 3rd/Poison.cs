@@ -55,7 +55,7 @@ namespace Server.Spells.Third
 
                     int total = (int)(Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.Poisoning].Value);
                     bool empoweredFromPhylactery = false;
-                    if (Caster is PlayerMobile)
+/*                    if (Caster is PlayerMobile)
                     {
                         PlayerMobile player = (PlayerMobile)Caster;
                         Phylactery phylactery = player.FindPhylactery();
@@ -63,7 +63,7 @@ namespace Server.Spells.Third
                         {
                             empoweredFromPhylactery = true;
                         }
-                    }
+                    }*/
                     if (total >= 240 || empoweredFromPhylactery)
                     {
                         level = 4;
@@ -95,9 +95,9 @@ namespace Server.Spells.Third
 					}*/
 
                     m.ApplyPoison( Caster, Poison.GetPoison( level ) );
-					if (Scroll is SoulShard) {
+/*					if (Scroll is SoulShard) {
 						((SoulShard)Scroll).SuccessfulCast = true;
-					}
+					}*/
 				}
 
 				m.FixedParticles( 0x374A, 10, 15, 5021, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Waist );

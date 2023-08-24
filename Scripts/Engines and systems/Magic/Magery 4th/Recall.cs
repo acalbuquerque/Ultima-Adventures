@@ -58,7 +58,9 @@ namespace Server.Spells.Fourth
 		{
 			if ( Server.Misc.WeightOverloading.IsOverloaded( Caster ) )
 			{
-				Caster.SendLocalizedMessage( 502359, "", 0x22 ); // Thou art too encumbered to move.
+                DoFizzle();
+                Caster.SendMessage(55, "Você está muito pesado para se teletransportar.");
+                //Caster.SendLocalizedMessage( 502359, "", 0x22 ); // Thou art too encumbered to move.
 				return false;
 			}
 
@@ -70,50 +72,55 @@ namespace Server.Spells.Fourth
 			string world = Worlds.GetMyWorld( map, loc, loc.X, loc.Y );
 				
 			if ( Caster.AccessLevel > AccessLevel.Player )  // Staff recall is never blocked
-				{            
-					BaseCreature.TeleportPets( Caster, loc, map, true );
+			{            
+				BaseCreature.TeleportPets( Caster, loc, map, true );
 
-					if ( m_Book != null )
-						--m_Book.CurCharges;
+				if ( m_Book != null )
+					--m_Book.CurCharges;
 
-					Caster.PlaySound( 0x1FC );
-					Caster.MoveToWorld( loc, map );
-					Caster.PlaySound( 0x1FC );
-				}
-			else if ( !SpellHelper.CheckTravel( Caster, TravelCheckType.RecallFrom ) )
-			{
+				Caster.PlaySound( 0x1FC );
+				Caster.MoveToWorld( loc, map );
+				Caster.PlaySound( 0x1FC );
 			}
+			else if ( !SpellHelper.CheckTravel( Caster, TravelCheckType.RecallFrom ) || !SpellHelper.CheckTravel(Caster, map, loc, TravelCheckType.RecallTo))
+			{
+                DoFizzle();
+            }
 			else if ( Worlds.AllowEscape( Caster, Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false )
 			{
-				Caster.SendMessage( "That spell does not seem to work in this place." );
+                DoFizzle();
+                Caster.SendMessage(55, "Esse feitiço parece não funcionar neste lugar.");
 			}
 			else if ( Worlds.RegionAllowedRecall( Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false )
 			{
-				Caster.SendMessage( "That spell does not seem to work in this place." );
-			}
+                DoFizzle();
+                Caster.SendMessage(55, "Esse feitiço parece não funcionar neste lugar.");
+            }
 			else if ( Worlds.RegionAllowedTeleport( map, loc, loc.X, loc.Y ) == false )
 			{
-				Caster.SendMessage( "The destination seems magically unreachable." );
-			}
-			else if ( !SpellHelper.CheckTravel( Caster, map, loc, TravelCheckType.RecallTo ) )
-			{
+                DoFizzle();
+                Caster.SendMessage(55, "O destino parece magicamente inacessível.");
 			}
 			else if ( Caster is PlayerMobile && !CharacterDatabase.GetDiscovered( Caster, world ))
 			{
-				Caster.SendMessage( "You don't know this location and change your mind." );
+                DoFizzle();
+                Caster.SendMessage(55, "Você não conhece esse local e não têm ideia de como mentaliza-lo!");
 			}
 			else if ( Server.Misc.WeightOverloading.IsOverloaded( Caster ) )
 			{
-				Caster.SendLocalizedMessage( 502359, "", 0x22 ); // Thou art too encumbered to move.
-			}
-
+                DoFizzle();
+                Caster.SendMessage(55, "Você está muito pesado para se teletransportar.");
+            }
 			else if ( (checkMulti && SpellHelper.CheckMulti( loc, map )) )
-			{				
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
-			}
+			{
+                Caster.SendMessage(55, "Esse local está bloqueado para o uso de teletransporte!");
+                //Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
+            }
 			else if ( m_Book != null && m_Book.CurCharges <= 0 )
 			{
-				Caster.SendLocalizedMessage( 502412 ); // There are no charges left on that item.
+                DoFizzle();
+                Caster.SendMessage(55, "Não há mais cargas nesse item!");
+                //Caster.SendLocalizedMessage( 502412 ); // There are no charges left on that item.
 			}
 			else if ( CheckSequence() )
 			{
@@ -122,8 +129,13 @@ namespace Server.Spells.Fourth
 				if ( m_Book != null )
 					--m_Book.CurCharges;
 
-				if (Caster is PlayerMobile && Caster.Karma < -500 && ((PlayerMobile)Caster).Criminal && ( (Server.Misc.Worlds.GetRegionName( map, loc ) == "DarkMoor") || (Server.Misc.Worlds.GetRegionName( map, loc ) == "the Temple of Praetoria") ) && map == Map.Ilshenar)
-					((PlayerMobile)Caster).Criminal = false;
+				if (Caster is PlayerMobile && Caster.Karma < -500 && ((PlayerMobile)Caster).Criminal && 
+					( (Server.Misc.Worlds.GetRegionName( map, loc ) == "DarkMoor") || 
+					(Server.Misc.Worlds.GetRegionName( map, loc ) == "the Temple of Praetoria") ) 
+					&& map == Map.Ilshenar)
+				{
+                    ((PlayerMobile)Caster).Criminal = false; // doing that to not causes insta-kill in a RED/CRIMINAL allowed places. PS: Need to check!
+                }
 
 				Caster.PlaySound( 0x1FC );
 				Effects.SendLocationParticles( EffectItem.Create( Caster.Location, Caster.Map, EffectItem.DefaultDuration ), 0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5024, 0 );
@@ -131,7 +143,7 @@ namespace Server.Spells.Fourth
 				Caster.PlaySound( 0x1FC );
 				Effects.SendLocationParticles( EffectItem.Create( Caster.Location, Caster.Map, EffectItem.DefaultDuration ), 0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5024, 0 );
 				
-				AetherGlobe.ApplyCurse( Caster, Caster.Map, map, 1);
+				//AetherGlobe.ApplyCurse( Caster, Caster.Map, map, 1); Isso fará o player ficar enfraquecido devido a viagem magica.
 			}
 
 			FinishSequence();
