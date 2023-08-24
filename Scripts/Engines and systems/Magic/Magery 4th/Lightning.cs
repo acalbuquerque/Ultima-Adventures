@@ -49,7 +49,7 @@ namespace Server.Spells.Fourth
 					nBenefit = CalculateMobileBenefit(Caster, 25, 4);
 				}*/
 
-                damage = GetNMSDamage(9, 1, 5, m) + nBenefit;
+                damage = GetNMSDamage(4, 1, 6, m) + nBenefit;
 
                 if ( Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ) > 0 )
 				{

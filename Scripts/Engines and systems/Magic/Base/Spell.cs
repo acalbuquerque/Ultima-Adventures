@@ -128,12 +128,11 @@ namespace Server.Spells
         public virtual int GetNMSDamage(int bonus, int dice, int sides, bool playerVsPlayer)
         {
             int realDamage = Utility.Dice(dice, sides, bonus);
-			int finalDamage = (int)Math.Floor((realDamage * NMSUtils.getDamageEvalBenefit(Caster)) / 2);
+			int finalDamage = (int)Math.Floor((realDamage * NMSUtils.getDamageEvalBenefit(Caster)) );
             Caster.SendMessage(20, "realDamage-> " + realDamage);
             Caster.SendMessage(21, "getDamageEvalBenefit-> " + NMSUtils.getDamageEvalBenefit(Caster));
             Caster.SendMessage(22, "finalDamage-> " + finalDamage);
-            return (int)Math.Floor((realDamage * NMSUtils.getDamageEvalBenefit(Caster)) / 2);
-            //Caster.SendMessage("realDamage-> " + realDamage + "");
+            return finalDamage;
 
             // TODO: NOT WORKING
             /*            int SDICap = MyServerSettings.RealSpellDamageCap();

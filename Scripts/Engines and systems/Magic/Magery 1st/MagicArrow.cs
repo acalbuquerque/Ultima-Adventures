@@ -51,7 +51,7 @@ namespace Server.Spells.First
 					nBenefit = CalculateMobileBenefit(Caster, 60, 5);
 				}*/
 				
-				damage = GetNMSDamage( 3, 1, 3, m ) + nBenefit;
+				damage = GetNMSDamage( 2, 1, 3, m ) + nBenefit;
 				if (damage >= 8) {
 					damage = 8;
 				}

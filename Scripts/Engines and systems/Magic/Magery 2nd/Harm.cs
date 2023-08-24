@@ -55,7 +55,7 @@ namespace Server.Spells.Second
 					nBenefit = CalculateMobileBenefit(Caster, 50, 5);
 				}*/
 				
-				double damage = GetNMSDamage( 6, 1, 4, m ) + nBenefit;
+				double damage = GetNMSDamage( 4, 1, 4, m ) + nBenefit;
 
 
 /*				if ( !m.InRange( Caster, 2 ) )
