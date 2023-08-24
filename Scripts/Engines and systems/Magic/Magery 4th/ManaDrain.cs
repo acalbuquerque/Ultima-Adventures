@@ -65,11 +65,15 @@ namespace Server.Spells.Fourth
 
 				m.Paralyzed = false;
 				double magebonus = (Caster.Skills.Magery.Value * NMSUtils.getDamageEvalBenefit(Caster));
-                int toDrain = (int)((magebonus / 10)*1.25);
-                if (toDrain < 0)
-                    toDrain = 0;
+                int toDrain = (int)((magebonus / 10)*1.10);
+				if (toDrain < 0)
+					toDrain = 0;
+				else if (m is PlayerMobile && toDrain > (m.ManaMax * 0.3))
+					toDrain = (int)(m.ManaMax * 0.3); // limit mana drain to max 30% of PLAYER defender.
+                else if (m is BaseCreature && toDrain > (m.ManaMax * 0.5))
+                    toDrain = (int)(m.ManaMax * 0.5); // limit mana drain to max 50% of Mobs defender.
                 else if (toDrain > m.Mana)
-                    toDrain = m.Mana;
+					toDrain = m.Mana;
 
                 if (m_Table.ContainsKey(m))
                     toDrain = 0;
@@ -79,63 +83,19 @@ namespace Server.Spells.Fourth
 
                 if (toDrain > 0)
                 {
-                    //Caster.SendMessage(33, "==> " + toDrain);
+                    Caster.SendMessage(33, "Mana ==> " + toDrain);
                     m.Mana -= toDrain;
-					int seconds = (int)(5 * NMSUtils.getDamageEvalBenefit(Caster));
-                    Caster.SendMessage(33, "==> " + NMSUtils.getDamageEvalBenefit(Caster));
-                    Caster.SendMessage(22, "====> " + seconds);
+					int seconds = (int)(4 * NMSUtils.getDamageEvalBenefit(Caster));
+
+                    Caster.SendMessage(22, "secs ====> " + seconds);
                     m_Table[m] = Timer.DelayCall(TimeSpan.FromSeconds(seconds), new TimerStateCallback(AosDelay_Callback), new object[] { m, toDrain });
                 }
-/*                if ( Core.AOS )
-				{
-                    Caster.SendMessage(33, "AOS");
-                    int toDrain = 40 + (int)(GetDamageSkill( Caster ) - GetResistSkill( m ));
-
-					if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer() )
-						toDrain = (int)((double)toDrain*1.25);
-
-					if ( toDrain < 0 )
-						toDrain = 0;
-					else if ( toDrain > m.Mana )
-						toDrain = m.Mana;
-
-					if ( m_Table.ContainsKey( m ) )
-						toDrain = 0;
-
-					m.FixedParticles( 0x3789, 10, 25, 5032, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Head );
-					m.PlaySound( 0x1F8 );
-
-					if ( toDrain > 0 )
-					{
-						m.Mana -= toDrain;
-
-						m_Table[m] = Timer.DelayCall( TimeSpan.FromSeconds( 5.0 ), new TimerStateCallback( AosDelay_Callback ), new object[]{ m, toDrain } );
-					}
-				}
-				else
-				{
-                    Caster.SendMessage(22, "!AOS");
-                    if ( CheckResisted( m ) )
-						m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
-					else if ( m.Mana >= 100 )
-						m.Mana -= Utility.Random( 1, 100 );
-					else
-						m.Mana -= Utility.Random( 1, m.Mana );
-
-					m.FixedParticles( 0x374A, 10, 15, 5032, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Head );
-					m.PlaySound( 0x1F8 );
-				}*/
 
 				HarmfulSpell( m );
 			}
 
 			FinishSequence();
 		}
-
-/*		public override double GetResistPercent( Mobile target )
-		{
-			return 99.0;
-		}*/
 
 		private class InternalTarget : Target
 		{
