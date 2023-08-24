@@ -413,11 +413,13 @@ namespace Server.Items
 			{
 				CharacterDatabase DB = Server.Items.CharacterDatabase.GetDB( m );
 				int color = DB.MagerySpellHue;
-
-				if ( color >= 0 ){ hue = color-1; } else { hue = -1; }
-			}
-
-			return hue;
+				if (color > 0)
+					hue = color - 1;
+				else
+					hue = -1;
+            }
+            //m.SendMessage(55, "=> " + hue);
+            return hue;
 		}
 
 		public static bool GetWanted( Mobile m ) // -------------------------------------------------------------------------------------------------
