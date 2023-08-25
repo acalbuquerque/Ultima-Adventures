@@ -36,9 +36,12 @@ namespace Server.Spells.Fifth
 			if ( !base.CheckCast( caster ) )
 				return false;
 
-			if( (Caster.Followers + (Core.SE ? 2 : 1)) > Caster.FollowersMax )
+			if( Caster.Followers > Caster.FollowersMax )
 			{
-				Caster.SendLocalizedMessage( 1049645 ); // You have too many followers to summon that creature.
+                Caster.SendMessage(55, "Você já possui muitos seguidores para usar essa magia.");
+                Caster.PlaySound(Caster.Female ? 812 : 1086);
+                Caster.Say("*oops*");
+                //Caster.SendLocalizedMessage( 1049645 ); // You have too many followers to summon that creature.
 				return false;
 			}
 
@@ -57,24 +60,21 @@ namespace Server.Spells.Fifth
 			SpellHelper.GetSurfaceTop( ref p );
 
 			int nBenefit = 0;
-			if ( Caster is PlayerMobile ) // WIZARD
+/*			if ( Caster is PlayerMobile )
 			{
 				nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 2);
-			}
+			}*/
 
 			if ( map == null || !map.CanSpawnMobile( p.X, p.Y, p.Z ) )
 			{
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
+				DoFizzle();
+                Caster.SendMessage(55, "Esta localização está bloqueada.");
+                Caster.PlaySound(Caster.Female ? 812 : 1086);
+                Caster.Say("*oops*");
 			}
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
-				TimeSpan duration;
-
-				if ( Core.AOS )
-					duration = TimeSpan.FromSeconds( 120 + nBenefit );
-				else
-					duration = TimeSpan.FromSeconds( Utility.Random( 80, 40 ) + nBenefit );
-
+				TimeSpan duration = SpellHelper.NMSGetDuration(Caster, Caster, false);
 				BaseCreature.Summon( new BladeSpirits(), false, Caster, new Point3D( p ), 0x212, duration );
 			}
 
@@ -98,7 +98,7 @@ namespace Server.Spells.Fifth
 
 			protected override void OnTargetOutOfLOS( Mobile from, object o )
 			{
-				from.SendLocalizedMessage( 501943 ); // Target cannot be seen. Try again.
+                from.SendMessage(55, "O alvo não pode ser visto.");
 				from.Target = new InternalTarget( m_Owner );
 				from.Target.BeginTimeout( from, TimeoutTime - DateTime.UtcNow );
 				m_Owner = null;

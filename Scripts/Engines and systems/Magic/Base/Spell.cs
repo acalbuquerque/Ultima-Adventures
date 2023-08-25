@@ -612,7 +612,7 @@ namespace Server.Spells
 		{
 			if (caster.Blessed)
 			{
-				caster.SendMessage("You can't cast anything in this state.");
+				caster.SendMessage(55, "Você não pode usar magia nesse estado.");
 				return false;
 			}
 

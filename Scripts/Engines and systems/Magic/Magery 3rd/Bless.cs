@@ -31,11 +31,11 @@ namespace Server.Spells.Third
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if (m is BaseCreature && ((BaseCreature)m).IsBlessed)
 			{
-				Caster.SendMessage(55, "Isso já está abençoado.");
+				Caster.SendMessage(55, "O alvo já está abençoado.");
 			}
 			else if ( CheckBSequence( m ) )
 			{
@@ -46,11 +46,11 @@ namespace Server.Spells.Third
 					if (Utility.RandomBool())
 					{
 						CurseSpell.RemoveEffect(m);
-						m.SendMessage(55, "Você não está mais amaldiçoado!");
+						m.SendMessage(55, "O alvo não está mais amaldiçoado!");
 						m.UpdateResistances();
 					}
 					else
-						m.SendMessage(55, "Você tenta remover sua maldição, mas falha!");
+						m.SendMessage(55, "Você tenta remover a maldição, mas falha!");
 				}
 				else 
 				{
