@@ -407,16 +407,21 @@ namespace Server.Items
 			return null;
 		}
 
-		public static int GetMySpellHue( Mobile m, int hue ) // ----------------------------------------------------------------------------------------
+		public static int GetMySpellHue( Mobile m, int hue, bool isGate = false) // ----------------------------------------------------------------------------------------
 		{
-			if ( m is PlayerMobile )
+			if ( m is PlayerMobile)
 			{
 				CharacterDatabase DB = Server.Items.CharacterDatabase.GetDB( m );
 				int color = DB.MagerySpellHue;
-				if (color > 0)
-					hue = color - 1;
-				else
-					hue = -1;
+                //m.SendMessage(55, "=> " + color);
+                hue = color;
+                if (!isGate)
+				{
+					if (color > 0)
+						hue = color - 1;
+					else
+						hue = -1;
+				}			
             }
             //m.SendMessage(55, "=> " + hue);
             return hue;
