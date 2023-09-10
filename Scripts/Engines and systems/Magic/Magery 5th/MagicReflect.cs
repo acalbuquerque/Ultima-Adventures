@@ -28,10 +28,10 @@ namespace Server.Spells.Fifth
 		{
 			if ( Caster.MagicDamageAbsorb > 0 )
 			{
-				Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
+                Caster.SendMessage(55, "Esse feitiço já está fazendo efeito em você.");
 				return false;
 			}
-			else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
+			/*else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 			{
 				Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
 				return false;
@@ -40,7 +40,7 @@ namespace Server.Spells.Fifth
 			{
 				Caster.SendMessage( "You need a diamond to cast this spell!" );
 				return false;
-			}
+			}*/
 
 			return true;
 		}
@@ -51,30 +51,30 @@ namespace Server.Spells.Fifth
 		{
 			if ( Caster.MagicDamageAbsorb > 0 )
 			{
-				Caster.SendLocalizedMessage( 1005559 ); // This spell is already in effect.
-			}
-			else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
+                Caster.SendMessage(55, "Esse feitiço já está fazendo efeito em você.");
+            }
+			/*else if ( !Caster.CanBeginAction( typeof( DefensiveSpell ) ) )
 			{
 				Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
 			}
 			else if ( Caster.Backpack.FindItemByType( typeof ( Diamond ) ) == null )
 			{
 				Caster.SendMessage( "You need a diamond to cast this spell!" );
-			}
+			}*/
 			else if ( CheckSequence() )
 			{
 				if ( Caster.BeginAction( typeof( DefensiveSpell ) ) )
 				{
-					int value = (int)( ( Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.EvalInt].Value ) / 4 );
+					int value = (int)(NMSUtils.getBeneficialMageryInscribePercentage(Caster) / 3);
 					Caster.MagicDamageAbsorb = value;
-					Item diamond = Caster.Backpack.FindItemByType( typeof ( Diamond ) );
-					if ( diamond != null ){ diamond.Consume(); }
+					//Item diamond = Caster.Backpack.FindItemByType( typeof ( Diamond ) );
+					//if ( diamond != null ){ diamond.Consume(); }
 					Caster.PlaySound( 0x1ED );
 					Caster.FixedParticles( 0x375A, 10, 15, 5037, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.Waist );
 				}
 				else
 				{
-					Caster.SendLocalizedMessage( 1005385 ); // The spell will not adhere to you at this time.
+                    Caster.SendMessage(55, "Você precisa aguardar para usar novamente esse feitiço.");
 				}
 
 				FinishSequence();

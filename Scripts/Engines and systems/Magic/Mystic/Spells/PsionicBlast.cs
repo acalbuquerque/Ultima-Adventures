@@ -60,7 +60,7 @@ namespace Server.Spells.Mystic
 
 				SpellHelper.Turn( from, target );
 
-				SpellHelper.CheckReflect( 5, ref from, ref target );
+				SpellHelper.NMSCheckReflect( 5, ref from, ref target );
 
 				int damage = (int)((Caster.Skills[SkillName.Wrestling].Value + Caster.Int) / 4);
 				

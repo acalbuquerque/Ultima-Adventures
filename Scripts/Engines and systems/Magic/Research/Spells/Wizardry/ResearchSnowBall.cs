@@ -44,7 +44,7 @@ namespace Server.Spells.Research
 
 				SpellHelper.Turn( source, m );
 
-				SpellHelper.CheckReflect( CirclePower, ref source, ref m );
+				SpellHelper.NMSCheckReflect( CirclePower, ref source, ref m );
 
 				double damage = DamagingSkill( Caster )/3;
 					if ( damage > 80 ){ damage = 80.0; }

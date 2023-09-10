@@ -41,7 +41,7 @@ namespace Server.Spells.Sixth
 
 				SpellHelper.Turn( Caster, m );
 
-				SpellHelper.CheckReflect( (int)this.Circle, ref source, ref m );
+				SpellHelper.NMSCheckReflect( (int)this.Circle, ref source, ref m );
 
 				double damage;
 

@@ -49,89 +49,74 @@ namespace Server.Spells.Fifth
 
 		public override bool DelayedDamage{ get{ return !Core.AOS; } }
 
+		private double calcDamage(Mobile from, Mobile target) 
+		{
+            int fromStat = from.Int, targetStat = target.Int, damage = 0;
+            // Algorithm: (fromStat - targetStat) ?? 3
+
+            if (targetStat < fromStat)
+                damage = ((fromStat - targetStat) > 3) ? (fromStat - targetStat) : 3;
+            else
+                damage = ((targetStat - fromStat) > 3) ? (targetStat - fromStat) : 3;
+
+            double finalDamage = (GetDamageScalar(target) * (damage)) - Utility.RandomMinMax(0, 3);
+
+            if (finalDamage > 42)
+                finalDamage = 42;
+
+            if (CheckResisted(target))
+            {
+                finalDamage /= 2;
+                target.SendMessage(55, "Você resiste aos efeitos da magia."); // You feel yourself resisting magical energy.
+            }
+
+            from.FixedParticles(0x374A, 10, 15, 2038, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 1181), 2, EffectLayer.Head);
+            target.FixedParticles(0x374A, 10, 15, 5038, Server.Items.CharacterDatabase.GetMySpellHue(Caster, 1181), 2, EffectLayer.Head);
+            target.PlaySound(0x213);
+
+			return finalDamage;
+        }
+
 		public void Target( Mobile m )
 		{
 			int nBenefit = 0;
-			if ( Caster is PlayerMobile ) // WIZARD
+/*			if ( Caster is PlayerMobile ) // WIZARD
 			{
 				nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 5);
-			}
+			}*/
 
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( Core.AOS )
 			{
-				if ( Caster.CanBeHarmful( m ) && CheckSequence() )
+                if ( Caster.CanBeHarmful( m ) && CheckSequence() )
 				{
 					Mobile from = Caster, target = m;
 
 					SpellHelper.Turn( from, target );
 
-					SpellHelper.CheckReflect( (int)this.Circle, ref from, ref target );
+					SpellHelper.NMSCheckReflect( (int)this.Circle, ref from, ref target );
 
-					int damage = (int)((Caster.Skills[SkillName.Magery].Value + Caster.Int) / 5);
-					
-					if ( damage > 60 )
-						damage = 60;
+					int damage = (int)calcDamage(from, target) + nBenefit;
 
-					damage = damage + nBenefit;
-
-					Timer.DelayCall( TimeSpan.FromSeconds( 1.0 ),
+                    Timer.DelayCall( TimeSpan.FromSeconds( 1.0 ),
 						new TimerStateCallback( AosDelay_Callback ),
 						new object[]{ Caster, target, m, damage } );
 				}
 			}
 			else if ( CheckHSequence( m ) )
 			{
-				Mobile from = Caster, target = m;
+                Mobile from = Caster, target = m;
 
 				SpellHelper.Turn( from, target );
 
-				SpellHelper.CheckReflect( (int)this.Circle, ref from, ref target );
+				SpellHelper.NMSCheckReflect( (int)this.Circle, ref from, ref target );
 
-				// Algorithm: (highestStat - lowestStat) / 2 [- 50% if resisted]
+                double damage = calcDamage(from, target);
 
-				int highestStat = target.Str, lowestStat = target.Str;
-
-				if ( target.Dex > highestStat )
-					highestStat = target.Dex;
-
-				if ( target.Dex < lowestStat )
-					lowestStat = target.Dex;
-
-				if ( target.Int > highestStat )
-					highestStat = target.Int;
-
-				if ( target.Int < lowestStat )
-					lowestStat = target.Int;
-
-				if ( highestStat > 150 )
-					highestStat = 150;
-
-				if ( lowestStat > 150 ) 
-					lowestStat = 150;
-
-				double damage = GetDamageScalar(m)*(highestStat - lowestStat) / 4;//less damage
-				
-				if ( damage > 45 )
-					damage = 45;
-
-				damage = damage + nBenefit;
-
-				if ( CheckResisted( target ) )
-				{
-					damage /= 2;
-					target.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
-				}
-
-				from.FixedParticles( 0x374A, 10, 15, 2038, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 1181 ), 2, EffectLayer.Head );
-
-				target.FixedParticles( 0x374A, 10, 15, 5038, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 1181 ), 2, EffectLayer.Head );
-				target.PlaySound( 0x213 );
-
-				SpellHelper.Damage( this, target, damage, 0, 0, 100, 0, 0 );
+                SpellHelper.Damage( this, target, damage, 0, 0, 100, 0, 0 );
 			}
 
 			FinishSequence();

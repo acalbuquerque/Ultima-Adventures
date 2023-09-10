@@ -46,7 +46,7 @@ namespace Server.Spells.Third
 
 				if ( CheckResisted( m ) )
 				{
-                    m.SendMessage(55, "Você se sente resistindo à energia mágica.");
+                    m.SendMessage(55, "Você se sente resistindo ao feitiço.");
 					// m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
 				}
 				else
@@ -76,7 +76,7 @@ namespace Server.Spells.Third
                     {
                         level = 2;
                     }
-                    else if ((Caster.Skills[SkillName.Magery].Value >= 100) && ( (Caster.Skills[SkillName.Poisoning].Value >= 60 || (Caster.Skills[SkillName.EvalInt].Value >= 80))))
+                    else if ((Caster.Skills[SkillName.Magery].Value >= 80) && ( (Caster.Skills[SkillName.Poisoning].Value >= 60 || (Caster.Skills[SkillName.EvalInt].Value >= 80))))
                     {
                         level = 1;
                     }

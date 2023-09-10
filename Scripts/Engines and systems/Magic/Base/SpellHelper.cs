@@ -939,10 +939,53 @@ namespace Server.Spells
 		//magic reflection
 		public static void CheckReflect( int circle, Mobile caster, ref Mobile target )
 		{
-			CheckReflect( circle, ref caster, ref target );
+            NMSCheckReflect( circle, ref caster, ref target );
 		}
+		public static void NMSCheckReflect(int circle, ref Mobile caster, ref Mobile target)
+		{
+            ++circle;
+            target.MagicDamageAbsorb -= (caster.MagicDamageAbsorb + circle); // first&second impact in the magic shield, subtract caster and target magicReflect value
+            bool reflect = (target.MagicDamageAbsorb > 0);
+            if (target is BaseCreature)
+                ((BaseCreature)target).CheckReflect(caster, ref reflect); // deprected?
 
-		public static void CheckReflect( int circle, ref Mobile caster, ref Mobile target )
+            if (reflect)
+			{
+				// remove Magic Reflect from caster because his own spell makes damage
+				DefensiveSpell.Nullify(caster);
+				caster.MagicDamageAbsorb = 0;
+
+                // third impact, if the caster has more eval than the target has inscribe, the damage in the magic reflect shield should be 2x bigger
+                if (caster.Skills[SkillName.EvalInt].Value >= target.Skills[SkillName.Inscribe].Value)
+				{
+					target.MagicDamageAbsorb -= (circle * 2);
+				}
+
+				if (target.MagicDamageAbsorb < 0) // just to has a min safe value
+				{
+                    DefensiveSpell.Nullify(target);
+                    target.MagicDamageAbsorb = 0;
+                }
+
+                target.FixedEffect(0x37B9, 10, 5);
+                target.FixedParticles(0x374A, 10, 30, 5013, Server.Items.CharacterDatabase.GetMySpellHue(target, 0), 2, EffectLayer.Waist);
+                target.PlaySound(0x0FC);
+                target.PlaySound(0x1F7);
+
+				// bounce back the spell
+                Mobile temp = caster;
+                caster = target;
+                target = temp;
+            }
+			else 
+			{
+                // remove Magic Reflect from target
+                DefensiveSpell.Nullify(target);
+                target.MagicDamageAbsorb = 0;
+            }
+        }
+
+        public static void CheckReflect( int circle, ref Mobile caster, ref Mobile target )
 		{
 			if( target.MagicDamageAbsorb > 0 )
 			{

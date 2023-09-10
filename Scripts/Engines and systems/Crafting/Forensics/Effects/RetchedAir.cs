@@ -39,7 +39,7 @@ namespace Server.Spells.Undead
 
 				SpellHelper.Turn( source, m );
 
-				SpellHelper.CheckReflect( 3, ref source, ref m );
+				SpellHelper.NMSCheckReflect( 3, ref source, ref m );
 
 				double damage;
 

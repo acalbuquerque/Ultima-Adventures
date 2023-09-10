@@ -26,15 +26,11 @@ namespace Server.Spells.Fifth
 
 		private static Type[] m_Types = new Type[]
 			{
-				typeof( PolarBear ),
 				typeof( GrizzlyBear ),
 				typeof( BlackBear ),
-				typeof( Horse ),
 				typeof( Walrus ),
 				typeof( Chicken ),
-				typeof( Scorpion ),
 				typeof( GiantSerpent ),
-				typeof( Llama ),
 				typeof( Alligator ),
 				typeof( GreyWolf ),
 				typeof( Slime ),
@@ -43,18 +39,34 @@ namespace Server.Spells.Fifth
 				typeof( SnowLeopard ),
 				typeof( Pig ),
 				typeof( Hind ),
-				typeof( Rabbit )
-			};
+				typeof( Rabbit ),
+                typeof( Dog ),
+                typeof( WildCat ),
+                typeof( Sheep )
+            };
 
-		public override bool CheckCast(Mobile caster)
+        private static Type[] m_SpecialTypes = new Type[]
+            {
+                typeof( PolarBear ),
+                typeof( Horse ),
+				typeof( Scorpion ),
+                typeof( GiantSpider ),
+                typeof( DireWolf ),
+                typeof( DireBear ),
+                typeof( RidableLlama ) 
+            };
+
+        public override bool CheckCast(Mobile caster)
 		{
 			if ( !base.CheckCast( caster ) )
 				return false;
 
-			if ( (Caster.Followers + 2) > Caster.FollowersMax )
-			{
-				Caster.SendLocalizedMessage( 1049645 ); // You have too many followers to summon that creature.
-				return false;
+            if (Caster.Followers > Caster.FollowersMax / 2)
+            {
+                Caster.SendMessage(55, "Você já possui muitos seguidores para usar essa magia.");
+                Caster.PlaySound(Caster.Female ? 812 : 1086);
+                Caster.Say("*oops*");
+                return false;
 			}
 
 			return true;
@@ -66,24 +78,24 @@ namespace Server.Spells.Fifth
 			{
 				try
 				{
-					BaseCreature creature = (BaseCreature)Activator.CreateInstance( m_Types[Utility.Random( m_Types.Length )] );
-
+                    BaseCreature creature = (BaseCreature)Activator.CreateInstance(m_Types[Utility.Random(m_Types.Length)]);
+                    if (Caster.Skills.Magery.Value >= 80)
+					{
+                        creature = (BaseCreature)Activator.CreateInstance(m_SpecialTypes[Utility.Random(m_SpecialTypes.Length)]);
+                    }				
 					//creature.ControlSlots = 2;
 
 					int nBenefit = 0;
 					if ( Caster is PlayerMobile ) // WIZARD
 					{
-						nBenefit = (int)(Caster.Skills[SkillName.Magery].Value);
+						nBenefit = (int)(Caster.Skills[SkillName.AnimalLore].Value * 0.25);
 					}
 
 					TimeSpan duration;
 
-					if ( Core.AOS )
-						duration = TimeSpan.FromSeconds( ((2 * Caster.Skills.Magery.Fixed) / 5) + nBenefit );
-					else
-						duration = TimeSpan.FromSeconds( (4.0 * Caster.Skills[SkillName.Magery].Value) + nBenefit );
-
-					SpellHelper.Summon( creature, Caster, 0x215, duration, false, false );
+                    duration = TimeSpan.FromSeconds(((Caster.Skills.Magery.Fixed) * 0.1) + nBenefit);
+                    Caster.SendMessage(55, "O seu feitiço terá a duração de aproximadamente " + duration + "s.");
+                    SpellHelper.Summon( creature, Caster, 0x215, duration, false, false );
 				}
 				catch
 				{
@@ -96,9 +108,9 @@ namespace Server.Spells.Fifth
 		public override TimeSpan GetCastDelay()
 		{
 			if ( Core.AOS )
-				return TimeSpan.FromTicks( base.GetCastDelay().Ticks * 5 );
+				return TimeSpan.FromTicks( base.GetCastDelay().Ticks * 3 );
 
-			return base.GetCastDelay() + TimeSpan.FromSeconds( 6.0 );
+			return base.GetCastDelay() + TimeSpan.FromSeconds( 3.0 );
 		}
 	}
 }

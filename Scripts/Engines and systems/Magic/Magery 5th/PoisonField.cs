@@ -35,8 +35,8 @@ namespace Server.Spells.Fifth
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
 				SpellHelper.Turn( Caster, p );
@@ -72,14 +72,14 @@ namespace Server.Spells.Fifth
 				int itemID = eastToWest ? 0x3915 : 0x3922;
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+				if (Caster is PlayerMobile) // WIZARD
 				{
-					nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 3);
+					nBenefit = (int)(Caster.Skills[SkillName.Magery].Value * 0.25);
 				}
 
-				TimeSpan duration = TimeSpan.FromSeconds( 3 + (Caster.Skills.Magery.Fixed / 25) + nBenefit );
-
-				for ( int i = -2; i <= 2; ++i )
+				TimeSpan duration = TimeSpan.FromSeconds( 3 + (Caster.Skills.EvalInt.Fixed * 0.1) + nBenefit );
+                Caster.SendMessage(55, "O seu feitiço terá a duração de aproximadamente " + duration + "s.");
+                for ( int i = -2; i <= 2; ++i )
 				{
 					Point3D loc = new Point3D( eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z );
 
@@ -173,27 +173,20 @@ namespace Server.Spells.Fifth
 
 				Poison p;
 
-				if ( Core.AOS )
-				{
-					int total = (int)(m_Caster.Skills[SkillName.Magery].Value + m_Caster.Skills[SkillName.Poisoning].Value);
+                int total = (int)(m_Caster.Skills[SkillName.Magery].Value + m_Caster.Skills[SkillName.Poisoning].Value);
+                bool empoweredFromPhylactery = false;
+                if (total >= 240)
+                    p = Poison.Lethal;
+                else if ((m_Caster.Skills[SkillName.Magery].Value >= 120) && (m_Caster.Skills[SkillName.Poisoning].Value >= 100))
+                    p = Poison.Deadly;
+                else if ((m_Caster.Skills[SkillName.Magery].Value >= 100) && ((m_Caster.Skills[SkillName.Poisoning].Value >= 80 || (m_Caster.Skills[SkillName.EvalInt].Value >= 100))))
+                    p = Poison.Greater;
+                else if ((m_Caster.Skills[SkillName.Magery].Value >= 80) && ((m_Caster.Skills[SkillName.Poisoning].Value >= 60 || (m_Caster.Skills[SkillName.EvalInt].Value >= 80))))
+                    p = Poison.Regular;
+                else
+                    p = Poison.Lesser;
 
-					if ( total >= 250 )
-						p = Poison.Lethal;
-					else if ( total >= 200 )
-						p = Poison.Deadly;
-					else if ( total >= 150 )
-						p = Poison.Greater;
-					else if ( total >= 100 )
-						p = Poison.Regular;
-					else
-						p = Poison.Lesser;
-				}
-				else
-				{
-					p = Poison.Regular;
-				}
-
-				if ( m.ApplyPoison( m_Caster, p ) == ApplyPoisonResult.Poisoned )
+                if ( m.ApplyPoison( m_Caster, p ) == ApplyPoisonResult.Poisoned )
 					if ( SpellHelper.CanRevealCaster( m ) )
 						m_Caster.RevealingAction();
 

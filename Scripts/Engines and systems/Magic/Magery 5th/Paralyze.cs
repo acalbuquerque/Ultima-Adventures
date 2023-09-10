@@ -32,11 +32,11 @@ namespace Server.Spells.Fifth
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
-			else if ( Core.AOS && (m.Frozen || m.Paralyzed || (m.Spell != null && m.Spell.IsCasting && !(m.Spell is PaladinSpell))) )
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
+			else if (Core.AOS && (m.Frozen || m.Paralyzed || (m.Spell != null && m.Spell.IsCasting && !(m.Spell is PaladinSpell))))
 			{
-				Caster.SendLocalizedMessage( 1061923 ); // The target is already frozen.
+				Caster.SendLocalizedMessage(1061923); // The target is already frozen.
 			}
 			else if ( CheckHSequence( m ) )
 			{
@@ -47,37 +47,26 @@ namespace Server.Spells.Fifth
 				double duration;
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+				/*if (Caster is PlayerMobile) // WIZARD
 				{
 					nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 2);
-				}
+				}*/
+
+				// Algorithm: ((10% of eval) + 5) seconds [- 50% if resisted]
+
+				duration = 5.0 + (Caster.Skills[SkillName.EvalInt].Value * 0.1) + nBenefit;
+
+				if (CheckResisted(m)) 
+				{
+                    duration *= 0.5;
+                    m.SendMessage(55, "Sua aura mágica lhe ajudou a resistir ao feitiço pela metade. (" + duration + "s)");
+                    m.FixedEffect(0x37B9, 10, 5);
+                    m.FixedParticles(0x374A, 10, 30, 5013, Server.Items.CharacterDatabase.GetMySpellHue(m, 0), 2, EffectLayer.Waist);
+                    Caster.SendMessage(55, "O oponente reisitiu ao feitiço pela metade. (" + duration + "s)");
+                }
+                    
 				
-				if ( Core.AOS )
-				{
-					int secs = (int)((GetDamageSkill( Caster ) / 10) - (GetResistSkill( m ) / 10)) + nBenefit;
-					
-					if( !Core.SE )
-						secs += 2;
-
-					if ( !m.Player )
-						secs *= 3;
-
-					if ( secs < 0 )
-						secs = 0;
-
-					duration = secs;
-				}
-				else
-				{
-					// Algorithm: ((20% of magery) + 7) seconds [- 50% if resisted]
-
-					duration = 7.0 + (Caster.Skills[SkillName.Magery].Value * 0.2) + nBenefit;
-
-					if ( CheckResisted( m ) )
-						duration *= 0.75;
-				}
-
-				m.Paralyze( TimeSpan.FromSeconds( duration ) );
+                m.Paralyze( TimeSpan.FromSeconds( duration ) );
 
 				m.PlaySound( 0x204 );
 				m.FixedEffect( 0x376A, 6, 1, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0 );
