@@ -49,7 +49,7 @@ namespace Server.Spells.Second
 				item.TrapType = TrapType.MagicTrap;
 				//item.TrapPower = Core.AOS ? Utility.RandomMinMax( 10, 50 ) : 1;
 				double power = (int)(Caster.Skills[SkillName.Magery].Value) / 3;
-				int powerDamage = (int)Math.Floor((power * NMSUtils.getDamageEvalBenefit(Caster)) / 3) + 1;
+				int powerDamage = (int)Math.Floor((power * NMSUtils.getDamageEvalBenefit(Caster)) / 1) + 1;
 
                 item.TrapPower = powerDamage;
 				item.TrapLevel = (int)(Caster.Skills[SkillName.Magery].Value / 3);
@@ -106,7 +106,7 @@ namespace Server.Spells.Second
 					NMSUtils.makeCriminalAction(Caster, true);
 
                     double power = (int)(Caster.Skills[SkillName.Magery].Value) / 3;
-					int powerDamage = (int)Math.Floor((power * NMSUtils.getDamageEvalBenefit(Caster)) / 5) + 1;
+					int powerDamage = (int)Math.Floor((power * NMSUtils.getDamageEvalBenefit(Caster)) / 2) + 1;
 					int TrapPower = powerDamage;
 					SpellTrap mtrap = new SpellTrap(Caster, TrapPower);
 					mtrap.Map = Caster.Map;

@@ -34,8 +34,8 @@ namespace Server.Spells.Sixth
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
 				SpellHelper.Turn( Caster, p );
@@ -62,9 +62,16 @@ namespace Server.Spells.Sixth
 
 				int itemID = eastToWest ? 0x3967 : 0x3979;
 
-				TimeSpan duration = TimeSpan.FromSeconds( 3.0 + (Caster.Skills[SkillName.Magery].Value / 3.0) );
+                int nBenefit = 0;
+                if (Caster is PlayerMobile) // WIZARD
+                {
+                    nBenefit = (int)(Caster.Skills[SkillName.Magery].Value * 0.25);
+                }
 
-				for ( int i = -2; i <= 2; ++i )
+                TimeSpan duration = TimeSpan.FromSeconds(3 + (Caster.Skills.EvalInt.Fixed * 0.1) + nBenefit);
+                Caster.SendMessage(55, "O seu feitiço terá a duração de aproximadamente " + duration + "s.");
+
+                for ( int i = -2; i <= 2; ++i )
 				{
 					Point3D loc = new Point3D( eastToWest ? p.X + i : p.X, eastToWest ? p.Y : p.Y + i, p.Z );
 					bool canFit = SpellHelper.AdjustField( ref loc, Caster.Map, 12, false );
@@ -171,29 +178,18 @@ namespace Server.Spells.Sixth
 					double duration;
 
 					int nBenefit = 0;
-					if ( m_Caster is PlayerMobile ) // WIZARD
-					{
-						nBenefit = (int)(m_Caster.Skills[SkillName.Magery].Value / 2);
-					}
+                    if (m_Caster is PlayerMobile) // WIZARD
+                    {
+                        nBenefit = (int)(m_Caster.Skills[SkillName.EvalInt].Value * 0.1);
+                    }
 
-					if ( Core.AOS )
-					{
-						duration = 2.0 + ((int)(m_Caster.Skills[SkillName.EvalInt].Value / 10) - (int)(m.Skills[SkillName.MagicResist].Value / 10)) + nBenefit;
+                    duration = 3.0 + (m_Caster.Skills[SkillName.Magery].Value * 0.1) + nBenefit;
+                    if (!m.Player)
+                        duration *= 2.0;
 
-						if ( !m.Player )
-							duration *= 3.0;
-
-						if ( duration < 0.0 )
-							duration = 0.0;
-					}
-					else
-					{
-						duration = 7.0 + (m_Caster.Skills[SkillName.Magery].Value * 0.2) + nBenefit;
-					}
-
-					m.Paralyze( TimeSpan.FromSeconds( duration ) );
-
-					m.PlaySound( 0x204 );
+                    m.Paralyze( TimeSpan.FromSeconds( duration ) );
+                    //m_Caster.SendMessage(55, "O alvo ficará paralizado por aproximadamente " + duration + "s.");
+                    m.PlaySound( 0x204 );
 					m.FixedEffect( 0x376A, 10, 16, Server.Items.CharacterDatabase.GetMySpellHue( m_Caster, 0 ), 0 );
 					
 					if ( m is BaseCreature )

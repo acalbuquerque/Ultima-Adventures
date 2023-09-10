@@ -65,7 +65,7 @@ namespace Server.Spells.Fourth
 
 				m.Paralyzed = false;
 				double magebonus = (Caster.Skills.Magery.Value * NMSUtils.getDamageEvalBenefit(Caster));
-                int toDrain = (int)((magebonus / 10)*1.10);
+                int toDrain = (int)((magebonus / 10)*1.5);
 				if (toDrain < 0)
 					toDrain = 0;
 				else if (m is PlayerMobile && toDrain > (m.ManaMax * 0.3))
@@ -83,11 +83,10 @@ namespace Server.Spells.Fourth
 
                 if (toDrain > 0)
                 {
-                    Caster.SendMessage(33, "Mana ==> " + toDrain);
                     m.Mana -= toDrain;
-					int seconds = (int)(4 * NMSUtils.getDamageEvalBenefit(Caster));
-
-                    Caster.SendMessage(22, "secs ====> " + seconds);
+					int seconds = (int)(5 * NMSUtils.getDamageEvalBenefit(Caster)) + Utility.RandomMinMax(1, 3); ;
+                    Caster.SendMessage(55, "Você retirou " + toDrain + " pontos de mana do seu oponente e os efeitos do feitiço irão durar " + seconds + "s");
+                    m.SendMessage(33, "Você perdeu " + toDrain + " pontos de mana e os efeitos desse feitiço irão durar " + seconds + "s");
                     m_Table[m] = Timer.DelayCall(TimeSpan.FromSeconds(seconds), new TimerStateCallback(AosDelay_Callback), new object[] { m, toDrain });
                 }
 

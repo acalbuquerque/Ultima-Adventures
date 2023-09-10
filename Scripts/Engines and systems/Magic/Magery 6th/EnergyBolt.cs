@@ -33,8 +33,8 @@ namespace Server.Spells.Sixth
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				Mobile source = Caster;
@@ -46,13 +46,12 @@ namespace Server.Spells.Sixth
 				double damage;
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+/*				if ( Caster is PlayerMobile ) // WIZARD
 				{
 					nBenefit = CalculateMobileBenefit(Caster, 7, 2);
-				}
+				}*/
 
-                damage = GetNMSDamage( 35, 1, 5, m ) + nBenefit;
-                //damage = GetNewAosDamage(35, 1, 5, m);
+                damage = GetNMSDamage( 23, 1, 4, m ) + nBenefit;
 
                 // Do the effects
                 source.MovingParticles( m, 0x3818, 7, 0, false, true, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 3043, 4043, 0x211, 0 );

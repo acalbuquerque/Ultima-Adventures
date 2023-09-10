@@ -16,6 +16,8 @@ namespace Server
             //double magery = Caster.Skills.Magery.Value;
             double eval = Caster.Skills.EvalInt.Value;
             double value = ((eval * 3) / 100) + 1;
+            value /= 10;
+            value += 1;
             return value;
         }
 
@@ -24,6 +26,8 @@ namespace Server
             //double magery = Caster.Skills.Magery.Value;
             double inscr = Caster.Skills.Inscribe.Value;
             double value = ((inscr * 3) / 100) + 1;
+            value /= 10;
+            value += 1;
             return value;
         }
 

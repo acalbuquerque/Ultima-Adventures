@@ -35,8 +35,8 @@ namespace Server.Spells.Sixth
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( Caster.CanBeHarmful( m ) && CheckSequence() )
 			{
 				Mobile attacker = Caster, defender = m;
@@ -79,15 +79,21 @@ namespace Server.Spells.Sixth
 					double damage;
 
 					int nBenefit = 0;
-					if ( m_Attacker is PlayerMobile ) // WIZARD
+/*					if ( m_Attacker is PlayerMobile ) // WIZARD
 					{
 						nBenefit = (int)(m_Attacker.Skills[SkillName.Magery].Value / 5);
-					}
+					}*/
 
 					if ( Core.AOS )
 					{
-						damage = m_Spell.GetNewAosDamage( 40, 1, 5, m_Defender ) + nBenefit;
-					}
+						damage = m_Spell.GetNMSDamage( 25, 1, 5, m_Defender ) + nBenefit;
+                        if (m_Spell.CheckResisted(m_Target))
+                        {
+                            damage *= 0.5;
+                            m_Target.SendMessage(55, "Sua aura mágica lhe ajudou a resistir metade do dano desse feitiço.");
+                            m_Attacker.SendMessage(55, "O oponente reisitiu metade do dano desse feitiço.");
+                        }
+                    }
 					else
 					{
 						damage = Utility.Random( 23, 22 ) + nBenefit;

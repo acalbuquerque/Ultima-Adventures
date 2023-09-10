@@ -36,12 +36,12 @@ namespace Server.Spells.Sixth
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckSequence() )
 			{
 				/// WIZARD WANTS THIS TO WORK FOR NORMAL TRAPS, HIDDEN TRAPS, & HIDDEN CONTAINERS ///
-				IPooledEnumerable TitemsInRange = Caster.Map.GetItemsInRange( new Point3D( p ), 1 + (int)(Caster.Skills[SkillName.Magery].Value / 20.0) );
+				IPooledEnumerable TitemsInRange = Caster.Map.GetItemsInRange( new Point3D( p ), 1 + (int)(Caster.Skills[SkillName.Magery].Value / 50.0) );
 				string sTrap;
 				foreach ( Item item in TitemsInRange )
 				{
@@ -61,20 +61,20 @@ namespace Server.Spells.Sixth
 
 						Effects.SendLocationParticles( EffectItem.Create( item.Location, item.Map, EffectItem.DefaultDuration ), 0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5024, 0 );
 						Effects.PlaySound( item.Location, item.Map, 0x1FA );
-						Caster.SendMessage( "There is a trap nearby! " + sTrap + "" );
+						Caster.SendMessage( 55, "Existe uma(s) armadilha(s) próxima a você! " + sTrap + "" );
 					}
 					else if ( item is HiddenTrap )
 					{
 						Effects.SendLocationParticles( EffectItem.Create( item.Location, item.Map, EffectItem.DefaultDuration ), 0x376A, 9, 32, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, 5024, 0 );
 						Effects.PlaySound( item.Location, item.Map, 0x1FA );
-						Caster.SendMessage( "There is a hidden floor trap somewhere nearby!" );
+						Caster.SendMessage( 55, "Existe uma armadilha escondida no chão próxima a você!" );
 					}
 					else if ( item is HiddenChest )
 					{
-						Caster.SendMessage( "Your eye catches something nearby." );
+						Caster.SendMessage( "Sua intuição mágica percebe que há algo escondido ao seu redor!" );
 						string where = Server.Misc.Worlds.GetRegionName( Caster.Map, Caster.Location );
 
-						int money = Utility.RandomMinMax( 50, 100 );
+						int money = Utility.RandomMinMax( 300, 1000 );
 
 						int level = (int)(Caster.Skills[SkillName.Magery].Value / 16);
 							if (level < 1){level = 1;}
@@ -131,7 +131,7 @@ namespace Server.Spells.Sixth
 
 				if ( map != null )
 				{
-					IPooledEnumerable eable = map.GetMobilesInRange( new Point3D( p ), 1 + (int)(Caster.Skills[SkillName.Magery].Value / 20.0) );
+					IPooledEnumerable eable = map.GetMobilesInRange( new Point3D( p ), 1 + (int)(Caster.Skills[SkillName.Magery].Value / 50.0) );
 
 					foreach ( Mobile m in eable )
 					{
@@ -172,7 +172,7 @@ namespace Server.Spells.Sixth
 
 			int chance;
 			if ( divisor > 0 )
-				chance = 50 * (magery + detectHidden) / divisor;
+				chance = 40 * (magery + detectHidden) / divisor;
 			else
 				chance = 100;
 

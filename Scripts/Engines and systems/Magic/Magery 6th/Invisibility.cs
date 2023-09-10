@@ -32,11 +32,11 @@ namespace Server.Spells.Sixth
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( m is Mobiles.BaseVendor || m is Mobiles.PlayerVendor || m is Mobiles.PlayerBarkeeper || m.AccessLevel > Caster.AccessLevel )
 			{
-				Caster.SendLocalizedMessage( 501857 ); // This spell won't work on that!
+                Caster.SendMessage(55, "Este feitiço não funciona neste alvo.");
 			}
 			else if ( CheckBSequence( m ) )
 			{
@@ -54,9 +54,9 @@ namespace Server.Spells.Sixth
 				int nBenefit = 0;
 				if ( Caster is PlayerMobile ) // WIZARD
 				{
-					nBenefit = (int)(Caster.Skills[SkillName.Magery].Value);
+                    nBenefit = (int)(Caster.Skills[SkillName.Magery].Value * 0.25);
 
-					foreach ( Mobile pet in World.Mobiles.Values )
+                    foreach ( Mobile pet in World.Mobiles.Values )
 					{
 						if ( pet is BaseCreature )
 						{
@@ -67,9 +67,9 @@ namespace Server.Spells.Sixth
 					}
 				}
 
-				TimeSpan duration = TimeSpan.FromSeconds( (( 1.2 * Caster.Skills.Magery.Fixed) / 10 ) + nBenefit );
-
-				Timer t = new InternalTimer( m, duration );
+				TimeSpan duration = TimeSpan.FromSeconds( (5 + (Caster.Skills.Inscribe.Fixed * 0.1)) + nBenefit );
+                Caster.SendMessage(55, "O seu feitiço terá a duração de aproximadamente " + duration + "s.");
+                Timer t = new InternalTimer( m, duration );
 
 				BuffInfo.RemoveBuff( m, BuffIcon.HidingAndOrStealth );
 				BuffInfo.AddBuff( m, new BuffInfo( BuffIcon.Invisibility, 1075825, duration, m ) );	//Invisibility/Invisible

@@ -43,27 +43,26 @@ namespace Server.Spells.Sixth
 					
 			if ( !Caster.CanSee( rune ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( reg.IsPartOf( typeof( PirateRegion ) ) )
 			{
-				Caster.SendMessage( "These waters are too rough to cast this spell." );
+                Caster.SendMessage(55, "Estas águas são muito agitadas para lançar este feitiço.");
 			}
-			else if ( Worlds.RegionAllowedTeleport( Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false )
+			else if ( Worlds.RegionAllowedTeleport( Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false || !SpellHelper.CheckTravel(Caster, TravelCheckType.Mark))
 			{
-				Caster.SendMessage( "That spell does not seem to work in this place." );
-			}
-			else if ( !SpellHelper.CheckTravel( Caster, TravelCheckType.Mark ) )
-			{
+				Caster.SendMessage(55, "Esse feitiço parece não funcionar neste lugar.");
 			}
 			else if ( SpellHelper.CheckMulti( Caster.Location, Caster.Map, !Core.AOS ) )
 			{
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
+                Caster.SendMessage(55, "Esse local está bloqueado para lançcar este feitiço.");
 			}
 			else if ( !rune.IsChildOf( Caster.Backpack ) )
 			{
-				Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, 1062422 ); // You must have this rune in your backpack in order to mark it.
-			}
+                Caster.PlaySound(Caster.Female ? 812 : 1086);
+                Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, false, "*Oops*");
+                Caster.SendMessage(55, "Você deve ter esta runa em sua mochila para marcá-la.");
+            }
 			else if ( CheckSequence() )
 			{
 				rune.Mark( Caster );
@@ -92,7 +91,8 @@ namespace Server.Spells.Sixth
 				}
 				else
 				{
-					from.Send( new MessageLocalized( from.Serial, from.Body, MessageType.Regular, 0x3B2, 3, 501797, from.Name, "" ) ); // I cannot mark that object.
+                    from.SendMessage(55, "Você deve ter utilizar uma runa em sua mochila para utilizar este feitiço.");
+                    //from.Send( new MessageLocalized( from.Serial, from.Body, MessageType.Regular, 0x3B2, 3, 501797, from.Name, "" ) ); // I cannot mark that object.
 				}
 			}
 
