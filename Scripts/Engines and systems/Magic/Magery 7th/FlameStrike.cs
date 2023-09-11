@@ -33,23 +33,24 @@ namespace Server.Spells.Seventh
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
-				SpellHelper.Turn( Caster, m );
+                Mobile source = Caster;
+                SpellHelper.Turn( Caster, m );
 
-				SpellHelper.CheckReflect( (int)this.Circle, Caster, ref m );
+				SpellHelper.NMSCheckReflect( (int)this.Circle, ref source, ref m );
 
 				double damage;
 
 				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
+/*				if ( Caster is PlayerMobile ) // WIZARD
 				{
 					nBenefit = CalculateMobileBenefit(Caster, 5, 2);
                     
-                }
-                damage = GetNMSDamage( 55, 1, 6, m ) + nBenefit;
+                }*/
+                damage = GetNMSDamage( 40, 1, 6, m ) + nBenefit;
                 //damage = GetNewAosDamage(55, 1, 6, m);
 
                 m.FixedParticles( 0x3709, 10, 30, 5052, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 0 ), 0, EffectLayer.LeftFoot );

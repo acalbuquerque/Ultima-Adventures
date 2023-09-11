@@ -37,8 +37,8 @@ namespace Server.Spells.Seventh
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
 				SpellHelper.Turn( Caster, p );
@@ -59,13 +59,12 @@ namespace Server.Spells.Seventh
 					foreach ( Mobile m in eable )
 					{
 						Mobile pet = m;
-						if ( m is BaseCreature )
-							pet = ((BaseCreature)m).GetMaster();
+						/*if ( m is BaseCreature )
+							pet = ((BaseCreature)m).GetMaster();*/
 
-						if ( Caster.Region == m.Region && Caster != m && Caster != pet && Caster.InLOS( m ) && m.Blessed == false && Caster.CanBeHarmful( m, true ) )
+						if ( Caster.Region == m.Region && Caster != m && Caster.CanBeHarmful( m, true ) )
 						{
 							targets.Add( m );
-
 							if ( m.Player )
 								playerVsPlayer = true;
 						}
@@ -79,38 +78,43 @@ namespace Server.Spells.Seventh
 				int nBenefit = 0;
 				if ( Caster is PlayerMobile ) // WIZARD
 				{
-					nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 5);
+					//nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 5);
 				}
-
-				if ( Core.AOS )
-					damage = GetNewAosDamage( 51, 1, 5, playerVsPlayer ) + nBenefit;
-				else
-					damage = Utility.Random( 27, 22 ) + nBenefit;
+                damage = GetNMSDamage(38, 2, 5, Caster.Player && playerVsPlayer) + nBenefit;
 
 				if ( targets.Count > 0 )
 				{
 					Effects.PlaySound( p, Caster.Map, 0x160 );
 
-					if ( Core.AOS && targets.Count > 2 )
-						damage = (damage * 2) / targets.Count;
-					else if ( !Core.AOS )
-						damage /= targets.Count;
-						
-					double toDeal;
+                    if (targets.Count > 1)
+                        damage /= targets.Count;
+
+                    if (damage < 12)
+                        damage = 12;
+
+                    double toDeal;
 					for ( int i = 0; i < targets.Count; ++i )
 					{
 						Mobile m = targets[i];
 
 						toDeal  = damage;
 
-						if ( !Core.AOS && CheckResisted( m ) )
-						{
-							damage *= 0.5;
+                        if (CheckResisted(m))
+                        {
+                            toDeal *= 0.5;
+                            m.SendMessage(55, "Sua aura mágica lhe ajudou a resistir metade do dano desse feitiço.");
+                        }
 
-							m.SendLocalizedMessage( 501783 ); // You feel yourself resisting magical energy.
-						}
-						toDeal *= GetDamageScalar( m );
-						Caster.DoHarmful( m );
+                        if (m is PlayerMobile && m.FindItemOnLayer(Layer.Ring) != null && m.FindItemOnLayer(Layer.Ring) is OneRing)
+                        {
+                            m.SendMessage(33, "O UM ANEL te protegeu de ser revelado.");
+                        }
+                        else
+                        {
+                            m.RevealingAction();
+                        }
+
+                        Caster.DoHarmful( m );
 						SpellHelper.Damage( this, m, toDeal, 0, 100, 0, 0, 0 );
 
 						Point3D blast1 = new Point3D( ( m.X ), ( m.Y ), m.Z );

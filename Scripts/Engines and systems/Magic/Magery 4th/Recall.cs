@@ -86,16 +86,12 @@ namespace Server.Spells.Fourth
 			{
                 DoFizzle();
             }
-			else if ( Worlds.AllowEscape( Caster, Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false )
+			else if ( Worlds.AllowEscape( Caster, Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false || 
+				Worlds.RegionAllowedRecall(Caster.Map, Caster.Location, Caster.X, Caster.Y) == false)
 			{
                 DoFizzle();
                 Caster.SendMessage(55, "Esse feitiço parece não funcionar neste lugar.");
 			}
-			else if ( Worlds.RegionAllowedRecall( Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false )
-			{
-                DoFizzle();
-                Caster.SendMessage(55, "Esse feitiço parece não funcionar neste lugar.");
-            }
 			else if ( Worlds.RegionAllowedTeleport( map, loc, loc.X, loc.Y ) == false )
 			{
                 DoFizzle();

@@ -32,8 +32,8 @@ namespace Server.Spells.Seventh
 		{
 			if ( !Caster.CanSee( m ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( CheckHSequence( m ) )
 			{
 				SpellHelper.Turn( Caster, m );
@@ -46,25 +46,26 @@ namespace Server.Spells.Seventh
 				m.Paralyzed = false;
 
 				int toDrain = 0;
+                toDrain = (int)((Caster.Skills[SkillName.Magery].Value * 0.20) * NMSUtils.getDamageEvalBenefit(Caster));
 
-					if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer() )
+/*                if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer() )
 						toDrain = (int)((GetDamageSkill( Caster )*1.5) - GetResistSkill( m ));
 					else
-						toDrain = (int)(GetDamageSkill( Caster ) - GetResistSkill( m ));
+						toDrain = (int)(GetDamageSkill( Caster ) - GetResistSkill( m ));*/
 
-					if ( toDrain < 0 )
-						toDrain = 0;
-					else if ( toDrain > m.Mana )
-						toDrain = m.Mana;
-
+				if ( toDrain < 0 )
+					toDrain = 0;
+				else if ( toDrain > m.Mana )
+					toDrain = m.Mana;
 
 				if ( toDrain > (Caster.ManaMax - Caster.Mana) )
-					toDrain = Caster.ManaMax - Caster.Mana;
+					toDrain = (Caster.ManaMax - Caster.Mana) - 1;
 
 				m.Mana -= toDrain;
 				Caster.Mana += Server.Misc.MyServerSettings.PlayerLevelMod( toDrain, Caster );
-
-				m.FixedParticles( 0x374A, 1, 15, 5054, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 23 ), 7, EffectLayer.Head );
+                Caster.SendMessage(55, "Você sugou " + toDrain  + " pontos de mana do oponente.");
+                m.SendMessage(33, "Você sente que perdeu uma parte de sua mana!");
+                m.FixedParticles( 0x374A, 1, 15, 5054, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 23 ), 7, EffectLayer.Head );
 				m.PlaySound( 0x1F9 );
 
 				Caster.FixedParticles( 0x0000, 10, 5, 2054, Server.Items.CharacterDatabase.GetMySpellHue( Caster, 23 ), 7, EffectLayer.Head );

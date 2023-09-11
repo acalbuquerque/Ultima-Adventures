@@ -91,7 +91,7 @@ namespace Server.Spells.Sixth
                         {
                             damage *= 0.5;
                             m_Target.SendMessage(55, "Sua aura mágica lhe ajudou a resistir metade do dano desse feitiço.");
-                            m_Attacker.SendMessage(55, "O oponente reisitiu metade do dano desse feitiço.");
+                            m_Attacker.SendMessage(55, "O oponente resistiu metade do dano desse feitiço.");
                         }
                     }
 					else

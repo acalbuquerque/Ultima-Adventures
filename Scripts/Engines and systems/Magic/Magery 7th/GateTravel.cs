@@ -66,39 +66,30 @@ namespace Server.Spells.Seventh
 
 		public void Effect( Point3D loc, Map map, bool checkMulti )
 		{
-			if ( !SpellHelper.CheckTravel( Caster, TravelCheckType.GateFrom ) )
+			if ( !SpellHelper.CheckTravel( Caster, TravelCheckType.GateFrom ) || !SpellHelper.CheckTravel(Caster, map, loc, TravelCheckType.GateTo))
 			{
-			}
-			else if ( Worlds.AllowEscape( Caster, Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false )
+                Caster.SendMessage(55, "Algo de estranho aconteceu e bloqueou o uso deste feitiço.");
+            }
+			else if ( Worlds.AllowEscape( Caster, Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false || 
+				Worlds.RegionAllowedRecall(Caster.Map, Caster.Location, Caster.X, Caster.Y) == false)
 			{
-				Caster.SendMessage( "That spell does not seem to work in this place." );
-			}
-			else if ( Worlds.RegionAllowedRecall( Caster.Map, Caster.Location, Caster.X, Caster.Y ) == false )
-			{
-				Caster.SendMessage( "That spell does not seem to work in this place." );
+				Caster.SendMessage(55, "Esse feitiço parece não funcionar neste lugar.");
 			}
 			else if ( Worlds.RegionAllowedTeleport( map, loc, loc.X, loc.Y ) == false )
 			{
-				Caster.SendMessage( "The destination seems magically unreachable." );
+				Caster.SendMessage(55, "O destino parece magicamente inacessível.");
 			}
-			else if ( !SpellHelper.CheckTravel( Caster,  map, loc, TravelCheckType.GateTo ) )
+			else if ( !map.CanSpawnMobile( loc.X, loc.Y, loc.Z ) || (checkMulti && SpellHelper.CheckMulti(loc, map)))
 			{
-			}
-			else if ( !map.CanSpawnMobile( loc.X, loc.Y, loc.Z ) )
-			{
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
-			}
-			else if ( (checkMulti && SpellHelper.CheckMulti( loc, map )) )
-			{
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
-			}
+                Caster.SendMessage(55, "Esse local está bloqueado para o uso de teletransporte!");
+            }
 			else if ( Core.SE && ( GateExistsAt( map, loc ) || GateExistsAt( Caster.Map, Caster.Location ) ) ) // SE restricted stacking gates
 			{
-				Caster.SendLocalizedMessage( 1071242 ); // There is already a gate there.
+                Caster.SendMessage(55, "Já existe um portal neste local.");
 			}
 			else if ( CheckSequence() )
 			{
-				Caster.SendLocalizedMessage( 501024 ); // You open a magical gate to another location
+                Caster.SendMessage(55, "Você abriu um portal mágico para outro lugar.");
 
 				Effects.PlaySound( Caster.Location, Caster.Map, 0x20E );
 				InternalItem firstGate = new InternalItem( loc, map );
@@ -176,9 +167,8 @@ namespace Server.Spells.Seventh
 			public InternalTarget( GateTravelSpell owner ) : base( 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
-
-				owner.Caster.LocalOverheadMessage( MessageType.Regular, 0x3B2, 501029 ); // Select Marked item.
-			}
+                owner.Caster.SendMessage(55, "Selecione um destino válido.");
+            }
 
 			protected override void OnTarget( Mobile from, object o )
 			{
@@ -189,7 +179,7 @@ namespace Server.Spells.Seventh
 					if ( rune.Marked )
 						m_Owner.Effect( rune.Target, rune.TargetMap, true );
 					else
-						from.SendLocalizedMessage( 501803 ); // That rune is not yet marked.
+                        from.SendMessage(55, "Essa runa ainda não está marcada.");
 				}
 				else if ( o is Runebook )
 				{
@@ -198,7 +188,7 @@ namespace Server.Spells.Seventh
 					if ( e != null )
 						m_Owner.Effect( e.Location, e.Map, true );
 					else
-						from.SendLocalizedMessage( 502354 ); // Target is not marked.
+                        from.SendMessage(55, "O destino não está marcado corretamente.");
 				}
 				else if ( o is HouseRaffleDeed && ((HouseRaffleDeed)o).ValidLocation() )
 				{

@@ -35,8 +35,8 @@ namespace Server.Spells.Seventh
 		{
 			if ( !Caster.CanSee( p ) )
 			{
-				Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
-			}
+                Caster.SendMessage(55, "O alvo não pode ser visto.");
+            }
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
 				SpellHelper.Turn( Caster, p );
@@ -70,13 +70,16 @@ namespace Server.Spells.Seventh
 				Effects.PlaySound( p, Caster.Map, 0x20B );
 
 				TimeSpan duration;
-
-				if ( Core.AOS )
-					duration = TimeSpan.FromSeconds( (15 + (Caster.Skills.Magery.Fixed / 5)) / 7 );
-				else
-					duration = TimeSpan.FromSeconds( Caster.Skills[SkillName.Magery].Value * 0.28 + 2.0 ); // (28% of magery) + 2.0 seconds
-
-				int itemID = eastToWest ? 0x3946 : 0x3956;
+                double expire;
+                double nBenefit = 0;
+                if (Caster is PlayerMobile) // WIZARD
+                {
+                    nBenefit = NMSUtils.getBonusIncriptBenefit(Caster);
+                }
+				expire = 3.0 + (int)((Caster.Skills[SkillName.Magery].Fixed * 0.1) * nBenefit);
+                duration = TimeSpan.FromSeconds(expire);
+                Caster.SendMessage(55, "O seu feitiço funcionará por aproximadamente " + duration + "s.");
+                int itemID = eastToWest ? 0x3946 : 0x3956;
 
 				for ( int i = -2; i <= 2; ++i )
 				{
@@ -149,14 +152,14 @@ namespace Server.Spells.Seventh
 			public override bool OnMoveOver( Mobile m )
 			{
 				int noto;
+                noto = Notoriety.Compute(m_Caster, m);
+                if (m_Caster == m || noto == Notoriety.Ally || m.AccessLevel > AccessLevel.Player)
+                    return true;
+                /*				if ( m is PlayerMobile )
+                                {
 
-				if ( m is PlayerMobile )
-				{
-					noto = Notoriety.Compute( m_Caster, m );
-					if ( noto == Notoriety.Enemy || noto == Notoriety.Ally )
-						return false;
-				}
-				return base.OnMoveOver( m );
+                                }*/
+                return false;//base.OnMoveOver( m );
 			}
 
 			public override void OnAfterDelete()
