@@ -28,7 +28,7 @@ namespace Server.Items
 		[Constructable]
 		public OneRing()
 		{
-			Name = "The One Ring";
+			Name = "O Um Anel";
 			Hue = 0x21;
 			ItemID = 0x4CF8;
 			m_Tick = 0;
@@ -39,7 +39,7 @@ namespace Server.Items
         public override void AddNameProperties(ObjectPropertyList list)
 		{
             base.AddNameProperties(list);
-			list.Add( 1070722, "it shines with mysterious energy");
+			list.Add( 1070722, "brilha com energia misteriosa");
         }
 
 		public override void OnAfterSpawn()
@@ -61,18 +61,18 @@ namespace Server.Items
 		{
 			if (!(from is PlayerMobile) || !((PlayerMobile)from).Avatar)
 			{
-				from.SendMessage("The ring does nothing for you, so you take it off.");
+				from.SendMessage(55, "O anel não faz nada por você, então você o tira.");
 				return false;
 			}
 
 			if (wearer == null || (wearer != null && wearer != from))
 				wearer = from;
 
-			if ( ((PlayerMobile)from).GetFlag( PlayerFlag.JustWoreRing ))
+/*			if ( ((PlayerMobile)from).GetFlag( PlayerFlag.JustWoreRing ))
 			{
-				from.SendMessage("The ring does not yet allow you to wear it again.");
+				from.SendMessage("O anel ainda não permite que você o use novamente.");
 				return false;
-			}
+			}*/
 
 			if (!from.Hidden)
 				from.Hidden = true;
@@ -89,9 +89,9 @@ namespace Server.Items
 			else
 				return;
 
-			from.SetFlag( PlayerFlag.JustWoreRing, true );
+			//from.SetFlag( PlayerFlag.JustWoreRing, true );
 
-			Timer.DelayCall( TimeSpan.FromMinutes( 5 ), new TimerStateCallback ( EquipAgain ), new object[]{ from }  );
+			//Timer.DelayCall( TimeSpan.FromMinutes( 3 ), new TimerStateCallback ( EquipAgain ), new object[]{ from }  );
 
 		}
 
@@ -103,7 +103,7 @@ namespace Server.Items
 			object[] states = (object[])state;
 
 			PlayerMobile from = (PlayerMobile)states[0];
-			from.SetFlag( PlayerFlag.JustWoreRing, false );
+			//from.SetFlag( PlayerFlag.JustWoreRing, false );
 		}
 
 		public void OneTimeTick()
@@ -112,8 +112,8 @@ namespace Server.Items
 			{
 				if (wearer != null)
 				{
-					if ( wearer.FindItemOnLayer( Layer.Ring ) != null && wearer.FindItemOnLayer( Layer.Ring ) is OneRing)
-						wearer.Hits -= 5 + (wearer.Hits/30);
+					if (wearer.FindItemOnLayer(Layer.Ring) != null && wearer.FindItemOnLayer(Layer.Ring) is OneRing)
+						wearer.Hits -= 6;// + (wearer.Hits/30);
 				}
 
 				m_Tick = 0;
