@@ -29,13 +29,14 @@ namespace Server.Spells.Eighth
 			if ( !base.CheckCast( caster ) )
 				return false;
 
-			if ( (Caster.Followers + (Core.SE ? 2 : 1)) > Caster.FollowersMax )
-			{
-				Caster.SendLocalizedMessage( 1049645 ); // You have too many followers to summon that creature.
-				return false;
-			}
+            if (Caster.Followers >= Caster.FollowersMax)
+            {
+                DoFizzle();
+                Caster.SendMessage(55, "Você já tem muitos seguidores para invocar um novo servo.");
+                return false;
+            }
 
-			return true;
+            return true;
 		}
 
 		public override void OnCast()
@@ -51,24 +52,14 @@ namespace Server.Spells.Eighth
 
 			if ( map == null || !map.CanSpawnMobile( p.X, p.Y, p.Z ) )
 			{
-				Caster.SendLocalizedMessage( 501942 ); // That location is blocked.
+                Caster.SendMessage(55, "O local está bloquado para este feitiço.");
 			}
 			else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
 			{
-				TimeSpan duration;
+                TimeSpan duration = TimeSpan.FromSeconds((Caster.Skills[SkillName.Magery].Fixed * 0.1) * NMSUtils.getBonusIncriptBenefit(Caster));
+                Caster.SendMessage(55, "O seu feitiço terá a duração de aproximadamente " + duration + "s.");
 
-				int nBenefit = 0;
-				if ( Caster is PlayerMobile ) // WIZARD
-				{
-					nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 2);
-				}
-
-				if ( Core.AOS )
-					duration = TimeSpan.FromSeconds( 90.0 + nBenefit );
-				else
-					duration = TimeSpan.FromSeconds( Utility.Random( 80, 40 ) + nBenefit );
-
-				BaseCreature.Summon( new EnergyVortex(), false, Caster, new Point3D( p ), 0x212, duration );
+                BaseCreature.Summon( new EnergyVortex(), false, Caster, new Point3D( p ), 0x212, duration );
 			}
 
 			FinishSequence();
@@ -91,7 +82,8 @@ namespace Server.Spells.Eighth
 
 			protected override void OnTargetOutOfLOS( Mobile from, object o )
 			{
-				from.SendLocalizedMessage( 501943 ); // Target cannot be seen. Try again.
+                from.SendMessage(55, "O alvo não pode ser visto.");
+                //from.SendLocalizedMessage( 501943 ); // Target cannot be seen. Try again.
 				from.Target = new InternalTarget( m_Owner );
 				from.Target.BeginTimeout( from, TimeoutTime - DateTime.UtcNow );
 				m_Owner = null;

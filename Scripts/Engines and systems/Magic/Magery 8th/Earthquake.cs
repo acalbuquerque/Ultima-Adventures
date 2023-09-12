@@ -35,36 +35,57 @@ namespace Server.Spells.Eighth
 				List<Mobile> targets = new List<Mobile>();
 
 				Map map = Caster.Map;
-
-				if ( map != null )
+                bool playerVsPlayer = false;
+                if ( map != null )
 					foreach ( Mobile m in Caster.GetMobilesInRange( 1 + (int)(Caster.Skills[SkillName.Magery].Value / 15.0) ) )
 						if ( Caster.Region == m.Region && Caster != m && SpellHelper.ValidIndirectTarget( Caster, m ) && Caster.CanBeHarmful( m, false ) && (!Core.AOS || Caster.InLOS( m )) )
-							targets.Add( m );
-
+						{
+                            targets.Add(m);
+                            if (m.Player)
+                                playerVsPlayer = true;
+                        }
+                            
 				Caster.PlaySound( 0x220 );
 
 				for ( int i = 0; i < targets.Count; ++i )
 				{
 					Mobile m = targets[i];
 
-					int damage;
+					double damage;
 
 					int nBenefit = 0;
 					if ( Caster is PlayerMobile ) // WIZARD
 					{
-						nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 5);
+						//nBenefit = (int)(Caster.Skills[SkillName.Magery].Value / 5);
 					}
 
-					damage = m.Hits / 2;
+                    damage = GetNMSDamage(35, 1, 6, Caster.Player && playerVsPlayer) + nBenefit;
+
+                    //damage = m.Hits / 2;
 
 					if ( !m.Player )
-						damage = Math.Max( Math.Min( damage, 100 ), 15 );
-						damage += Utility.RandomMinMax( 0, 15 );
+						damage = Math.Max( Math.Min( damage, damage * 2), 15 );
+						damage += Utility.RandomMinMax( 0, 10 );
 
 					damage = damage + nBenefit;
 
-					Caster.DoHarmful( m );
-					SpellHelper.Damage( TimeSpan.Zero, m, Caster, damage, 100, 0, 0, 0, 0 );
+                    if (CheckResisted(m))
+                    {
+                        damage *= 0.5;
+                        m.SendMessage(55, "Sua aura mágica lhe ajudou a resistir metade do dano desse feitiço.");
+                    }
+
+                    if (m is PlayerMobile && m.FindItemOnLayer(Layer.Ring) != null && m.FindItemOnLayer(Layer.Ring) is OneRing)
+                    {
+                        m.SendMessage(33, "O UM ANEL te protegeu de ser revelado.");
+                    }
+                    else
+                    {
+                        m.RevealingAction();
+                    }
+
+                    Caster.DoHarmful( m );
+					SpellHelper.Damage( TimeSpan.Zero, m, Caster, (int)damage, 100, 0, 0, 0, 0 );
 				}
 			}
 

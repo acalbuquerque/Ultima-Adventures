@@ -56,35 +56,42 @@ namespace Server.Gumps
 
 			if (healer is PlayerMobile && owner is PlayerMobile && ((PlayerMobile)owner).Avatar)
 			{
-				bool proceed = false;
-				PlayerMobile healed = (PlayerMobile)owner;
-				PlayerMobile hEaler = (PlayerMobile)healer;
+                bool proceed = false;
+                PlayerMobile healed = (PlayerMobile)owner;
+                PlayerMobile hEaler = (PlayerMobile)healer;
 
-				if (hEaler.BalanceEffect <= -10)
-				{
-					proceed = true;
-					hEaler.BalanceEffect += 10;
-				}
-				else if (hEaler.BalanceEffect >= 10)
-				{
-					proceed = true;
-					hEaler.BalanceEffect -= 10;
-				}
+                if (hEaler.BalanceEffect <= -5)
+                {
+                    proceed = true;
+                    hEaler.BalanceEffect += 5;
+                    hEaler.SendMessage(55, "Você sacrificou 5 pontos de sua influência no equilibrio da força para trazer esta alma de volta.");
+                }
+                else if (hEaler.BalanceEffect >= 5)
+                {
+                    proceed = true;
+                    hEaler.BalanceEffect -= 5;
+                    hEaler.SendMessage(55, "Você sacrificou 5 pontos de sua influência no equilibrio da força para trazer esta alma de volta.");
+                }
+                else
+                {
+                    proceed = true;
+                    hEaler.Hits = (hEaler.Hits / 2) >= 1 ? hEaler.Hits / 2 : 1;
+                    hEaler.SendMessage(55, "Você sacrificou metade de sua vitalidade para trazer esta alma de volta.");
+                }
 
-				if (proceed)
-				{
-					hEaler.SendMessage( "You sacrifice your influence on the balance to resurrect this adventurer." );
-					healed.SendMessage( "The other adventurer sacrifices some influence on the balance to bring you back to life." );
-				}
-				else
-				{
-					hEaler.SendMessage( "You have insufficient influence over the balance to sacrifice." );
-					healed.SendMessage( "The other adventurer does not have sufficient influence over the balance to help you." );
-					healed.CloseGump( typeof( ResurrectGump ) );
-					return;
-				}
+                if (proceed)
+                {
+                    healed.SendMessage(55, "Um sacrificio foi exigido para que o outro aventureiro lhe trouxesse de volta a vida!");
+                }
+                else
+                {
+                    hEaler.SendMessage(55, "Para trazer o alvo de volta a vida, um sacrifício é necessário e você não possui o suficiente!");
+                    healed.SendMessage(55, "Para lhe trazer de volta a vida é necessário um sacrifício e o curandeiro não possui o suficiente! Procure outro que possa lhe ajudar.");
+                    healed.CloseGump(typeof(ResurrectGump));
+                    return;
+                }
 
-			}
+            }
 
 			m_Healer = healer;
 			m_FromSacrifice = fromSacrifice;
@@ -95,7 +102,11 @@ namespace Server.Gumps
 			this.Dragable=true;
 			this.Resizable=false;
 
-			AddPage(0);
+            int firstColumn = 100;
+            int secondColumn = 350;
+            int buttonLabelOffset = 30;
+
+            AddPage(0);
 			AddImage(0, 0, 154);
 			AddImage(300, 99, 154);
 			AddImage(0, 99, 154);
@@ -116,10 +127,12 @@ namespace Server.Gumps
 			AddItem(156, 67, 2);
 			AddItem(178, 67, 3);
 			AddItem(185, 118, 3244);
-			AddButton(146, 260, 4023, 4023, 1, GumpButtonType.Reply, 0);
-			AddButton(374, 260, 4020, 4020, 0, GumpButtonType.Reply, 0);
-			AddHtml( 267, 95, 224, 22, @"<BODY><BASEFONT Color=#FBFBFB><BIG>RESURRECTION</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
-			AddHtml( 93, 163, 400, 76, @"<BODY><BASEFONT Color=#FCFF00><BIG>It is possible for you to be resurrected here by this healer. Do you want to return to the land of the living? If not, you can remain in the spirit realm.</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddButton(100, 260, 4023, 4023, 1, GumpButtonType.Reply, 0);
+            AddHtml(firstColumn + buttonLabelOffset, 260 + 2, 477, 22, @"<BODY><BASEFONT Color=#5eff00><BIG> Ressuscite-me </BIG></BASEFONT></BODY>", false, false);
+            AddButton(350, 260, 4020, 4020, 0, GumpButtonType.Reply, 0);
+            AddHtml(secondColumn + buttonLabelOffset, 260 + 2, 477, 22, @"<BODY><BASEFONT Color=#FF0000><BIG> Agora não </BIG></BASEFONT></BODY>", false, false);
+            AddHtml( 267, 95, 224, 22, @"<BODY><BASEFONT Color=#fff700><BIG>RESSURREIÇÃO</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( 100, 163, 400, 96, @"<BODY><BASEFONT Color=#FFFFFF><BIG>É possível que você seja ressuscitado aqui por este curador.<br/>Você quer voltar para a terra dos vivos? Caso contrário, você poderá permanecer no reino espiritual.</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 			AddImage(36, 124, 162);
 			AddImage(33, 131, 162);
 			AddImage(45, 138, 162);
@@ -136,27 +149,34 @@ namespace Server.Gumps
 				PlayerMobile healed = (PlayerMobile)owner;
 				PlayerMobile hEaler = (PlayerMobile)healer;
 
-				if (hEaler.BalanceEffect <= -10)
+				if (hEaler.BalanceEffect <= -5)
 				{
 					proceed = true;
-					hEaler.BalanceEffect += 10;
-				}
-				else if (hEaler.BalanceEffect >= 10)
+					hEaler.BalanceEffect += 5;
+                    hEaler.SendMessage(55, "Você sacrificou 5 pontos de sua influência no equilibrio da força para trazer esta alma de volta.");
+                }
+				else if (hEaler.BalanceEffect >= 5)
 				{
 					proceed = true;
-					hEaler.BalanceEffect -= 10;
-				}
+					hEaler.BalanceEffect -= 5;
+                    hEaler.SendMessage(55, "Você sacrificou 5 pontos de sua influência no equilibrio da força para trazer esta alma de volta.");
+                }
+				else 
+				{
+                    proceed = true;
+                    hEaler.Hits = (hEaler.Hits / 2) >= 1 ? hEaler.Hits / 2 : 1;
+                    hEaler.SendMessage(55, "Você sacrificou metade de sua vitalidade para trazer esta alma de volta.");
+                }
 
 				if (proceed)
 				{
-					hEaler.SendMessage( "You sacrifice your influence on the balance to resurrect this adventurer." );
-					healed.SendMessage( "The other adventurer sacrifices some influence on the balance to bring you back to life." );
-				}
+					healed.SendMessage(55, "Um sacrificio foi exigido para que o outro aventureiro lhe trouxesse de volta a vida!");
+                }
 				else
 				{
-					hEaler.SendMessage( "You have insufficient influence over the balance to sacrifice." );
-					healed.SendMessage( "The other adventurer does not have sufficient influence over the balance to help you." );
-					healed.CloseGump( typeof( ResurrectGump ) );
+					hEaler.SendMessage(55, "Para trazer o alvo de volta a vida, um sacrifício é necessário e você não possui o suficiente!");
+                    healed.SendMessage(55, "Para lhe trazer de volta a vida é necessário um sacrifício e o curandeiro não possui o suficiente! Procure outro que possa lhe ajudar.");
+                    healed.CloseGump( typeof( ResurrectGump ) );
 					return;
 				}
 

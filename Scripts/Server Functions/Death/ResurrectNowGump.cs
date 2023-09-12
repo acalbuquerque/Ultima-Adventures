@@ -45,57 +45,61 @@ namespace Server.Gumps
 
             int HealCost = GetPlayerInfo.GetResurrectCost( from );
 			int BankGold = Banker.GetBalance( from );
-
+			
 			string sText;
 
             string c1 = String.Format("{0:0.0}", ((1 - penalty)* 300) );
 			string c2 = "10";
 
-			if ( ( from.RawDex + from.RawInt + from.RawStr ) > 125 )
+			string f1 = "Você deseja implorar aos deuses por sua vida de volta? Se fizer isso, você sofrerá uma perda de " + c2 + "% em sua fama e karma.";
+            string f2 = "Você tem ouro suficiente no banco para oferecer o tributo da ressurreição, então talvez você queira encontrar um santuário ou curandeiro em vez de sofrer essas penalidades.";
+			string f3 = "Você não pode pagar o tributo da ressurreição devido à falta de ouro no banco, então talvez você queira fazer isso.";
+			string f4 = "Você também perderá " + c1 + "% de suas estatísticas e todas as habilidades.";
+            if ( ( from.RawDex + from.RawInt + from.RawStr ) > 125 )
 			{
 				if ( !((PlayerMobile)from).Avatar )
 				{
-					c2 = "40";
-					if ( BankGold >= HealCost )
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You have enough gold in the bank to offer the resurrection tribute, so perhaps you may want to find a shrine or healer instead of suffering these penalties.";
+					c2 = "30";
+					if (BankGold >= HealCost)
+						sText = f1 + "\n" + f2;
 					else
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You cannot afford the resurrection tribute due to the lack of gold in the bank, so perhaps you may want to do this.";
+						sText = f1 + " " + f3; 
 				}
 				else
 				{
 					if ( BankGold >= HealCost )
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of your statistics and all skills. You have enough gold in the bank to offer the resurrection tribute, so perhaps you may want to find a shrine or healer instead of suffering these penalties.";
+                        sText = f1 + " " + f4 + "\n" + f2;
 					else
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of your statistics and all skills. You cannot afford the resurrection tribute due to the lack of gold in the bank, so perhaps you may want to do this.";
+                        sText = f1 + " " + f4 + " " + f3;
 				}
 			}
 			else 
 			{
 				if ( !(((PlayerMobile)from).Avatar) )
 				{
-					c2 = "20";
-					if ( BankGold >= HealCost )
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You have enough gold in the bank to offer the resurrection tribute, so perhaps you may want to find a shrine or healer instead of suffering these penalties.";
-					else
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You cannot afford the resurrection tribute due to the lack of gold in the bank, so perhaps you may want to do this.";
-				}
+					c2 = "15";
+                    if (BankGold >= HealCost)
+                        sText = f1 + " " + f2;
+                    else
+                        sText = f1 + " " + f3;
+                }
 
 				else 
 				{
-					if ( BankGold >= HealCost )
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You won't lose stats and skills due to your weak nature. You have enough gold in the bank to offer the resurrection tribute, so perhaps you may want to find a shrine or healer instead of suffering these penalties.";
-					else
-						sText = "Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You won't lose stats and skills due to your weak nature. You cannot afford the resurrection tribute due to the lack of gold in the bank, so perhaps you may want to do this.";
-				}
+                    if (BankGold >= HealCost)
+                        sText = f1 + " " + f4 + " " + f2;
+                    else
+                        sText = f1 + " " + f4 + " " + f3;
+                }
 			}
 
-			string sGrave = "YOU HAVE DIED!";
+			string sGrave = "VOCÊ MORREU!";
 			switch ( Utility.RandomMinMax( 0, 3 ) )
 			{
-				case 0:	sGrave = "YOU HAVE DIED!";			break;
-				case 1:	sGrave = "YOU HAVE PERISHED!";		break;
-				case 2:	sGrave = "YOU MET YOUR END!";		break;
-				case 3:	sGrave = "YOUR LIFE HAS ENDED!";	break;
+				case 0:	sGrave = "VOCÊ MORREU!";break;
+				case 1:	sGrave = "VOCÊ PERECEU!";break;
+				case 2:	sGrave = "VOCÊ CONHECEU SEU FIM!";break;
+				case 3:	sGrave = "SUA VIDA ACABOU!";break;
 			}
 
             this.Closable=true;
@@ -130,27 +134,51 @@ namespace Server.Gumps
 			int firstColumn = 100;
 			int secondColumn = 307;
 			int buttonLabelOffset = 30;
-			
-			int y = 355;
+
+			double bankGoldKK = BankGold;
+            bool useKNotation = false;
+            bool useKKNotation = false;
+            if (bankGoldKK > 1000)
+            {
+                if (bankGoldKK > 1000000)
+                {
+                    useKKNotation = true;
+                    bankGoldKK /= (1000 * 1000); // kks
+                }
+                else
+                {
+                    useKNotation = true;
+                    bankGoldKK /= 1000;
+                }
+
+				bankGoldKK = Math.Round(bankGoldKK, 2);
+            }
+
+            int y = 365;
             AddButton(firstColumn, y, 4023, 4024, (int)ButtonType.Accept, GumpButtonType.Reply, 0);
-            AddHtml(firstColumn + buttonLabelOffset, y + 2, 477, 22, @"<BODY><BASEFONT Color=#FF0000><BIG> Resurrect Me </BIG></BASEFONT></BODY>", false, false);
+            AddHtml(firstColumn + buttonLabelOffset, y + 2, 477, 22, @"<BODY><BASEFONT Color=#5eff00><BIG> Ressuscite-me </BIG></BASEFONT></BODY>", false, false);
 
             AddButton(secondColumn, y, 4017, 4018, (int)ButtonType.Cancel, GumpButtonType.Reply, 0);
-            AddHtml(secondColumn + buttonLabelOffset, y + 2, 477, 22, @"<BODY><BASEFONT Color=#FF0000><BIG> Maybe Later </BIG></BASEFONT></BODY>", false, false);
+            AddHtml(secondColumn + buttonLabelOffset, y + 2, 477, 22, @"<BODY><BASEFONT Color=#fff700><BIG> Talvez mais tarde </BIG></BASEFONT></BODY>", false, false);
 
             y += 30;
             AddButton(secondColumn, y, 4020, 4021, (int)ButtonType.CancelAndSuppress, GumpButtonType.Reply, 0);
-            AddHtml(secondColumn + buttonLabelOffset, y + 2, 477, 22, @"<BODY><BASEFONT Color=#FF0000><BIG> Stop Asking </BIG></BASEFONT></BODY>", false, false);
+            AddHtml(secondColumn + buttonLabelOffset, y + 2, 477, 22, @"<BODY><BASEFONT Color=#FF0000><BIG> Não e Pare de perguntar </BIG></BASEFONT></BODY>", false, false);
 
-            AddHtml( firstColumn, 271, 190, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>Resurrection Tribute</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
-			AddHtml( secondColumn, 271, 116, 22, @"<BODY><BASEFONT Color=#FF0000><BIG>" + String.Format("{0} Gold", HealCost ) + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+            AddHtml( firstColumn, 291, 190, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>Valor do Tributo</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( secondColumn, 291, 196, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + String.Format("{0} Moeda(s) de Ouro", HealCost ) + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
-			AddHtml( firstColumn, 305, 190, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>Gold in the Bank</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
-			AddHtml( secondColumn, 305, 116, 22, @"<BODY><BASEFONT Color=#FF0000><BIG>" + Banker.GetBalance( from ).ToString() + " Gold</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( firstColumn, 315, 190, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>Dinheiro no banco</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			if (useKNotation)
+                AddHtml(secondColumn, 315, 196, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + bankGoldKK.ToString() + "k Moeda(s) de Ouro</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+            else if (useKKNotation)
+                AddHtml(secondColumn, 315, 196, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + bankGoldKK.ToString() + "kk Moeda(s) de Ouro</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+            else
+                AddHtml( secondColumn, 315, 156, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + Banker.GetBalance( from ).ToString() + " Moeda(s) de Ouro</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
-			AddHtml( 267, 95, 306, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG><CENTER>" + sGrave + "</CENTER></BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( 267, 95, 306, 22, @"<BODY><BASEFONT Color=#fff700><BIG><CENTER>" + sGrave + "</CENTER></BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
-			AddHtml( firstColumn, 155, 477, 103, @"<BODY><BASEFONT Color=#FF0000><BIG>" + sText + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( firstColumn, 155, 477, 130, @"<BODY><BASEFONT Color=#ffffff><BIG>" + sText + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 		}
 
 		public override void OnResponse( NetState state, RelayInfo info )
@@ -185,7 +213,7 @@ namespace Server.Gumps
                 case ButtonType.Close:
                 case ButtonType.CancelAndSuppress:
 				default:
-					from.SendMessage( "You decide to remain in the spirit realm." );
+					from.SendMessage(55, "Você decide permanecer no reino espiritual.");
 					if (button == ButtonType.CancelAndSuppress) return;
 
 					TryShowAutoResurrectGump(from);
@@ -198,7 +226,7 @@ namespace Server.Gumps
         {
 			if (mobile == null || mobile.SoulBound || mobile.Alive) return;
 
-            Timer.DelayCall(TimeSpan.FromSeconds(30), (m) =>
+            Timer.DelayCall(TimeSpan.FromSeconds(60), (m) =>
             {
 				if (m == null || m.SoulBound || m.Alive) return;
 

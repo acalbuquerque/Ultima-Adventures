@@ -56,14 +56,20 @@ namespace Server.Gumps
 				c2  = "10";
 
 			string loss = "";
-			if ( ((PlayerMobile)owner).Avatar)
-				loss = " If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of some random skills.";
-			else 
-				loss = " If you do, you will suffer a " + c2 + "% loss to your fame and karma.";
 
+            string f0 = "Atualmente você tem ouro suficiente no banco para fazer uma oferenda ao curandeiro. Você deseja prestar homenagem ao curandeiro pela sua vida de volta?";
+            string f1 = "<br/>Se fizer isso, você sofrerá uma perda de " + c2 + "% de perda de sua fama e karma.";
+			string f2 = "Você também perderá " + c1 + "% de algumas habilidades aleatórias.";
+            string f3 = "Atualmente você não tem ouro suficiente no banco para oferecer uma oferenda ao curandeiro. Você deseja implorar ao curador pela sua vida de volta agora, sem prestar homenagem?";
+			string f4 = "Felizmente para você, o santuário não precisa de ouro para trazê-lo de volta à vida. Você deseja implorar aos deuses por sua vida de volta agora?";
+            string f5 = "Você também perderá " + c1 + "% de suas estatísticas e habilidades aleatórias.";
 
+            if (((PlayerMobile)owner).Avatar)
+				loss = " " + f1 + " " + f2;
+			else
+				loss = " " + f1;
 
-			if ( m_Price > 0 )
+            if ( m_Price > 0 )
 			{
 				if ( m_Price > m_Bank )
 				{
@@ -91,10 +97,10 @@ namespace Server.Gumps
 					/*else */
 					if ( m_Healer < 2 )
 					{
-						if ( !((PlayerMobile)owner).Avatar )
-							sText = "You currently do not have enough gold in the bank to provide an offering to the healer. Do you wish to plead to the healer for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma.";
+						if (!((PlayerMobile)owner).Avatar)
+							sText = f3 + " " + f1;
 						else
-							sText = "You currently do not have enough gold in the bank to provide an offering to the healer. Do you wish to plead to the healer for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of statistics and skills.";
+							sText = f3 + " " + f1 + " " + f5;
 						m_ResurrectType = 1;
 					}
 					else
@@ -115,36 +121,36 @@ namespace Server.Gumps
 							c1 = String.Format("{0:0.0}", (penalty));
 							
 							if ( !((PlayerMobile)owner).Avatar )
-								sText = "Luckily for you, the shrine does not need gold to bring you back to life. Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma.";
+								sText = f4 + " " + f1;
 							else
-								sText = "Luckily for you, the shrine does not need gold to bring you back to life. Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose up to " + c1 + "% of your statistics and skills.";
+								sText = f4 + " " + f1 + " " + f5;
 
 							m_ResurrectType = 3;
 						}
 												
 						else if ( m_Healer == 3 )
-						{
-							if ( !((PlayerMobile)owner).Avatar)
-								sText = "You currently do not have enough gold in the bank to provide an offering to Azrael. Do you wish to plead to him for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma.";
+                        {// Azrael
+                            if ( !((PlayerMobile)owner).Avatar)
+								sText = f3 + " " + f1; 
 							else
-								sText = "You currently do not have enough gold in the bank to provide an offering to Azrael. Do you wish to plead to him for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of your statistics and skills.";
-							m_ResurrectType = 1;
+								sText = f3 + " " + f1 + " " + f5;
+                            m_ResurrectType = 1;
 						}
 						else if ( m_Healer == 4 )
-						{
-							if ( !((PlayerMobile)owner).Avatar)
-								sText = "You currently do not have enough gold in the bank to provide an offering to the Reaper. Do you wish to plead to him for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma.";
+                        { //Reaper
+                            if ( !((PlayerMobile)owner).Avatar)
+								sText = sText = f3 + " " + f1;
 							else
-								sText = "You currently do not have enough gold in the bank to provide an offering to the Reaper. Do you wish to plead to him for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of your statistics and skills.";
+								sText = f3 + " " + f1 + " " + f5;
 							m_ResurrectType = 1;
 						}
 						else if ( m_Healer == 5 )
-						{
-							if ( !((PlayerMobile)owner).Avatar)
-								sText = "You currently do not have enough gold in the bank to provide an offering to the goddess of the sea. Do you wish to plead to Amphitrite for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma.";
-							else 
-								sText = "You currently do not have enough gold in the bank to provide an offering to the goddess of the sea. Do you wish to plead to Amphitrite for your life back now, without providing tribute? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of your statistics and skills.";
-							m_ResurrectType = 1;
+                        { //goddess of the sea
+                            if (!((PlayerMobile)owner).Avatar)
+                                sText = sText = f3 + " " + f1;
+                            else
+                                sText = f3 + " " + f1 + " " + f5;
+                            m_ResurrectType = 1;
 						}
 					}
 				}
@@ -168,7 +174,7 @@ namespace Server.Gumps
 					
 					else */if ( m_Healer < 2 )
 					{
-						sText = "You currently have enough gold in the bank to provide an offering to the healer. Do you wish to offer the tribute to the healer for your life back?." + loss;
+						sText = f0 + loss;
 						m_ResurrectType = 2;
 					}
 					else
@@ -186,22 +192,22 @@ namespace Server.Gumps
 								c2 = "10";
 							
 							c1 = String.Format("{0:0.0}", (penalty));
-							sText = "Luckily for you, the shrine does not need gold to bring you back to life. Do you wish to plead to the gods for your life back now? If you do, you will suffer a " + c2 + "% loss to your fame and karma. You will also lose " + c1 + "% of your statistics and skills.";
-							m_ResurrectType = 3;
+							sText = f4 + " " + f1 + " " + f5;
+                            m_ResurrectType = 3;
 						}
 						else if ( m_Healer == 3 )
 						{
-							sText = "Azrael is not ready for your soul just yet, and you currently have enough gold in the bank to provide an offering to him. Do you wish to offer the tribute to Azrael for your life back?." + loss;
+							sText = "Azrael ainda não está pronto para receber sua alma e atualmente você tem ouro suficiente no banco para fazer uma oferenda a ele. Você deseja prestar homenagem a Azrael pela sua vida de volta?" + loss;
 						m_ResurrectType = 2;
 						}
 						else if ( m_Healer == 4 )
 						{
-							sText = "Although the Reaper would gladly take your soul, he thinks your time has come to an end too soon. You currently have enough gold in the bank to provide an offering to the Reaper. Do you wish to offer the tribute to him for your life back?." + loss;
+							sText = "Embora o Ceifador ficasse feliz em levar sua alma, ele acha que seu tempo chegou ao fim muito cedo. Atualmente você tem ouro suficiente no banco para fazer uma oferenda ao Reaper. Você deseja prestar-lhe uma homenagem pela sua vida de volta?" + loss;
 						m_ResurrectType = 2;
 						}
 						else if ( m_Healer == 5 )
 						{
-							sText = "You currently have enough gold in the bank to provide an offering to the goddess of the sea. Do you wish to offer the tribute to Amphitrite for your life back?." + loss;
+							sText = "Atualmente você tem ouro suficiente no banco para fazer uma oferenda à deusa do mar. Você deseja homenagear Anfitrite pela sua vida de volta?" + loss;
 						m_ResurrectType = 2;
 						}
 					}
@@ -212,34 +218,34 @@ namespace Server.Gumps
 			{
 				if ( m_Healer < 2 )
 				{
-					sText = "Do you wish to have the healer return you to life?.";
+					sText = "Você deseja que o curandeiro o traga de volta à vida?";
 				}
 				else
 				{
-					sText = "Do you wish to have the gods return you to life?.";
+					sText = "Você deseja que os deuses o devolvam à vida?";
 
 					if ( m_Healer == 3 )
 					{
-						sText = "Do you wish to have Azrael return you to life?.";
+						sText = "Você deseja que Azrael o traga de volta à vida?";
 					}
 					else if ( m_Healer == 4 )
 					{
-						sText = "Do you wish to have the Reaper return you to life?.";
+						sText = "Você deseja que o Reaper o traga de volta à vida?";
 					}
 					else if ( m_Healer == 5 )
 					{
-						sText = "Do you wish to have Amphitrite return you to life?.";
+						sText = "Você deseja que Anfitrite o traga de volta à vida?";
 					}
 				}
 			}
 
-			string sGrave = "RETURN TO THE LIVING";
+			string sGrave = "VOLTAR À VIDA";
 			switch ( Utility.RandomMinMax( 0, 3 ) )
 			{
-				case 0:	sGrave = "YOUR LIFE BACK";			break;
-				case 1:	sGrave = "YOUR RESURRECTION";		break;
-				case 2:	sGrave = "RETURN TO THE LIVING";	break;
-				case 3:	sGrave = "RETURN FROM THE DEAD";	break;
+				case 0:	sGrave = "SUA VIDA DE VOLTA";break;
+				case 1:	sGrave = "SUA RESSURREIÇÃO";break;
+				case 2:	sGrave = "VOLTAR À VIDA";break;
+				case 3:	sGrave = "RETORNO DOS MORTOS";break;
 			}
 
             this.Closable=true;
@@ -247,7 +253,26 @@ namespace Server.Gumps
 			this.Dragable=true;
 			this.Resizable=false;
 
-			AddPage(0);
+            double bankGoldKK = m_Bank;
+            bool useKNotation = false;
+            bool useKKNotation = false;
+            if (bankGoldKK > 1000)
+            {
+                if (bankGoldKK > 1000000)
+                {
+                    useKKNotation = true;
+                    bankGoldKK /= (1000 * 1000); // kks
+                }
+                else
+                {
+                    useKNotation = true;
+                    bankGoldKK /= 1000;
+                }
+
+                bankGoldKK = Math.Round(bankGoldKK, 2);
+            }
+
+            AddPage(0);
 
 			AddImage(0, 0, 154);
 			AddImage(300, 201, 154);
@@ -267,21 +292,29 @@ namespace Server.Gumps
 			AddImage(189, 10, 156);
 			AddImage(170, 44, 159);
 
-			AddButton(162, 365, 4023, 4023, 1, GumpButtonType.Reply, 0);
-			AddButton(389, 365, 4020, 4020, 2, GumpButtonType.Reply, 0);
+			AddButton(101, 365, 4023, 4023, 1, GumpButtonType.Reply, 0);
+            AddHtml(101 + 30, 365 + 2, 477, 22, @"<BODY><BASEFONT Color=#5eff00><BIG> Ressuscite-me </BIG></BASEFONT></BODY>", false, false);
+            AddButton(307, 365, 4020, 4020, 2, GumpButtonType.Reply, 0);
+            AddHtml(307 + 30, 365 + 2, 477, 22, @"<BODY><BASEFONT Color=#FF0000><BIG> Não </BIG></BASEFONT></BODY>", false, false);
 
-			if ( m_Price > 0 && m_Healer != 2 )
+            if ( m_Price > 0 && m_Healer != 2 )
 			{
-				AddHtml( 101, 271, 190, 22, @"<BODY><BASEFONT Color=#FBFBFB><BIG>Resurrection Tribute</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
-				AddHtml( 307, 271, 116, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + String.Format("{0} Gold", m_Price ) + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 101, 271, 190, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>Tributo</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 307, 271, 196, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + String.Format("{0} Moeda(s) de Ouro", m_Price ) + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
-				AddHtml( 101, 305, 190, 22, @"<BODY><BASEFONT Color=#FBFBFB><BIG>Gold in the Bank</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
-				AddHtml( 307, 305, 116, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + String.Format("{0} Gold", m_Bank ) + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 101, 305, 190, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>Dinheiro no banco</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+                if (useKNotation)
+                    AddHtml(307, 305, 196, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + bankGoldKK.ToString() + "k Moeda(s) de Ouro</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+                else if (useKKNotation)
+                    AddHtml(307, 305, 196, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + bankGoldKK.ToString() + "kk Moeda(s) de Ouro</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+                else
+                    AddHtml(307, 305, 156, 22, @"<BODY><BASEFONT Color=#ffffff><BIG>" + String.Format("{0} Gold", m_Bank) + " Moeda(s) de Ouro</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+                //AddHtml( 307, 305, 116, 22, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + String.Format("{0} Gold", m_Bank ) + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 			}
 
-			AddHtml( 177, 90, 400, 22, @"<BODY><BASEFONT Color=#FBFBFB><BIG><CENTER>" + sGrave + "</CENTER></BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( 177, 90, 400, 22, @"<BODY><BASEFONT Color=#fff700><BIG><CENTER>" + sGrave + "</CENTER></BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
-			AddHtml( 100, 155, 477, 103, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sText + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( 100, 155, 477, 123, @"<BODY><BASEFONT Color=#ffffff><BIG>" + sText + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 		}
 
 		public override void OnResponse( NetState state, RelayInfo info )
@@ -294,7 +327,7 @@ namespace Server.Gumps
 			{
 				if( from.Map == null || !from.Map.CanFit( from.Location, 16, false, false ) )
 				{
-					from.SendLocalizedMessage( 502391 ); // Thou can not be resurrected there!
+                    from.SendMessage(55, "Você não pode ser ressuscitado aqui!");
 					return;
 				}
 
@@ -334,8 +367,8 @@ namespace Server.Gumps
 			}
 			else
 			{
-				from.SendMessage( "You decide to remain in the spirit realm." );
-			}
+                from.SendMessage(55, "Você decide permanecer no reino espiritual.");
+            }
 		}
 	}
 }

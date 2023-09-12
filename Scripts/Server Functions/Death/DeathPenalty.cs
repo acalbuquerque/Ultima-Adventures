@@ -96,16 +96,16 @@ namespace Server.Misc
 				if (  AetherGlobe.EvilChamp == from || AetherGlobe.GoodChamp == from || (from.RawStr + from.RawDex + from.RawInt) < 125 || !((PlayerMobile)from).Avatar)
 				{
 					if ((from.RawStr + from.RawDex + from.RawInt) < 125 && ((PlayerMobile)from).Avatar && (AetherGlobe.EvilChamp != from || AetherGlobe.GoodChamp != from) )
-						from.SendMessage( "You would have lost skills here were you not so weak." );
+						from.SendMessage("Você teria perdido habilidades aqui se não fosse tão fraco.");
 					else if ( (AetherGlobe.EvilChamp == from || AetherGlobe.GoodChamp == from ) && ((PlayerMobile)from).Avatar )
 					{
-						from.SendMessage( "Your influence on the balance overcomes the perils of death!" );
+						from.SendMessage("Sua influência no equilíbrio supera os perigos da morte!");
 						double lost = (double)((PlayerMobile)from).BalanceEffect * val3;
 						((PlayerMobile)from).BalanceEffect -= (int)lost;
-						from.SendMessage( "But your influence was reduced by " + (int)lost + " from your untimely demise." );
+						from.SendMessage("Mas sua influência foi reduzida por " + (int)lost + " da sua morte prematura.");
 					}
 					else if ( !((PlayerMobile)from).Avatar)
-						from.SendMessage( "You avoid any serious penalty for your death since your actions do not influence the balance." );
+						from.SendMessage(55, "Você evita qualquer penalidade grave por sua morte, pois suas ações não influenciam o equilíbrio da força.");
 					return;
 				}
 
@@ -146,7 +146,7 @@ namespace Server.Misc
 							from.Skills[s].Base *= loss;
 	
 					}	
-					from.SendMessage( "Your body revives... but much weaker. " );
+					from.SendMessage(55, "Seu corpo revive... mas muito mais fraco.");
 				}
 				else 
 				{
@@ -160,7 +160,7 @@ namespace Server.Misc
 								from.Skills[s].Base *= loss;
 						}
 					}	
-					from.SendMessage( "Your body revives... but a little weaker. " );
+					from.SendMessage(55, "Seu corpo revive... mas um pouco mais fraco.");
 				}
 						
 			

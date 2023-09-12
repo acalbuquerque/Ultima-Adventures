@@ -28,28 +28,26 @@ namespace Server.Spells.Eighth
 			if ( !base.CheckCast( caster ) )
 				return false;
 
-			if ( (Caster.Followers + 3) > Caster.FollowersMax )
-			{
-				Caster.SendLocalizedMessage( 1049645 ); // You have too many followers to summon that creature.
-				return false;
-			}
+            if (Caster.Followers >= Caster.FollowersMax)
+            {
+                DoFizzle();
+                Caster.SendMessage(55, "Você já tem muitos seguidores para invocar um novo servo.");
+                return false;
+            }
 
-			return true;
+            return true;
 		}
 
 		public override void OnCast()
 		{
 			if ( CheckSequence() )
 			{
-				TimeSpan duration = TimeSpan.FromSeconds( (Caster.Skills[SkillName.Magery].Value + Caster.Skills[SkillName.EvalInt].Value) * 9 );
-
-				double checkvalue = 120;
-				
-				if (Caster is PlayerMobile && ((PlayerMobile)Caster).Sorcerer() )
-					checkvalue = 90;
-					
-				if ( Caster.CheckTargetSkill( SkillName.EvalInt, Caster, 0.0, checkvalue ) )
-					SpellHelper.Summon( new SummonedWaterElementalGreater(), Caster, 0x217, duration, false, false );
+                TimeSpan duration = TimeSpan.FromSeconds((Caster.Skills[SkillName.Magery].Fixed * 0.1) * NMSUtils.getBonusIncriptBenefit(Caster));
+                Caster.SendMessage(55, "O seu feitiço terá a duração de aproximadamente " + duration + "s.");
+                // Supers has 50% chance to summon Greater Elemental
+                if ((Caster.Skills[SkillName.Magery].Value >= 100 && Caster.Skills[SkillName.EvalInt].Value >= 100) &&
+                    Utility.RandomMinMax(0, 1) != 0)
+                    SpellHelper.Summon( new SummonedWaterElementalGreater(), Caster, 0x217, duration, false, false );
 				else
 					SpellHelper.Summon( new SummonedWaterElemental(), Caster, 0x217, duration, false, false );
 			}

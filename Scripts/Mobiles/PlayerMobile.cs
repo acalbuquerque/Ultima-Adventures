@@ -3646,9 +3646,9 @@ A little mouse catches sight of you and flees into a small hole in the ground.*/
 
 			this.Hunger = 10;
 			this.Thirst = 10;
-			this.Hits = this.HitsMax/2;
-			this.Stam = this.StamMax/2;
-			this.Mana = this.ManaMax/2;
+			this.Hits = 1;//this.HitsMax/2;
+			this.Stam = 1;// this.StamMax/2;
+			this.Mana = 1; //this.ManaMax/2;
 
 			MusicName toPlay = MusicList[Utility.Random(MusicList.Length)];
 			this.Send(PlayMusic.GetInstance(toPlay));

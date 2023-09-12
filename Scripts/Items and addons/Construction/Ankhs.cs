@@ -124,7 +124,16 @@ namespace Server.Items
 			Movable = false;
 
 			m_Item = new InternalItem( bloodied, this );
-		}
+
+            switch (Utility.Random(5))
+            {
+                case 0: Hue = 2153; Name = "Golden " + Name; break;
+                case 1: Hue = 2157; Name = "Frozen " + Name; break;
+                case 2: Hue = 2227; Name = "Blood " + Name; break;
+                case 3: Hue = 0x966; Name = "Obsidian " + Name; break;
+                case 4: Hue = 0x353; Name = "Stone " + Name; break;
+            }
+        }
 
 		public AnkhWest( Serial serial ) : base( serial )
 		{
@@ -283,7 +292,15 @@ namespace Server.Items
 		[Constructable]
 		public AnkhNorth() : this( false )
 		{
-		}
+            switch (Utility.Random(5))
+            {
+                case 0: Hue = 2153; Name = "Golden " + Name; break;
+                case 1: Hue = 2157; Name = "Frozen " + Name; break;
+                case 2: Hue = 2227; Name = "Blood " + Name; break;
+                case 3: Hue = 0x966; Name = "Obsidian " + Name; break;
+                case 4: Hue = 0x353; Name = "Stone " + Name; break;
+            }
+        }
 
 		[Constructable]
 		public AnkhNorth( bool bloodied ) : base( bloodied ? 0x1E5D : 0x4 )
