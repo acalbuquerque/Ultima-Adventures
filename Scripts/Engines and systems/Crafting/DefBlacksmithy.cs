@@ -498,20 +498,24 @@ namespace Server.Engines.Craft
 
 			// Add every material you want the player to be able to choose from
 			// This will override the overridable material
+			// The NameNumber is in CILOC file!!!!
 			AddSubRes( typeof( IronIngot ),			1044022, 00.0, 1044036, 1044267 );
 			AddSubRes( typeof( DullCopperIngot ),	1044023, 65.0, 1044036, 1044268 );
-			AddSubRes( typeof( ShadowIronIngot ),	1044024, 70.0, 1044036, 1044268 );
-			AddSubRes( typeof( CopperIngot ),		1044025, 75.0, 1044036, 1044268 );
-			AddSubRes( typeof( BronzeIngot ),		1044026, 80.0, 1044036, 1044268 );
-			AddSubRes( typeof( GoldIngot ),			1044027, 85.0, 1044036, 1044268 );
+			AddSubRes( typeof( CopperIngot ),		1044025, 70.0, 1044036, 1044268 );
+			AddSubRes( typeof( BronzeIngot ),		1044026, 75.0, 1044036, 1044268 );
+            AddSubRes( typeof(ShadowIronIngot),		1044024, 80.0, 1044036, 1044268);
+            AddSubRes( typeof(PlatinumIngot),		6663000, 85.0, 1044036, 1044268);
+            AddSubRes( typeof( GoldIngot ),			1044027, 85.0, 1044036, 1044268 );
 			AddSubRes( typeof( AgapiteIngot ),		1044028, 90.0, 1044036, 1044268 );
 			AddSubRes( typeof( VeriteIngot ),		1044029, 95.0, 1044036, 1044268 );
-			AddSubRes( typeof( ValoriteIngot ),		1044030, 99.0, 1044036, 1044268 );
-			AddSubRes( typeof( NepturiteIngot ),	1036173, 99.0, 1044036, 1044268 );
-			AddSubRes( typeof( ObsidianIngot ),		1036162, 99.0, 1044036, 1044268 );
-			AddSubRes( typeof( SteelIngot ),		1036144, 99.0, 1044036, 1044268 );
-			AddSubRes( typeof( BrassIngot ),		1036152, 105.0, 1044036, 1044268 );
-			AddSubRes( typeof( MithrilIngot ),		1036137, 110.0, 1044036, 1044268 );
+			AddSubRes( typeof( ValoriteIngot ),		1044030, 95.0, 1044036, 1044268 );
+            AddSubRes( typeof( TitaniumIngot),		6661000, 100.0, 1044036, 1044268);
+            AddSubRes( typeof(RoseniumIngot),		6662000, 100.0, 1044036, 1044268);
+            AddSubRes( typeof( NepturiteIngot ),	1036173, 105.0, 1044036, 1044268 );
+			AddSubRes( typeof( ObsidianIngot ),		1036162, 105.0, 1044036, 1044268 );
+			AddSubRes( typeof( SteelIngot ),		1036144, 110.0, 1044036, 1044268 );
+			AddSubRes( typeof( BrassIngot ),		1036152, 110.0, 1044036, 1044268 );
+			AddSubRes( typeof( MithrilIngot ),		1036137, 115.0, 1044036, 1044268 );
 			AddSubRes( typeof( XormiteIngot ),		1034437, 115.0, 1044036, 1044268 );
 			AddSubRes( typeof( DwarvenIngot ),		1036181, 120.0, 1044036, 1044268 );
 

@@ -331,7 +331,91 @@ namespace Server.Items
 		}
 	}
 
-	public class ObsidianGranite : BaseGranite
+    public class TitaniumGranite : BaseGranite
+    {
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("titanium", "classic", 0)); } }
+
+        [Constructable]
+        public TitaniumGranite() : base(CraftResource.Titanium)
+        {
+        }
+
+        public TitaniumGranite(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    public class RoseniumGranite : BaseGranite
+    {
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("rosenium", "classic", 0)); } }
+
+        [Constructable]
+        public RoseniumGranite() : base(CraftResource.Rosenium)
+        {
+        }
+
+        public RoseniumGranite(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    public class PlatinumGranite : BaseGranite
+    {
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("platinum", "classic", 0)); } }
+
+        [Constructable]
+        public PlatinumGranite() : base(CraftResource.Platinum)
+        {
+        }
+
+        public PlatinumGranite(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    public class ObsidianGranite : BaseGranite
 	{
 		public override int Hue{ get { return ( Server.Misc.MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ) ); } }
 

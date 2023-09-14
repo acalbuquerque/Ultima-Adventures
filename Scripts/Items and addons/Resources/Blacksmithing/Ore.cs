@@ -53,18 +53,22 @@ namespace Server.Items
 					{
 						case 0: info = OreInfo.Iron; break;
 						case 1: info = OreInfo.DullCopper; break;
-						case 2: info = OreInfo.ShadowIron; break;
-						case 3: info = OreInfo.Copper; break;
-						case 4: info = OreInfo.Bronze; break;
-						case 5: info = OreInfo.Gold; break;
-						case 6: info = OreInfo.Agapite; break;
-						case 7: info = OreInfo.Verite; break;
-						case 8: info = OreInfo.Valorite; break;
-						case 9: info = OreInfo.Nepturite; break;
-						case 10: info = OreInfo.Obsidian; break;
-						case 11: info = OreInfo.Mithril; break;
-						case 12: info = OreInfo.Xormite; break;
-						case 13: info = OreInfo.Dwarven; break;
+						case 2: info = OreInfo.Copper; break;
+						case 3: info = OreInfo.Bronze; break;
+                        case 4: info = OreInfo.ShadowIron; break;
+                        case 5: info = OreInfo.Platinum; break;
+                        case 6: info = OreInfo.Gold; break;
+						case 7: info = OreInfo.Agapite; break;
+						case 8: info = OreInfo.Verite; break;
+						case 9: info = OreInfo.Valorite; break;
+                        case 10: info = OreInfo.Titanium; break;
+                        case 11: info = OreInfo.Rosenium; break;
+                        case 12: info = OreInfo.Nepturite; break;
+						case 13: info = OreInfo.Obsidian; break;
+						case 14: info = OreInfo.Mithril; break;
+						case 15: info = OreInfo.Xormite; break;
+						case 16: info = OreInfo.Dwarven; break;
+
 						default: info = null; break;
 					}
 
@@ -118,10 +122,12 @@ namespace Server.Items
 		{
 			get
 			{
-				if ( m_Resource >= CraftResource.DullCopper && m_Resource <= CraftResource.Valorite )
+				if (m_Resource >= CraftResource.DullCopper && m_Resource <= CraftResource.Valorite)
 					return 1042845 + (int)(m_Resource - CraftResource.DullCopper);
+				//else if (m_Resource == CraftResource.Titanium)
+					//return 6661002;
 
-				return 1042853; // iron ore;
+                return 1042853; // iron ore;
 			}
 		}
 
@@ -258,32 +264,37 @@ namespace Server.Items
 					{
 						default: difficulty = 50.0; break;
 						case CraftResource.DullCopper: difficulty = 65.0; break;
-						case CraftResource.ShadowIron: difficulty = 70.0; break;
-						case CraftResource.Copper: difficulty = 75.0; break;
-						case CraftResource.Bronze: difficulty = 80.0; break;
-						case CraftResource.Gold: difficulty = 85.0; break;
+                        case CraftResource.Copper: difficulty = 70.0; break;
+                        case CraftResource.Bronze: difficulty = 75.0; break;
+                        case CraftResource.ShadowIron: difficulty = 80.0; break;
+                        case CraftResource.Platinum: difficulty = 85.0; break;
+                        case CraftResource.Gold: difficulty = 85.0; break;
 						case CraftResource.Agapite: difficulty = 90.0; break;
 						case CraftResource.Verite: difficulty = 95.0; break;
-						case CraftResource.Valorite: difficulty = 99.0; break;
-						case CraftResource.Nepturite: difficulty = 99.0; break;
-						case CraftResource.Obsidian: difficulty = 99.0; break;
-						case CraftResource.Mithril: difficulty = 99.0; break;
-						case CraftResource.Xormite: difficulty = 99.0; break;
-						case CraftResource.Dwarven: difficulty = 101.0; break;
-					}
+						case CraftResource.Valorite: difficulty = 95.0; break;
+                        case CraftResource.Titanium: difficulty = 100.0; break;
+                        case CraftResource.Rosenium: difficulty = 100.0; break;
+                        case CraftResource.Nepturite: difficulty = 105.0; break;
+						case CraftResource.Obsidian: difficulty = 105.0; break;
+						case CraftResource.Mithril: difficulty = 110.0; break;
+						case CraftResource.Xormite: difficulty = 110.0; break;
+						case CraftResource.Dwarven: difficulty = 120.0; break;
+                    }
 
-					double minSkill = difficulty - 25.0;
-					double maxSkill = difficulty + 25.0;
+					double minSkill = difficulty - 10.0;
+					double maxSkill = difficulty + 10.0;
 					
 					if ( difficulty > 50.0 && difficulty > from.Skills[SkillName.Mining].Value )
 					{
-						from.SendLocalizedMessage( 501986 ); // You have no idea how to smelt this strange ore!
+                        from.SendMessage(55, "Você não sabe como derreter este minério.");
+                        //from.SendLocalizedMessage( 501986 ); // You have no idea how to smelt this strange ore!
 						return;
 					}
 					
 					if ( m_Ore.Amount <= 1 && m_Ore.ItemID == 0x19B7 )
 					{
-						from.SendLocalizedMessage( 501987 ); // There is not enough metal-bearing ore in this pile to make an ingot.
+                        from.SendMessage(55, "Você há minério suficiente para fazer um lingote.");
+                        //from.SendLocalizedMessage( 501987 ); // There is not enough metal-bearing ore in this pile to make an ingot.
 						return;
 					}
 
@@ -291,7 +302,8 @@ namespace Server.Items
 					{
 						if ( m_Ore.Amount <= 0 )
 						{
-							from.SendLocalizedMessage( 501987 ); // There is not enough metal-bearing ore in this pile to make an ingot.
+                            from.SendMessage(55, "Você há minério suficiente para fazer um lingote.");
+                            //from.SendLocalizedMessage( 501987 ); // There is not enough metal-bearing ore in this pile to make an ingot.
 						}
 						else
 						{
@@ -330,8 +342,8 @@ namespace Server.Items
 							ingot.Amount = amount;
 							from.AddToBackpack( ingot );
 							from.PlaySound( 0x208 );
-
-							from.SendLocalizedMessage( 501988 ); // You smelt the ore removing the impurities and put the metal in your backpack.
+                            from.SendMessage(55, "Você fundiu o minério removendo as impurezas e colocou o metal na mochila.");
+                            //from.SendLocalizedMessage( 501988 ); // You smelt the ore removing the impurities and put the metal in your backpack.
 						}
 					}
 					else if ( m_Ore.Amount < 2 && m_Ore.ItemID == 0x19B9 )
@@ -681,7 +693,121 @@ namespace Server.Items
 		}
 	}
 
-	public class ObsidianOre : BaseOre
+    public class TitaniumOre : BaseOre
+    {
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("titanium", "classic", 0)); } }
+		//protected override CraftResource DefaultResource { get { return CraftResource.Titanium;  } }
+        [Constructable]
+        public TitaniumOre() : this(1)
+        {
+        }
+
+        [Constructable]
+        public TitaniumOre(int amount) : base(CraftResource.Titanium, amount)
+        {
+        }
+
+        public TitaniumOre(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+
+        public override BaseIngot GetIngot()
+        {
+            return new TitaniumIngot();
+        }
+    }
+
+    public class RoseniumOre : BaseOre
+    {
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("rosenium", "classic", 0)); } }
+        //protected override CraftResource DefaultResource { get { return CraftResource.Titanium;  } }
+        [Constructable]
+        public RoseniumOre() : this(1)
+        {
+        }
+
+        [Constructable]
+        public RoseniumOre(int amount) : base(CraftResource.Rosenium, amount)
+        {
+        }
+
+        public RoseniumOre(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+
+        public override BaseIngot GetIngot()
+        {
+            return new RoseniumIngot();
+        }
+    }
+
+    public class PlatinumOre : BaseOre
+    {
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("platinum", "classic", 0)); } }
+        //protected override CraftResource DefaultResource { get { return CraftResource.Titanium;  } }
+        [Constructable]
+        public PlatinumOre() : this(1)
+        {
+        }
+
+        [Constructable]
+        public PlatinumOre(int amount) : base(CraftResource.Platinum, amount)
+        {
+        }
+
+        public PlatinumOre(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+
+        public override BaseIngot GetIngot()
+        {
+            return new PlatinumIngot();
+        }
+    }
+
+    public class ObsidianOre : BaseOre
 	{
 		[Constructable]
 		public ObsidianOre() : this( 1 )

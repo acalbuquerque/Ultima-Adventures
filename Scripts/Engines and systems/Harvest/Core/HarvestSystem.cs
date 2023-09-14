@@ -261,16 +261,16 @@ namespace Server.Engines.Harvest
 							if( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Isles of Dread" && bank.Current >= feluccaAmount )
 								item.Amount = feluccaAmount;
 							else if ( reg.IsPartOf( "the Mines of Morinia" ) && item is BaseOre && Utility.RandomMinMax( 1, 3 ) > 1 )
-								item.Amount = 2 * amount;
+								item.Amount = 3 * amount;
 							else
 								item.Amount = amount;
 
 							bool FindSpecialOre = false;
-								if ( ( item is AgapiteOre || item is VeriteOre || item is ValoriteOre ) && Utility.RandomMinMax( 1, 2 ) == 1 )
+								if ( ( item is AgapiteOre || item is VeriteOre || item is ValoriteOre || item is TitaniumOre || item is RoseniumOre) && Utility.RandomMinMax( 1, 2 ) == 1 )
 									FindSpecialOre = true;
 
 							bool FindSpecialGranite = false;
-								if ( ( item is AgapiteGranite || item is VeriteGranite || item is ValoriteGranite ) && Utility.RandomMinMax( 1, 2 ) == 1 )
+								if ( ( item is AgapiteGranite || item is VeriteGranite || item is ValoriteGranite || item is TitaniumGranite || item is RoseniumGranite) && Utility.RandomMinMax( 1, 2 ) == 1 )
 									FindSpecialGranite = true;
 
 							bool FindGhostLog = false;
@@ -396,22 +396,28 @@ namespace Server.Engines.Harvest
 							else if ( item is ShadowIronOre ){ from.SendMessage( "You dig up some shadow iron ore."); }
 							else if ( item is CopperOre ){ from.SendMessage( "You dig up some copper ore."); }
 							else if ( item is BronzeOre ){ from.SendMessage( "You dig up some bronze ore."); }
-							else if ( item is GoldOre ){ from.SendMessage( "You dig up some golden ore."); }
+                            else if (item is PlatinumOre) { from.SendMessage("You dig up some platinum ore."); }
+                            else if ( item is GoldOre ){ from.SendMessage( "You dig up some golden ore."); }
 							else if ( item is AgapiteOre ){ from.SendMessage( "You dig up some agapite ore."); }
 							else if ( item is VeriteOre ){ from.SendMessage( "You dig up some verite ore."); }
 							else if ( item is ValoriteOre ){ from.SendMessage( "You dig up some valorite ore."); }
+                            else if (item is TitaniumOre) { from.SendMessage("You dig up some titanium ore."); }
+                            else if (item is RoseniumOre) { from.SendMessage("You dig up some rosenium ore."); }
 
-							else if ( item is Granite ){ from.SendMessage( "You dig up granite."); }
+                            else if ( item is Granite ){ from.SendMessage( "You dig up granite."); }
 							else if ( item is DullCopperGranite ){ from.SendMessage( "You dig up dull copper granite."); }
 							else if ( item is ShadowIronGranite ){ from.SendMessage( "You dig up shadow iron granite."); }
 							else if ( item is CopperGranite ){ from.SendMessage( "You dig up copper granite."); }
 							else if ( item is BronzeGranite ){ from.SendMessage( "You dig up bronze granite."); }
-							else if ( item is GoldGranite ){ from.SendMessage( "You dig up golden granite."); }
+                            else if (item is PlatinumGranite) { from.SendMessage("You dig up platinum granite."); }
+                            else if ( item is GoldGranite ){ from.SendMessage( "You dig up golden granite."); }
 							else if ( item is AgapiteGranite ){ from.SendMessage( "You dig up agapite granite."); }
 							else if ( item is VeriteGranite ){ from.SendMessage( "You dig up verite granite."); }
 							else if ( item is ValoriteGranite ){ from.SendMessage( "You dig up valorite granite."); }
+                            else if (item is TitaniumGranite) { from.SendMessage("You dig up titanium granite."); }
+                            else if (item is RoseniumGranite) { from.SendMessage("You dig up rosenium granite."); }
 
-							else if ( item is Log ){ from.SendMessage( "You chop some logs."); }
+                            else if ( item is Log ){ from.SendMessage( "You chop some logs."); }
 							else if ( item is AshLog ){ from.SendMessage( "You chop some ash logs."); }
 							else if ( item is CherryLog ){ from.SendMessage( "You chop some cherry logs."); }
 							else if ( item is EbonyLog ){ from.SendMessage( "You chop some ebony logs."); }

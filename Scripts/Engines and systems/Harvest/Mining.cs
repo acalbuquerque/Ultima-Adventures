@@ -51,8 +51,8 @@ namespace Server.Engines.Harvest
 			oreAndStone.MaxTotal = 34;
 
 			// A resource bank will respawn its content every 10 to 20 minutes
-			oreAndStone.MinRespawn = TimeSpan.FromMinutes( 10.0 );
-			oreAndStone.MaxRespawn = TimeSpan.FromMinutes( 20.0 );
+			oreAndStone.MinRespawn = TimeSpan.FromMinutes( 1.0 );
+			oreAndStone.MaxRespawn = TimeSpan.FromMinutes( 2.0 );
 
 			// Skill checking is done on the Mining skill
 			oreAndStone.Skill = SkillName.Mining;
@@ -60,8 +60,8 @@ namespace Server.Engines.Harvest
 			// Set the list of harvestable tiles
 			oreAndStone.Tiles = m_MountainAndCaveTiles;
 
-			// Players must be within 2 tiles to harvest
-			oreAndStone.MaxRange = 2;
+			// Players must be within 3 tiles to harvest
+			oreAndStone.MaxRange = 3;
 
 			// One ore per harvest action
 			oreAndStone.ConsumedPerHarvest = 1;
@@ -71,8 +71,8 @@ namespace Server.Engines.Harvest
 			oreAndStone.EffectActions = new int[]{ 11 };
 			oreAndStone.EffectSounds = new int[]{ 0x125, 0x126 };
 			oreAndStone.EffectCounts = new int[]{ 1 };
-			oreAndStone.EffectDelay = TimeSpan.FromSeconds( 1.6 );
-			oreAndStone.EffectSoundDelay = TimeSpan.FromSeconds( 0.9 );
+			oreAndStone.EffectDelay = TimeSpan.FromSeconds( 1.5 );
+			oreAndStone.EffectSoundDelay = TimeSpan.FromSeconds( 0.7 );
 
 			oreAndStone.NoResourcesMessage = 503040; // There is no metal here to mine.
 			oreAndStone.DoubleHarvestMessage = 503042; // Someone has gotten to the metal before you.
@@ -84,30 +84,36 @@ namespace Server.Engines.Harvest
 
 			res = new HarvestResource[]
 				{
-					new HarvestResource( 00.0, 00.0, 100.0, "", typeof( IronOre ),			typeof( Granite ) ),
-					new HarvestResource( 65.0, 25.0, 105.0, "", typeof( DullCopperOre ),	typeof( DullCopperGranite ),	typeof( DullCopperElemental ) ),
-					new HarvestResource( 70.0, 30.0, 110.0, "", typeof( ShadowIronOre ),	typeof( ShadowIronGranite ),	typeof( ShadowIronElemental ) ),
-					new HarvestResource( 75.0, 35.0, 115.0, "", typeof( CopperOre ),		typeof( CopperGranite ),		typeof( CopperElemental ) ),
-					new HarvestResource( 80.0, 40.0, 120.0, "", typeof( BronzeOre ),		typeof( BronzeGranite ),		typeof( BronzeElemental ) ),
-					new HarvestResource( 85.0, 45.0, 125.0, "", typeof( GoldOre ),			typeof( GoldGranite ),			typeof( GoldenElemental ) ),
-					new HarvestResource( 90.0, 50.0, 130.0, "", typeof( AgapiteOre ),		typeof( AgapiteGranite ),		typeof( AgapiteElemental ) ),
-					new HarvestResource( 95.0, 55.0, 135.0, "", typeof( VeriteOre ),		typeof( VeriteGranite ),		typeof( VeriteElemental ) ),
-					new HarvestResource( 99.0, 59.0, 139.0, "", typeof( ValoriteOre ),		typeof( ValoriteGranite ),		typeof( ValoriteElemental ) ),
-					new HarvestResource( 100.1, 69.0, 140.0, "", typeof( DwarvenOre ),		typeof( DwarvenGranite ),		typeof( EarthElemental ) )
+					new HarvestResource( 00.0, 00.0, 100.0, "Você encontrou alguns minérios de ferro.", typeof( IronOre ),			typeof( Granite ) ),
+					new HarvestResource( 65.0, 50.0, 105.0, "Você encontrou alguns minérios de cobre rústico.", typeof( DullCopperOre ),	typeof( DullCopperGranite ),	typeof( DullCopperElemental ) ),
+					new HarvestResource( 70.0, 55.0, 115.0, "Você encontrou alguns minérios de cobre.", typeof( CopperOre ),		typeof( CopperGranite ),		typeof( CopperElemental ) ),
+					new HarvestResource( 75.0, 60.0, 120.0, "Você encontrou alguns minérios de bronze.", typeof( BronzeOre ),		typeof( BronzeGranite ),		typeof( BronzeElemental ) ),
+                    new HarvestResource( 80.0, 65.0, 110.0, "Você encontrou alguns minérios de ferro negro.", typeof( ShadowIronOre ), typeof( ShadowIronGranite ),    typeof( ShadowIronElemental ) ),
+                    new HarvestResource( 85.0, 70.0, 125.0, "Você encontrou alguns minérios de platina.", typeof( PlatinumOre ),           typeof( PlatinumGranite ),          typeof( EarthElemental ) ),
+                    new HarvestResource( 85.0, 75.0, 125.0, "Você encontrou alguns minérios de dourado.", typeof( GoldOre ),			typeof( GoldGranite ),			typeof( GoldenElemental ) ),
+					new HarvestResource( 90.0, 80.0, 130.0, "Você encontrou alguns minérios de agapite.", typeof( AgapiteOre ),		typeof( AgapiteGranite ),		typeof( AgapiteElemental ) ),
+					new HarvestResource( 95.0, 85.0, 135.0, "Você encontrou alguns minérios de verite.", typeof( VeriteOre ),		typeof( VeriteGranite ),		typeof( VeriteElemental ) ),
+					new HarvestResource( 95.0, 85.0, 135.0, "Você encontrou alguns minérios de valorite.", typeof( ValoriteOre ),		typeof( ValoriteGranite ),		typeof( ValoriteElemental ) ),
+                    new HarvestResource( 100.0, 90.0, 140.0, "Você encontrou alguns minérios de titânio.", typeof( TitaniumOre ),      typeof( TitaniumGranite ),      typeof( EarthElemental ) ),
+                    new HarvestResource( 100.0, 90.0, 140.0, "Você encontrou alguns minérios de rosênio.", typeof( RoseniumOre ),      typeof( RoseniumGranite ),      typeof( EarthElemental ) ),
+                    new HarvestResource( 120.0, 100.0, 140.0, "Você encontrou alguns minérios de dwarven.", typeof( DwarvenOre ),		typeof( DwarvenGranite ),		typeof( EarthElemental ) )
 				};
 
 			veins = new HarvestVein[]
 				{
-					new HarvestVein( 45.0, 0.0, res[0], null   ), // Iron
-					new HarvestVein( 15.0, 0.5, res[1], res[0] ), // Dull Copper
-					new HarvestVein( 11.0, 0.5, res[2], res[0] ), // Shadow Iron
-					new HarvestVein( 08.0, 0.5, res[3], res[0] ), // Copper
-					new HarvestVein( 06.0, 0.5, res[4], res[0] ), // Bronze
-					new HarvestVein( 05.0, 0.5, res[5], res[0] ), // Gold
-					new HarvestVein( 04.0, 0.5, res[6], res[0] ), // Agapite
-					new HarvestVein( 03.0, 0.5, res[7], res[0] ), // Verite
-					new HarvestVein( 02.0, 0.5, res[8], res[0] ), // Valorite
-					new HarvestVein( 01.0, 0.5, res[9], res[0] )  // Dwarven
+					//new HarvestVein( 25.0, 0.0, res[0], null   ), // Iron
+					//new HarvestVein( 1.0, 0.5, res[1], res[0] ), // Dull Copper
+					//new HarvestVein( 1.0, 0.5, res[2], res[0] ), // Copper
+					//new HarvestVein( 1.0, 0.5, res[3], res[0] ), // Bronze
+					//new HarvestVein( 1.0, 0.5, res[4], res[0] ), // Shadow Iron
+					new HarvestVein( 25.0, 0.5, res[5], res[0] ), // Platinum
+					new HarvestVein( 25.0, 0.5, res[6], res[0] ), // Gold
+					//new HarvestVein( 1.0, 0.5, res[7], res[0] ), // Agapite
+					//new HarvestVein( 1.0, 0.5, res[8], res[0] ), // Verite
+					//new HarvestVein( 1.0, 0.5, res[9], res[0] ), // Valorite
+					new HarvestVein( 25.0, 0.5, res[10], res[0] ), // Titanium
+					new HarvestVein( 25.0, 0.5, res[11], res[0] ),  // Rosenium
+                    //new HarvestVein( 70.0, 0.5, res[12], res[0] )  // Dwarven
 				};
 
 			oreAndStone.Resources = res;
@@ -117,21 +123,21 @@ namespace Server.Engines.Harvest
 			{
 				oreAndStone.BonusResources = new BonusHarvestResource[]
 				{
-					new BonusHarvestResource( 0, 99.4, null, null ),	//Nothing
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Amber ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Amethyst ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Citrine ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Diamond ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Emerald ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Ruby ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Sapphire ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( StarSapphire ) ),
-					new BonusHarvestResource( 90, .1, 1074542, typeof( Tourmaline ) )
+					new BonusHarvestResource( 0, 50.0, null, null ),	//Nothing
+					new BonusHarvestResource( 70, 20, 1074542, typeof( Amber ) ),
+					new BonusHarvestResource( 75, 10, 1074542, typeof( Amethyst ) ),
+					new BonusHarvestResource( 75, 10, 1074542, typeof( Citrine ) ),
+					new BonusHarvestResource( 80, 1, 1074542, typeof( Diamond ) ),
+					new BonusHarvestResource( 85, 2, 1074542, typeof( Emerald ) ),
+					new BonusHarvestResource( 85, 2, 1074542, typeof( Ruby ) ),
+					new BonusHarvestResource( 85, 2, 1074542, typeof( Sapphire ) ),
+					new BonusHarvestResource( 90, 1, 1074542, typeof( StarSapphire ) ),
+					new BonusHarvestResource( 90, 2, 1074542, typeof( Tourmaline ) )
 				};
 			}
 
-			oreAndStone.RaceBonus = Core.ML;
-			oreAndStone.RandomizeVeins = Core.ML;
+			oreAndStone.RaceBonus = false;//Core.ML;
+			oreAndStone.RandomizeVeins = false;//Core.ML;
 
 			Definitions.Add( oreAndStone );
 			#endregion
@@ -200,11 +206,31 @@ namespace Server.Engines.Harvest
 		{
 			if ( def == m_OreAndStone )
 			{
-				PlayerMobile pm = from as PlayerMobile;
-				if ( pm != null && pm.StoneMining && pm.ToggleMiningStone && from.Skills[SkillName.Mining].Base >= 100.0 && 0.1 > Utility.RandomDouble() )
-					return resource.Types[1];
+                #region Void Pool Items
+/*                HarvestMap hmap = HarvestMap.CheckMapOnHarvest(from, loc, def);
 
-				return resource.Types[0];
+                if (hmap != null && hmap.Resource >= CraftResource.Iron && hmap.Resource <= CraftResource.Dwarven)
+                {
+                    hmap.UsesRemaining--;
+                    hmap.InvalidateProperties();
+
+                    CraftResourceInfo info = CraftResources.GetInfo(hmap.Resource);
+
+                    if (info != null)
+                        return info.ResourceTypes[1];
+                }*/
+                #endregion
+                PlayerMobile pm = from as PlayerMobile;
+				if (pm != null && 
+					pm.StoneMining && 
+					pm.ToggleMiningStone && 
+					from.Skills[SkillName.Mining].Base >= 100.0 && 0.1 > Utility.RandomDouble())
+				{
+                    from.SendMessage(20, "Mining =>" + resource.Types[1]);
+                    return resource.Types[1];
+                }
+
+                return resource.Types[0];
 			}
 
 			return base.GetResourceType( from, tool, def, map, loc, resource );

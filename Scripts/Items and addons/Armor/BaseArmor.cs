@@ -135,11 +135,14 @@ namespace Server.Items
 					case CraftResource.ShadowIron:		ar += 12; break;
 					case CraftResource.Copper:			ar += 18; break;
 					case CraftResource.Bronze:			ar += 24; break;
-					case CraftResource.Gold:			ar += 30; break;
+                    case CraftResource.Platinum:		ar += 28; break;
+                    case CraftResource.Gold:			ar += 30; break;
 					case CraftResource.Agapite:			ar += 36; break;
 					case CraftResource.Verite:			ar += 42; break;
 					case CraftResource.Valorite:		ar += 48; break;
-					case CraftResource.Nepturite:		ar += 48; break;
+                    case CraftResource.Titanium:		ar += 50; break;
+                    case CraftResource.Rosenium:		ar += 50; break;
+                    case CraftResource.Nepturite:		ar += 48; break;
 					case CraftResource.Obsidian:		ar += 48; break;
 					case CraftResource.Steel:			ar += 53; break;
 					case CraftResource.Brass:			ar += 60; break;
@@ -1052,13 +1055,16 @@ namespace Server.Items
 							default:
 							case 0: info = OreInfo.Iron; break;
 							case 1: info = OreInfo.DullCopper; break;
-							case 2: info = OreInfo.ShadowIron; break;
-							case 3: info = OreInfo.Copper; break;
-							case 4: info = OreInfo.Bronze; break;
-							case 5: info = OreInfo.Gold; break;
-							case 6: info = OreInfo.Agapite; break;
-							case 7: info = OreInfo.Verite; break;
-							case 8: info = OreInfo.Valorite; break;
+							case 2: info = OreInfo.Copper; break;
+							case 3: info = OreInfo.Bronze; break;
+                            case 4: info = OreInfo.ShadowIron; break;
+                            case 5: info = OreInfo.Platinum; break;
+                            case 6: info = OreInfo.Gold; break;
+							case 7: info = OreInfo.Agapite; break;
+							case 8: info = OreInfo.Verite; break;
+							case 9: info = OreInfo.Valorite; break;
+                            case 10: info = OreInfo.Titanium; break;
+                            case 11: info = OreInfo.Rosenium; break;
 						}
 
 						m_Resource = CraftResources.GetFromOreInfo( info, mat );

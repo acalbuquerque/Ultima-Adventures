@@ -43,7 +43,8 @@ namespace Server.Items
 				case CraftResource.Copper:			dmg = 3; break;
 				case CraftResource.Bronze:			dmg = 4; break;
 				case CraftResource.Gold:			dmg = 4; break;
-				case CraftResource.Agapite:			dmg = 5; break;
+                case CraftResource.Platinum: dmg = 4; break;
+                case CraftResource.Agapite:			dmg = 5; break;
 				case CraftResource.Verite:			dmg = 5; break;
 				case CraftResource.Valorite:		dmg = 6; break;
 				case CraftResource.Nepturite:		dmg = 6; break;
@@ -52,7 +53,9 @@ namespace Server.Items
 				case CraftResource.Brass:			dmg = 8; break;
 				case CraftResource.Mithril:			dmg = 9; break;
 				case CraftResource.Xormite:			dmg = 9; break;
-				case CraftResource.Dwarven:			dmg = 18; break;
+                case CraftResource.Titanium:		dmg = 15; break;
+                case CraftResource.Rosenium: dmg = 15; break;
+                case CraftResource.Dwarven:			dmg = 18; break;
 				case CraftResource.SpinedLeather:	dmg = 1; break;
 				case CraftResource.HornedLeather:	dmg = 2; break;
 				case CraftResource.BarbedLeather:	dmg = 3; break;
@@ -3834,11 +3837,14 @@ namespace Server.Items
 				case CraftResource.ShadowIron:		oreType = 1053107; break; // shadow iron
 				case CraftResource.Copper:			oreType = 1053106; break; // copper
 				case CraftResource.Bronze:			oreType = 1053105; break; // bronze
-				case CraftResource.Gold:			oreType = 1053104; break; // golden
+                case CraftResource.Platinum: oreType = 6663002; break; // Platinum
+                case CraftResource.Gold:			oreType = 1053104; break; // golden
 				case CraftResource.Agapite:			oreType = 1053103; break; // agapite
 				case CraftResource.Verite:			oreType = 1053102; break; // verite
 				case CraftResource.Valorite:		oreType = 1053101; break; // valorite
-				case CraftResource.Nepturite:		oreType = 1036175; break; // nepturite
+                case CraftResource.Titanium:		oreType = 6661002; break; // Titanium
+                case CraftResource.Rosenium: oreType = 6662002; break; // Rosenium
+                case CraftResource.Nepturite:		oreType = 1036175; break; // nepturite
 				case CraftResource.Obsidian:		oreType = 1036165; break; // obsidian
 				case CraftResource.Steel:			oreType = 1036146; break; // steel
 				case CraftResource.Brass:			oreType = 1036154; break; // brass
@@ -4411,7 +4417,15 @@ m_Hits
 							AccuracyLevel = WeaponAccuracyLevel.Surpassingly;
 							break;
 						}
-						case CraftResource.Gold:
+                        case CraftResource.Platinum:
+                        {
+                            Identified = true;
+                            DurabilityLevel = WeaponDurabilityLevel.Indestructible;
+                            DamageLevel = WeaponDamageLevel.Force;
+                            AccuracyLevel = WeaponAccuracyLevel.Eminently;
+                            break;
+                        }
+                        case CraftResource.Gold:
 						{
 							Identified = true;
 							DurabilityLevel = WeaponDurabilityLevel.Indestructible;
@@ -4443,7 +4457,23 @@ m_Hits
 							AccuracyLevel = WeaponAccuracyLevel.Supremely;
 							break;
 						}
-						case CraftResource.Nepturite:
+                        case CraftResource.Titanium:
+                        {
+								Identified = true;
+                                DurabilityLevel = WeaponDurabilityLevel.Indestructible;
+                                DamageLevel = WeaponDamageLevel.Vanq;
+                                AccuracyLevel = WeaponAccuracyLevel.Supremely;
+                                break;
+                        }
+                        case CraftResource.Rosenium:
+                            {
+                                Identified = true;
+                                DurabilityLevel = WeaponDurabilityLevel.Indestructible;
+                                DamageLevel = WeaponDamageLevel.Vanq;
+                                AccuracyLevel = WeaponAccuracyLevel.Supremely;
+                                break;
+                            }
+                        case CraftResource.Nepturite:
 						{
 							Identified = true;
 							DurabilityLevel = WeaponDurabilityLevel.Indestructible;
