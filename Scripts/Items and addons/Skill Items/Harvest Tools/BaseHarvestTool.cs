@@ -104,7 +104,7 @@ namespace Server.Items
 		{
 			if (from is PlayerMobile && ((PlayerMobile)from).GetFlag( PlayerFlag.IsAutomated ))
 			{
-				from.SendMessage("You can't manually use this while performing an automated action.");
+				from.SendMessage(55, "Você não pode usar isso enquanto executa uma ação automatizada.");
 				return;
 			}
 			if ( IsChildOf( from.Backpack ) || Parent == from )
