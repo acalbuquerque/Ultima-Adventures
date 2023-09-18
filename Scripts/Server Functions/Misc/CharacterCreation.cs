@@ -28,14 +28,15 @@ namespace Server.Misc
 
 				m.AddItem( pack );
 			}
-			PackItem( new LoreGuidetoAdventure() );
-			PackItem( new Dagger() ); // WIZARD
-			PackItem( new Gold( 5000 ) );
-			PackItem( new BreadLoaf( 2 ) );
+
+            PackItem( new Spellbook());
+            PackItem( new LoreGuidetoAdventure() );
+			PackItem( new Dagger() );
+			PackItem( new Gold( 10000 ) );
 			PackItem( new Waterskin() );
 			PackItem( new Torch() );
-			PackItem( new StandardRandomStudyBook() );
-			PackItem( new StandardRandomStudyBook() );
+			PackItem( new StartCombatsRandomStudyBook() );
+			PackItem( new StartWorkRandomStudyBook() );
 			
 			CharacterDatabase MyDB = new CharacterDatabase();
 			MyDB.CharacterOwner = m;
@@ -343,7 +344,7 @@ namespace Server.Misc
 				}
 			}
 
-			return ( total == 100 || total == 120 );
+			return ( total <= 150 );
 		}
 
 		private static Mobile m_Mobile;
@@ -356,10 +357,9 @@ namespace Server.Misc
 				{
 					skills = new SkillNameValue[]
 						{
-							//new SkillNameValue( SkillName.Anatomy, 30 ),
-							new SkillNameValue( SkillName.Healing, 50 ),
-							new SkillNameValue( SkillName.Swords, 50 ),
-							//new SkillNameValue( SkillName.Tactics, 50 )
+							new SkillNameValue( SkillName.Anatomy, 50 ),
+                            new SkillNameValue( SkillName.Tactics, 50 ),
+							new SkillNameValue( SkillName.Swords, 50 )
 						};
 
 					break;
@@ -368,8 +368,7 @@ namespace Server.Misc
 				{
 					skills = new SkillNameValue[]
 						{
-							//new SkillNameValue( SkillName.EvalInt, 30 ),
-							//new SkillNameValue( SkillName.Wrestling, 30 ),
+							new SkillNameValue( SkillName.Inscribe, 50 ),
 							new SkillNameValue( SkillName.Magery, 50 ),
 							new SkillNameValue( SkillName.Meditation, 50 )
 						};
@@ -380,10 +379,9 @@ namespace Server.Misc
 				{
 					skills = new SkillNameValue[]
 						{
+							new SkillNameValue( SkillName.ArmsLore, 50 ),
 							new SkillNameValue( SkillName.Mining, 50 ),
-							//new SkillNameValue( SkillName.ArmsLore, 30 ),
-							new SkillNameValue( SkillName.Blacksmith, 50 ),
-							//new SkillNameValue( SkillName.Tinkering, 50 )
+                            new SkillNameValue( SkillName.Blacksmith, 50 )
 						};
 
 					break;
@@ -393,10 +391,8 @@ namespace Server.Misc
 					skills = new SkillNameValue[]
 						{
 							new SkillNameValue( SkillName.Necromancy, 50 ),
-							//new SkillNameValue( SkillName.Focus, 30 ),
 							new SkillNameValue( SkillName.SpiritSpeak, 50 ),
-							//new SkillNameValue( SkillName.Swords, 30 ),
-							//new SkillNameValue( SkillName.Tactics, 20 )
+                            new SkillNameValue( SkillName.Meditation, 50 )
 						};
 
 					break;
@@ -405,10 +401,9 @@ namespace Server.Misc
 				{
 					skills = new SkillNameValue[]
 						{
-							new SkillNameValue( SkillName.Chivalry, 51 ),
-							new SkillNameValue( SkillName.Swords, 49 ),
-							//new SkillNameValue( SkillName.Focus, 30 ),
-							//new SkillNameValue( SkillName.Tactics, 30 )
+							new SkillNameValue( SkillName.Chivalry, 50 ),
+							new SkillNameValue( SkillName.Swords, 50 ),
+							new SkillNameValue( SkillName.Focus, 50 )
 						};
 
 					break;
@@ -419,8 +414,7 @@ namespace Server.Misc
 						{
 							new SkillNameValue( SkillName.Bushido, 50 ),
 							new SkillNameValue( SkillName.Swords, 50 ),
-							//new SkillNameValue( SkillName.Anatomy, 30 ),
-							//new SkillNameValue( SkillName.Healing, 30 )
+							new SkillNameValue( SkillName.Tactics, 50 )
 					};
 					break;
 				}
@@ -430,8 +424,7 @@ namespace Server.Misc
 						{
 							new SkillNameValue( SkillName.Ninjitsu, 50 ),
 							new SkillNameValue( SkillName.Hiding, 50 ),
-							//new SkillNameValue( SkillName.Fencing, 30 ),
-							//new SkillNameValue( SkillName.Stealth, 30 )
+							new SkillNameValue( SkillName.Fencing, 50 )
 						};
 					break;
 				}
@@ -484,8 +477,8 @@ namespace Server.Misc
 		private static void PackItem( Item item )
 		{
 			//item.IsNormalOnly = true;
-			if ( !Core.AOS )
-				item.LootType = LootType.Newbied;
+			//if ( !Core.AOS )
+				item.LootType = LootType.Blessed;
 
 			Container pack = m_Mobile.Backpack;
 

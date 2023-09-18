@@ -297,4 +297,120 @@ namespace Server.Items
             int version = reader.ReadInt();
         }
     }
+
+    public class StartWorkRandomStudyBook : StudyBook
+    {
+        private static readonly SkillName[] m_Skills = new SkillName[]
+        {
+            SkillName.ArmsLore,
+            SkillName.Blacksmith,
+            SkillName.Mining,
+            SkillName.Tailoring,
+            SkillName.Cooking,
+            SkillName.Fishing,
+            SkillName.Lumberjacking,
+            SkillName.Tinkering,
+            SkillName.Camping,
+            SkillName.Herding,
+            SkillName.Magery
+        };
+        private static readonly List<SkillName> _Skills = new List<SkillName>();
+        public static List<SkillName> Skills
+        {
+            get
+            {
+                if (_Skills.Count == 0)
+                {
+                    _Skills.AddRange(m_Skills);
+                }
+                return _Skills;
+            }
+        }
+        [Constructable]
+        public StartWorkRandomStudyBook()
+            : base(Skills[Utility.Random(Skills.Count)], 700)
+        {
+            Weight = 2.0;
+            LootType = LootType.Blessed;
+        }
+
+        public StartWorkRandomStudyBook(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    public class StartCombatsRandomStudyBook : StudyBook
+    {
+        private static readonly SkillName[] m_Skills = new SkillName[]
+        {
+            SkillName.Swords,
+            SkillName.Fencing,
+            SkillName.Macing,
+            SkillName.Archery,
+            SkillName.Wrestling,
+            SkillName.Parry,
+            SkillName.Tactics,
+            SkillName.Anatomy,
+            SkillName.Chivalry,
+            SkillName.Focus,
+            SkillName.Necromancy,
+            SkillName.Throwing,
+            SkillName.Ninjitsu,
+            SkillName.Bushido,
+            SkillName.Magery
+        };
+        private static readonly List<SkillName> _Skills = new List<SkillName>();
+        public static List<SkillName> Skills
+        {
+            get
+            {
+                if (_Skills.Count == 0)
+                {
+                    _Skills.AddRange(m_Skills);
+                }
+                return _Skills;
+            }
+        }
+        [Constructable]
+        public StartCombatsRandomStudyBook()
+            : base(Skills[Utility.Random(Skills.Count)], 700)
+        {
+            Weight = 2.0;
+            LootType = LootType.Blessed;
+        }
+
+        public StartCombatsRandomStudyBook(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
 }
