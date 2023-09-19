@@ -65,7 +65,7 @@ namespace Server.Items
 			
 			base.AddNameProperties( list );	
 			
-			list.Add( "Say 'I wish to start mining' near cave/mountain to mine automatically." ); 
+			list.Add("Diga '.iniciar Auto-Minerar' para usar o sistema de automação."); 
 		}
 
 		public GargoylesPickaxe( Serial serial ) : base( serial )

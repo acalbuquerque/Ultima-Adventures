@@ -6530,7 +6530,7 @@ A little mouse catches sight of you and flees into a small hole in the ground.*/
 
 		#endregion
 
-		#region Speech log
+		#region Speech log - automation
 		private SpeechLog m_SpeechLog;
 
 		public SpeechLog SpeechLog{ get{ return m_SpeechLog; } }
@@ -6543,16 +6543,16 @@ A little mouse catches sight of you and flees into a small hole in the ground.*/
 				
 				string speech = e.Speech;
 				
-				if ( (Insensitive.Contains( speech, "i wish to make" ) || Insensitive.Contains( speech, "i wish to start" ) || Insensitive.Contains( speech, "i wish to have" ) ) && !GetFlag( PlayerFlag.IsAutomated ) )
+				if ( (Insensitive.Contains( speech, ".iniciar" ) || Insensitive.Contains( speech, ".start" ) || Insensitive.Contains( speech, ".init" )) && !GetFlag( PlayerFlag.IsAutomated ) )
 				{
 					AdventuresAutomation.StartTask(this, speech);
 				}
-				else if (  Insensitive.Contains( speech, "i wish to stop" ) && GetFlag( PlayerFlag.IsAutomated ) )
+				else if ( ( Insensitive.Contains( speech, ".parar" ) || Insensitive.Contains(speech, ".stop") ) && GetFlag( PlayerFlag.IsAutomated ) )
 				{
 					AdventuresAutomation.StopAction(this);
 					SetFlag( PlayerFlag.IsAutomated, false );
 				}
-				else if (  Insensitive.Contains( speech, "i wish to strip" ) )
+				else if (  Insensitive.Contains( speech, ".nude" ) || Insensitive.Contains(speech, ".despir") )
 				{
 					AdventuresAutomation.UndressItem( this, Layer.OuterTorso );
 					AdventuresAutomation.UndressItem( this, Layer.InnerTorso );
