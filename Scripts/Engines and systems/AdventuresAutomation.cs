@@ -85,7 +85,7 @@ namespace Server.Items
 		
 			if ( pm.GetFlag( PlayerFlag.IsAutomated ) )
 			{
-				pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser parar, diga 'Auto-Parar'. 'Stop'.");
+				pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser para, digite: '.parar' ou '.stop'.");
 				return;
 			}
 			else if ( pm.Backpack == null || pm.Backpack.Deleted)
@@ -326,7 +326,7 @@ namespace Server.Items
 			if (!pm.GetFlag(PlayerFlag.IsAutomated))
 				pm.SetFlag(PlayerFlag.IsAutomated, true);
 			else {
-                pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser parar, diga: 'Auto-Parar'.");
+                pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser para, digite: '.parar' ou '.stop'.");
             }
 
 			PlayerLoc.Add(pm, pm.Location);	
@@ -418,7 +418,8 @@ namespace Server.Items
 								}
 								if (harvestx == 0 && harvesty == 0) // above didnt work some fishing spots are statics and so are trees
 								{
-									StaticTile[] tiles = mp.Tiles.GetStaticTiles( pm.X + x, pm.Y + y, true );
+
+                                StaticTile[] tiles = mp.Tiles.GetStaticTiles( pm.X + x, pm.Y + y, true );
 
 									if (action == "fishing") //try to find fishing static targets
 									{
@@ -456,7 +457,7 @@ namespace Server.Items
 											}
 										}
 									}
-									/*else if (action == "mining") //not used, but left just in case
+									/*else if (action == "mining") //not used, but left just in case // MINING SAND!!
 									{
 										for ( int i = 0; (harvestx == 0 || harvesty == 0) && i < tiles.Length; ++i )
 										{

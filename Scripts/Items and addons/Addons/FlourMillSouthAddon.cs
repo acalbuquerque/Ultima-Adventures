@@ -204,7 +204,7 @@ namespace Server.Items
 			
 			base.AddNameProperties( list );	
 			
-			list.Add( "Say 'I wish to start milling' to mill automatically." ); 
+			list.Add("Diga '.iniciar Auto-Moer' para usar o sistema de automação."); 
 		}
 
 		public override void Serialize( GenericWriter writer )

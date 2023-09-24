@@ -50,7 +50,7 @@ namespace Server.Engines.Harvest
 			oreAndStone.MinTotal = 4;
 			oreAndStone.MaxTotal = 28;
 
-			// A resource bank will respawn its content every 5 to 15 minutes
+			// A resource bank will respawn its content every 10 to 30 minutes
 			oreAndStone.MinRespawn = TimeSpan.FromMinutes( 10.0 );
 			oreAndStone.MaxRespawn = TimeSpan.FromMinutes( 30.0 );
 
@@ -201,7 +201,7 @@ namespace Server.Engines.Harvest
 
 			res = new HarvestResource[]
 				{
-					new HarvestResource( 50.0, 30.0, 120.0, 1044631, typeof( Sand ) )
+                    new HarvestResource( 50.0, 30.0, 120.0, 1044631, typeof( Sand ) )
 				};
 
 			veins = new HarvestVein[]
@@ -221,24 +221,24 @@ namespace Server.Engines.Harvest
 			if ( def == m_OreAndStone )
 			{
                 #region Void Pool Items
-/*                HarvestMap hmap = HarvestMap.CheckMapOnHarvest(from, loc, def);
+                /*                HarvestMap hmap = HarvestMap.CheckMapOnHarvest(from, loc, def);
 
-                if (hmap != null && hmap.Resource >= CraftResource.Iron && hmap.Resource <= CraftResource.Dwarven)
-                {
-                    hmap.UsesRemaining--;
-                    hmap.InvalidateProperties();
+                                if (hmap != null && hmap.Resource >= CraftResource.Iron && hmap.Resource <= CraftResource.Dwarven)
+                                {
+                                    hmap.UsesRemaining--;
+                                    hmap.InvalidateProperties();
 
-                    CraftResourceInfo info = CraftResources.GetInfo(hmap.Resource);
+                                    CraftResourceInfo info = CraftResources.GetInfo(hmap.Resource);
 
-                    if (info != null)
-                        return info.ResourceTypes[1];
-                }*/
+                                    if (info != null)
+                                        return info.ResourceTypes[1];
+                                }*/
                 #endregion
                 PlayerMobile pm = from as PlayerMobile;
 				if (pm != null && 
 					pm.StoneMining && 
 					pm.ToggleMiningStone && 
-					from.Skills[SkillName.Mining].Base >= 100.0 && 0.1 > Utility.RandomDouble())
+					from.Skills[SkillName.Mining].Base >= 100.0 && 0.5 > Utility.RandomDouble())
 				{
                     //from.SendMessage(20, "Mining =>" + resource.Types[1]);
                     return resource.Types[1];
@@ -247,7 +247,7 @@ namespace Server.Engines.Harvest
                 return resource.Types[0];
 			}
 
-			return base.GetResourceType( from, tool, def, map, loc, resource );
+            return base.GetResourceType( from, tool, def, map, loc, resource );
 		}
 
 		public override bool CheckHarvest( Mobile from, Item tool )
@@ -452,8 +452,8 @@ namespace Server.Engines.Harvest
 
 				0x453B, 0x453C, 0x453D, 0x453E, 0x453F, 0x4540, 0x4541,
 				0x4542, 0x4543, 0x4544,	0x4545, 0x4546, 0x4547, 0x4548,
-				0x4549, 0x454A, 0x454B, 0x454C, 0x454D, 0x454E,	0x454F
-			};
+				0x4549, 0x454A, 0x454B, 0x454C, 0x454D, 0x454E,	0x454F//, 0x8E0, 0x8E3, 0x8E1, 0x8E5, 0x8E8
+            };
 
 		public static int[] m_SandTiles = new int[]
 			{
