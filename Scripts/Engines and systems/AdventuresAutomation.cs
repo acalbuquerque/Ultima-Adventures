@@ -85,7 +85,7 @@ namespace Server.Items
 		
 			if ( pm.GetFlag( PlayerFlag.IsAutomated ) )
 			{
-				pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser parar, diga 'Auto-Parar'. 'Stop'.");
+				pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser para, digite: '.parar' ou '.stop'.");
 				return;
 			}
 			else if ( pm.Backpack == null || pm.Backpack.Deleted)
@@ -326,7 +326,7 @@ namespace Server.Items
 			if (!pm.GetFlag(PlayerFlag.IsAutomated))
 				pm.SetFlag(PlayerFlag.IsAutomated, true);
 			else {
-                pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser parar, diga: 'Auto-Parar'.");
+                pm.SendMessage(55, "Você já está realizando uma tarefa automática. Se quiser para, digite: '.parar' ou '.stop'.");
             }
 
 			PlayerLoc.Add(pm, pm.Location);	
