@@ -8,7 +8,8 @@ namespace Server.Items
 		[Constructable]
 		public BlankMap()
 		{
-		}
+            Weight = 0.2;
+        }
 
 		public override void OnDoubleClick( Mobile from )
 		{

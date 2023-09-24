@@ -237,17 +237,20 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( StoneTombStoneT ), "Tombstones", "tombstone", 45.0, 95.0, typeof( Granite ), 1044514, 3, 1044513 );
 
 			SetSubRes( typeof( Granite ), 1044525 );
-
-			AddSubRes( typeof( Granite ),			1044525, 00.0, 1044514, 1044526 );
+            // The NameNumber is in CILOC file!!!!
+            AddSubRes( typeof( Granite ),			1044525, 00.0, 1044514, 1044526 );
 			AddSubRes( typeof( DullCopperGranite ),	1044023, 65.0, 1044514, 1044527 );
 			AddSubRes( typeof( ShadowIronGranite ),	1044024, 70.0, 1044514, 1044527 );
 			AddSubRes( typeof( CopperGranite ),		1044025, 75.0, 1044514, 1044527 );
 			AddSubRes( typeof( BronzeGranite ),		1044026, 80.0, 1044514, 1044527 );
-			AddSubRes( typeof( GoldGranite ),		1044027, 85.0, 1044514, 1044527 );
+            AddSubRes(typeof(PlatinumGranite), 6663000, 99.0, 1044514, 1044527);
+            AddSubRes( typeof( GoldGranite ),		1044027, 85.0, 1044514, 1044527 );
 			AddSubRes( typeof( AgapiteGranite ),	1044028, 90.0, 1044514, 1044527 );
 			AddSubRes( typeof( VeriteGranite ),		1044029, 95.0, 1044514, 1044527 );
 			AddSubRes( typeof( ValoriteGranite ),	1044030, 99.0, 1044514, 1044527 );
-			AddSubRes( typeof( NepturiteGranite ),	1036173, 99.0, 1044514, 1044527 );
+            AddSubRes( typeof( TitaniumGranite),	6661000, 99.0, 1044514, 1044527);
+            AddSubRes(typeof(RoseniumGranite), 6662000, 99.0, 1044514, 1044527);
+            AddSubRes( typeof( NepturiteGranite ),	1036173, 99.0, 1044514, 1044527 );
 			AddSubRes( typeof( ObsidianGranite ),	1036162, 99.0, 1044514, 1044527 );
 			AddSubRes( typeof( MithrilGranite ),	1036137, 109.0, 1044514, 1044527 );
 			AddSubRes( typeof( XormiteGranite ),	1034437, 109.0, 1044514, 1044527 );

@@ -33,7 +33,7 @@ namespace Server.Items
 			
 			base.AddNameProperties( list );	
 			
-			list.Add( "Say 'I wish to start fishing' near water to fish automatically." ); 
+			list.Add("Diga '.iniciar Auto-Pescar' para usar o sistema de automação."); 
 		}
 
 		public override void Serialize( GenericWriter writer )

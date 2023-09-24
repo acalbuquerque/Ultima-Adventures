@@ -14,7 +14,9 @@ namespace Server.Items
 				Hue = 0x965;
 			else
 				Hue = 0x961;
-		}
+
+            Weight = 0.2;
+        }
 
 		public IndecipherableMap( Serial serial ) : base( serial )
 		{

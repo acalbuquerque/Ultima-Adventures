@@ -5,7 +5,7 @@ using Server.Engines.Harvest;
 namespace Server.Items
 {
 	public class SturdyShovel : BaseHarvestTool
-	{
+    {
 		public override int LabelNumber{ get{ return 1045125; } } // sturdy shovel
 		//public override HarvestSystem HarvestSystem{ get{ return Mining.System; } }
 
@@ -20,22 +20,23 @@ namespace Server.Items
 					if (m.Map == Map.Midland || m.Map == Map.Underground) 
 						return DeepMine.DeepMining.GetSystem(this);
 				}	 
-				return Mining.System;
-
-			} 
+				//return Mining.System;
+                return ((HarvestSystem)DynamicMining.GetSystem(this) != null) ? (HarvestSystem)DynamicMining.GetSystem(this) : (HarvestSystem)(Mining.System);
+            } 
 		}
 
 		[Constructable]
-		public SturdyShovel() : this( 180 )
+		public SturdyShovel() : this(150)
 		{
 		}
 
 		[Constructable]
-		public SturdyShovel( int uses ) : base( uses, 0xF39 )
-		{
-			Weight = 5.0;
+        public SturdyShovel(int uses) : base(uses, 0xF39)
+        {
+            Name = "Pá Resistente";
+            Weight = 5.0;
 			Hue = 0x973;
-		}
+        }
 
 		public SturdyShovel( Serial serial ) : base( serial )
 		{
@@ -46,7 +47,7 @@ namespace Server.Items
 			
 			base.AddNameProperties( list );	
 			
-			list.Add( "Say 'I wish to start mining' near cave/mountain to mine automatically." ); 
+			list.Add("Diga '.iniciar Auto-Minerar' para usar o sistema de automação."); 
 		}
 
 		public override void Serialize( GenericWriter writer )

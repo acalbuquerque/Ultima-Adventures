@@ -71,18 +71,21 @@ namespace Server.Engines.Craft
 					switch ( resource )
 					{
 						case CraftResource.DullCopper: difficulty = 65.0; break;
-						case CraftResource.ShadowIron: difficulty = 70.0; break;
-						case CraftResource.Copper: difficulty = 75.0; break;
-						case CraftResource.Bronze: difficulty = 80.0; break;
-						case CraftResource.Gold: difficulty = 85.0; break;
+                        case CraftResource.Copper: difficulty = 70.0; break;
+                        case CraftResource.Bronze: difficulty = 75.0; break;
+                        case CraftResource.ShadowIron: difficulty = 80.0; break;
+                        case CraftResource.Platinum: difficulty = 85.0; break;
+                        case CraftResource.Gold: difficulty = 85.0; break;
 						case CraftResource.Agapite: difficulty = 90.0; break;
 						case CraftResource.Verite: difficulty = 95.0; break;
-						case CraftResource.Valorite: difficulty = 99.0; break;
-						case CraftResource.Nepturite: difficulty = 99.0; break;
-						case CraftResource.Obsidian: difficulty = 99.0; break;
-						case CraftResource.Steel: difficulty = 99.0; break;
-						case CraftResource.Brass: difficulty = 105.0; break;
-						case CraftResource.Mithril: difficulty = 110.0; break;
+						case CraftResource.Valorite: difficulty = 95.0; break;
+                        case CraftResource.Titanium: difficulty = 100.0; break;
+                        case CraftResource.Rosenium: difficulty = 100.0; break;
+                        case CraftResource.Nepturite: difficulty = 105.0; break;
+						case CraftResource.Obsidian: difficulty = 105.0; break;
+						case CraftResource.Steel: difficulty = 110.0; break;
+						case CraftResource.Brass: difficulty = 110.0; break;
+						case CraftResource.Mithril: difficulty = 115.0; break;
 						case CraftResource.Xormite: difficulty = 115.0; break;
 						case CraftResource.Dwarven: difficulty = 120.0; break;
 					}

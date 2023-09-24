@@ -1,5 +1,6 @@
 using System;
 using Server.Items;
+using Server.Mobiles;
 using Server.Network;
 using Server.Engines.Harvest;
 
@@ -13,48 +14,52 @@ namespace Server.Items
 		public override HarvestSystem HarvestSystem
 		{ get
 			{
-				if (this.Map == Map.Midland || this.Map == Map.Underground) 
+                Mobile m = (Mobile)this.RootParentEntity;
+
+                if (this.Map == Map.Midland || this.Map == Map.Underground) 
 					return DeepMine.DeepMining.GetSystem(this);
 				else if (this.RootParentEntity is Mobile)
 				{
-					Mobile m = (Mobile)this.RootParentEntity;
+					
 					if (m.Map == Map.Midland || m.Map == Map.Underground) 
 						return DeepMine.DeepMining.GetSystem(this);
-				}	 
-				return Mining.System;
-
-			} 
+				}
+                return ((HarvestSystem)DynamicMining.GetSystem(this) != null) ? (HarvestSystem)DynamicMining.GetSystem(this) : (HarvestSystem)(Mining.System);
+            } 
 		}
 
-		public override WeaponAbility PrimaryAbility{ get{ return WeaponAbility.DoubleStrike; } }
-		public override WeaponAbility SecondaryAbility{ get{ return WeaponAbility.Disarm; } }
-		public override WeaponAbility ThirdAbility{ get{ return WeaponAbility.MagicProtection2; } }
-		public override WeaponAbility FourthAbility{ get{ return WeaponAbility.ZapDexStrike; } }
-		public override WeaponAbility FifthAbility{ get{ return WeaponAbility.ShadowStrike; } }
+		public override WeaponAbility PrimaryAbility { get { return WeaponAbility.Disarm; } }
+		public override WeaponAbility SecondaryAbility { get { return null; } }
+		/*public override WeaponAbility ThirdAbility { get { return WeaponAbility.MagicProtection2; } }
+		public override WeaponAbility FourthAbility { get { return WeaponAbility.ZapDexStrike; } }
+		public override WeaponAbility FifthAbility { get { return WeaponAbility.ShadowStrike; } }*/
 
-		public override int AosStrengthReq{ get{ return 50; } }
-		public override int AosMinDamage{ get{ return 13; } }
-		public override int AosMaxDamage{ get{ return 15; } }
-		public override int AosSpeed{ get{ return 35; } }
-		public override float MlSpeed{ get{ return 3.00f; } }
+		public override int AosStrengthReq { get { return 25; } }
+		public override int AosMinDamage { get { return 7; } }
+		public override int AosMaxDamage { get { return 15; } }
+		public override int AosSpeed { get { return 35; } }
+		public override float MlSpeed { get { return 4.50f; } }
 
-		public override int OldStrengthReq{ get{ return 25; } }
-		public override int OldMinDamage{ get{ return 1; } }
-		public override int OldMaxDamage{ get{ return 15; } }
-		public override int OldSpeed{ get{ return 35; } }
+		public override int OldStrengthReq { get { return 25; } }
+		public override int OldMinDamage { get { return 1; } }
+		public override int OldMaxDamage { get { return 15; } }
+		public override int OldSpeed { get { return 35; } }
 
-		public override int InitMinHits{ get{ return 31; } }
-		public override int InitMaxHits{ get{ return 60; } }
+		public override int InitMinHits { get { return 31; } }
+		public override int InitMaxHits { get { return 60; } }
 
 		public override WeaponAnimation DefAnimation{ get{ return WeaponAnimation.Slash1H; } }
 
 		[Constructable]
 		public Pickaxe() : base( 0xE86 )
 		{
-			Weight = 11.0;
-			UsesRemaining = 50;
+            Name = "Picareta";
+            Weight = 2.0;
+            Layer = Layer.OneHanded;
+            UsesRemaining = 50;
 			ShowUsesRemaining = true;
-		}
+            //AosElementDamages.Physical = 60;
+        }
 
 		public Pickaxe( Serial serial ) : base( serial )
 		{
@@ -65,7 +70,7 @@ namespace Server.Items
 			
 			base.AddNameProperties( list );	
 			
-			list.Add( "Say 'I wish to start mining' near cave/mountain to mine automatically." ); 
+			list.Add("Diga '.iniciar Auto-Minerar' para usar o sistema de automação."); 
 		}
 
 		public override void Serialize( GenericWriter writer )

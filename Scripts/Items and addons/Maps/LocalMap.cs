@@ -14,7 +14,8 @@ namespace Server.Items
 		[Constructable]
 		public LocalMap()
 		{
-			SetDisplay( 0, 0, 5119, 4095, 400, 400 );
+            Weight = 0.2;
+            SetDisplay( 0, 0, 5119, 4095, 400, 400 );
 		}
 
 		public override string DefaultName

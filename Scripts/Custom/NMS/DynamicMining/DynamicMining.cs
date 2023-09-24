@@ -1,27 +1,45 @@
 ﻿/*
- * Crée par SharpDevelop.
- * Gargouille
- * Date: 30/09/2014
+ * 
+ * By Gargouille
+ * Date: 21/08/2013
+ * 
+ * 
  */
 
+using System;
 using System;
 using Server;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using Server.Misc;
 using Server.Regions;
-using Server.Engines.Harvest;
 
-namespace Server.DeepMine
+namespace Server.Engines.Harvest
 {
-	public class DeepMining : HarvestSystem
+	public class DynamicMining : HarvestSystem
 	{
-		public static HarvestSystem GetSystem(Item axe)
+
+/*        private static DynamicMining m_System;
+
+        public static DynamicMining System
+        {
+            get
+            {
+                if (m_System == null)
+                    m_System = new DynamicMining();
+
+                return m_System;
+            }
+        }*/
+
+        public static HarvestSystem GetSystem(Item axe)
 		{
 			Map map;
 			Point3D loc;
-			
-			object root = axe.RootParent;
+
+            Mobile m = (Mobile)axe.RootParentEntity;
+            object root = axe.RootParent;
 
 			if ( root == null )
 			{
@@ -34,63 +52,24 @@ namespace Server.DeepMine
 				loc = ((IEntity)root).Location;
 			}
 			
-			DeepHarvestSpot spot = new DeepHarvestSpot(0,0,null);
+			IPooledEnumerable eable = map.GetMobilesInRange(loc, 5);
 			
-			if(DeepMineOreSpawn.CheckSpotNearBy(map,loc,ref spot))
+			foreach ( Mobile mob in eable )
 			{
-				return spot.HarvestSystem;
-			}
-			
-			return BaseHarvestSystem;//No spot, BaseType harvestable only
-		}
-		
-		private static HarvestSystem m_BaseHarvestSystem;
-		public static HarvestSystem BaseHarvestSystem
-		{
-			get
-			{
-				if(m_BaseHarvestSystem==null)
+				if(mob is MineSpirit)//find a mine spot
 				{
-					DeepMining system = new DeepMining();
-					
-					system.Ore.Resources = new HarvestResource[]
+					MineSpirit mine = (MineSpirit)mob;
+                    //m.SendMessage(35, "dist-> " + mine.GetDistanceToSqrt(loc));
+                    //m.SendMessage(55, "Você sente que está próximo de um veio de minério.");
+                    if (mine.GetDistanceToSqrt(loc) <= mine.Range)
 					{
-						new HarvestResource( 0, 0, 120, "You place some ore in your backpack", DeepMineHarvestInfo.BaseType )
-					};
-					
-					system.Ore.Veins = new HarvestVein[]
-					{
-						new HarvestVein( 100, 0.0, system.Ore.Resources[0], null   )
-					};
-					
-					m_BaseHarvestSystem = system;
-				}
-				return m_BaseHarvestSystem;
-				
-			}
-		}
-				
-		public override void StartHarvesting( Mobile from, Item tool, object toHarvest )
-		{
-			if ( toHarvest is StaticTarget )
-			{
-				int itemID = ((StaticTarget)toHarvest).ItemID;
-				
-				Region region = Region.Find(from.Location, from.Map);
-				if(region!=null && region is DeepMineRegion)
-				{
-					if( Tunneling.System.Wall.Validate( itemID ))
-					{
-						Tunneling.System.StartHarvesting( from, tool, toHarvest );
-						
-						return;
+                        return mine.HarvestSystem; //return its system
 					}
 				}
-				
 			}
-			base.StartHarvesting(from, tool, toHarvest);//if not "walls" or tunneling region, back to DeepMining system
+			
+			return null;//Nothing to harvest
 		}
-
 		
 		#region As Mining
 		private HarvestDefinition m_Ore;
@@ -100,22 +79,22 @@ namespace Server.DeepMine
 			get{ return m_Ore; }
 		}
 
-		public DeepMining()
+		public DynamicMining()
 		{
 			#region Mining for ore
 			HarvestDefinition ore = m_Ore = new HarvestDefinition();
 
-			// Resource banks are every 8x8 tiles
-			ore.BankWidth = 8;
-			ore.BankHeight = 8;
+			// Resource banks are every 3x3 tiles
+			ore.BankWidth = 3;
+			ore.BankHeight = 3;
 
-			// Every bank holds from 10 to 34 ore
-			ore.MinTotal = 10;
-			ore.MaxTotal = 34;
+			// Every bank holds from 4 to 28 ore
+			ore.MinTotal = 4;
+			ore.MaxTotal = 28;
 
-			// A resource bank will respawn its content every 10 to 20 minutes
+			// A resource bank will respawn its content every 10 to 30 minutes
 			ore.MinRespawn = TimeSpan.FromMinutes( 10.0 );
-			ore.MaxRespawn = TimeSpan.FromMinutes( 20.0 );
+			ore.MaxRespawn = TimeSpan.FromMinutes( 30 );
 
 			// Skill checking is done on the Mining skill
 			ore.Skill = SkillName.Mining;
@@ -128,14 +107,14 @@ namespace Server.DeepMine
 
 			// One ore per harvest action
 			ore.ConsumedPerHarvest = 1;
-			ore.ConsumedPerFeluccaHarvest = 2;
+			ore.ConsumedPerFeluccaHarvest = 1;
 
 			// The digging effect
 			ore.EffectActions = new int[]{ 11 };
 			ore.EffectSounds = new int[]{ 0x125, 0x126 };
 			ore.EffectCounts = new int[]{ 1 };
-			ore.EffectDelay = TimeSpan.FromSeconds( 1.6 );
-			ore.EffectSoundDelay = TimeSpan.FromSeconds( 0.9 );
+			ore.EffectDelay = TimeSpan.FromSeconds( 1.5 );
+			ore.EffectSoundDelay = TimeSpan.FromSeconds( 0.7 );
 
 			ore.NoResourcesMessage = 503040; // There is no metal here to mine.
 			ore.DoubleHarvestMessage = 503042; // Someone has gotten to the metal before you.
@@ -149,18 +128,31 @@ namespace Server.DeepMine
 			{
 				ore.BonusResources = new BonusHarvestResource[]
 				{
-					new BonusHarvestResource( 0, 99.4, null, null ),	//Nothing
-					new BonusHarvestResource( 100, .1, 1072562, typeof( BlueDiamond ) ),
-					new BonusHarvestResource( 100, .1, 1072567, typeof( DarkSapphire ) ),
-					new BonusHarvestResource( 100, .1, 1072570, typeof( EcruCitrine ) ),
-					new BonusHarvestResource( 100, .1, 1072564, typeof( FireRuby ) ),
-					new BonusHarvestResource( 100, .1, 1072566, typeof( PerfectEmerald ) ),
-					new BonusHarvestResource( 100, .1, 1072568, typeof( Turquoise ) )
-				};
+                    new BonusHarvestResource( 0, 89.75, null, null ),	//Nothing
+					new BonusHarvestResource( 60, 5, 1074542, typeof( BlankScroll ) ),
+                    new BonusHarvestResource( 60, 1, 1074542, typeof( LocalMap ) ),
+                    new BonusHarvestResource( 60, 1, 1074542, typeof( IndecipherableMap ) ),
+                    new BonusHarvestResource( 60, 1, 1074542, typeof( BlankMap ) ),
+                    new BonusHarvestResource( 70, .5, 1074542, typeof( Amber ) ),
+                    new BonusHarvestResource( 75, .5, 1074542, typeof( Amethyst ) ),
+                    new BonusHarvestResource( 75, .5, 1074542, typeof( Citrine ) ),
+                    new BonusHarvestResource( 80, .1, 1074542, typeof( Diamond ) ),
+                    new BonusHarvestResource( 85, .1, 1074542, typeof( Emerald ) ),
+                    new BonusHarvestResource( 85, .1, 1074542, typeof( Ruby ) ),
+                    new BonusHarvestResource( 85, .1, 1074542, typeof( Sapphire ) ),
+                    new BonusHarvestResource( 90, .05, 1074542, typeof( StarSapphire ) ),
+                    new BonusHarvestResource( 90, .05, 1074542, typeof( Tourmaline ) ),
+                    new BonusHarvestResource( 100, .05, 1072562, typeof( BlueDiamond ) ),
+                    new BonusHarvestResource( 100, .05, 1072567, typeof( DarkSapphire ) ),
+                    new BonusHarvestResource( 100, .05, 1072570, typeof( EcruCitrine ) ),
+                    new BonusHarvestResource( 100, .05, 1072564, typeof( FireRuby ) ),
+                    new BonusHarvestResource( 100, .05, 1072566, typeof( PerfectEmerald ) )
+					//new BonusHarvestResource( 100, .1, 1072568, typeof( Turquoise ) ),
+                };
 			}
 
-			ore.RaceBonus = Core.ML;
-			ore.RandomizeVeins = Core.ML;
+			ore.RaceBonus = false;//Core.ML;
+			ore.RandomizeVeins = true;
 
 			Definitions.Add( ore );
 			#endregion

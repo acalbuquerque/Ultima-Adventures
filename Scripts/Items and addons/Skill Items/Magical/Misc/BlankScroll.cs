@@ -14,7 +14,7 @@ namespace Server.Items
 		{
 			Name = "blank scroll";
 			Stackable = true;
-			Weight = 1.0;
+			Weight = 0.2;
 			Amount = amount;
 		}
 

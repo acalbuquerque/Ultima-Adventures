@@ -127,7 +127,7 @@ namespace Server.Items
 			base.AddNameProperties( list );	
 
 			if (!(this is Pickaxe) && !(this is SturdyPickaxe)&& !(this is GargoylesPickaxe))
-				list.Add( "Say 'I wish to start lumberjacking' near a tree to chop it automatically." ); 
+				list.Add("Diga '.iniciar Auto-Lenhar' para usar o sistema de automação."); 
 		}
 
 		public override void GetContextMenuEntries( Mobile from, List<ContextMenuEntry> list )

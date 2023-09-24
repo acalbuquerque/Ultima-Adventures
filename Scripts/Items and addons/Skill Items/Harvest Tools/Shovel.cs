@@ -5,7 +5,7 @@ using Server.Engines.Harvest;
 namespace Server.Items
 {
 	public class Shovel : BaseHarvestTool
-	{
+    {
 		//public override HarvestSystem HarvestSystem{ get{ return Mining.System; } }
 
 		public override HarvestSystem HarvestSystem
@@ -18,22 +18,23 @@ namespace Server.Items
 					Mobile m = (Mobile)this.RootParentEntity;
 					if (m.Map == Map.Midland || m.Map == Map.Underground) 
 						return DeepMine.DeepMining.GetSystem(this);
-				}	 
-				return Mining.System;
-
-			} 
+				}
+                //return Mining.System;
+                return ((HarvestSystem)DynamicMining.GetSystem(this) != null) ? (HarvestSystem)DynamicMining.GetSystem(this) : (HarvestSystem)(Mining.System);
+            } 
 		}
 
 		[Constructable]
-		public Shovel() : this( 50 )
+		public Shovel() : this(50)
 		{
 		}
 
 		[Constructable]
 		public Shovel( int uses ) : base( uses, 0xF39 )
 		{
-			Weight = 5.0;
-		}
+            Name = "Pá";
+            Weight = 2.0;
+        }
 		
 		public override void AddNameProperties( ObjectPropertyList list )
 		{
@@ -41,7 +42,7 @@ namespace Server.Items
 			base.AddNameProperties( list );	
 			
 			if (!(this is Monocle))
-				list.Add( "Say 'I wish to start mining' near cave/mountain to mine automatically." ); 
+				list.Add("Diga '.iniciar Auto-Minerar' para usar o sistema de automação."); 
 		}
 
 		public Shovel( Serial serial ) : base( serial )

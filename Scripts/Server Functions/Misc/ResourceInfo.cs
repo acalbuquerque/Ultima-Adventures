@@ -16,13 +16,16 @@ namespace Server.Items
 		Agapite,
 		Verite,
 		Valorite,
-		Nepturite,
+        Titanium,
+        Nepturite,
 		Obsidian,
 		Steel,
 		Brass,
 		Mithril,
 		Xormite,
 		Dwarven,
+		Rosenium,
+		Platinum,
 
 		RegularLeather = 101,
 		SpinedLeather, 
@@ -130,7 +133,7 @@ namespace Server.Items
 		}
 
 		public static readonly CraftAttributeInfo Blank;
-		public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite, Nepturite, Obsidian, Steel, Brass, Mithril, Xormite, Dwarven;
+		public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite, Titanium, Nepturite, Obsidian, Steel, Brass, Mithril, Xormite, Dwarven, Rosenium, Platinum;
 		public static readonly CraftAttributeInfo Spined, Horned, Barbed, Necrotic, Volcanic, Frozen, Goliath, Draconic, Hellish, Dinosaur, Alien;
 		public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales, DinosaurScales;
 		public static readonly CraftAttributeInfo AshTree, CherryTree, EbonyTree, GoldenOakTree, HickoryTree, MahoganyTree, OakTree, PineTree, GhostTree, RosewoodTree, WalnutTree, PetrifiedTree, DriftwoodTree, ElvenTree;
@@ -248,10 +251,58 @@ namespace Server.Items
 			valorite.WeaponEnergyDamage = 20;
 			valorite.RunicMinAttributes = 5;
 			valorite.RunicMaxAttributes = 9;
-				valorite.RunicMinIntensity = 90;
-				valorite.RunicMaxIntensity = 100;
+			valorite.RunicMinIntensity = 90;
+			valorite.RunicMaxIntensity = 100;
 
-			CraftAttributeInfo nepturite = Nepturite = new CraftAttributeInfo();
+            CraftAttributeInfo titanium = Titanium = new CraftAttributeInfo();
+
+            titanium.ArmorPhysicalResist = 10; //21
+            titanium.ArmorColdResist = 5;
+            titanium.ArmorPoisonResist = 5;
+            titanium.ArmorEnergyResist = 5;
+            titanium.ArmorDurability = 20;
+            titanium.WeaponFireDamage = 10;
+            titanium.WeaponColdDamage = 10;
+            titanium.WeaponPoisonDamage = 10;
+            titanium.WeaponEnergyDamage = 10;
+            titanium.RunicMinAttributes = 5;
+            titanium.RunicMaxAttributes = 5;
+            titanium.RunicMinIntensity = 50;
+            titanium.RunicMaxIntensity = 60;
+
+            CraftAttributeInfo rosenium = Rosenium = new CraftAttributeInfo();
+
+            titanium.ArmorPhysicalResist = 10; //21
+            titanium.ArmorColdResist = 5;
+            titanium.ArmorPoisonResist = 5;
+            titanium.ArmorEnergyResist = 5;
+            titanium.ArmorDurability = 20;
+            titanium.WeaponFireDamage = 10;
+            titanium.WeaponColdDamage = 10;
+            titanium.WeaponPoisonDamage = 10;
+            titanium.WeaponEnergyDamage = 10;
+            titanium.RunicMinAttributes = 5;
+            titanium.RunicMaxAttributes = 5;
+            titanium.RunicMinIntensity = 50;
+            titanium.RunicMaxIntensity = 60;
+
+            CraftAttributeInfo platinum = Platinum = new CraftAttributeInfo();
+
+            titanium.ArmorPhysicalResist = 10; //21
+            titanium.ArmorColdResist = 5;
+            titanium.ArmorPoisonResist = 5;
+            titanium.ArmorEnergyResist = 5;
+            titanium.ArmorDurability = 20;
+            titanium.WeaponFireDamage = 10;
+            titanium.WeaponColdDamage = 10;
+            titanium.WeaponPoisonDamage = 10;
+            titanium.WeaponEnergyDamage = 10;
+            titanium.RunicMinAttributes = 5;
+            titanium.RunicMaxAttributes = 5;
+            titanium.RunicMinIntensity = 50;
+            titanium.RunicMaxIntensity = 60;
+
+            CraftAttributeInfo nepturite = Nepturite = new CraftAttributeInfo();
 
 			nepturite.ArmorPhysicalResist = 6; //24
 			nepturite.ArmorColdResist = 8;
@@ -261,8 +312,8 @@ namespace Server.Items
 			nepturite.WeaponPoisonDamage = 25;
 			nepturite.RunicMinAttributes = 5;
 			nepturite.RunicMaxAttributes = 6;
-				nepturite.RunicMinIntensity = 80;
-				nepturite.RunicMaxIntensity = 100;
+			nepturite.RunicMinIntensity = 80;
+			nepturite.RunicMaxIntensity = 100;
 
 			CraftAttributeInfo obsidian = Obsidian = new CraftAttributeInfo();
 
@@ -818,14 +869,17 @@ namespace Server.Items
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "agapite", "", 0 ), 		1053103, "Agapite",		CraftAttributeInfo.Agapite,		CraftResource.Agapite,			typeof( AgapiteIngot ),		typeof( AgapiteOre ),		typeof( AgapiteGranite ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "verite", "", 0 ), 		1053102, "Verite",		CraftAttributeInfo.Verite,		CraftResource.Verite,			typeof( VeriteIngot ),		typeof( VeriteOre ),		typeof( VeriteGranite ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "valorite", "", 0 ), 		1053101, "Valorite",	CraftAttributeInfo.Valorite,	CraftResource.Valorite,			typeof( ValoriteIngot ),	typeof( ValoriteOre ),		typeof( ValoriteGranite ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "nepturite", "", 0 ), 	1036175, "Nepturite",	CraftAttributeInfo.Nepturite,	CraftResource.Nepturite,		typeof( NepturiteIngot ),	typeof( NepturiteOre ),		typeof( NepturiteGranite ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "titanium", "", 0 ),      6661002, "Titanium",    CraftAttributeInfo.Titanium,    CraftResource.Titanium,         typeof( TitaniumIngot ),    typeof( TitaniumOre ),      typeof( TitaniumGranite ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "nepturite", "", 0 ), 	1036175, "Nepturite",	CraftAttributeInfo.Nepturite,	CraftResource.Nepturite,		typeof( NepturiteIngot ),	typeof( NepturiteOre ),		typeof( NepturiteGranite ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "obsidian", "", 0 ), 		1036165, "Obsidian",	CraftAttributeInfo.Obsidian,	CraftResource.Obsidian,			typeof( ObsidianIngot ),	typeof( ObsidianOre ),		typeof( ObsidianGranite ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "steel", "", 0 ), 		1036146, "Steel",		CraftAttributeInfo.Steel,		CraftResource.Steel,			typeof( SteelIngot ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "brass", "", 0 ), 		1036154, "Brass",		CraftAttributeInfo.Brass,		CraftResource.Brass,			typeof( BrassIngot ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "mithril", "", 0 ), 		1036139, "Mithril",		CraftAttributeInfo.Mithril,		CraftResource.Mithril,			typeof( MithrilIngot ),		typeof( MithrilOre ),		typeof( MithrilGranite ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "xormite", "", 0 ), 		1034439, "Xormite",		CraftAttributeInfo.Xormite,		CraftResource.Xormite,			typeof( XormiteIngot ),		typeof( XormiteOre ),		typeof( XormiteGranite ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "dwarven", "", 0 ), 		1036183, "Dwarven",		CraftAttributeInfo.Dwarven,		CraftResource.Dwarven,			typeof( DwarvenIngot ),		typeof( DwarvenOre ),		typeof( DwarvenGranite ) )
-			};
+				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "dwarven", "", 0 ), 		1036183, "Dwarven",		CraftAttributeInfo.Dwarven,		CraftResource.Dwarven,			typeof( DwarvenIngot ),		typeof( DwarvenOre ),		typeof( DwarvenGranite ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "rosenium", "", 0 ),      6662002, "Rosenium",    CraftAttributeInfo.Rosenium,    CraftResource.Rosenium,         typeof( RoseniumIngot ),    typeof( RoseniumOre ),      typeof( RoseniumGranite ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "platinum", "", 0 ),      6663002, "Platinum",    CraftAttributeInfo.Platinum,    CraftResource.Platinum,         typeof( PlatinumIngot ),    typeof( PlatinumOre ),      typeof( PlatinumGranite ) )
+            };
 
 		private static CraftResourceInfo[] m_ScaleInfo = new CraftResourceInfo[]
 			{
@@ -944,7 +998,16 @@ namespace Server.Items
 			if ( resource >= CraftResource.Iron && resource <= CraftResource.Valorite )
 				return CraftResourceType.Metal;
 
-			if ( resource == CraftResource.Steel || resource == CraftResource.Brass || resource == CraftResource.Mithril || resource == CraftResource.Dwarven || resource == CraftResource.Xormite || resource == CraftResource.Obsidian || resource == CraftResource.Nepturite )
+			if ( resource == CraftResource.Steel || 
+				resource == CraftResource.Brass || 
+				resource == CraftResource.Mithril || 
+				resource == CraftResource.Dwarven ||
+				resource == CraftResource.Xormite || 
+				resource == CraftResource.Obsidian || 
+				resource == CraftResource.Nepturite ||
+                resource == CraftResource.Rosenium ||
+                resource == CraftResource.Platinum ||
+                resource == CraftResource.Titanium)
 				return CraftResourceType.Metal;
 
 			if ( resource >= CraftResource.RegularLeather && resource <= CraftResource.BarbedLeather )
@@ -1080,32 +1143,38 @@ namespace Server.Items
 			else if ( info.Level == 1 )
 				return CraftResource.DullCopper;
 			else if ( info.Level == 2 )
+				return CraftResource.Copper; 
+            else if ( info.Level == 3 )
+				return CraftResource.Bronze; 
+            else if ( info.Level == 4 )
 				return CraftResource.ShadowIron;
-			else if ( info.Level == 3 )
-				return CraftResource.Copper;
-			else if ( info.Level == 4 )
-				return CraftResource.Bronze;
-			else if ( info.Level == 5 )
+            else if (info.Level == 5)
+                return CraftResource.Platinum;
+            else if ( info.Level == 6 )
 				return CraftResource.Gold;
-			else if ( info.Level == 6 )
-				return CraftResource.Agapite;
 			else if ( info.Level == 7 )
-				return CraftResource.Verite;
+				return CraftResource.Agapite;
 			else if ( info.Level == 8 )
-				return CraftResource.Valorite;
+				return CraftResource.Verite;
 			else if ( info.Level == 9 )
+				return CraftResource.Valorite;
+            else if (info.Level == 10)
+                return CraftResource.Titanium;
+            else if (info.Level == 11)
+                return CraftResource.Rosenium;
+            else if ( info.Level == 12 )
 				return CraftResource.Nepturite;
-			else if ( info.Level == 10 )
-				return CraftResource.Obsidian;
-			else if ( info.Level == 11 )
-				return CraftResource.Steel;
-			else if ( info.Level == 12 )
-				return CraftResource.Brass;
 			else if ( info.Level == 13 )
-				return CraftResource.Mithril;
+				return CraftResource.Obsidian;
 			else if ( info.Level == 14 )
-				return CraftResource.Xormite;
+				return CraftResource.Steel;
 			else if ( info.Level == 15 )
+				return CraftResource.Brass;
+			else if ( info.Level == 16 )
+				return CraftResource.Mithril;
+			else if ( info.Level == 17 )
+				return CraftResource.Xormite;
+			else if ( info.Level == 18 )
 				return CraftResource.Dwarven;
 
 			return CraftResource.None;
@@ -1162,24 +1231,28 @@ namespace Server.Items
 		}
 	}
 
-	// NOTE: This class is only for compatability with very old RunUO versions.
-	// No changes to it should be required for custom resources.
-	public class OreInfo
+    // NOTE: This class is only for compatability with very old RunUO versions.
+    // No changes to it should be required for custom resources.
+    // ********* UNTRUE STATEMENT ABOVE *********
+    public class OreInfo
 	{
 		public static readonly OreInfo Iron			= new OreInfo( 0, 0x000, "Iron" );
 		public static readonly OreInfo DullCopper	= new OreInfo( 1, MaterialInfo.GetMaterialColor( "dull copper", "", 0 ), "Dull Copper" );
-		public static readonly OreInfo ShadowIron	= new OreInfo( 2, MaterialInfo.GetMaterialColor( "shadow iron", "", 0 ), "Shadow Iron" );
-		public static readonly OreInfo Copper		= new OreInfo( 3, MaterialInfo.GetMaterialColor( "copper", "classic", 0 ), "Copper" );
-		public static readonly OreInfo Bronze		= new OreInfo( 4, MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ), "Bronze" );
-		public static readonly OreInfo Gold			= new OreInfo( 5, MaterialInfo.GetMaterialColor( "gold", "classic", 0 ), "Gold" );
-		public static readonly OreInfo Agapite		= new OreInfo( 6, MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ), "Agapite" );
-		public static readonly OreInfo Verite		= new OreInfo( 7, MaterialInfo.GetMaterialColor( "verite", "classic", 0 ), "Verite" );
-		public static readonly OreInfo Valorite		= new OreInfo( 8, MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ), "Valorite" );
-		public static readonly OreInfo Nepturite	= new OreInfo( 9, MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ), "Nepturite" );
-		public static readonly OreInfo Obsidian		= new OreInfo( 10, MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ), "Obsidian" );
-		public static readonly OreInfo Mithril		= new OreInfo( 11, MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ), "Mithril" );
-		public static readonly OreInfo Xormite		= new OreInfo( 12, MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ), "Xormite" );
-		public static readonly OreInfo Dwarven		= new OreInfo( 13, MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ), "Dwarven" );
+		public static readonly OreInfo Copper		= new OreInfo( 2, MaterialInfo.GetMaterialColor( "copper", "classic", 0 ), "Copper" );
+		public static readonly OreInfo Bronze		= new OreInfo( 3, MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ), "Bronze" );
+        public static readonly OreInfo ShadowIron	= new OreInfo( 4, MaterialInfo.GetMaterialColor("shadow iron", "", 0), "Shadow Iron");
+        public static readonly OreInfo Platinum		= new OreInfo( 5, MaterialInfo.GetMaterialColor("platinum", "classic", 0), "Platinum");
+        public static readonly OreInfo Gold			= new OreInfo( 6, MaterialInfo.GetMaterialColor( "gold", "classic", 0 ), "Gold" );
+		public static readonly OreInfo Agapite		= new OreInfo( 7, MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ), "Agapite" );
+		public static readonly OreInfo Verite		= new OreInfo( 8, MaterialInfo.GetMaterialColor( "verite", "classic", 0 ), "Verite" );
+		public static readonly OreInfo Valorite		= new OreInfo( 9, MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ), "Valorite" );
+        public static readonly OreInfo Titanium		= new OreInfo( 10, MaterialInfo.GetMaterialColor( "titanium", "classic", 0 ), "Titanium");
+        public static readonly OreInfo Rosenium		= new OreInfo( 11, MaterialInfo.GetMaterialColor("rosenium", "classic", 0), "Rosenium");
+        public static readonly OreInfo Nepturite	= new OreInfo( 12, MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ), "Nepturite" );
+		public static readonly OreInfo Obsidian		= new OreInfo( 13, MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ), "Obsidian" );
+		public static readonly OreInfo Mithril		= new OreInfo( 14, MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ), "Mithril" );
+		public static readonly OreInfo Xormite		= new OreInfo( 15, MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ), "Xormite" );
+		public static readonly OreInfo Dwarven		= new OreInfo( 16, MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ), "Dwarven" );
 
 		private int m_Level;
 		private int m_Hue;

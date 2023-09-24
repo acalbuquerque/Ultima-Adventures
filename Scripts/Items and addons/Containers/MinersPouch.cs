@@ -3,6 +3,7 @@
 
 using System;
 using Server;
+using System.Collections.Generic;
 
 namespace Server.Items
 {
@@ -10,90 +11,161 @@ namespace Server.Items
     public class MinersPouch : LargeSack
     {
 		public override int MaxWeight{ get{ return 800; } }
-		
-		[Constructable]
+
+        [Constructable]
 		public MinersPouch() : base()
 		{
-			Weight = 1.0;
-			//MaxWeight = 800;
-			MaxItems = 50;
-			Name = "miners rucksack";
-			Hue = 0x3bf;
-		}
+            Weight = 1.0;
+			MaxItems = 8;
+            //MaxWeight = 800;
+            Name = "Bolsa Mágica de Minérios";
+            Hue = Utility.RandomList(0x3bf, 1151, 1788, 1912, 1956, 2086, 2114, 2193, 2262);
+        }
 
-		public override bool OnDragDropInto( Mobile from, Item dropped, Point3D p )
+        public override void AddNameProperties(ObjectPropertyList list)
         {
-			if ( dropped is Container && !(dropped is MinersPouch) )
-			{
-                from.SendMessage("You can only use another miners rucksack within this sack.");
-                return false;
-			}
-            else if ( 	dropped is IronOre || 
-						dropped is DullCopperOre || 
-						dropped is ShadowIronOre ||
-						dropped is CopperOre ||
-						dropped is BronzeOre ||
-						dropped is GoldOre ||
-						dropped is AgapiteOre ||
-						dropped is VeriteOre ||
-						dropped is ValoriteOre ||
-						dropped is Granite ||
-						dropped is DullCopperGranite ||
-						dropped is ShadowIronGranite ||
-						dropped is CopperGranite ||
-						dropped is BronzeGranite ||
-						dropped is GoldGranite ||
-						dropped is AgapiteGranite ||
-						dropped is VeriteGranite ||
-						dropped is ValoriteGranite ||
-						dropped is MinersPouch)
-			{
-				return base.OnDragDropInto(from, dropped, p);
-			}
-			else
+
+            base.AddNameProperties(list);
+
+            list.Add("Esta bolsa reduz o peso dos minérios e granitos pela metade.");
+        }
+
+        public override void Open(Mobile from)
+        {
+            double totalWeight = TotalItemWeights() * (0.5);
+            if (totalWeight > (int)MaxWeight)
             {
-                from.SendMessage("This rucksack is for mining supplies and ores.");
+
+                foreach (Item item in Items)
+                {
+                    from.AddToBackpack(item);
+                    //item.Delete();
+                    break;
+                }
+                from.SendMessage(55, "Você percebe que a bolsa está com o peso máximo suportado e remove algum item antes que ela rasgue.");
+            }
+            else
+            {
+                DisplayTo(from);
+            }
+        }
+
+        public override bool OnDragDropInto( Mobile from, Item dropped, Point3D p )
+        {
+            int totalItems = TotalItems();
+            int maxItems = MaxItems;
+            double totalWeight = TotalItemWeights() * (0.5);
+            int itemPlusBagWeight = (int)(totalWeight + ((dropped.Weight * dropped.Amount) * 0.5));
+            //from.SendMessage(33, "Item+Bag : " + itemPlusBagWeight);
+            if (itemPlusBagWeight > (int)MaxWeight)
+            {
+                from.SendMessage(55, "Adicionar este item na bolsa irá ultrapassar o peso máximo suportado.");
                 return false;
             }
-
-            return base.OnDragDropInto(from, dropped, p);
+            else if (totalItems > maxItems)
+            {
+                from.SendMessage(55, "A bolsa já está cheia de itens.");
+                return false;
+            }
+            else 
+            {
+/*                if (dropped is Container && !(dropped is MinersPouch))
+                {
+                    from.SendMessage("You can only use another miners rucksack within this sack.");
+                    return false;
+                }*/
+                if (dropped is IronOre ||
+                    dropped is DullCopperOre ||
+                    dropped is CopperOre ||
+                    dropped is BronzeOre ||
+                    dropped is ShadowIronOre ||
+                    dropped is PlatinumOre ||
+                    dropped is GoldOre ||
+                    dropped is AgapiteOre ||
+                    dropped is VeriteOre ||
+                    dropped is ValoriteOre ||
+                    dropped is TitaniumOre ||
+                    dropped is RoseniumOre ||
+                    dropped is Granite ||
+                    dropped is DullCopperGranite ||
+                    dropped is CopperGranite ||
+                    dropped is BronzeGranite ||
+                    dropped is ShadowIronGranite ||
+                    dropped is PlatinumGranite ||
+                    dropped is GoldGranite ||
+                    dropped is AgapiteGranite ||
+                    dropped is VeriteGranite ||
+                    dropped is ValoriteGranite ||
+                    dropped is TitaniumGranite ||
+                    dropped is RoseniumGranite)
+                {
+                    return base.OnDragDropInto(from, dropped, p);
+                }
+                else
+                {
+                    from.SendMessage(55, "Esta bolsa serve apenas para guardar minérios e granitos.");
+                    return false;
+                }
+            }
         }
 
 		public override bool OnDragDrop( Mobile from, Item dropped )
         {
-			if ( dropped is Container && !(dropped is MinersPouch) )
-			{
-                from.SendMessage("You can only use another miners rucksack within this sack.");
-                return false;
-			}
-            else if (   dropped is IronOre || 
-						dropped is DullCopperOre || 
-						dropped is ShadowIronOre ||
-						dropped is CopperOre ||
-						dropped is BronzeOre ||
-						dropped is GoldOre ||
-						dropped is AgapiteOre ||
-						dropped is VeriteOre ||
-						dropped is ValoriteOre ||
-						dropped is Granite ||
-						dropped is DullCopperGranite ||
-						dropped is ShadowIronGranite ||
-						dropped is CopperGranite ||
-						dropped is BronzeGranite ||
-						dropped is GoldGranite ||
-						dropped is AgapiteGranite ||
-						dropped is VeriteGranite ||
-						dropped is ValoriteGranite )
-			{
-				return base.OnDragDrop(from, dropped);
-			}
-			else
+            int totalItems = TotalItems();
+            int maxItems = MaxItems;
+            double totalWeight = TotalItemWeights() * (0.5);
+            int itemPlusBagWeight = (int)(totalWeight + ((dropped.Weight * dropped.Amount) * 0.5));
+            //from.SendMessage(35, "Item+Bag : " + itemPlusBagWeight);
+            if (itemPlusBagWeight > (int)MaxWeight)
             {
-                from.SendMessage("This rucksack is for mining resources.");
+                from.SendMessage(55, "Adicionar este item na bolsa irá ultrapassar o peso máximo suportado.");
                 return false;
             }
-
-            return base.OnDragDrop(from, dropped);
+            else if (totalItems > maxItems)
+            {
+                from.SendMessage(55, "A bolsa já está cheia de itens.");
+                return false;
+            }
+            else 
+            {
+                /*                if (dropped is Container) //&& !(dropped is MinersPouch)
+                                {
+                                    from.SendMessage(55, "Esta bolsa serve apenas para guardar minérios.");
+                                    return false;
+                                }*/
+                if (dropped is IronOre ||
+                    dropped is DullCopperOre ||
+                    dropped is CopperOre ||
+                    dropped is BronzeOre ||
+                    dropped is ShadowIronOre ||
+                    dropped is PlatinumOre ||
+                    dropped is GoldOre ||
+                    dropped is AgapiteOre ||
+                    dropped is VeriteOre ||
+                    dropped is ValoriteOre ||
+                    dropped is TitaniumOre ||
+                    dropped is RoseniumOre ||
+                    dropped is Granite ||
+                    dropped is DullCopperGranite ||
+                    dropped is CopperGranite ||
+                    dropped is BronzeGranite ||
+                    dropped is ShadowIronGranite ||
+                    dropped is PlatinumGranite ||
+                    dropped is GoldGranite ||
+                    dropped is AgapiteGranite ||
+                    dropped is VeriteGranite ||
+                    dropped is ValoriteGranite ||
+                    dropped is TitaniumGranite ||
+                    dropped is RoseniumGranite)
+                {
+                    return base.OnDragDrop(from, dropped);
+                }
+                else
+                {
+                    from.SendMessage(55, "Esta bolsa serve apenas para guardar minérios e granitos.");
+                    return false;
+                }
+            }
         }
 
 		public MinersPouch( Serial serial ) : base( serial )
@@ -110,10 +182,7 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			Weight = 1.0;
-			MaxItems = 5;
-			Name = "miners rucksack";
-		}
+        }
 
 		public override int GetTotal(TotalType type)
         {
@@ -142,5 +211,15 @@ namespace Server.Items
 
 			return weight;
         }
-	}
+
+        private int TotalItems()
+        {
+            int total = 1;
+
+            foreach (Item item in Items)
+                total += 1;
+
+            return total;
+        }
+    }
 }

@@ -25,11 +25,14 @@ namespace Server.Misc
 				else if ( weapon.Resource == CraftResource.ShadowIron ){ material = "shadow iron"; }
 				else if ( weapon.Resource == CraftResource.Copper ){ material = "copper"; }
 				else if ( weapon.Resource == CraftResource.Bronze ){ material = "bronze"; }
-				else if ( weapon.Resource == CraftResource.Gold ){ material = "golden"; }
-				else if ( weapon.Resource == CraftResource.Agapite ){ material = "agapite"; }
+				else if ( weapon.Resource == CraftResource.Platinum ){ material = "platinum"; }
+                else if (weapon.Resource == CraftResource.Gold) { material = "golden"; }
+                else if ( weapon.Resource == CraftResource.Agapite ){ material = "agapite"; }
 				else if ( weapon.Resource == CraftResource.Verite ){ material = "verite"; }
 				else if ( weapon.Resource == CraftResource.Valorite ){ material = "valorite"; }
-				else if ( weapon.Resource == CraftResource.Steel ){ material = "steel"; }
+                else if ( weapon.Resource == CraftResource.Titanium) { material = "titanium"; }
+                else if (weapon.Resource == CraftResource.Rosenium) { material = "rosenium"; }
+                else if ( weapon.Resource == CraftResource.Steel ){ material = "steel"; }
 				else if ( weapon.Resource == CraftResource.Brass ){ material = "brass"; }
 				else if ( weapon.Resource == CraftResource.Mithril ){ material = "mithril"; }
 				else if ( weapon.Resource == CraftResource.Xormite ){ material = "xormite"; }
@@ -73,11 +76,14 @@ namespace Server.Misc
 				else if ( armor.Resource == CraftResource.ShadowIron ){ material = "shadow iron"; }
 				else if ( armor.Resource == CraftResource.Copper ){ material = "copper"; }
 				else if ( armor.Resource == CraftResource.Bronze ){ material = "bronze"; }
-				else if ( armor.Resource == CraftResource.Gold ){ material = "golden"; }
+                else if (armor.Resource == CraftResource.Platinum) { material = "platinum"; }
+                else if ( armor.Resource == CraftResource.Gold ){ material = "golden"; }
 				else if ( armor.Resource == CraftResource.Agapite ){ material = "agapite"; }
 				else if ( armor.Resource == CraftResource.Verite ){ material = "verite"; }
 				else if ( armor.Resource == CraftResource.Valorite ){ material = "valorite"; }
-				else if ( armor.Resource == CraftResource.Steel ){ material = "steel"; }
+                else if ( armor.Resource == CraftResource.Titanium) { material = "titanium"; }
+                else if (armor.Resource == CraftResource.Rosenium) { material = "rosenium"; }
+                else if ( armor.Resource == CraftResource.Steel ){ material = "steel"; }
 				else if ( armor.Resource == CraftResource.Brass ){ material = "brass"; }
 				else if ( armor.Resource == CraftResource.Mithril ){ material = "mithril"; }
 				else if ( armor.Resource == CraftResource.Xormite ){ material = "xormite"; }
@@ -132,12 +138,15 @@ namespace Server.Misc
 				if ( weapon.Resource == CraftResource.DullCopper || 
 					weapon.Resource == CraftResource.ShadowIron || 
 					weapon.Resource == CraftResource.Copper || 
-					weapon.Resource == CraftResource.Bronze || 
-					weapon.Resource == CraftResource.Gold || 
+					weapon.Resource == CraftResource.Bronze ||
+                    weapon.Resource == CraftResource.Platinum ||
+                    weapon.Resource == CraftResource.Gold || 
 					weapon.Resource == CraftResource.Agapite || 
 					weapon.Resource == CraftResource.Verite || 
-					weapon.Resource == CraftResource.Valorite || 
-					weapon.Resource == CraftResource.Steel || 
+					weapon.Resource == CraftResource.Valorite ||
+                    weapon.Resource == CraftResource.Titanium ||
+                    weapon.Resource == CraftResource.Rosenium ||
+                    weapon.Resource == CraftResource.Steel || 
 					weapon.Resource == CraftResource.Brass || 
 					weapon.Resource == CraftResource.Mithril || 
 					weapon.Resource == CraftResource.Xormite || 
@@ -153,12 +162,15 @@ namespace Server.Misc
 				if ( armor.Resource == CraftResource.DullCopper || 
 					armor.Resource == CraftResource.ShadowIron || 
 					armor.Resource == CraftResource.Copper || 
-					armor.Resource == CraftResource.Bronze || 
-					armor.Resource == CraftResource.Gold || 
+					armor.Resource == CraftResource.Bronze ||
+                    armor.Resource == CraftResource.Platinum ||
+                    armor.Resource == CraftResource.Gold || 
 					armor.Resource == CraftResource.Agapite || 
 					armor.Resource == CraftResource.Verite || 
-					armor.Resource == CraftResource.Valorite || 
-					armor.Resource == CraftResource.Steel || 
+					armor.Resource == CraftResource.Valorite ||
+                    armor.Resource == CraftResource.Titanium ||
+                    armor.Resource == CraftResource.Rosenium ||
+                    armor.Resource == CraftResource.Steel || 
 					armor.Resource == CraftResource.Brass || 
 					armor.Resource == CraftResource.Mithril || 
 					armor.Resource == CraftResource.Xormite || 
@@ -553,12 +565,15 @@ namespace Server.Misc
 				if ( weapon.Resource == CraftResource.DullCopper || 
 					weapon.Resource == CraftResource.ShadowIron || 
 					weapon.Resource == CraftResource.Copper || 
-					weapon.Resource == CraftResource.Bronze || 
-					weapon.Resource == CraftResource.Gold || 
+					weapon.Resource == CraftResource.Bronze ||
+                    weapon.Resource == CraftResource.Platinum ||
+                    weapon.Resource == CraftResource.Gold || 
 					weapon.Resource == CraftResource.Agapite || 
 					weapon.Resource == CraftResource.Verite || 
-					weapon.Resource == CraftResource.Valorite || 
-					weapon.Resource == CraftResource.Steel || 
+					weapon.Resource == CraftResource.Valorite ||
+                    weapon.Resource == CraftResource.Titanium ||
+                    weapon.Resource == CraftResource.Rosenium ||
+                    weapon.Resource == CraftResource.Steel || 
 					weapon.Resource == CraftResource.Brass || 
 					weapon.Resource == CraftResource.Mithril || 
 					weapon.Resource == CraftResource.Xormite || 
@@ -598,12 +613,15 @@ namespace Server.Misc
 				if ( armor.Resource == CraftResource.DullCopper || 
 					armor.Resource == CraftResource.ShadowIron || 
 					armor.Resource == CraftResource.Copper || 
-					armor.Resource == CraftResource.Bronze || 
-					armor.Resource == CraftResource.Gold || 
+					armor.Resource == CraftResource.Bronze ||
+                    armor.Resource == CraftResource.Platinum ||
+                    armor.Resource == CraftResource.Gold || 
 					armor.Resource == CraftResource.Agapite || 
 					armor.Resource == CraftResource.Verite || 
-					armor.Resource == CraftResource.Valorite || 
-					armor.Resource == CraftResource.Steel || 
+					armor.Resource == CraftResource.Valorite ||
+                    armor.Resource == CraftResource.Titanium ||
+                    armor.Resource == CraftResource.Rosenium ||
+                    armor.Resource == CraftResource.Steel || 
 					armor.Resource == CraftResource.Brass || 
 					armor.Resource == CraftResource.Mithril || 
 					armor.Resource == CraftResource.Xormite || 
@@ -643,12 +661,15 @@ namespace Server.Misc
 				if ( lute.Resource == CraftResource.DullCopper || 
 					lute.Resource == CraftResource.ShadowIron || 
 					lute.Resource == CraftResource.Copper || 
-					lute.Resource == CraftResource.Bronze || 
-					lute.Resource == CraftResource.Gold || 
+					lute.Resource == CraftResource.Bronze ||
+                    lute.Resource == CraftResource.Platinum ||
+                    lute.Resource == CraftResource.Gold || 
 					lute.Resource == CraftResource.Agapite || 
 					lute.Resource == CraftResource.Verite || 
-					lute.Resource == CraftResource.Valorite || 
-					lute.Resource == CraftResource.Steel || 
+					lute.Resource == CraftResource.Valorite ||
+                    lute.Resource == CraftResource.Titanium ||
+                    lute.Resource == CraftResource.Rosenium ||
+                    lute.Resource == CraftResource.Steel || 
 					lute.Resource == CraftResource.Brass || 
 					lute.Resource == CraftResource.Mithril || 
 					lute.Resource == CraftResource.Xormite || 
@@ -946,7 +967,7 @@ namespace Server.Misc
 
 		public static void ColorMetal( Item item, int color )
 		{
-			if ( color < 1 ){ color = Utility.RandomMinMax( 0, 37 ); }
+			if ( color < 1 ){ color = Utility.RandomMinMax( 0, 40 ); }
 
 			switch ( color ) 
 			{
@@ -987,12 +1008,15 @@ namespace Server.Misc
 				case 35: item.Hue = 0x550; item.Name = "tourmaline " + item.Name;	break;
 				case 36: item.Hue = 0x4F2; item.Name = "star sapphire " + item.Name;break;
 				case 37: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor( "topaz", "", 0 ); item.Name = "topaz " + item.Name;			break;
-			}
+                case 38: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor("titanium", "", 0); item.Name = "titanium " + item.Name; break;
+                case 39: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor("rosenium", "", 0); item.Name = "rosenium " + item.Name; break;
+                case 40: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor("platinum", "", 0); item.Name = "platinum " + item.Name; break;
+            }
 		}
 
 		public static void ColorPlainMetal( Item item )
 		{
-			switch ( Utility.RandomMinMax( 0, 13 ) ) 
+			switch ( Utility.RandomMinMax( 0, 15 ) ) 
 			{
 				case 0: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor( "silver", "", 0 ); item.Name = "silver " + item.Name;			break;
 				case 1: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor( "dull copper", "", 0 ); item.Name = "dull copper " + item.Name;	break;
@@ -1008,7 +1032,10 @@ namespace Server.Misc
 				case 11: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor( "nepturite", "", 0 ); item.Name = "nepturite " + item.Name;	break;
 				case 12: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor( "mithril", "", 0 ); item.Name = "mithril " + item.Name;		break;
 				case 13: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor( "caddellite", "", 0 ); item.Name = "caddellite " + item.Name;	break;
-			}
+                case 14: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor("titanium", "", 0); item.Name = "titanium " + item.Name; break;
+                case 15: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor("rosenium", "", 0); item.Name = "rosenium " + item.Name; break;
+                case 16: item.Hue = Server.Misc.MaterialInfo.GetMaterialColor("platinum", "", 0); item.Name = "platinum " + item.Name; break;
+            }
 		}
 
 		public static bool IsPotion( Item item )
@@ -1266,15 +1293,18 @@ namespace Server.Misc
 				else if ( color == "copper" ){ hue = 0x96D; }
 				else if ( color == "dull copper" ){ hue = 0x973; }
 				else if ( color == "dwarven" ){ hue = 0xA1D; }
-				else if ( color == "gold" ){ hue = 0x8A5; }
+                else if (color == "platinum") { hue = 0x911; }
+                else if ( color == "gold" ){ hue = 0x8A5; }
 				else if ( color == "mithril" ){ hue = 0x9C2; }
 				else if ( color == "nepturite" ){ hue = 0x58E; }
-				else if ( color == "obsidian" ){ hue = 0x497; }
+				else if ( color == "obsidian" ){ hue = 0x8B8; }
 				else if ( color == "shadow iron" ){ hue = 0x966; }
 				else if ( color == "steel" ){ hue = 0x515; }
 				else if ( color == "valorite" ){ hue = 0x8AB; }
 				else if ( color == "verite" ){ hue = 0x89F; }
-				else if ( color == "xormite" ){ hue = 0xB96; }
+                else if ( color == "titanium" ) { hue = 0x4C; }
+                else if (color == "rosenium") { hue = 0xEC; }
+                else if ( color == "xormite" ){ hue = 0xB96; }
 				else if ( color == "jade" ){ hue = 0xB94; }
 				else if ( color == "marble" ){ hue = 0xB92; }
 				else if ( color == "onyx" ){ hue = 0xB63; }
@@ -1299,15 +1329,18 @@ namespace Server.Misc
 				else if ( color == "copper" ){ hue = 0x959; }
 				else if ( color == "dull copper" ){ hue = 0x952; }
 				else if ( color == "dwarven" ){ hue = 0x6FC; }
-				else if ( color == "gold" ){ hue = 0x941; }
+                else if (color == "platinum") { hue = 0x911; }
+                else if ( color == "gold" ){ hue = 0x941; }
 				else if ( color == "mithril" ){ hue = 0xB74; }
 				else if ( color == "nepturite" ){ hue = 0x945; }
-				else if ( color == "obsidian" ){ hue = 0x8B9; }
+				else if ( color == "obsidian" ){ hue = 0x8B8; }
 				else if ( color == "shadow iron" ){ hue = 0x95C; }
 				else if ( color == "steel" ){ hue = 0x99F; }
 				else if ( color == "valorite" ){ hue = 0x95D; }
 				else if ( color == "verite" ){ hue = 0x95E; }
-				else if ( color == "xormite" ){ hue = 0x7C7; }
+                else if ( color == "titanium" ) { hue = 0x4C; }
+                else if (color == "rosenium") { hue = 0xEC; }
+                else if ( color == "xormite" ){ hue = 0x7C7; }
 				else if ( color == "jade" ){ hue = 0xB94; }
 				else if ( color == "marble" ){ hue = 0xB3B; }
 				else if ( color == "onyx" ){ hue = 0xB5E; }
@@ -1332,15 +1365,18 @@ namespace Server.Misc
 				else if ( color == "copper" ){ hue = 0xB18; }
 				else if ( color == "dull copper" ){ hue = 0xAB5; }
 				else if ( color == "dwarven" ){ hue = 0x6FC; }
-				else if ( color == "gold" ){ hue = 0x99A; }
-				else if ( color == "mithril" ){ hue = 0xB70; }
+                else if (color == "platinum") { hue = 0x911; }
+                else if ( color == "gold" ){ hue = 0xB1B; }
+				else if ( color == "mithril" ){ hue = 0xB78; }
 				else if ( color == "nepturite" ){ hue = 0x948; }
-				else if ( color == "obsidian" ){ hue = 0x7C2; }
+				else if ( color == "obsidian" ){ hue = 0x8B8; }
 				else if ( color == "shadow iron" ){ hue = 0xAB3; }
 				else if ( color == "steel" ){ hue = 0x99F; }
 				else if ( color == "valorite" ){ hue = 0x95D; }
 				else if ( color == "verite" ){ hue = 0x85D; }
-				else if ( color == "xormite" ){ hue = 0x7C7; }
+                else if ( color == "titanium" ) { hue = 0x565; }
+                else if (color == "rosenium") { hue = 0xEC; }
+                else if ( color == "xormite" ){ hue = 0x7C7; }
 				else if ( color == "jade" ){ hue = 0xB0C; }
 				else if ( color == "marble" ){ hue = 0xB3B; }
 				else if ( color == "onyx" ){ hue = 0xB5E; }
@@ -1457,7 +1493,7 @@ namespace Server.Misc
 				else if ( item.Hue == GetMaterialColor( "copper", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "copper", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "dull copper", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "dull copper", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "dwarven", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "dwarven", "alter", 99999 ); }
-				else if ( item.Hue == GetMaterialColor( "gold", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "gold", "alter", 99999 ); }
+                else if ( item.Hue == GetMaterialColor( "gold", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "gold", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "mithril", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "mithril", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "nepturite", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "nepturite", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "obsidian", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "obsidian", "alter", 99999 ); }
@@ -1465,7 +1501,10 @@ namespace Server.Misc
 				else if ( item.Hue == GetMaterialColor( "steel", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "steel", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "valorite", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "valorite", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "verite", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "verite", "alter", 99999 ); }
-				else if ( item.Hue == GetMaterialColor( "xormite", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "xormite", "alter", 99999 ); }
+                else if ( item.Hue == GetMaterialColor("titanium", "alter", 99998)) { item.Hue = GetMaterialColor("titanium", "alter", 99999); }
+                else if (item.Hue == GetMaterialColor("rosenium", "alter", 99998)) { item.Hue = GetMaterialColor("rosenium", "alter", 99999); }
+                else if (item.Hue == GetMaterialColor("platinum", "alter", 99998)) { item.Hue = GetMaterialColor("platinum", "alter", 99999); }
+                else if ( item.Hue == GetMaterialColor( "xormite", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "xormite", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "jade", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "jade", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "marble", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "marble", "alter", 99999 ); }
 				else if ( item.Hue == GetMaterialColor( "onyx", "alter", 99998 ) ){ item.Hue = GetMaterialColor( "onyx", "alter", 99999 ); }
@@ -1490,7 +1529,7 @@ namespace Server.Misc
 				else if ( item.Hue == GetMaterialColor( "copper", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "copper", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "dull copper", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "dull copper", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "dwarven", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "dwarven", "alter", 99998 ); }
-				else if ( item.Hue == GetMaterialColor( "gold", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "gold", "alter", 99998 ); }
+                else if ( item.Hue == GetMaterialColor( "gold", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "gold", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "mithril", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "mithril", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "nepturite", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "nepturite", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "obsidian", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "obsidian", "alter", 99998 ); }
@@ -1498,7 +1537,10 @@ namespace Server.Misc
 				else if ( item.Hue == GetMaterialColor( "steel", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "steel", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "valorite", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "valorite", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "verite", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "verite", "alter", 99998 ); }
-				else if ( item.Hue == GetMaterialColor( "xormite", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "xormite", "alter", 99998 ); }
+                else if ( item.Hue == GetMaterialColor( "titanium", "alter", 99999)) { item.Hue = GetMaterialColor("titanium", "alter", 99998); }
+                else if (item.Hue == GetMaterialColor("rosenium", "alter", 99999)) { item.Hue = GetMaterialColor("rosenium", "alter", 99998); }
+                else if (item.Hue == GetMaterialColor("platinum", "alter", 99999)) { item.Hue = GetMaterialColor("platinum", "alter", 99998); }
+                else if ( item.Hue == GetMaterialColor( "xormite", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "xormite", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "jade", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "jade", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "marble", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "marble", "alter", 99998 ); }
 				else if ( item.Hue == GetMaterialColor( "onyx", "alter", 99999 ) ){ item.Hue = GetMaterialColor( "onyx", "alter", 99998 ); }
