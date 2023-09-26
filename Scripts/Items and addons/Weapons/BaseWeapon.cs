@@ -72,14 +72,14 @@ namespace Server.Items
 				case CraftResource.EbonyTree: 		dmg = 2; break;
 				case CraftResource.GoldenOakTree: 	dmg = 2; break;
 				case CraftResource.HickoryTree: 	dmg = 3; break;
-				case CraftResource.MahoganyTree: 	dmg = 3; break;
+				/*case CraftResource.MahoganyTree: 	dmg = 3; break;
 				case CraftResource.OakTree: 		dmg = 4; break;
-				case CraftResource.PineTree: 		dmg = 4; break;
+				case CraftResource.PineTree: 		dmg = 4; break;*/
 				case CraftResource.RosewoodTree: 	dmg = 5; break;
-				case CraftResource.WalnutTree: 		dmg = 5; break;
+				/*case CraftResource.WalnutTree: 		dmg = 5; break;
 				case CraftResource.DriftwoodTree: 	dmg = 7; break;
-				case CraftResource.GhostTree: 		dmg = 8; break;
-				case CraftResource.PetrifiedTree: 	dmg = 9; break;
+				case CraftResource.GhostTree: 		dmg = 8; break;*/
+				/*case CraftResource.PetrifiedTree: 	dmg = 9; break;*/
 				case CraftResource.ElvenTree: 		dmg = 18; break;
 			}
 
@@ -3873,14 +3873,14 @@ namespace Server.Items
 				case CraftResource.EbonyTree: 		oreType = 1095401; break; // ebony
 				case CraftResource.GoldenOakTree: 	oreType = 1095402; break; // gold oak
 				case CraftResource.HickoryTree: 	oreType = 1095403; break; // hickory
-				case CraftResource.MahoganyTree: 	oreType = 1095404; break; // mahogany
+				/*case CraftResource.MahoganyTree: 	oreType = 1095404; break; // mahogany
 				case CraftResource.DriftwoodTree: 	oreType = 1095510; break; // driftwood
 				case CraftResource.OakTree: 		oreType = 1095405; break; // oak
 				case CraftResource.PineTree: 		oreType = 1095406; break; // pine
-				case CraftResource.GhostTree: 		oreType = 1095513; break; // ghostwood
+				case CraftResource.GhostTree: 		oreType = 1095513; break; // ghostwood*/
 				case CraftResource.RosewoodTree: 	oreType = 1095407; break; // rosewood
-				case CraftResource.WalnutTree: 		oreType = 1095408; break; // walnut
-				case CraftResource.PetrifiedTree: 	oreType = 1095534; break; // petrified
+				/*case CraftResource.WalnutTree: 		oreType = 1095408; break; // walnut*/
+				/*case CraftResource.PetrifiedTree: 	oreType = 1095534; break; // petrified*/
 				case CraftResource.ElvenTree: 		oreType = 1095537; break; // elven
 				default: oreType = 0; break;
 			}
@@ -4560,7 +4560,7 @@ m_Hits
 							AccuracyLevel = WeaponAccuracyLevel.Surpassingly;
 							break;
 						}
-						case CraftResource.MahoganyTree:
+						/*case CraftResource.MahoganyTree:
 						{
 							Identified = true;
 							DurabilityLevel = WeaponDurabilityLevel.Fortified;
@@ -4599,7 +4599,7 @@ m_Hits
 							DamageLevel = WeaponDamageLevel.Power;
 							AccuracyLevel = WeaponAccuracyLevel.Eminently;
 							break;
-						}
+						}*/
 						case CraftResource.RosewoodTree:
 						{
 							Identified = true;
@@ -4608,22 +4608,22 @@ m_Hits
 							AccuracyLevel = WeaponAccuracyLevel.Exceedingly;
 							break;
 						}
-						case CraftResource.WalnutTree:
+						/*case CraftResource.WalnutTree:
 						{
 							Identified = true;
 							DurabilityLevel = WeaponDurabilityLevel.Indestructible;
 							DamageLevel = WeaponDamageLevel.Vanq;
 							AccuracyLevel = WeaponAccuracyLevel.Supremely;
 							break;
-						}
-						case CraftResource.PetrifiedTree:
+						}*/
+						/*case CraftResource.PetrifiedTree:
 						{
 							Identified = true;
 							DurabilityLevel = WeaponDurabilityLevel.Indestructible;
 							DamageLevel = WeaponDamageLevel.Vanq;
 							AccuracyLevel = WeaponAccuracyLevel.Supremely;
 							break;
-						}
+						}*/
 						case CraftResource.ElvenTree:
 						{
 							Identified = true;

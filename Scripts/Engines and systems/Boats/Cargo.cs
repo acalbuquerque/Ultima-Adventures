@@ -728,23 +728,24 @@ namespace Server.Items
 					int ordin = 0x5088;
 					if ( logger == 2 ){ ItemID = 0x5096; woods = "logs"; ordin = 0x5097; CargoBox = 2; }
 
-				int rare = Utility.RandomMinMax( 1, 16384 );
+				int rare = Utility.RandomMinMax( 1, 2048 );
 
-				if ( rare <= 1 ){ CargoMaterial = 15; Name = "crate of elven " + woods; Hue = MaterialInfo.GetMaterialColor( "elven", "", 0 );						CargoContains = "ElvenBoard"; 		if ( logger == 2 ){ CargoContains = "ElvenLog"; }		CargoQty = (int)(CargoValue/14);}
-				else if ( rare <= 2 ){ CargoMaterial = 14; Name = "crate of driftwood " + woods; Hue = MaterialInfo.GetMaterialColor( "driftwood", "", 0 );			CargoContains = "DriftwoodBoard"; 	if ( logger == 2 ){ CargoContains = "DriftwoodLog"; }	CargoQty = (int)(CargoValue/5);	}
+                /*else if ( rare <= 2 ){ CargoMaterial = 14; Name = "crate of driftwood " + woods; Hue = MaterialInfo.GetMaterialColor( "driftwood", "", 0 );			CargoContains = "DriftwoodBoard"; 	if ( logger == 2 ){ CargoContains = "DriftwoodLog"; }	CargoQty = (int)(CargoValue/5);	}
 				else if ( rare <= 4 ){ CargoMaterial = 13; Name = "crate of petrified " + woods; Hue = MaterialInfo.GetMaterialColor( "petrified", "", 0 );			CargoContains = "PetrifiedBoard"; 	if ( logger == 2 ){ CargoContains = "PetrifiedLog"; }	CargoQty = (int)(CargoValue/8);	}
-				else if ( rare <= 8 ){ CargoMaterial = 12; Name = "crate of walnut " + woods; Hue = MaterialInfo.GetMaterialColor( "walnut", "", 0 );				CargoContains = "WalnutBoard"; 		if ( logger == 2 ){ CargoContains = "WalnutLog"; }		CargoQty = (int)(CargoValue/7);	}
-				else if ( rare <= 16 ){ CargoMaterial = 11; Name = "crate of rosewood " + woods; Hue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 );			CargoContains = "RosewoodBoard"; 	if ( logger == 2 ){ CargoContains = "RosewoodLog"; }	CargoQty = (int)(CargoValue/7);	}
-				else if ( rare <= 32 ){ CargoMaterial = 10; Name = "crate of ghostwood " + woods; Hue = MaterialInfo.GetMaterialColor( "ghostwood", "", 0 );		CargoContains = "GhostBoard"; 		if ( logger == 2 ){ CargoContains = "GhostLog"; }		CargoQty = (int)(CargoValue/6);	}
-				else if ( rare <= 64 ){ CargoMaterial = 9; Name = "crate of pine " + woods; Hue = MaterialInfo.GetMaterialColor( "pine", "", 0 );					CargoContains = "PineBoard"; 		if ( logger == 2 ){ CargoContains = "PineLog"; }		CargoQty = (int)(CargoValue/6);	}
-				else if ( rare <= 128 ){ CargoMaterial = 8; Name = "crate of oak " + woods; Hue = MaterialInfo.GetMaterialColor( "oak", "", 0 );					CargoContains = "OakBoard"; 		if ( logger == 2 ){ CargoContains = "OakLog"; }			CargoQty = (int)(CargoValue/6);	}
-				else if ( rare <= 256 ){ CargoMaterial = 7; Name = "crate of mahogany " + woods; Hue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 );			CargoContains = "MahoganyBoard"; 	if ( logger == 2 ){ CargoContains = "MahoganyLog"; }	CargoQty = (int)(CargoValue/5);	}
-				else if ( rare <= 512 ){ CargoMaterial = 6; Name = "crate of hickory " + woods; Hue = MaterialInfo.GetMaterialColor( "hickory", "", 0 );			CargoContains = "HickoryBoard"; 	if ( logger == 2 ){ CargoContains = "HickoryLog"; }		CargoQty = (int)(CargoValue/5);	}
-				else if ( rare <= 1028 ){ CargoMaterial = 5; Name = "crate of golden oak " + woods; Hue = MaterialInfo.GetMaterialColor( "golden oak", "", 0 );		CargoContains = "GoldenOakBoard"; 	if ( logger == 2 ){ CargoContains = "GoldenOakLog"; }	CargoQty = (int)(CargoValue/5);	}
-				else if ( rare <= 2048 ){ CargoMaterial = 4; Name = "crate of ebony " + woods; Hue = MaterialInfo.GetMaterialColor( "ebony", "", 0 );				CargoContains = "EbonyBoard"; 		if ( logger == 2 ){ CargoContains = "EbonyLog"; }		CargoQty = (int)(CargoValue/5);	}
-				else if ( rare <= 4096 ){ CargoMaterial = 3; Name = "crate of cherry " + woods; Hue = MaterialInfo.GetMaterialColor( "cherry", "", 0 );				CargoContains = "CherryBoard"; 		if ( logger == 2 ){ CargoContains = "CherryLog"; }		CargoQty = (int)(CargoValue/5);	}
-				else if ( rare <= 8192 ){ CargoMaterial = 2; Name = "crate of ash " + woods; Hue = MaterialInfo.GetMaterialColor( "ash", "", 0 );					CargoContains = "AshBoard"; 		if ( logger == 2 ){ CargoContains = "AshLog"; }			CargoQty = (int)(CargoValue/5);	}
-				else { CargoMaterial = 1; ItemID = ordin; Name = "crate of " + woods;																				CargoContains = "Board"; 			if ( logger == 2 ){ CargoContains = "Log"; }			CargoQty = (int)(CargoValue/5);	}
+				else if ( rare <= 8 ){ CargoMaterial = 12; Name = "crate of walnut " + woods; Hue = MaterialInfo.GetMaterialColor( "walnut", "", 0 );				CargoContains = "WalnutBoard"; 		if ( logger == 2 ){ CargoContains = "WalnutLog"; }		CargoQty = (int)(CargoValue/7);	}*/
+
+                    /*else if ( rare <= 32 ){ CargoMaterial = 10; Name = "crate of ghostwood " + woods; Hue = MaterialInfo.GetMaterialColor( "ghostwood", "", 0 );		CargoContains = "GhostBoard"; 		if ( logger == 2 ){ CargoContains = "GhostLog"; }		CargoQty = (int)(CargoValue/6);	}
+                    else if ( rare <= 64 ){ CargoMaterial = 9; Name = "crate of pine " + woods; Hue = MaterialInfo.GetMaterialColor( "pine", "", 0 );					CargoContains = "PineBoard"; 		if ( logger == 2 ){ CargoContains = "PineLog"; }		CargoQty = (int)(CargoValue/6);	}
+                    else if ( rare <= 128 ){ CargoMaterial = 8; Name = "crate of oak " + woods; Hue = MaterialInfo.GetMaterialColor( "oak", "", 0 );					CargoContains = "OakBoard"; 		if ( logger == 2 ){ CargoContains = "OakLog"; }			CargoQty = (int)(CargoValue/6);	}
+                    else if ( rare <= 256 ){ CargoMaterial = 7; Name = "crate of mahogany " + woods; Hue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 );			CargoContains = "MahoganyBoard"; 	if ( logger == 2 ){ CargoContains = "MahoganyLog"; }	CargoQty = (int)(CargoValue/5);	}*/
+                if (rare <= 16) { CargoMaterial = 8; Name = "crate of hickory " + woods; Hue = MaterialInfo.GetMaterialColor("hickory", "", 0);		CargoContains = "HickoryBoard"; if (logger == 2) { CargoContains = "HickoryLog"; } CargoQty = (int)(CargoValue / 7); }
+                else if (rare <= 32) { CargoMaterial = 7; Name = "crate of rosewood " + woods; Hue = MaterialInfo.GetMaterialColor("rosewood", "", 0);		CargoContains = "RosewoodBoard"; if (logger == 2) { CargoContains = "RosewoodLog"; } CargoQty = (int)(CargoValue / 7); }
+                else if (rare <= 64) { CargoMaterial = 6; Name = "crate of cherry " + woods; Hue = MaterialInfo.GetMaterialColor("cherry", "", 0);			CargoContains = "CherryBoard"; if (logger == 2) { CargoContains = "CherryLog"; } CargoQty = (int)(CargoValue / 5); }
+                else if (rare <= 128) { CargoMaterial = 5; Name = "crate of golden oak " + woods; Hue = MaterialInfo.GetMaterialColor("golden oak", "", 0); CargoContains = "GoldenOakBoard"; if (logger == 2) { CargoContains = "GoldenOakLog"; } CargoQty = (int)(CargoValue / 5); }
+                else if (rare <= 256) { CargoMaterial = 4; Name = "crate of elven " + woods; Hue = MaterialInfo.GetMaterialColor("elven", "", 0);			CargoContains = "ElvenBoard"; if (logger == 2) { CargoContains = "ElvenLog"; } CargoQty = (int)(CargoValue / 5); }
+				else if ( rare <= 512 ){ CargoMaterial = 3; Name = "crate of ebony " + woods; Hue = MaterialInfo.GetMaterialColor( "ebony", "", 0 );		CargoContains = "EbonyBoard"; 		if ( logger == 2 ){ CargoContains = "EbonyLog"; }		CargoQty = (int)(CargoValue/5);	}
+				else if ( rare <= 1024 ){ CargoMaterial = 2; Name = "crate of ash " + woods; Hue = MaterialInfo.GetMaterialColor( "ash", "", 0 );			CargoContains = "AshBoard"; 		if ( logger == 2 ){ CargoContains = "AshLog"; }			CargoQty = (int)(CargoValue/5);	}
+				else { CargoMaterial = 1; ItemID = ordin; Name = "crate of " + woods;																		CargoContains = "Board"; 			if ( logger == 2 ){ CargoContains = "Log"; }			CargoQty = (int)(CargoValue/5);	}
 			}
 			else if ( CargoType == 49 )
 			{

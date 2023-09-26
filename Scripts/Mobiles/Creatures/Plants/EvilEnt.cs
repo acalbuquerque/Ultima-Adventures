@@ -57,7 +57,7 @@ namespace Server.Mobiles
 
 			VirtualArmor = 50;
 
-			switch ( Utility.Random( 8 ) )
+			switch ( Utility.Random( 6 ) )
 			{
 				case 0: PackItem( new Log( Utility.RandomMinMax( 10, 20 ) ) ); 			break;
 				case 1: PackItem( new Log( Utility.RandomMinMax( 10, 20 ) ) ); 			break;
@@ -65,8 +65,8 @@ namespace Server.Mobiles
 				case 3: PackItem( new Log( Utility.RandomMinMax( 10, 20 ) ) ); 			break;
 				case 4: PackItem( new Log( Utility.RandomMinMax( 10, 20 ) ) ); 			break;
 				case 5: PackItem( new Log( Utility.RandomMinMax( 10, 20 ) ) ); 			break;
-				case 6: PackItem( new PetrifiedLog( Utility.RandomMinMax( 10, 20 ) ) ); break;
-				case 7: PackItem( new GhostLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
+				/*case 6: PackItem( new PetrifiedLog( Utility.RandomMinMax( 10, 20 ) ) ); break;
+				case 7: PackItem( new GhostLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;*/
 			}
 
 			if ( Utility.Random( 100 ) > 40 )

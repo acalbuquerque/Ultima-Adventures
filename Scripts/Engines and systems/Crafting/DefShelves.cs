@@ -349,20 +349,22 @@ namespace Server.Engines.Craft
 			// Add every material you want the player to be able to choose from
 			// This will override the overridable material	TODO: Verify the required skill amount
 			AddSubRes( typeof( Board ), 1072643, 00.0, 1015101, 1072652 );
-			AddSubRes( typeof( AshBoard ), 1095379, 65.0, 1015101, 1072652 );
-			AddSubRes( typeof( CherryBoard ), 1095380, 70.0, 1015101, 1072652 );
-			AddSubRes( typeof( EbonyBoard ), 1095381, 75.0, 1015101, 1072652 );
-			AddSubRes( typeof( GoldenOakBoard ), 1095382, 80.0, 1015101, 1072652 );
-			AddSubRes( typeof( HickoryBoard ), 1095383, 85.0, 1015101, 1072652 );
-			AddSubRes( typeof( MahoganyBoard ), 1095384, 90.0, 1015101, 1072652 );
+			AddSubRes( typeof( AshBoard ), 1095379, 60.0, 1015101, 1072652 );
+            AddSubRes( typeof( EbonyBoard ), 1095381, 70.0, 1015101, 1072652 );
+            AddSubRes(typeof(ElvenBoard), 1095535, 80.0, 1015101, 1072652);
+            AddSubRes(typeof(GoldenOakBoard), 1095382, 85.0, 1015101, 1072652);
+            AddSubRes(typeof(CherryBoard), 1095380, 90.0, 1015101, 1072652);
+            AddSubRes(typeof(RosewoodBoard), 1095387, 95.0, 1015101, 1072652);
+            AddSubRes( typeof( HickoryBoard ), 1095383, 100.0, 1015101, 1072652 );
+            /*AddSubRes( typeof( MahoganyBoard ), 1095384, 90.0, 1015101, 1072652 );
 			AddSubRes( typeof( DriftwoodBoard ), 1095409, 90.0, 1015101, 1072652 );
 			AddSubRes( typeof( OakBoard ), 1095385, 95.0, 1015101, 1072652 );
 			AddSubRes( typeof( PineBoard ), 1095386, 100.0, 1015101, 1072652 );
-			AddSubRes( typeof( GhostBoard ), 1095511, 100.0, 1015101, 1072652 );
-			AddSubRes( typeof( RosewoodBoard ), 1095387, 100.0, 1015101, 1072652 );
-			AddSubRes( typeof( WalnutBoard ), 1095388, 100.0, 1015101, 1072652 );
-			AddSubRes( typeof( PetrifiedBoard ), 1095532, 100.0, 1015101, 1072652 );
-			AddSubRes( typeof( ElvenBoard ), 1095535, 100.1, 1015101, 1072652 );
+			AddSubRes( typeof( GhostBoard ), 1095511, 100.0, 1015101, 1072652 );*/
+            
+			/*AddSubRes( typeof( WalnutBoard ), 1095388, 100.0, 1015101, 1072652 );
+			AddSubRes( typeof( PetrifiedBoard ), 1095532, 100.0, 1015101, 1072652 );*/
+			
 		}
 	}
 }

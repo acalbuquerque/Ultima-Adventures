@@ -93,15 +93,15 @@ namespace Server.Mobiles
 						case CraftResource.EbonyTree: price = (int)( price * 1.65 ); break;
 						case CraftResource.GoldenOakTree: price = (int)( price * 1.85 ); break;
 						case CraftResource.HickoryTree: price = (int)( price * 2.05 ); break;
-						case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
+						/*case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.DriftwoodTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.OakTree: price = (int)( price * 2.45 ); break;
 						case CraftResource.PineTree: price = (int)( price * 2.65 ); break;
-						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;
+						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;*/
 						case CraftResource.RosewoodTree: price = (int)( price * 2.85 ); break;
-						case CraftResource.WalnutTree: price = (int)( price * 3 ); break;
+						/*case CraftResource.WalnutTree: price = (int)( price * 3 ); break;*/
 						case CraftResource.ElvenTree: price = (int)( price * 6 ); break;
-						case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;
+						/*case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;*/
 					}
 				/* End of Changes */ 
 

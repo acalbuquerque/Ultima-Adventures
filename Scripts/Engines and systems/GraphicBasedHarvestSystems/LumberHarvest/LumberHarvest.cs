@@ -60,9 +60,9 @@ namespace Server.Engines.Harvest
       lumber.RaceBonus = Core.ML;
       lumber.RandomizeVeins = Core.ML;
       lumber.BankWidth = 4;
-      lumber.BankHeight = 3;
-      lumber.MinTotal = 20;
-      lumber.MaxTotal = 45;
+      lumber.BankHeight = 4;
+      lumber.MinTotal = 25;
+      lumber.MaxTotal = 60;
       lumber.Resources = new HarvestResource[] { new HarvestResource(00.0, 00.0, 100.0, 500498, typeof(Log)) };
       lumber.BonusResources = new BonusHarvestResource[] { new BonusHarvestResource(0, 83.9, null, null) };
       lumber.Veins = new HarvestVein[] { new HarvestVein(49.0, 0.0, lumber.Resources[0], null) };

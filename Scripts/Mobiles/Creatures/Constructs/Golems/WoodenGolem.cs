@@ -33,7 +33,7 @@ namespace Server.Mobiles
 			int modifyHit = 0;
 			int modifyDmg = 0;
 
-			switch ( Utility.Random( 11 ) )
+			switch ( Utility.Random( 7 ) )
 			{
 				case 0: PackItem( new Log( Utility.RandomMinMax( 10, 20 ) ) ); 			Hue = 0x000;	break;
 				case 1: PackItem( new AshLog( Utility.RandomMinMax( 10, 20 ) ) ); 		Hue = MaterialInfo.GetMaterialColor( "ash", "", 0 );		modifySta = 5;	modifyHit = 10;		modifyDmg = 1;	break;
@@ -41,14 +41,14 @@ namespace Server.Mobiles
 				case 3: PackItem( new EbonyLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "ebony", "", 0 );		modifySta = 15;	modifyHit = 30;		modifyDmg = 3;	break;
 				case 4: PackItem( new GoldenOakLog( Utility.RandomMinMax( 10, 20 ) ) ); Hue = MaterialInfo.GetMaterialColor( "golden oak", "", 0 );	modifySta = 20;	modifyHit = 40;		modifyDmg = 4;	break;
 				case 5: PackItem( new HickoryLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "hickory", "", 0 );	modifySta = 25;	modifyHit = 50;		modifyDmg = 5;	break;
-				case 6: PackItem( new MahoganyLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 );	modifySta = 30;	modifyHit = 60;		modifyDmg = 6;	break;
+				/*case 6: PackItem( new MahoganyLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 );	modifySta = 30;	modifyHit = 60;		modifyDmg = 6;	break;
 				case 7: PackItem( new OakLog( Utility.RandomMinMax( 10, 20 ) ) ); 		Hue = MaterialInfo.GetMaterialColor( "oak", "", 0 );		modifySta = 35;	modifyHit = 70;		modifyDmg = 7;	break;
-				case 8: PackItem( new PineLog( Utility.RandomMinMax( 10, 20 ) ) ); 		Hue = MaterialInfo.GetMaterialColor( "pine", "", 0 );		modifySta = 40;	modifyHit = 80;		modifyDmg = 8;	break;
-				case 9: PackItem( new RosewoodLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 );	modifySta = 45;	modifyHit = 90;		modifyDmg = 9;	break;
-				case 10: PackItem( new WalnutLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "walnut", "", 0 );		modifySta = 50;	modifyHit = 100;	modifyDmg = 10;	break;
-			}
+				case 8: PackItem( new PineLog( Utility.RandomMinMax( 10, 20 ) ) ); 		Hue = MaterialInfo.GetMaterialColor( "pine", "", 0 );		modifySta = 40;	modifyHit = 80;		modifyDmg = 8;	break;*/
+				case 6: PackItem( new RosewoodLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 );	modifySta = 35;	modifyHit = 70;		modifyDmg = 6;	break;
+                    /*case 10: PackItem( new WalnutLog( Utility.RandomMinMax( 10, 20 ) ) ); 	Hue = MaterialInfo.GetMaterialColor( "walnut", "", 0 );		modifySta = 50;	modifyHit = 100;	modifyDmg = 10;	break;*/
+            }
 
-			SetStr( (121+modifySta), (160+modifySta) );
+            SetStr( (121+modifySta), (160+modifySta) );
 			SetDex( (51+modifySta), (70+modifySta) );
 			SetInt( (31+modifySta), (42+modifySta) );
 

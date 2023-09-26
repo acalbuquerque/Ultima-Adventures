@@ -232,7 +232,7 @@ namespace Server.Items
 		}
 	}
 
-	public class MahoganyTreeSaw : RunicSaw
+	/*public class MahoganyTreeSaw : RunicSaw
 	{
 
 		[Constructable]
@@ -264,9 +264,9 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 
-	public class OakTreeSaw : RunicSaw
+	/*public class OakTreeSaw : RunicSaw
 	{
 
 		[Constructable]
@@ -298,9 +298,9 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 
-	public class PineTreeSaw : RunicSaw
+	/*public class PineTreeSaw : RunicSaw
 	{
 
 		[Constructable]
@@ -332,7 +332,7 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 
 	public class RosewoodTreeSaw : RunicSaw
 	{
@@ -368,7 +368,7 @@ namespace Server.Items
 		}
 	}
 
-	public class WalnutTreeSaw : RunicSaw
+	/*public class WalnutTreeSaw : RunicSaw
 	{
 
 		[Constructable]
@@ -400,5 +400,5 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 }

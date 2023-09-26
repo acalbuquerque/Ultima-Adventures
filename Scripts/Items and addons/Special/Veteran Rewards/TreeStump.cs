@@ -90,7 +90,7 @@ namespace Server.Items
 				{
 					Item logs = null;
 
-					switch ( Utility.Random( 14 ) )
+					switch ( Utility.Random( 8 ) )
 					{
 						case 0: logs = new Log(); break;
 						case 1: logs = new AshLog(); break;
@@ -98,14 +98,14 @@ namespace Server.Items
 						case 3: logs = new EbonyLog(); break;
 						case 4: logs = new GoldenOakLog(); break;
 						case 5: logs = new HickoryLog(); break;
-						case 6: logs = new MahoganyLog(); break;
+						/*case 6: logs = new MahoganyLog(); break;
 						case 7: logs = new OakLog(); break;
-						case 8: logs = new PineLog(); break;
-						case 9: logs = new RosewoodLog(); break;
-						case 10: logs = new WalnutLog(); break;
+						case 8: logs = new PineLog(); break;*/
+						case 6: logs = new RosewoodLog(); break;
+						/*case 10: logs = new WalnutLog(); break;
 						case 11: logs = new GhostLog(); break;
-						case 12: logs = new PetrifiedLog(); break;
-						case 13: logs = new ElvenLog(); break;
+						case 12: logs = new PetrifiedLog(); break;*/
+						case 7: logs = new ElvenLog(); break;
 					}
 
 					int amount = Math.Min( 10, m_Logs );

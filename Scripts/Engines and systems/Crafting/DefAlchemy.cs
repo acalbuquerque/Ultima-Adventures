@@ -493,13 +493,13 @@ namespace Server.Engines.Craft
 			index = AddCraft( typeof(HornedLeather), "Transmutations", "Horned Leather", 60, 100, typeof( SpinedLeather), "spined leather", 10, 1042081);
 			index = AddCraft( typeof(BarbedLeather), "Transmutations", "Barbed Leather", 80, 120, typeof( HornedLeather), "horned leather", 10, 1042081);
 			index = AddCraft( typeof(AshBoard), "Transmutations", "Ash", 30, 50, typeof( BaseWoodBoard), "wood board", 10, 1042081);
-			index = AddCraft( typeof(CherryBoard), "Transmutations", "Cherry", 40, 60, typeof( AshBoard), "ash board", 10, 1042081);
-			index = AddCraft( typeof(EbonyBoard), "Transmutations", "Ebony", 50, 70, typeof( CherryBoard), "cherry board", 10, 1042081);
-			index = AddCraft( typeof(GoldenOakBoard), "Transmutations", "Golden Oak", 60, 80, typeof( EbonyBoard), "ebony board", 10, 1042081);
-			index = AddCraft( typeof(HickoryBoard), "Transmutations", "Hickory", 70, 90, typeof( GoldenOakBoard), "golden oak board", 10, 1042081);
-			index = AddCraft( typeof(MahoganyBoard), "Transmutations", "Mahogany", 80, 100, typeof( HickoryBoard), "hickory board", 10, 1042081);
+			index = AddCraft( typeof(EbonyBoard), "Transmutations", "Ebony", 40, 60, typeof(AshBoard), "ash board", 10, 1042081);
+			index = AddCraft( typeof(GoldenOakBoard), "Transmutations", "Golden Oak", 50, 70, typeof( EbonyBoard), "ebony board", 10, 1042081);
+            index = AddCraft(typeof(CherryBoard), "Transmutations", "Cherry", 60, 80, typeof(GoldenOakBoard), "golden oak board", 10, 1042081);
+            index = AddCraft( typeof(RosewoodBoard), "Transmutations", "Rosewood", 70, 90, typeof( CherryBoard), "cherry oak board", 10, 1042081);
+			/*index = AddCraft( typeof(MahoganyBoard), "Transmutations", "Mahogany", 80, 100, typeof( HickoryBoard), "hickory board", 10, 1042081);
 			index = AddCraft( typeof(DriftwoodBoard), "Transmutations", "Driftwood", 90, 110, typeof( MahoganyBoard), "mahogany board", 10, 1042081);
-			index = AddCraft( typeof(OakBoard), "Transmutations", "Oak", 100, 120, typeof( DriftwoodBoard), "driftwood board", 10, 1042081);
+			index = AddCraft( typeof(OakBoard), "Transmutations", "Oak", 100, 120, typeof( DriftwoodBoard), "driftwood board", 10, 1042081);*/
 
 			index = AddCraft( typeof(PowerCrystal), "Transmutation", "Power Crystal", 95, 120, typeof( ArcaneGem), "arcane gem", 10, 1042081);
 				AddRes( index, typeof (BottleOil), "technomancer oil", 10, 1042081);

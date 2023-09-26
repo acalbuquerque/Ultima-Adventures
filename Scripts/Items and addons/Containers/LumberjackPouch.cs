@@ -34,14 +34,14 @@ namespace Server.Items
 						dropped is EbonyLog ||
 						dropped is GoldenOakLog ||
 						dropped is HickoryLog ||
-						dropped is MahoganyLog ||
+						/*dropped is MahoganyLog ||
 						dropped is OakLog ||
-						dropped is PineLog ||
+						dropped is PineLog ||*/
 						dropped is RosewoodLog ||
-						dropped is WalnutLog ||
+						/*dropped is WalnutLog ||
 						dropped is DriftwoodLog ||
 						dropped is GhostLog ||
-						dropped is PetrifiedLog ||
+						dropped is PetrifiedLog ||*/
 						dropped is ElvenLog )
 			{
 				return base.OnDragDropInto(from, dropped, p);
@@ -62,7 +62,7 @@ namespace Server.Items
                 from.SendMessage("You can only use another lumberjacks rucksack within this sack.");
                 return false;
 			}
-            else if ( dropped is Log || dropped is AshLog || dropped is CherryLog || dropped is EbonyLog || dropped is GoldenOakLog || dropped is HickoryLog || dropped is MahoganyLog || dropped is OakLog || dropped is PineLog || dropped is RosewoodLog || dropped is WalnutLog || dropped is DriftwoodLog || dropped is GhostLog || dropped is PetrifiedLog || dropped is ElvenLog )
+            else if ( dropped is Log || dropped is AshLog || dropped is CherryLog || dropped is EbonyLog || dropped is GoldenOakLog || dropped is HickoryLog || /*dropped is MahoganyLog || dropped is OakLog || dropped is PineLog ||*/ dropped is RosewoodLog ||/* dropped is WalnutLog || dropped is DriftwoodLog || dropped is GhostLog || dropped is PetrifiedLog ||*/ dropped is ElvenLog )
 			{
 				return base.OnDragDrop(from, dropped);
 			}

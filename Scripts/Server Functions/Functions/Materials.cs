@@ -58,15 +58,15 @@ namespace Server.Misc
 				else if ( weapon.Resource == CraftResource.EbonyTree ){ material = "ebony"; }
 				else if ( weapon.Resource == CraftResource.GoldenOakTree ){ material = "golden oak"; }
 				else if ( weapon.Resource == CraftResource.HickoryTree ){ material = "hickory"; }
-				else if ( weapon.Resource == CraftResource.MahoganyTree ){ material = "mahogany"; }
+				/*else if ( weapon.Resource == CraftResource.MahoganyTree ){ material = "mahogany"; }
 				else if ( weapon.Resource == CraftResource.OakTree ){ material = "oak"; }
-				else if ( weapon.Resource == CraftResource.PineTree ){ material = "pine"; }
+				else if ( weapon.Resource == CraftResource.PineTree ){ material = "pine"; }*/
 				else if ( weapon.Resource == CraftResource.RosewoodTree ){ material = "rosewood"; }
-				else if ( weapon.Resource == CraftResource.DriftwoodTree ){ material = "driftwood"; }
-				else if ( weapon.Resource == CraftResource.WalnutTree ){ material = "walnut"; }
+				/*else if ( weapon.Resource == CraftResource.DriftwoodTree ){ material = "driftwood"; }
+				else if ( weapon.Resource == CraftResource.WalnutTree ){ material = "walnut"; }*/
 				else if ( weapon.Resource == CraftResource.ElvenTree ){ material = "elven"; }
-				else if ( weapon.Resource == CraftResource.GhostTree ){ material = "ghostwood"; }
-				else if ( weapon.Resource == CraftResource.PetrifiedTree ){ material = "petrified"; }
+				/*else if ( weapon.Resource == CraftResource.GhostTree ){ material = "ghostwood"; }
+				else if ( weapon.Resource == CraftResource.PetrifiedTree ){ material = "petrified"; }*/
 			}
 			else if ( item is BaseArmor )
 			{
@@ -109,15 +109,15 @@ namespace Server.Misc
 				else if ( armor.Resource == CraftResource.EbonyTree ){ material = "ebony"; }
 				else if ( armor.Resource == CraftResource.GoldenOakTree ){ material = "golden oak"; }
 				else if ( armor.Resource == CraftResource.HickoryTree ){ material = "hickory"; }
-				else if ( armor.Resource == CraftResource.MahoganyTree ){ material = "mahogany"; }
+				/*else if ( armor.Resource == CraftResource.MahoganyTree ){ material = "mahogany"; }
 				else if ( armor.Resource == CraftResource.OakTree ){ material = "oak"; }
-				else if ( armor.Resource == CraftResource.PineTree ){ material = "pine"; }
+				else if ( armor.Resource == CraftResource.PineTree ){ material = "pine"; }*/
 				else if ( armor.Resource == CraftResource.RosewoodTree ){ material = "rosewood"; }
-				else if ( armor.Resource == CraftResource.DriftwoodTree ){ material = "driftwood"; }
-				else if ( armor.Resource == CraftResource.WalnutTree ){ material = "walnut"; }
+				/*else if ( armor.Resource == CraftResource.DriftwoodTree ){ material = "driftwood"; }
+				else if ( armor.Resource == CraftResource.WalnutTree ){ material = "walnut"; }*/
 				else if ( armor.Resource == CraftResource.ElvenTree ){ material = "elven"; }
-				else if ( armor.Resource == CraftResource.GhostTree ){ material = "ghostwood"; }
-				else if ( armor.Resource == CraftResource.PetrifiedTree ){ material = "petrified"; }
+				/*else if ( armor.Resource == CraftResource.GhostTree ){ material = "ghostwood"; }
+				else if ( armor.Resource == CraftResource.PetrifiedTree ){ material = "petrified"; }*/
 			}
 
 			return material;
@@ -496,15 +496,15 @@ namespace Server.Misc
 					weapon.Resource == CraftResource.EbonyTree || 
 					weapon.Resource == CraftResource.GoldenOakTree || 
 					weapon.Resource == CraftResource.HickoryTree || 
-					weapon.Resource == CraftResource.MahoganyTree || 
+					/*weapon.Resource == CraftResource.MahoganyTree || 
 					weapon.Resource == CraftResource.OakTree || 
-					weapon.Resource == CraftResource.PineTree || 
+					weapon.Resource == CraftResource.PineTree || */
 					weapon.Resource == CraftResource.RosewoodTree || 
-					weapon.Resource == CraftResource.DriftwoodTree || 
-					weapon.Resource == CraftResource.WalnutTree || 
-					weapon.Resource == CraftResource.ElvenTree || 
+					/*weapon.Resource == CraftResource.DriftwoodTree || 
+					weapon.Resource == CraftResource.WalnutTree || */
+					weapon.Resource == CraftResource.ElvenTree /*|| 
 					weapon.Resource == CraftResource.GhostTree || 
-					weapon.Resource == CraftResource.PetrifiedTree ){ return true; }
+					weapon.Resource == CraftResource.PetrifiedTree*/ ) { return true; }
 			}
 			else if ( item is BaseArmor )
 			{
@@ -516,15 +516,15 @@ namespace Server.Misc
 					armor.Resource == CraftResource.EbonyTree || 
 					armor.Resource == CraftResource.GoldenOakTree || 
 					armor.Resource == CraftResource.HickoryTree || 
-					armor.Resource == CraftResource.MahoganyTree || 
+					/*armor.Resource == CraftResource.MahoganyTree || 
 					armor.Resource == CraftResource.OakTree || 
-					armor.Resource == CraftResource.PineTree || 
+					armor.Resource == CraftResource.PineTree || */
 					armor.Resource == CraftResource.RosewoodTree || 
-					armor.Resource == CraftResource.DriftwoodTree || 
-					armor.Resource == CraftResource.WalnutTree || 
-					armor.Resource == CraftResource.ElvenTree || 
+					/*armor.Resource == CraftResource.DriftwoodTree || 
+					armor.Resource == CraftResource.WalnutTree ||*/ 
+					armor.Resource == CraftResource.ElvenTree /*|| 
 					armor.Resource == CraftResource.GhostTree || 
-					armor.Resource == CraftResource.PetrifiedTree ){ return true; }
+					armor.Resource == CraftResource.PetrifiedTree*/ ){ return true; }
 			}
 			else if ( item is BaseInstrument )
 			{
@@ -536,15 +536,15 @@ namespace Server.Misc
 					lute.Resource == CraftResource.EbonyTree || 
 					lute.Resource == CraftResource.GoldenOakTree || 
 					lute.Resource == CraftResource.HickoryTree || 
-					lute.Resource == CraftResource.MahoganyTree || 
+					/*lute.Resource == CraftResource.MahoganyTree || 
 					lute.Resource == CraftResource.OakTree || 
-					lute.Resource == CraftResource.PineTree || 
+					lute.Resource == CraftResource.PineTree || */
 					lute.Resource == CraftResource.RosewoodTree || 
-					lute.Resource == CraftResource.DriftwoodTree || 
-					lute.Resource == CraftResource.WalnutTree || 
-					lute.Resource == CraftResource.ElvenTree || 
+					/*lute.Resource == CraftResource.DriftwoodTree || 
+					lute.Resource == CraftResource.WalnutTree || */
+					lute.Resource == CraftResource.ElvenTree /*|| 
 					lute.Resource == CraftResource.GhostTree || 
-					lute.Resource == CraftResource.PetrifiedTree ){ return true; }
+					lute.Resource == CraftResource.PetrifiedTree*/ ){ return true; }
 			}
 
 			return false;
@@ -596,15 +596,15 @@ namespace Server.Misc
 					weapon.Resource == CraftResource.EbonyTree || 
 					weapon.Resource == CraftResource.GoldenOakTree || 
 					weapon.Resource == CraftResource.HickoryTree || 
-					weapon.Resource == CraftResource.MahoganyTree || 
+					/*weapon.Resource == CraftResource.MahoganyTree || 
 					weapon.Resource == CraftResource.OakTree || 
-					weapon.Resource == CraftResource.PineTree || 
+					weapon.Resource == CraftResource.PineTree || */
 					weapon.Resource == CraftResource.RosewoodTree || 
-					weapon.Resource == CraftResource.DriftwoodTree || 
-					weapon.Resource == CraftResource.WalnutTree || 
-					weapon.Resource == CraftResource.ElvenTree || 
+					/*weapon.Resource == CraftResource.DriftwoodTree || 
+					weapon.Resource == CraftResource.WalnutTree || */
+					weapon.Resource == CraftResource.ElvenTree /*|| 
 					weapon.Resource == CraftResource.GhostTree || 
-					weapon.Resource == CraftResource.PetrifiedTree ){ return true; }
+					weapon.Resource == CraftResource.PetrifiedTree*/ ){ return true; }
 			}
 			else if ( item is BaseArmor )
 			{
@@ -644,15 +644,15 @@ namespace Server.Misc
 					armor.Resource == CraftResource.EbonyTree || 
 					armor.Resource == CraftResource.GoldenOakTree || 
 					armor.Resource == CraftResource.HickoryTree || 
-					armor.Resource == CraftResource.MahoganyTree || 
+					/*armor.Resource == CraftResource.MahoganyTree || 
 					armor.Resource == CraftResource.OakTree || 
-					armor.Resource == CraftResource.PineTree || 
+					armor.Resource == CraftResource.PineTree || */
 					armor.Resource == CraftResource.RosewoodTree || 
-					armor.Resource == CraftResource.DriftwoodTree || 
-					armor.Resource == CraftResource.WalnutTree || 
-					armor.Resource == CraftResource.ElvenTree || 
+					/*armor.Resource == CraftResource.DriftwoodTree || 
+					armor.Resource == CraftResource.WalnutTree ||*/ 
+					armor.Resource == CraftResource.ElvenTree /*|| 
 					armor.Resource == CraftResource.GhostTree || 
-					armor.Resource == CraftResource.PetrifiedTree ){ return true; }
+					armor.Resource == CraftResource.PetrifiedTree*/ ){ return true; }
 			}
 			else if ( item is BaseInstrument )
 			{
@@ -692,15 +692,15 @@ namespace Server.Misc
 					lute.Resource == CraftResource.EbonyTree || 
 					lute.Resource == CraftResource.GoldenOakTree || 
 					lute.Resource == CraftResource.HickoryTree || 
-					lute.Resource == CraftResource.MahoganyTree || 
+					/*lute.Resource == CraftResource.MahoganyTree || 
 					lute.Resource == CraftResource.OakTree || 
-					lute.Resource == CraftResource.PineTree || 
+					lute.Resource == CraftResource.PineTree || */
 					lute.Resource == CraftResource.RosewoodTree || 
-					lute.Resource == CraftResource.DriftwoodTree || 
-					lute.Resource == CraftResource.WalnutTree || 
-					lute.Resource == CraftResource.ElvenTree || 
+					/*lute.Resource == CraftResource.DriftwoodTree || 
+					lute.Resource == CraftResource.WalnutTree || */
+					lute.Resource == CraftResource.ElvenTree /*|| 
 					lute.Resource == CraftResource.GhostTree || 
-					lute.Resource == CraftResource.PetrifiedTree ){ return true; }
+					lute.Resource == CraftResource.PetrifiedTree*/ ){ return true; }
 			}
 
 			return false;
@@ -1423,20 +1423,20 @@ namespace Server.Misc
 				else if ( color == "necrotic" ){ hue = 0x7B0; }
 			}
 
-			if ( color == "ash" ){ hue = 0x4A7; }
-			else if ( color == "cherry" ){ hue = 0x747; }
+			if ( color == "ash" ){ hue = 0x41C; }
 			else if ( color == "ebony" ){ hue = 0x96C; }
-			else if ( color == "golden oak" ){ hue = 0x7DA; }
-			else if ( color == "hickory" ){ hue = 0x415; }
-			else if ( color == "mahogany" ){ hue = 0x908; }
+            else if (color == "elven") { hue = 0x571; }
+            else if ( color == "golden oak" ){ hue = 0x501; }
+            else if (color == "cherry") { hue = 0xB22; }
+            else if (color == "rosewood") { hue = 0x66D; } // 2281 2762 2782 2850
+            else if ( color == "hickory" ){ hue = 0x921; }
+            /*else if ( color == "mahogany" ){ hue = 0x908; }
 			else if ( color == "oak" ){ hue = 0x712; }
 			else if ( color == "pine" ){ hue = 0x1CD; }
-			else if ( color == "ghostwood" ){ hue = 0x9C2; }
-			else if ( color == "rosewood" ){ hue = 0x843; }
-			else if ( color == "walnut" ){ hue = 0x750; }
+			else if ( color == "ghostwood" ){ hue = 0x9C2; }*/
+			/*else if ( color == "walnut" ){ hue = 0x750; }
 			else if ( color == "petrified" ){ hue = 0xA94; }
-			else if ( color == "driftwood" ){ hue = 0x973; }
-			else if ( color == "elven" ){ hue = 0xA3A; }
+			else if ( color == "driftwood" ){ hue = 0x973; }*/
 
 			else if ( color == "icy skin" ){ hue = 0xB7A; }
 			else if ( color == "lava skin" ){ hue = 0xB17; }

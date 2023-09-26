@@ -302,32 +302,33 @@ namespace Server.Items
 						pts = 1;
 					else if ( thing.Resource == CraftResource.AshTree )
 						pts = 2;
-					else if ( thing.Resource == CraftResource.CherryTree )
-						pts = 3;
 					else if ( thing.Resource == CraftResource.EbonyTree )
-						pts = 5;
-					else if ( thing.Resource == CraftResource.GoldenOakTree )
-						pts = 8;
-					else if ( thing.Resource == CraftResource.HickoryTree )
-						pts = 12;
-					else if ( thing.Resource == CraftResource.MahoganyTree )
+						pts = 3;
+                    else if (thing.Resource == CraftResource.ElvenTree)
+                        pts = 5;
+                    /*else if ( thing.Resource == CraftResource.MahoganyTree )
 						pts = 27;
 					else if ( thing.Resource == CraftResource.OakTree )
 						pts = 40;
 					else if ( thing.Resource == CraftResource.PineTree )
 						pts = 60;
 					else if ( thing.Resource == CraftResource.GhostTree )
-						pts = 75;
-					else if ( thing.Resource == CraftResource.RosewoodTree )
-						pts = 91;
-					else if ( thing.Resource == CraftResource.WalnutTree )
+						pts = 75;*/
+                    else if (thing.Resource == CraftResource.GoldenOakTree)
+                        pts = 8;
+                    else if (thing.Resource == CraftResource.CherryTree)
+                        pts = 13;
+                    else if ( thing.Resource == CraftResource.RosewoodTree )
+						pts = 21;
+                    else if (thing.Resource == CraftResource.HickoryTree)
+                        pts = 34;
+                    /*else if ( thing.Resource == CraftResource.WalnutTree )
 						pts = 120;
 					else if ( thing.Resource == CraftResource.PetrifiedTree )
 						pts = 140;
 					else if ( thing.Resource == CraftResource.DriftwoodTree )
-						pts = 170;
-					else if ( thing.Resource == CraftResource.ElvenTree )
-						pts = 210;
+						pts = 170;*/
+                    
 
 					if (amount > needMats)
 					{

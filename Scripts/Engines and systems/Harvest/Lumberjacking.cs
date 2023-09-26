@@ -44,11 +44,11 @@ namespace Server.Engines.Harvest
 
 			// Resource banks are every 4x3 tiles
 			lumber.BankWidth = 4;
-			lumber.BankHeight = 3;
+			lumber.BankHeight = 4;
 
 			// Every bank holds from 20 to 45 logs
-			lumber.MinTotal = 20;
-			lumber.MaxTotal = 45;
+			lumber.MinTotal = 25;
+			lumber.MaxTotal = 60;
 
 			// A resource bank will respawn its content every 20 to 30 minutes
 			lumber.MinRespawn = TimeSpan.FromMinutes( 20.0 );
@@ -61,18 +61,18 @@ namespace Server.Engines.Harvest
 			lumber.Tiles = m_TreeTiles;
 
 			// Players must be within 2 tiles to harvest
-			lumber.MaxRange = 2;
+			lumber.MaxRange = 3;
 
 			// Ten logs per harvest action
-			lumber.ConsumedPerHarvest = 10;
-			lumber.ConsumedPerFeluccaHarvest = 10;
+			lumber.ConsumedPerHarvest = 5;//Utility.RandomMinMax(6, 12);
+			lumber.ConsumedPerFeluccaHarvest = 5;// Utility.RandomMinMax(6, 12); ;
 
 			// The chopping effect
 			lumber.EffectActions = new int[]{ 13 };
 			lumber.EffectSounds = new int[]{ 0x13E };
 			lumber.EffectCounts = (Core.AOS ? new int[]{ 1 } : new int[]{ 1, 2, 2, 2, 3 });
-			lumber.EffectDelay = TimeSpan.FromSeconds( 1.6 );
-			lumber.EffectSoundDelay = TimeSpan.FromSeconds( 0.9 );
+			lumber.EffectDelay = TimeSpan.FromSeconds( 1.5 );
+			lumber.EffectSoundDelay = TimeSpan.FromSeconds( 0.8 );
 
 			lumber.NoResourcesMessage = 500493; // There's not enough wood here to harvest.
 			lumber.FailMessage = 500495; // You hack at the tree for a while, but fail to produce any useable wood.
@@ -83,42 +83,43 @@ namespace Server.Engines.Harvest
 			res = new HarvestResource[]
 			{
 				new HarvestResource(  00.0, 00.0, 85.0, "", typeof( Log ) ),
-				new HarvestResource(  55.0, 25.0, 90.0, "", typeof( AshLog ) ),
-				new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ),
-				new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ),
-				new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ),
-				new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ),
-				new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ),
-				new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ),
-				new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ),
-				new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ),
-				new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ),
-				new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) )
+				new HarvestResource(  60.0, 30.0, 90.0, "", typeof( AshLog ) ),
+				new HarvestResource(  70.0, 35.0, 100.0, "", typeof( EbonyLog ) ),
+                new HarvestResource(  80.0, 95.0, 140.0, "", typeof( ElvenLog ) ),
+                new HarvestResource(  85.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ),
+                new HarvestResource(  90.0, 30.0, 95.0, "", typeof( CherryLog ) ),
+                new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ),
+                new HarvestResource(  100.0, 45.0, 110.0, "", typeof( HickoryLog ) )
+/*                new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ),
+                new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ),
+                new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ),
+                new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ),*/ 
 			};
 
 			veins = new HarvestVein[]
 			{
-				new HarvestVein( 30.0, 0.0, res[0], null ),	// Ordinary Logs
-				new HarvestVein( 15.0, 0.5, res[1], res[0] ), // Ash
-				new HarvestVein( 10.0, 0.5, res[2], res[0] ), // Cherry
-				new HarvestVein( 09.0, 0.5, res[3], res[0] ), // Ebony
-				new HarvestVein( 08.0, 0.5, res[4], res[0] ), // Golden Oak
-				new HarvestVein( 07.0, 0.5, res[5], res[0] ), // Hickory
-				new HarvestVein( 06.0, 0.5, res[6], res[0] ), // Mahogany
-				new HarvestVein( 05.0, 0.5, res[7], res[0] ), // Oak
-				new HarvestVein( 04.0, 0.5, res[8], res[0] ), // Pine
-				new HarvestVein( 03.0, 0.5, res[9], res[0] ), // Rosewood
-				new HarvestVein( 02.0, 0.5, res[10], res[0] ), // Walnut
-				new HarvestVein( 01.0, 0.5, res[11], res[0] ) // Elven
+				new HarvestVein( 47.0, 0.0, res[0], null ),	// Ordinary Logs
+				new HarvestVein( 21.0, 0.5, res[1], res[0] ), // Ash
+				new HarvestVein( 13.0, 0.5, res[2], res[0] ), // Ebony
+				new HarvestVein( 8.0, 0.5, res[3], res[0] ), // Elven
+				new HarvestVein( 5.0, 0.5, res[4], res[0] ), // Golden Oak
+				new HarvestVein( 3.0, 0.5, res[5], res[0] ), // Cherry
+				new HarvestVein( 2.0, 0.5, res[6], res[0] ), // Rosewood
+				new HarvestVein( 1.0, 0.5, res[7], res[0] ) // Hickory
+				/*new HarvestVein( 7.0, 0.5, res[6], res[0] ), // Mahogany
+				new HarvestVein( 6.0, 0.5, res[7], res[0] ), // Oak
+				new HarvestVein( 5.0, 0.5, res[8], res[0] ), // Pine*/
+				/*new HarvestVein( 30.0, 0.5, res[10], res[0] ), // Walnut*/
+				
 			};
 
 			lumber.BonusResources = new BonusHarvestResource[]
 			{
-				new BonusHarvestResource( 0, 83.9, null, null ),	//Nothing
+				new BonusHarvestResource( 0, 90.0, null, null ),	//Nothing
 				//new BonusHarvestResource( 100, 10.0, "wood polish", typeof( OilWood ) ),
-				new BonusHarvestResource( 100, 03.0, "reaper oil", typeof( ReaperOil ) ),
-				new BonusHarvestResource( 100, 02.0, "mystical tree sap", typeof( MysticalTreeSap ) ),
-				new BonusHarvestResource( 100, 01.0, "mushrooms", typeof( HomePlants_Mushroom ) )
+				new BonusHarvestResource( 100, 5.0, "reaper oil", typeof( ReaperOil ) ),
+				new BonusHarvestResource( 100, 3.0, "mystical tree sap", typeof( MysticalTreeSap ) ),
+				new BonusHarvestResource( 100, 2.0, "mushrooms", typeof( HomePlants_Mushroom ) )
 			};
 
 			lumber.Resources = res;

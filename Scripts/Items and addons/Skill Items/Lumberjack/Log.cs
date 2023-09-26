@@ -162,20 +162,22 @@ namespace Server.Items
 					switch ( m_Log.Resource )
 					{
 						default: difficulty = 40.0; break;
-						case CraftResource.AshTree: difficulty = 55.0; break;
-						case CraftResource.CherryTree: difficulty = 60.0; break;
-						case CraftResource.EbonyTree: difficulty = 65.0; break;
-						case CraftResource.GoldenOakTree: difficulty = 70.0; break;
-						case CraftResource.HickoryTree: difficulty = 75.0; break;
-						case CraftResource.MahoganyTree: difficulty = 80.0; break;
+						case CraftResource.AshTree: difficulty = 60.0; break;
+						case CraftResource.EbonyTree: difficulty = 70.0; break;
+                        case CraftResource.ElvenTree: difficulty = 80.0; break;
+                        case CraftResource.GoldenOakTree: difficulty = 85.0; break;
+                        case CraftResource.CherryTree: difficulty = 90.0; break;
+                        case CraftResource.RosewoodTree: difficulty = 95.0; break;
+						case CraftResource.HickoryTree: difficulty = 100.0; break;
+						/*case CraftResource.MahoganyTree: difficulty = 80.0; break;
 						case CraftResource.DriftwoodTree: difficulty = 80.0; break;
 						case CraftResource.OakTree: difficulty = 85.0; break;
 						case CraftResource.PineTree: difficulty = 90.0; break;
-						case CraftResource.GhostTree: difficulty = 90.0; break;
-						case CraftResource.RosewoodTree: difficulty = 95.0; break;
-						case CraftResource.WalnutTree: difficulty = 99.0; break;
-						case CraftResource.PetrifiedTree: difficulty = 99.9; break;
-						case CraftResource.ElvenTree: difficulty = 100.1; break;
+						case CraftResource.GhostTree: difficulty = 90.0; break;*/
+						
+						/*case CraftResource.WalnutTree: difficulty = 99.0; break;
+						case CraftResource.PetrifiedTree: difficulty = 99.9; break;*/
+						
 					}
 
 					double minSkill = difficulty - 25.0;
@@ -262,24 +264,24 @@ namespace Server.Items
 	public class AshLog : BaseLog
 	{
 		[Constructable]
-		public AshLog() : this( 1 )
+		public AshLog() : this(1)
 		{
 		}
 		[Constructable]
-		public AshLog( int amount ) : base( CraftResource.AshTree, amount )
+		public AshLog(int amount) : base(CraftResource.AshTree, amount)
 		{
 		}
-		public AshLog( Serial serial ) : base( serial )
+		public AshLog(Serial serial) : base(serial)
 		{
 		}
-		public override void Serialize( GenericWriter writer )
+		public override void Serialize(GenericWriter writer)
 		{
-			base.Serialize( writer );
-			writer.Write( (int)0 ); // version
+			base.Serialize(writer);
+			writer.Write((int)0); // version
 		}
-		public override void Deserialize( GenericReader reader )
+		public override void Deserialize(GenericReader reader)
 		{
-			base.Deserialize( reader );
+			base.Deserialize(reader);
 			int version = reader.ReadInt();
 		}
 		public override BaseWoodBoard GetLog()
@@ -287,62 +289,63 @@ namespace Server.Items
 			return new AshBoard();
 		}
 	}
-	public class CherryLog : BaseLog
-	{
-		[Constructable]
-		public CherryLog() : this( 1 )
-		{
-		}
-		[Constructable]
-		public CherryLog( int amount ) : base( CraftResource.CherryTree, amount )
-		{
-		}
-		public CherryLog( Serial serial ) : base( serial )
-		{
-		}
-		public override void Serialize( GenericWriter writer )
-		{
-			base.Serialize( writer );
-			writer.Write( (int)0 ); // version
-		}
-		public override void Deserialize( GenericReader reader )
-		{
-			base.Deserialize( reader );
-			int version = reader.ReadInt();
-		}
-		public override BaseWoodBoard GetLog()
-		{
-			return new CherryBoard();
-		}
-	}
-	public class EbonyLog : BaseLog
-	{
-		[Constructable]
-		public EbonyLog() : this( 1 )
-		{
-		}
-		[Constructable]
-		public EbonyLog( int amount ) : base( CraftResource.EbonyTree, amount )
-		{
-		}
-		public EbonyLog( Serial serial ) : base( serial )
-		{
-		}
-		public override void Serialize( GenericWriter writer )
-		{
-			base.Serialize( writer );
-			writer.Write( (int)0 ); // version
-		}
-		public override void Deserialize( GenericReader reader )
-		{
-			base.Deserialize( reader );
-			int version = reader.ReadInt();
-		}
-		public override BaseWoodBoard GetLog()
-		{
-			return new EbonyBoard();
-		}
-	}
+    public class EbonyLog : BaseLog
+    {
+        [Constructable]
+        public EbonyLog() : this(1)
+        {
+        }
+        [Constructable]
+        public EbonyLog(int amount) : base(CraftResource.EbonyTree, amount)
+        {
+        }
+        public EbonyLog(Serial serial) : base(serial)
+        {
+        }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0); // version
+        }
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+        public override BaseWoodBoard GetLog()
+        {
+            return new EbonyBoard();
+        }
+    }
+    public class ElvenLog : BaseLog
+    {
+        [Constructable]
+        public ElvenLog() : this(1)
+        {
+        }
+        [Constructable]
+        public ElvenLog(int amount) : base(CraftResource.ElvenTree, amount)
+        {
+        }
+        public ElvenLog(Serial serial) : base(serial)
+        {
+        }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0); // version
+        }
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+        public override BaseWoodBoard GetLog()
+        {
+            return new ElvenBoard();
+        }
+    }
+
 	public class GoldenOakLog : BaseLog
 	{
 		[Constructable]
@@ -371,35 +374,119 @@ namespace Server.Items
 			return new GoldenOakBoard();
 		}
 	}
-	public class HickoryLog : BaseLog
-	{
-		[Constructable]
-		public HickoryLog() : this( 1 )
-		{
-		}
-		[Constructable]
-		public HickoryLog( int amount ) : base( CraftResource.HickoryTree, amount )
-		{
-		}
-		public HickoryLog( Serial serial ) : base( serial )
-		{
-		}
-		public override void Serialize( GenericWriter writer )
-		{
-			base.Serialize( writer );
-			writer.Write( (int)0 ); // version
-		}
-		public override void Deserialize( GenericReader reader )
-		{
-			base.Deserialize( reader );
-			int version = reader.ReadInt();
-		}
-		public override BaseWoodBoard GetLog()
-		{
-			return new HickoryBoard();
-		}
-	}
-	public class MahoganyLog : BaseLog
+    public class CherryLog : BaseLog
+    {
+        [Constructable]
+        public CherryLog() : this(1)
+        {
+        }
+        [Constructable]
+        public CherryLog(int amount) : base(CraftResource.CherryTree, amount)
+        {
+        }
+        public CherryLog(Serial serial) : base(serial)
+        {
+        }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0); // version
+        }
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+        public override BaseWoodBoard GetLog()
+        {
+            return new CherryBoard();
+        }
+    }
+    public class RosewoodLog : BaseLog
+    {
+        [Constructable]
+        public RosewoodLog() : this(1)
+        {
+        }
+        [Constructable]
+        public RosewoodLog(int amount) : base(CraftResource.RosewoodTree, amount)
+        {
+        }
+        public RosewoodLog(Serial serial) : base(serial)
+        {
+        }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0); // version
+        }
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+        public override BaseWoodBoard GetLog()
+        {
+            return new RosewoodBoard();
+        }
+    }
+    public class HickoryLog : BaseLog
+    {
+        [Constructable]
+        public HickoryLog() : this(1)
+        {
+        }
+        [Constructable]
+        public HickoryLog(int amount) : base(CraftResource.HickoryTree, amount)
+        {
+        }
+        public HickoryLog(Serial serial) : base(serial)
+        {
+        }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0); // version
+        }
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+        public override BaseWoodBoard GetLog()
+        {
+            return new HickoryBoard();
+        }
+    }
+    /*public class PetrifiedLog : BaseLog
+    {
+        [Constructable]
+        public PetrifiedLog() : this(1)
+        {
+        }
+        [Constructable]
+        public PetrifiedLog(int amount) : base(CraftResource.PetrifiedTree, amount)
+        {
+        }
+        public PetrifiedLog(Serial serial) : base(serial)
+        {
+        }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write((int)0); // version
+        }
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+        public override BaseWoodBoard GetLog()
+        {
+            return new PetrifiedBoard();
+        }
+    }*/
+    /*public class MahoganyLog : BaseLog
 	{
 		[Constructable]
 		public MahoganyLog() : this( 1 )
@@ -426,8 +513,8 @@ namespace Server.Items
 		{
 			return new MahoganyBoard();
 		}
-	}
-	public class OakLog : BaseLog
+	}*/
+    /*public class OakLog : BaseLog
 	{
 		[Constructable]
 		public OakLog() : this( 1 )
@@ -454,8 +541,8 @@ namespace Server.Items
 		{
 			return new OakBoard();
 		}
-	}
-	public class PineLog : BaseLog
+	}*/
+    /*public class PineLog : BaseLog
 	{
 		[Constructable]
 		public PineLog() : this( 1 )
@@ -482,36 +569,9 @@ namespace Server.Items
 		{
 			return new PineBoard();
 		}
-	}
-	public class RosewoodLog : BaseLog
-	{
-		[Constructable]
-		public RosewoodLog() : this( 1 )
-		{
-		}
-		[Constructable]
-		public RosewoodLog( int amount ) : base( CraftResource.RosewoodTree, amount )
-		{
-		}
-		public RosewoodLog( Serial serial ) : base( serial )
-		{
-		}
-		public override void Serialize( GenericWriter writer )
-		{
-			base.Serialize( writer );
-			writer.Write( (int)0 ); // version
-		}
-		public override void Deserialize( GenericReader reader )
-		{
-			base.Deserialize( reader );
-			int version = reader.ReadInt();
-		}
-		public override BaseWoodBoard GetLog()
-		{
-			return new RosewoodBoard();
-		}
-	}
-	public class WalnutLog : BaseLog
+	}*/
+
+    /*public class WalnutLog : BaseLog
 	{
 		[Constructable]
 		public WalnutLog() : this( 1 )
@@ -538,8 +598,8 @@ namespace Server.Items
 		{
 			return new WalnutBoard();
 		}
-	}
-	public class DriftwoodLog : BaseLog
+	}*/
+    /*public class DriftwoodLog : BaseLog
 	{
 		[Constructable]
 		public DriftwoodLog() : this( 1 )
@@ -566,8 +626,8 @@ namespace Server.Items
 		{
 			return new DriftwoodBoard();
 		}
-	}
-	public class GhostLog : BaseLog
+	}*/
+    /*public class GhostLog : BaseLog
 	{
 		[Constructable]
 		public GhostLog() : this( 1 )
@@ -594,61 +654,7 @@ namespace Server.Items
 		{
 			return new GhostBoard();
 		}
-	}
-	public class PetrifiedLog : BaseLog
-	{
-		[Constructable]
-		public PetrifiedLog() : this( 1 )
-		{
-		}
-		[Constructable]
-		public PetrifiedLog( int amount ) : base( CraftResource.PetrifiedTree, amount )
-		{
-		}
-		public PetrifiedLog( Serial serial ) : base( serial )
-		{
-		}
-		public override void Serialize( GenericWriter writer )
-		{
-			base.Serialize( writer );
-			writer.Write( (int)0 ); // version
-		}
-		public override void Deserialize( GenericReader reader )
-		{
-			base.Deserialize( reader );
-			int version = reader.ReadInt();
-		}
-		public override BaseWoodBoard GetLog()
-		{
-			return new PetrifiedBoard();
-		}
-	}
-	public class ElvenLog : BaseLog
-	{
-		[Constructable]
-		public ElvenLog() : this( 1 )
-		{
-		}
-		[Constructable]
-		public ElvenLog( int amount ) : base( CraftResource.ElvenTree, amount )
-		{
-		}
-		public ElvenLog( Serial serial ) : base( serial )
-		{
-		}
-		public override void Serialize( GenericWriter writer )
-		{
-			base.Serialize( writer );
-			writer.Write( (int)0 ); // version
-		}
-		public override void Deserialize( GenericReader reader )
-		{
-			base.Deserialize( reader );
-			int version = reader.ReadInt();
-		}
-		public override BaseWoodBoard GetLog()
-		{
-			return new ElvenBoard();
-		}
-	}
+	}*/
+
+
 }

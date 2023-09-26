@@ -50,20 +50,20 @@ namespace Server.Items
 
 		RegularWood = 301,
 		AshTree,
-		CherryTree,
 		EbonyTree,
-		GoldenOakTree,
-		HickoryTree,
-		MahoganyTree,
+        ElvenTree,
+        GoldenOakTree,
+        CherryTree,
+        RosewoodTree,
+        HickoryTree
+        /*MahoganyTree,
 		OakTree,
 		PineTree,
 		GhostTree,
-		RosewoodTree,
 		WalnutTree,
 		PetrifiedTree,
-		DriftwoodTree,
-		ElvenTree
-	}
+		DriftwoodTree*/
+    }
 
 	public enum CraftResourceType
 	{
@@ -136,7 +136,7 @@ namespace Server.Items
 		public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite, Titanium, Nepturite, Obsidian, Steel, Brass, Mithril, Xormite, Dwarven, Rosenium, Platinum;
 		public static readonly CraftAttributeInfo Spined, Horned, Barbed, Necrotic, Volcanic, Frozen, Goliath, Draconic, Hellish, Dinosaur, Alien;
 		public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales, DinosaurScales;
-		public static readonly CraftAttributeInfo AshTree, CherryTree, EbonyTree, GoldenOakTree, HickoryTree, MahoganyTree, OakTree, PineTree, GhostTree, RosewoodTree, WalnutTree, PetrifiedTree, DriftwoodTree, ElvenTree;
+		public static readonly CraftAttributeInfo AshTree, EbonyTree, ElvenTree, GoldenOakTree, CherryTree, RosewoodTree, HickoryTree /*MahoganyTree, OakTree, PineTree, GhostTree,*/  /*WalnutTree, PetrifiedTree, DriftwoodTree,*/ ;
 
 		static CraftAttributeInfo()
 		{
@@ -635,62 +635,38 @@ namespace Server.Items
 				ashtree.RunicMinIntensity = 45;
 				ashtree.RunicMaxIntensity = 60;
 
-			CraftAttributeInfo cherrytree = CherryTree = new CraftAttributeInfo();
+            CraftAttributeInfo ebonytree = EbonyTree = new CraftAttributeInfo();
 
-			cherrytree.ArmorPhysicalResist = 1; //7
-			cherrytree.ArmorFireResist = 2;
-			cherrytree.ArmorColdResist = 1;
-			cherrytree.ArmorPoisonResist = 2;
-			cherrytree.ArmorEnergyResist = 1;
-			cherrytree.WeaponPoisonDamage = 10;
-			cherrytree.WeaponEnergyDamage = 20;
-			cherrytree.RunicMinAttributes = 1;
-			cherrytree.RunicMaxAttributes = 2;
-				cherrytree.RunicMinIntensity = 50;
-				cherrytree.RunicMaxIntensity = 80;
+            ebonytree.ArmorPhysicalResist = 3; //8
+            ebonytree.ArmorFireResist = 3;
+            ebonytree.ArmorEnergyResist = 2;
+            ebonytree.ArmorDurability = 20;
+            ebonytree.WeaponColdDamage = 20;
+            ebonytree.WeaponDurability = 20;
+            ebonytree.RunicMinAttributes = 2;
+            ebonytree.RunicMaxAttributes = 2;
+            ebonytree.RunicMinIntensity = 50;
+            ebonytree.RunicMaxIntensity = 80;
 
-			CraftAttributeInfo ebonytree = EbonyTree = new CraftAttributeInfo();
+            CraftAttributeInfo elventree = ElvenTree = new CraftAttributeInfo(); //1
 
-			ebonytree.ArmorPhysicalResist = 3; //8
-			ebonytree.ArmorFireResist = 3;
-			ebonytree.ArmorEnergyResist = 2;
-			ebonytree.ArmorDurability = 20;
-			ebonytree.WeaponColdDamage = 20;
-			ebonytree.WeaponDurability = 20;
-			ebonytree.RunicMinAttributes = 2;
-			ebonytree.RunicMaxAttributes = 2;
-				ebonytree.RunicMinIntensity = 50;
-				ebonytree.RunicMaxIntensity = 80;
+            elventree.ArmorPhysicalResist = 10;   //39
+            elventree.ArmorFireResist = 3;
+            elventree.ArmorPoisonResist = 11;
+            elventree.ArmorEnergyResist = 15;
+            elventree.ArmorDurability = 25;
+            elventree.ArmorLuck = 100;
+            elventree.WeaponLuck = 100;
+            elventree.WeaponFireDamage = 0;
+            elventree.WeaponColdDamage = 0;
+            elventree.WeaponPoisonDamage = 0;
+            elventree.WeaponEnergyDamage = 0;
+            elventree.RunicMinAttributes = 6;
+            elventree.RunicMaxAttributes = 8;
+            elventree.RunicMinIntensity = 100;
+			elventree.RunicMaxIntensity = 150;	
 
-			CraftAttributeInfo goldenoaktree = GoldenOakTree = new CraftAttributeInfo();
-
-			goldenoaktree.ArmorPhysicalResist = 3; //10
-			goldenoaktree.ArmorFireResist = 2;
-			goldenoaktree.ArmorColdResist = 3;
-			goldenoaktree.ArmorEnergyResist = 2;
-			goldenoaktree.ArmorLuck = 40;
-			goldenoaktree.ArmorLowerRequirements = 30;
-			goldenoaktree.WeaponLuck = 40;
-			goldenoaktree.WeaponLowerRequirements = 50;
-			goldenoaktree.RunicMinAttributes = 2;
-			goldenoaktree.RunicMaxAttributes = 3;
-				goldenoaktree.RunicMinIntensity = 60;
-				goldenoaktree.RunicMaxIntensity = 80;
-
-			CraftAttributeInfo hickorytree = HickoryTree = new CraftAttributeInfo();
-
-			hickorytree.ArmorPhysicalResist = 5; //12
-			goldenoaktree.ArmorColdResist = 7;
-			hickorytree.ArmorDurability = 20;
-			hickorytree.ArmorLowerRequirements = 20;
-			hickorytree.WeaponDurability = 20;
-			hickorytree.WeaponLowerRequirements = 50;
-			hickorytree.RunicMinAttributes = 2;
-			hickorytree.RunicMaxAttributes = 3;
-				hickorytree.RunicMinIntensity = 60;
-				hickorytree.RunicMaxIntensity = 80;
-
-			CraftAttributeInfo mahoganytree = MahoganyTree = new CraftAttributeInfo();
+            /*CraftAttributeInfo mahoganytree = MahoganyTree = new CraftAttributeInfo();
 
 			mahoganytree.ArmorPhysicalResist = 7; //15
 			mahoganytree.ArmorFireResist = 3;
@@ -727,9 +703,22 @@ namespace Server.Items
 			pinetree.RunicMinAttributes = 3;
 			pinetree.RunicMaxAttributes = 4;
 				pinetree.RunicMinIntensity = 70;
-				pinetree.RunicMaxIntensity = 90;
+				pinetree.RunicMaxIntensity = 90;*/
+            CraftAttributeInfo cherrytree = CherryTree = new CraftAttributeInfo();
 
-			CraftAttributeInfo rosewoodtree = RosewoodTree = new CraftAttributeInfo();
+            cherrytree.ArmorPhysicalResist = 1; //7
+            cherrytree.ArmorFireResist = 2;
+            cherrytree.ArmorColdResist = 1;
+            cherrytree.ArmorPoisonResist = 2;
+            cherrytree.ArmorEnergyResist = 1;
+            cherrytree.WeaponPoisonDamage = 10;
+            cherrytree.WeaponEnergyDamage = 20;
+            cherrytree.RunicMinAttributes = 1;
+            cherrytree.RunicMaxAttributes = 2;
+            cherrytree.RunicMinIntensity = 50;
+            cherrytree.RunicMaxIntensity = 80;
+
+            CraftAttributeInfo rosewoodtree = RosewoodTree = new CraftAttributeInfo();
 
 			rosewoodtree.ArmorPhysicalResist = 5; //24
 			rosewoodtree.ArmorFireResist = 5;
@@ -743,7 +732,35 @@ namespace Server.Items
 				rosewoodtree.RunicMinIntensity = 70;
 				rosewoodtree.RunicMaxIntensity = 90;
 
-			CraftAttributeInfo walnuttree = WalnutTree = new CraftAttributeInfo(); 
+            CraftAttributeInfo goldenoaktree = GoldenOakTree = new CraftAttributeInfo();
+
+            goldenoaktree.ArmorPhysicalResist = 3; //10
+            goldenoaktree.ArmorFireResist = 2;
+            goldenoaktree.ArmorColdResist = 3;
+            goldenoaktree.ArmorEnergyResist = 2;
+            goldenoaktree.ArmorLuck = 40;
+            goldenoaktree.ArmorLowerRequirements = 30;
+            goldenoaktree.WeaponLuck = 40;
+            goldenoaktree.WeaponLowerRequirements = 50;
+            goldenoaktree.RunicMinAttributes = 2;
+            goldenoaktree.RunicMaxAttributes = 3;
+            goldenoaktree.RunicMinIntensity = 60;
+            goldenoaktree.RunicMaxIntensity = 80;
+
+            CraftAttributeInfo hickorytree = HickoryTree = new CraftAttributeInfo();
+
+            hickorytree.ArmorPhysicalResist = 5; //12
+            goldenoaktree.ArmorColdResist = 7;
+            hickorytree.ArmorDurability = 20;
+            hickorytree.ArmorLowerRequirements = 20;
+            hickorytree.WeaponDurability = 20;
+            hickorytree.WeaponLowerRequirements = 50;
+            hickorytree.RunicMinAttributes = 2;
+            hickorytree.RunicMaxAttributes = 3;
+            hickorytree.RunicMinIntensity = 60;
+            hickorytree.RunicMaxIntensity = 80;
+
+            /*CraftAttributeInfo walnuttree = WalnutTree = new CraftAttributeInfo(); 
 
 			walnuttree.ArmorPhysicalResist = 10;//23
 			walnuttree.ArmorColdResist = 5;
@@ -803,27 +820,8 @@ namespace Server.Items
 			petrifiedtree.RunicMinAttributes = 5;
 			petrifiedtree.RunicMaxAttributes = 5;
 				petrifiedtree.RunicMinIntensity = 80;
-				petrifiedtree.RunicMaxIntensity = 100;
-
-
-			CraftAttributeInfo elventree = ElvenTree = new CraftAttributeInfo(); //1
-
-			elventree.ArmorPhysicalResist = 10;   //39
-			elventree.ArmorFireResist = 3;			
-			elventree.ArmorPoisonResist = 11;
-			elventree.ArmorEnergyResist = 15;
-			elventree.ArmorDurability = 25;
-			elventree.ArmorLuck = 100;
-			elventree.WeaponLuck = 100;
-			elventree.WeaponFireDamage = 0;
-			elventree.WeaponColdDamage = 0;
-			elventree.WeaponPoisonDamage = 0;
-			elventree.WeaponEnergyDamage = 0;
-			elventree.RunicMinAttributes = 6;
-			elventree.RunicMaxAttributes = 8;
-				elventree.RunicMinIntensity = 100;
-				elventree.RunicMaxIntensity = 150;
-		}
+				petrifiedtree.RunicMaxIntensity = 100;*/
+        }
 	}
 
 	public class CraftResourceInfo
@@ -912,19 +910,21 @@ namespace Server.Items
 			{
 				new CraftResourceInfo( 0x000, 													1011542,	"Normal",		CraftAttributeInfo.Blank,			CraftResource.RegularWood,		typeof( Log ),			typeof( Board ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ash", "", 0 ),			1095399,	"Ash",			CraftAttributeInfo.AshTree,			CraftResource.AshTree,			typeof( AshLog ),		typeof( AshBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "cherry", "", 0 ),		1095400,	"Cherry",		CraftAttributeInfo.CherryTree,		CraftResource.CherryTree,		typeof( CherryLog ),	typeof( CherryBoard ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ebony", "", 0 ),			1095401,	"Ebony",		CraftAttributeInfo.EbonyTree,		CraftResource.EbonyTree,		typeof( EbonyLog ),		typeof( EbonyBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "golden oak", "", 0 ),	1095402,	"Golden Oak",	CraftAttributeInfo.GoldenOakTree,	CraftResource.GoldenOakTree,	typeof( GoldenOakLog ),	typeof( GoldenOakBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "hickory", "", 0 ),		1095403,	"Hickory",		CraftAttributeInfo.HickoryTree,		CraftResource.HickoryTree,		typeof( HickoryLog ),	typeof( HickoryBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "mahogany", "", 0 ),		1095404,	"Mahogany",		CraftAttributeInfo.MahoganyTree,	CraftResource.MahoganyTree,		typeof( MahoganyLog ),	typeof( MahoganyBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "elven", "", 0 ),         1095537,    "Elven",        CraftAttributeInfo.ElvenTree,       CraftResource.ElvenTree,        typeof( ElvenLog ),     typeof( ElvenBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "golden oak", "", 0 ),	1095402,	"Golden Oak",	CraftAttributeInfo.GoldenOakTree,	CraftResource.GoldenOakTree,	typeof( GoldenOakLog ),	typeof( GoldenOakBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "cherry", "", 0 ),        1095400,    "Cherry",       CraftAttributeInfo.CherryTree,      CraftResource.CherryTree,       typeof( CherryLog ),    typeof( CherryBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "rosewood", "", 0 ),      1095407,    "Rosewood",     CraftAttributeInfo.RosewoodTree,    CraftResource.RosewoodTree,     typeof( RosewoodLog ),  typeof( RosewoodBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "hickory", "", 0 ),       1095403,    "Hickory",      CraftAttributeInfo.HickoryTree,     CraftResource.HickoryTree,      typeof( HickoryLog ),   typeof( HickoryBoard ) )
+				/*new CraftResourceInfo( MaterialInfo.GetMaterialColor( "mahogany", "", 0 ),		1095404,	"Mahogany",		CraftAttributeInfo.MahoganyTree,	CraftResource.MahoganyTree,		typeof( MahoganyLog ),	typeof( MahoganyBoard ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "oak", "", 0 ),			1095405,	"Oak",			CraftAttributeInfo.OakTree,			CraftResource.OakTree,			typeof( OakLog ),		typeof( OakBoard ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "pine", "", 0 ),			1095406,	"Pine",			CraftAttributeInfo.PineTree,		CraftResource.PineTree,			typeof( PineLog ),		typeof( PineBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ),		1095513,	"Ghostwood",	CraftAttributeInfo.GhostTree,		CraftResource.GhostTree,		typeof( GhostLog ),		typeof( GhostBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "rosewood", "", 0 ),		1095407,	"Rosewood",		CraftAttributeInfo.RosewoodTree,	CraftResource.RosewoodTree,		typeof( RosewoodLog ),	typeof( RosewoodBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "walnut", "", 0 ),		1095408,	"Walnut",		CraftAttributeInfo.WalnutTree,		CraftResource.WalnutTree,		typeof( WalnutLog ),	typeof( WalnutBoard ) ),
+				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ),		1095513,	"Ghostwood",	CraftAttributeInfo.GhostTree,		CraftResource.GhostTree,		typeof( GhostLog ),		typeof( GhostBoard ) ),*/
+				
+				/*new CraftResourceInfo( MaterialInfo.GetMaterialColor( "walnut", "", 0 ),		1095408,	"Walnut",		CraftAttributeInfo.WalnutTree,		CraftResource.WalnutTree,		typeof( WalnutLog ),	typeof( WalnutBoard ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "petrified", "", 0 ),		1095534,	"Petrified",	CraftAttributeInfo.PetrifiedTree,	CraftResource.PetrifiedTree,	typeof( PetrifiedLog ),	typeof( PetrifiedBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "driftwood", "", 0 ),		1095510,	"Driftwood",	CraftAttributeInfo.DriftwoodTree,	CraftResource.DriftwoodTree,	typeof( DriftwoodLog ),	typeof( DriftwoodBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "elven", "", 0 ),			1095537,	"Elven",		CraftAttributeInfo.ElvenTree,		CraftResource.ElvenTree,		typeof( ElvenLog ),		typeof( ElvenBoard ) )
+				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "driftwood", "", 0 ),		1095510,	"Driftwood",	CraftAttributeInfo.DriftwoodTree,	CraftResource.DriftwoodTree,	typeof( DriftwoodLog ),	typeof( DriftwoodBoard ) ),*/
+				
 			};
 
 		/// <summary>
@@ -1031,19 +1031,20 @@ namespace Server.Items
 
 			if (	resource == CraftResource.RegularWood || 
 					resource == CraftResource.AshTree || 
-					resource == CraftResource.CherryTree || 
-					resource == CraftResource.EbonyTree || 
-					resource == CraftResource.GoldenOakTree || 
-					resource == CraftResource.HickoryTree || 
-					resource == CraftResource.MahoganyTree || 
+					resource == CraftResource.EbonyTree ||
+                    resource == CraftResource.ElvenTree ||
+                    resource == CraftResource.GoldenOakTree ||
+                    resource == CraftResource.CherryTree ||
+                    resource == CraftResource.RosewoodTree ||
+                    resource == CraftResource.HickoryTree 
+					/*resource == CraftResource.MahoganyTree || 
 					resource == CraftResource.OakTree || 
 					resource == CraftResource.PineTree || 
-					resource == CraftResource.GhostTree || 
-					resource == CraftResource.RosewoodTree || 
-					resource == CraftResource.WalnutTree || 
-					resource == CraftResource.DriftwoodTree || 
-					resource == CraftResource.ElvenTree || 
-					resource == CraftResource.PetrifiedTree )
+					resource == CraftResource.GhostTree || */
+					/*resource == CraftResource.WalnutTree || 
+					resource == CraftResource.DriftwoodTree ||*/ 
+					 /*|| 
+					resource == CraftResource.PetrifiedTree*/ )
 				return CraftResourceType.Wood;
 
 			return CraftResourceType.None;

@@ -89,22 +89,22 @@ namespace Server.Items
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Golden Oak</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "hickory", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Hickory</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "mahogany", "", 0 ));
+				/*AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "mahogany", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Mahogany</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "oak", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Oak</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "pine", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Pine</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ghostwood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ghostwood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;*/
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "rosewood", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Rosewood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "walnut", "", 0 ));
+				/*AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "walnut", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Walnut</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "petrified", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Petrified</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "driftwood", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Driftwood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Driftwood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;*/
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "elven", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Elven</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 

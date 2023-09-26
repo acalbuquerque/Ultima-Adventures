@@ -2825,15 +2825,15 @@ namespace Server.Mobiles
 				if ( MyServerSettings.BuyChance() ){Add( typeof( EbonyLog ), 3 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( GoldenOakLog ), 3 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( HickoryLog ), 4 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( MahoganyLog ), 4 ); } 
+				/*if ( MyServerSettings.BuyChance() ){Add( typeof( MahoganyLog ), 4 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( DriftwoodLog ), 4 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( OakLog ), 5 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( PineLog ), 5 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( GhostLog ), 5 ); } 
+				if ( MyServerSettings.BuyChance() ){Add( typeof( GhostLog ), 5 ); } */
 				if ( MyServerSettings.BuyChance() ){Add( typeof( RosewoodLog ), 6 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( WalnutLog ), 6 ); } 
+				/*if ( MyServerSettings.BuyChance() ){Add( typeof( WalnutLog ), 6 ); } */
 				if ( MyServerSettings.BuyChance() ){Add( typeof( ElvenLog ), 12 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( PetrifiedLog ), 7 ); } 
+				/*if ( MyServerSettings.BuyChance() ){Add( typeof( PetrifiedLog ), 7 ); } */
 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( Board ), 2 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( AshBoard ), 3 ); } 
@@ -2841,15 +2841,15 @@ namespace Server.Mobiles
 				if ( MyServerSettings.BuyChance() ){Add( typeof( EbonyBoard ), 4 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( GoldenOakBoard ), 4 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( HickoryBoard ), 5 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( MahoganyBoard ), 5 ); } 
+				/*if ( MyServerSettings.BuyChance() ){Add( typeof( MahoganyBoard ), 5 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( DriftwoodBoard ), 5 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( OakBoard ), 6 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( PineBoard ), 6 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( GhostBoard ), 6 ); } 
+				if ( MyServerSettings.BuyChance() ){Add( typeof( GhostBoard ), 6 ); } */
 				if ( MyServerSettings.BuyChance() ){Add( typeof( RosewoodBoard ), 7 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( WalnutBoard ), 7 ); } 
+				/*if ( MyServerSettings.BuyChance() ){Add( typeof( WalnutBoard ), 7 ); } */
 				if ( MyServerSettings.BuyChance() ){Add( typeof( ElvenBoard ), 14 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( PetrifiedBoard ), 8 ); } 
+				/*if ( MyServerSettings.BuyChance() ){Add( typeof( PetrifiedBoard ), 8 ); } */
 			}
 		}
 	}
@@ -9909,15 +9909,15 @@ namespace Server.Mobiles
 				Add( typeof( EbonyLog ), 3 );
 				Add( typeof( GoldenOakLog ), 3 );
 				Add( typeof( HickoryLog ), 4 );
-				Add( typeof( MahoganyLog ), 4 );
+				/*Add( typeof( MahoganyLog ), 4 );
 				Add( typeof( DriftwoodLog ), 4 );
 				Add( typeof( OakLog ), 5 );
 				Add( typeof( PineLog ), 5 );
-				Add( typeof( GhostLog ), 5 );
+				Add( typeof( GhostLog ), 5 );*/
 				Add( typeof( RosewoodLog ), 6 );
-				Add( typeof( WalnutLog ), 6 );
+				/*Add( typeof( WalnutLog ), 6 );*/
 				Add( typeof( ElvenLog ), 12 );
-				Add( typeof( PetrifiedLog ), 7 );
+				/*Add( typeof( PetrifiedLog ), 7 );*/
 
 				Add( typeof( Board ), 2 );
 				Add( typeof( AshBoard ), 3 );
@@ -9925,15 +9925,15 @@ namespace Server.Mobiles
 				Add( typeof( EbonyBoard ), 4 );
 				Add( typeof( GoldenOakBoard ), 4 );
 				Add( typeof( HickoryBoard ), 5 );
-				Add( typeof( MahoganyBoard ), 5 );
+				/*Add( typeof( MahoganyBoard ), 5 );
 				Add( typeof( DriftwoodBoard ), 5 );
 				Add( typeof( OakBoard ), 6 );
 				Add( typeof( PineBoard ), 6 );
-				Add( typeof( GhostBoard ), 6 );
+				Add( typeof( GhostBoard ), 6 );*/
 				Add( typeof( RosewoodBoard ), 7 );
-				Add( typeof( WalnutBoard ), 7 );
+				/*Add( typeof( WalnutBoard ), 7 );*/
 				Add( typeof( ElvenBoard ), 14 );
-				Add( typeof( PetrifiedBoard ), 8 );
+				/*Add( typeof( PetrifiedBoard ), 8 );*/
 			}
 		}
 	}

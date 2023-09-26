@@ -25,14 +25,14 @@ namespace Server.Items
 					case CraftResource.EbonyTree: return 1095391;
 					case CraftResource.GoldenOakTree: return 1095392;
 					case CraftResource.HickoryTree: return 1095393;
-					case CraftResource.MahoganyTree: return 1095394;
+					/*case CraftResource.MahoganyTree: return 1095394;
 					case CraftResource.DriftwoodTree: return 1095410;
 					case CraftResource.OakTree: return 1095395;
 					case CraftResource.PineTree: return 1095396;
-					case CraftResource.GhostTree: return 1095512;
+					case CraftResource.GhostTree: return 1095512;*/
 					case CraftResource.RosewoodTree: return 1095397;
-					case CraftResource.WalnutTree: return 1095398;
-					case CraftResource.PetrifiedTree: return 1095533;
+					/*case CraftResource.WalnutTree: return 1095398;
+					case CraftResource.PetrifiedTree: return 1095533;*/
 					case CraftResource.ElvenTree: return 1095536;
 				}
 
@@ -288,7 +288,7 @@ namespace Server.Items
 			int version = reader.ReadInt();
 		}
 	}
-	public class MahoganyBoard : BaseWoodBoard
+	/*public class MahoganyBoard : BaseWoodBoard
 	{
 		[Constructable]
 		public MahoganyBoard() : this( 1 )
@@ -315,8 +315,8 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
-	public class OakBoard : BaseWoodBoard
+	}*/
+	/*public class OakBoard : BaseWoodBoard
 	{
 		[Constructable]
 		public OakBoard() : this( 1 )
@@ -343,8 +343,8 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
-	public class PineBoard : BaseWoodBoard
+	}*/
+	/*public class PineBoard : BaseWoodBoard
 	{
 		[Constructable]
 		public PineBoard() : this( 1 )
@@ -371,7 +371,7 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 	public class RosewoodBoard : BaseWoodBoard
 	{
 		[Constructable]
@@ -400,7 +400,7 @@ namespace Server.Items
 			int version = reader.ReadInt();
 		}
 	}
-	public class WalnutBoard : BaseWoodBoard
+	/*public class WalnutBoard : BaseWoodBoard
 	{
 		[Constructable]
 		public WalnutBoard() : this( 1 )
@@ -427,8 +427,8 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
-	public class DriftwoodBoard : BaseWoodBoard
+	}*/
+	/*public class DriftwoodBoard : BaseWoodBoard
 	{
 		[Constructable]
 		public DriftwoodBoard() : this( 1 )
@@ -455,9 +455,9 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 
-	public class GhostBoard : BaseWoodBoard
+	/*public class GhostBoard : BaseWoodBoard
 	{
 		[Constructable]
 		public GhostBoard() : this( 1 )
@@ -484,8 +484,8 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
-	public class PetrifiedBoard : BaseWoodBoard
+	}*/
+	/*public class PetrifiedBoard : BaseWoodBoard
 	{
 		[Constructable]
 		public PetrifiedBoard() : this( 1 )
@@ -512,7 +512,7 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 	public class ElvenBoard : BaseWoodBoard
 	{
 		[Constructable]

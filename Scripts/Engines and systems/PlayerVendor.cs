@@ -2525,15 +2525,15 @@ namespace Server.Mobiles
 				case CraftResource.EbonyTree: attrsMod = (int)( attrsMod * 1.65 ); break;
 				case CraftResource.GoldenOakTree: attrsMod = (int)( attrsMod * 1.85 ); break;
 				case CraftResource.HickoryTree: attrsMod = (int)( attrsMod * 2.05 ); break;
-				case CraftResource.MahoganyTree: attrsMod = (int)( attrsMod * 2.25 ); break;
+				/*case CraftResource.MahoganyTree: attrsMod = (int)( attrsMod * 2.25 ); break;
 				case CraftResource.DriftwoodTree: attrsMod = (int)( attrsMod * 2.25 ); break;
 				case CraftResource.OakTree: attrsMod = (int)( attrsMod * 2.45 ); break;
 				case CraftResource.PineTree: attrsMod = (int)( attrsMod * 2.65 ); break;
-				case CraftResource.GhostTree: attrsMod = (int)( attrsMod * 2.65 ); break;
+				case CraftResource.GhostTree: attrsMod = (int)( attrsMod * 2.65 ); break;*/
 				case CraftResource.RosewoodTree: attrsMod = (int)( attrsMod * 2.85 ); break;
-				case CraftResource.WalnutTree: attrsMod = (int)( attrsMod * 3 ); break;
+				/*case CraftResource.WalnutTree: attrsMod = (int)( attrsMod * 3 ); break;*/
 				case CraftResource.ElvenTree: attrsMod = (int)( attrsMod * 6 ); break;
-				case CraftResource.PetrifiedTree: attrsMod = (int)( attrsMod * 3.25 ); break;
+				/*case CraftResource.PetrifiedTree: attrsMod = (int)( attrsMod * 3.25 ); break;*/
 			    }
 
 			    attrsMod -= (50 - bw.UsesRemaining) * 30;
