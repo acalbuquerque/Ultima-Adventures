@@ -14,13 +14,13 @@ namespace Server.Items
 		public LearnWoodBook( ) : base( 0x4C5E )
 		{
 			Weight = 1.0;
-			Name = "Scroll of Various Wood";
+			Name = "Pergaminho do Conhecimento";
 		}
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
 			base.GetProperties( list );
-			list.Add( "A Listing of Wood" );
+			list.Add( "Lenharia e Tipos de madeiras" );
 		}
 
 		public class LearnWoodBookGump : Gump
@@ -72,23 +72,27 @@ namespace Server.Items
 				AddItem(831, 121, 1928);
 				AddItem(807, 83, 4528);
 
-				AddHtml( 170, 70, 600, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>INFORMATION ON VARIOUS TYPES OF WOOD</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 170, 70, 600, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>GUIA SOBRE LENHARIA E OS TIPOS DE MADEIRA</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
 				int i = 135;
 				int o = 32;
 
 				AddItem(100, i, 7137, 0);
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Regular</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Comum</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "ash", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ash</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "cherry", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Cherry</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "ebony", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ebony</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "golden oak", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Golden Oak</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "hickory", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Hickory</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Carvalho Cinza</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+                AddItem(100, i, 7137, MaterialInfo.GetMaterialColor("ebony", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ébano</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+                AddItem(100, i, 7137, MaterialInfo.GetMaterialColor("golden oak", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ipê-Amarelo</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+                AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "cherry", "", 0 ));
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Cerejeira</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+                AddItem(100, i, 7137, MaterialInfo.GetMaterialColor("rosewood", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Pau-Brasil</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+                AddItem(100, i, 7137, MaterialInfo.GetMaterialColor("elven", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Élfica</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+                AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "hickory", "", 0 ));
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Nogueira Branca</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				/*AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "mahogany", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Mahogany</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "oak", "", 0 ));
@@ -97,18 +101,14 @@ namespace Server.Items
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Pine</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ghostwood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;*/
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "rosewood", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Rosewood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				/*AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "walnut", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Walnut</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "petrified", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Petrified</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "driftwood", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Driftwood</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;*/
-				AddItem(100, i, 7137, MaterialInfo.GetMaterialColor( "elven", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Elven</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 
-				AddHtml( 303, 198, 573, 466, @"<BODY><BASEFONT Color=#FCFF00><BIG><br>Lumberjacking is a task carried out long before the mining of ore. You simply need to get an axe, double-click it, and then target a tree to begin chopping. Although you will normally get regular wood, you will eventually get skilled enough to chop other types of wood. With wood you can make arrows, bows, and crossbows with the fletching skill. You can also make furniture, weapons, and armor with the carpentry skill.<br><br>The many types of wood are listed here, starting up and then going down to higher quality wood. Making a shield out of walnut will be a much better shield than one made of ash, for example. The same goes for bows, crossbows, and other weapons made of wood. Whatever the color of wood you use, the weapon, armor, or instrument will retain the color of the wood. The same goes for many of the furniture and containers you can make from wood. A wooden chest made from cherry wood will be red in color.<br><br>In order to make things from the wood, you need to turn the logs into boards. To do this, double-click the logs and target a saw mill. These mills are commonly found in carpenter shops. Then you can begin crafting with a carpentry tool, or fletching with bowyer tools.</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 303, 198, 573, 466, @"<BODY><BASEFONT Color=#FAFAFA><BIG><br>A lenharia é uma tarefa mais antiga que a mineração. Você só precisa de um machado para transformar uma árvore em pedaços ou toras de madeiras. Embora normalmente você obtenha madeira comum, eventualmente, adquirirá a habilidade suficiente para cortar outros tipos de madeira. Existem variados tipos de madeira neste mundo e com elas você pode ser capaz de trabalhar de várias formas, seja com carpintaria ou construção de arcos e flechas.<br><br>Os vários tipos de madeira estão listados aqui por ordem de qualidade e raridade. Entretanto, cada tipo de madeira possui uma qualidade ou propriedade para seus diversos usos, além de possuir uma cor distinta que será mantida na construção do item. <br><br>Para fazer coisas com madeira, você precisa transformar as toras em tábuas. Para fazer isso, clique duas vezes nas toras e selecione uma serraria (são comumente encontrados em carpintarias espalhadas pelas cidades ou você pode ter uma na sua casa). Após obter as tábuas de madeira, você pode começar a trabalhar com uma ferramenta de carpintaria(serra ou martelo) ou de construção de arco/flecha.<br><br>É possível reduzir o peso das toras de madeiras ao se utilizar uma bolsa mágica de madeiras e na habilidade de alquimia existe o processo de transmutação de algumas madeiras e também é possível encontrar alguns raríssimos óleos que causam mutação em itens de madeira.</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 			}
 		}
 
@@ -116,7 +116,7 @@ namespace Server.Items
 		{
 			if ( !IsChildOf( e.Backpack ) ) 
 			{
-				e.SendMessage( "This must be in your backpack to read." );
+				e.SendMessage( "Para ler, isso precisa estar na sua mochila." );
 			}
 			else
 			{
@@ -140,8 +140,8 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 			int version = reader.ReadInt();
-			Name = "Scroll of Various Wood";
-			ItemID = 0x4C5E;
+            Name = "Pergaminho do Conhecimento";
+            ItemID = 0x4C5E;
 		}
 	}
 }

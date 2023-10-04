@@ -14,65 +14,105 @@ namespace Server.Items
 		[Constructable]
 		public LumberjackPouch() : base()
 		{
-			Weight = 1.0;
-			//MaxWeight = 800;
-			MaxItems = 50;
-			Name = "lumberjacks rucksack";
-			Hue = 0x95;
-		}
+            Weight = 1.0;
+            MaxItems = 8;
+            Name = "Bolsa mágica de madeiras";
+            Hue = Utility.RandomList(0x3bf, 1151, 1788, 1912, 1956, 2086, 2114, 2193, 2262);
+        }
 
-		public override bool OnDragDropInto( Mobile from, Item dropped, Point3D p )
+        public override void AddNameProperties(ObjectPropertyList list)
         {
-			if ( dropped is Container && !(dropped is LumberjackPouch) )
-			{
-                from.SendMessage("You can only use another lumberjacks rucksack within this sack.");
-                return false;
-			}
-            else if ( 	dropped is Log || 
-						dropped is AshLog ||
-						dropped is CherryLog ||
-						dropped is EbonyLog ||
-						dropped is GoldenOakLog ||
-						dropped is HickoryLog ||
-						/*dropped is MahoganyLog ||
-						dropped is OakLog ||
-						dropped is PineLog ||*/
-						dropped is RosewoodLog ||
-						/*dropped is WalnutLog ||
-						dropped is DriftwoodLog ||
-						dropped is GhostLog ||
-						dropped is PetrifiedLog ||*/
-						dropped is ElvenLog )
-			{
-				return base.OnDragDropInto(from, dropped, p);
-			}
-			else
+
+            base.AddNameProperties(list);
+
+            list.Add("Esta bolsa reduz o peso das toras de madeiras pela metade.");
+        }
+
+        public override void Open(Mobile from)
+        {
+            double totalWeight = TotalItemWeights() * (0.5);
+            if (totalWeight > (int)MaxWeight)
             {
-                from.SendMessage("This rucksack is for lumber.");
-                return false;
+
+                foreach (Item item in Items)
+                {
+                    from.AddToBackpack(item);
+                    //item.Delete();
+                    break;
+                }
+                from.SendMessage(55, "Você percebe que a bolsa está com o peso máximo suportado e remove algum item antes que ela rasgue.");
+            }
+            else
+            {
+                DisplayTo(from);
+            }
+        }
+
+        public override bool OnDragDropInto( Mobile from, Item dropped, Point3D p )
+        {
+            if ( addItems(from, dropped) ) 
+            {
+                Open(from);
+                return base.OnDragDropInto(from, dropped, p);
             }
 
-            return base.OnDragDropInto(from, dropped, p);
+            return false;
         }
 
 		public override bool OnDragDrop( Mobile from, Item dropped )
         {
-			if ( dropped is Container && !(dropped is LumberjackPouch) )
-			{
-                from.SendMessage("You can only use another lumberjacks rucksack within this sack.");
-                return false;
-			}
-            else if ( dropped is Log || dropped is AshLog || dropped is CherryLog || dropped is EbonyLog || dropped is GoldenOakLog || dropped is HickoryLog || /*dropped is MahoganyLog || dropped is OakLog || dropped is PineLog ||*/ dropped is RosewoodLog ||/* dropped is WalnutLog || dropped is DriftwoodLog || dropped is GhostLog || dropped is PetrifiedLog ||*/ dropped is ElvenLog )
-			{
-				return base.OnDragDrop(from, dropped);
-			}
-			else
+            if (addItems(from, dropped)) 
             {
-                from.SendMessage("This rucksack is for lumber.");
-                return false;
+                Open(from);
+                return base.OnDragDrop(from, dropped);
             }
 
-            return base.OnDragDrop(from, dropped);
+            return false;
+        }
+
+		private bool addItems(Mobile from, Item dropped) 
+		{
+            int totalItems = TotalItems();
+            int maxItems = MaxItems;
+            double totalWeight = TotalItemWeights() * (0.5);
+            int itemPlusBagWeight = (int)(totalWeight + ((dropped.Weight * dropped.Amount) * 0.5));
+            //from.SendMessage(33, "Item+Bag : " + itemPlusBagWeight);
+            if (itemPlusBagWeight > (int)MaxWeight)
+            {
+                from.SendMessage(55, "Adicionar este item na bolsa irá ultrapassar o peso máximo suportado.");
+                return false;
+            }
+            else if (totalItems > maxItems)
+            {
+                from.SendMessage(55, "A bolsa já está cheia de itens.");
+                return false;
+            }
+            else
+            {
+                if (dropped is Log ||
+                        dropped is AshLog ||
+                        dropped is CherryLog ||
+                        dropped is EbonyLog ||
+                        dropped is GoldenOakLog ||
+                        dropped is HickoryLog ||
+                        /*dropped is MahoganyLog ||
+						dropped is OakLog ||
+						dropped is PineLog ||*/
+                        dropped is RosewoodLog ||
+                        /*dropped is WalnutLog ||
+						dropped is DriftwoodLog ||
+						dropped is GhostLog ||
+						dropped is PetrifiedLog ||*/
+                        dropped is ElvenLog)
+                {
+                    return true; 
+                }
+                else
+                {
+                    from.SendMessage(55, "Esta bolsa serve apenas para guardar toras de madeira.");
+                    return false;
+                }
+            }
         }
 
 		public LumberjackPouch( Serial serial ) : base( serial )
@@ -90,9 +130,9 @@ namespace Server.Items
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
 			Weight = 1.0;
-			MaxItems = 50;
-			Name = "lumberjacks rucksack";
-		}
+			MaxItems = 8;
+            Name = "Bolsa mágica de madeiras";
+        }
 
 		public override int GetTotal(TotalType type)
         {
@@ -121,5 +161,15 @@ namespace Server.Items
 
 			return weight;
         }
-	}
+
+        private int TotalItems()
+        {
+            int total = 1;
+
+            foreach (Item item in Items)
+                total += 1;
+
+            return total;
+        }
+    }
 }

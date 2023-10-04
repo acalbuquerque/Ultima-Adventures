@@ -255,7 +255,8 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-		}
+            Weight = 3.0;
+        }
 		public override BaseWoodBoard GetLog()
 		{
 			return new Board();
@@ -283,7 +284,8 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 			int version = reader.ReadInt();
-		}
+            Weight = 3.0;
+        }
 		public override BaseWoodBoard GetLog()
 		{
 			return new AshBoard();
@@ -311,6 +313,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
+            Weight = 4.0;
         }
         public override BaseWoodBoard GetLog()
         {
@@ -339,6 +342,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
+            Weight = 3.0;
         }
         public override BaseWoodBoard GetLog()
         {
@@ -368,7 +372,8 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-		}
+            Weight = 5.0;
+        }
 		public override BaseWoodBoard GetLog()
 		{
 			return new GoldenOakBoard();
@@ -396,6 +401,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
+            Weight = 4.0;
         }
         public override BaseWoodBoard GetLog()
         {
@@ -424,6 +430,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
+            Weight = 5.0;
         }
         public override BaseWoodBoard GetLog()
         {
@@ -452,6 +459,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
+            Weight = 5.0;
         }
         public override BaseWoodBoard GetLog()
         {

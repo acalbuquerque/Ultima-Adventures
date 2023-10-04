@@ -22,26 +22,22 @@ namespace Server.Items
 			Stackable = true;
 			Amount = amount;
 
-			switch ( Utility.RandomMinMax( 0, 10 ) )
+			switch ( Utility.RandomMinMax( 0, 6 ) )
 			{
-				case 0:		Name = "oil of wood polish ( oak )";			Hue = MaterialInfo.GetMaterialColor( "oak", "", 0 ); break;
-				case 1:		Name = "oil of wood polish ( ash )";			Hue = MaterialInfo.GetMaterialColor( "ash", "", 0 ); break;
-				case 2:		Name = "oil of wood polish ( cherry )";			Hue = MaterialInfo.GetMaterialColor( "cherry", "", 0 ); break;
-				case 3:		Name = "oil of wood polish ( walnut )";			Hue = MaterialInfo.GetMaterialColor( "walnut", "", 0 ); break;
-				case 4:		Name = "oil of wood polish ( golden oak )";		Hue = MaterialInfo.GetMaterialColor( "golden oak", "", 0 ); break;
-				case 5:		Name = "oil of wood polish ( ebony )";			Hue = MaterialInfo.GetMaterialColor( "ebony", "", 0 ); break;
-				case 6:		Name = "oil of wood polish ( hickory )";		Hue = MaterialInfo.GetMaterialColor( "hickory", "", 0 ); break;
-				case 7:		Name = "oil of wood polish ( pine )";			Hue = MaterialInfo.GetMaterialColor( "pine", "", 0 ); break;
-				case 8:		Name = "oil of wood polish ( rosewood )";		Hue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 ); break;
-				case 9:		Name = "oil of wood polish ( mahogany )";		Hue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 ); break;
-				case 10:	Name = "oil of wood polish ( driftwood )";		Hue = MaterialInfo.GetMaterialColor( "driftwood", "", 0 ); break;
-			}
+				case 0:		Name = "óleo mutagênico ( Carvalho cinza )";	Hue = MaterialInfo.GetMaterialColor( "ash", "", 0 ); break;
+				case 1:		Name = "óleo mutagênico ( Cerejeira )";		Hue = MaterialInfo.GetMaterialColor( "cherry", "", 0 ); break;
+				case 2:		Name = "óleo mutagênico ( Ipê-amarelo )";	Hue = MaterialInfo.GetMaterialColor( "golden oak", "", 0 ); break;
+				case 3:		Name = "óleo mutagênico ( Ébano )";			Hue = MaterialInfo.GetMaterialColor( "ebony", "", 0 ); break;
+				case 4:		Name = "óleo mutagênico ( Nogueira Branca )"; Hue = MaterialInfo.GetMaterialColor( "hickory", "", 0 ); break;
+				case 5:		Name = "óleo mutagênico ( Pau-Brasil )";		Hue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 ); break;
+                case 6:		Name = "óleo mutagênico ( Élfica )";			Hue = MaterialInfo.GetMaterialColor( "elven", "", 0); break;
+            }
 		}
 
 		public override void AddNameProperties( ObjectPropertyList list )
 		{
 			base.AddNameProperties( list );
-			list.Add( 1070722, "Rub On Wooden Weapons or Armor" );
+			list.Add( 1070722, "Esfregue em armas ou armaduras de madeira");
 		}
 
 		public override void OnDoubleClick( Mobile from )
@@ -52,15 +48,15 @@ namespace Server.Items
 			{
 				from.SendLocalizedMessage( 1060640 ); // The item must be in your backpack to use it.
 			}
-			else if ( from.Skills[SkillName.Carpentry].Base >= 90 || from.Skills[SkillName.Fletching].Base >= 90 )
+			else if ( from.Skills[SkillName.Carpentry].Base >= 100 || from.Skills[SkillName.Fletching].Base >= 100 )
 			{
-				from.SendMessage( "What do you want to use the oil on?" );
+				from.SendMessage(55, "Onde você deseja aplicar esse óleo?" );
 				t = new OilTarget( this );
 				from.Target = t;
 			}
 			else
 			{
-				from.SendMessage( "Only a master carpenter or fletcher can use this oil." );
+				from.SendMessage(55, "Somente um grande mestre carpinteiro ou grande mestre flecheiro pode usar este óleo.");
 			}
 		}
 
@@ -80,7 +76,7 @@ namespace Server.Items
 
 				if ( from.Backpack.FindItemByType( typeof ( OilCloth ) ) == null )
 				{
-					from.SendMessage( "You need an oil cloth to apply this." );
+					from.SendMessage(55, "Você precisa de um pano para óleos para aplicar isso.");
 				}
 				else if ( iOil is BaseWeapon )
 				{
@@ -88,23 +84,25 @@ namespace Server.Items
 
 					if ( !iOil.IsChildOf( from.Backpack ) )
 					{
-						from.SendMessage( "You can only use this oil on items in your pack." );
+						from.SendMessage(55, "Você só pode usar este óleo nos itens da sua mochila.");
 					}
 					else if ( iOil.IsChildOf( from.Backpack ) && MaterialInfo.IsWoodenItem( iOil ) )
 					{
-						/*if ( m_Oil.Name == "oil of wood polish ( oak )" ) { xOil.Resource = CraftResource.OakTree; }*/
-						if ( m_Oil.Name == "óleo de polidor de madeira ( jacarandá )") { xOil.Resource = CraftResource.AshTree; }
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( cerejeira )") { xOil.Resource = CraftResource.CherryTree; }
-						/*else if ( m_Oil.Name == "oil of wood polish ( walnut )" ) { xOil.Resource = CraftResource.WalnutTree; }*/
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( carvalho dourado )") { xOil.Resource = CraftResource.GoldenOakTree; }
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( ébano )") { xOil.Resource = CraftResource.EbonyTree; }
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( hickory )") { xOil.Resource = CraftResource.HickoryTree; }
-						/*else if ( m_Oil.Name == "oil of wood polish ( pine )" ) { xOil.Resource = CraftResource.PineTree; }*/
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( pau-brasil )") { xOil.Resource = CraftResource.RosewoodTree; }
-						/*else if ( m_Oil.Name == "oil of wood polish ( mahogany )" ) { xOil.Resource = CraftResource.MahoganyTree; }
+						
+						if ( m_Oil.Hue == MaterialInfo.GetMaterialColor("ash", "", 0) ) { xOil.Resource = CraftResource.AshTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("ebony", "", 0) ) { xOil.Resource = CraftResource.EbonyTree; }
+						else if ( m_Oil.Hue == MaterialInfo.GetMaterialColor("golden oak", "", 0) ) { xOil.Resource = CraftResource.GoldenOakTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("cherry", "", 0) ) { xOil.Resource = CraftResource.CherryTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("rosewood", "", 0) ) { xOil.Resource = CraftResource.RosewoodTree; }
+                        else if ( m_Oil.Hue == MaterialInfo.GetMaterialColor("hickory", "", 0) ) { xOil.Resource = CraftResource.HickoryTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("elven", "", 0) ) { xOil.Resource = CraftResource.ElvenTree; }
+                        /*if ( m_Oil.Name == "oil of wood polish ( oak )" ) { xOil.Resource = CraftResource.OakTree; }*/
+                        /*else if ( m_Oil.Name == "oil of wood polish ( walnut )" ) { xOil.Resource = CraftResource.WalnutTree; }*/
+                        /*else if ( m_Oil.Name == "oil of wood polish ( pine )" ) { xOil.Resource = CraftResource.PineTree; }*/
+                        /*else if ( m_Oil.Name == "oil of wood polish ( mahogany )" ) { xOil.Resource = CraftResource.MahoganyTree; }
 						else if ( m_Oil.Name == "oil of wood polish ( driftwood )" ) { xOil.Resource = CraftResource.DriftwoodTree; }*/
 
-						from.RevealingAction();
+                        from.RevealingAction();
 						from.PlaySound( 0x23E );
 						from.AddToBackpack( new Bottle() );
 						m_Oil.Consume();
@@ -112,7 +110,7 @@ namespace Server.Items
 					}
 					else
 					{
-						from.SendMessage( "You cannot rub this oil on that." );
+						from.SendMessage(55, "Você não pode esfregar esse óleo nisso.");
 					}
 				}
 				else if ( iOil is BaseArmor )
@@ -121,23 +119,24 @@ namespace Server.Items
 
 					if ( !iOil.IsChildOf( from.Backpack ) )
 					{
-						from.SendMessage( "You can only use this oil on items in your pack." );
+						from.SendMessage(55, "Você só pode usar este óleo nos itens da sua mochila.");
 					}
 					else if ( iOil.IsChildOf( from.Backpack ) && MaterialInfo.IsWoodenItem( iOil ) )
 					{
-						/*if ( m_Oil.Name == "oil of wood polish ( oak )" ){ xOil.Resource = CraftResource.OakTree; }*/
-						if ( m_Oil.Name == "óleo de polidor de madeira ( jacarandá )") { xOil.Resource = CraftResource.AshTree; }
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( cerejeira )") { xOil.Resource = CraftResource.CherryTree; }
-						/*else if ( m_Oil.Name == "oil of wood polish ( walnut )" ){ xOil.Resource = CraftResource.WalnutTree; }*/
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( carvalho dourado )") { xOil.Resource = CraftResource.GoldenOakTree; }
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( ébano )") { xOil.Resource = CraftResource.EbonyTree; }
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( hickory )") { xOil.Resource = CraftResource.HickoryTree; }
-						/*else if ( m_Oil.Name == "oil of wood polish ( pine )" ){ xOil.Resource = CraftResource.PineTree; }*/
-						else if ( m_Oil.Name == "óleo de polidor de madeira ( pau-brasil )") { xOil.Resource = CraftResource.RosewoodTree; }
-						/*else if ( m_Oil.Name == "oil of wood polish ( mahogany )" ){ xOil.Resource = CraftResource.MahoganyTree; }
-						else if ( m_Oil.Name == "oil of wood polish ( driftwood )" ){ xOil.Resource = CraftResource.DriftwoodTree; }*/
+                        if (m_Oil.Hue == MaterialInfo.GetMaterialColor("ash", "", 0)) { xOil.Resource = CraftResource.AshTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("ebony", "", 0)) { xOil.Resource = CraftResource.EbonyTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("golden oak", "", 0)) { xOil.Resource = CraftResource.GoldenOakTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("cherry", "", 0)) { xOil.Resource = CraftResource.CherryTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("rosewood", "", 0)) { xOil.Resource = CraftResource.RosewoodTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("hickory", "", 0)) { xOil.Resource = CraftResource.HickoryTree; }
+                        else if (m_Oil.Hue == MaterialInfo.GetMaterialColor("elven", "", 0)) { xOil.Resource = CraftResource.ElvenTree; }
+                        /*if ( m_Oil.Name == "oil of wood polish ( oak )" ) { xOil.Resource = CraftResource.OakTree; }*/
+                        /*else if ( m_Oil.Name == "oil of wood polish ( walnut )" ) { xOil.Resource = CraftResource.WalnutTree; }*/
+                        /*else if ( m_Oil.Name == "oil of wood polish ( pine )" ) { xOil.Resource = CraftResource.PineTree; }*/
+                        /*else if ( m_Oil.Name == "oil of wood polish ( mahogany )" ) { xOil.Resource = CraftResource.MahoganyTree; }
+						else if ( m_Oil.Name == "oil of wood polish ( driftwood )" ) { xOil.Resource = CraftResource.DriftwoodTree; }*/
 
-						from.RevealingAction();
+                        from.RevealingAction();
 						from.PlaySound( 0x23E );
 						from.AddToBackpack( new Bottle() );
 						m_Oil.Consume();
@@ -145,13 +144,13 @@ namespace Server.Items
 					}
 					else
 					{
-						from.SendMessage( "You cannot rub this oil on that." );
-					}
+                        from.SendMessage(55, "Você não pode esfregar esse óleo nisso.");
+                    }
 				}
 				else
 				{
-					from.SendMessage( "You cannot rub this oil on that." );
-				}
+                    from.SendMessage(55, "Você não pode esfregar esse óleo nisso.");
+                }
 			}
 		}
 

@@ -908,14 +908,14 @@ namespace Server.Items
 
 		private static CraftResourceInfo[] m_WoodInfo = new CraftResourceInfo[]
 			{
-				new CraftResourceInfo( 0x000, 													1011542,	"Normal",		CraftAttributeInfo.Blank,			CraftResource.RegularWood,		typeof( Log ),			typeof( Board ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ash", "", 0 ),			1095399,	"Ash",			CraftAttributeInfo.AshTree,			CraftResource.AshTree,			typeof( AshLog ),		typeof( AshBoard ) ),
-				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ebony", "", 0 ),			1095401,	"Ebony",		CraftAttributeInfo.EbonyTree,		CraftResource.EbonyTree,		typeof( EbonyLog ),		typeof( EbonyBoard ) ),
-                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "elven", "", 0 ),         1095537,    "Elven",        CraftAttributeInfo.ElvenTree,       CraftResource.ElvenTree,        typeof( ElvenLog ),     typeof( ElvenBoard ) ),
-                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "golden oak", "", 0 ),	1095402,	"Golden Oak",	CraftAttributeInfo.GoldenOakTree,	CraftResource.GoldenOakTree,	typeof( GoldenOakLog ),	typeof( GoldenOakBoard ) ),
-                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "cherry", "", 0 ),        1095400,    "Cherry",       CraftAttributeInfo.CherryTree,      CraftResource.CherryTree,       typeof( CherryLog ),    typeof( CherryBoard ) ),
-                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "rosewood", "", 0 ),      1095407,    "Rosewood",     CraftAttributeInfo.RosewoodTree,    CraftResource.RosewoodTree,     typeof( RosewoodLog ),  typeof( RosewoodBoard ) ),
-                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "hickory", "", 0 ),       1095403,    "Hickory",      CraftAttributeInfo.HickoryTree,     CraftResource.HickoryTree,      typeof( HickoryLog ),   typeof( HickoryBoard ) )
+				new CraftResourceInfo( 0x000, 													1011542,	"Regular",		CraftAttributeInfo.Blank,			CraftResource.RegularWood,		typeof( Log ),			typeof( Board ) ),
+				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ash", "", 0 ),			1095399,	"Carvalho Cinza",			CraftAttributeInfo.AshTree,			CraftResource.AshTree,			typeof( AshLog ),		typeof( AshBoard ) ),
+				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "ebony", "", 0 ),			1095401,	"Ébano",		CraftAttributeInfo.EbonyTree,		CraftResource.EbonyTree,		typeof( EbonyLog ),		typeof( EbonyBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "elven", "", 0 ),         1095537,    "Élfica",        CraftAttributeInfo.ElvenTree,       CraftResource.ElvenTree,        typeof( ElvenLog ),     typeof( ElvenBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "golden oak", "", 0 ),	1095402,	"Ipê-Amarelo",	CraftAttributeInfo.GoldenOakTree,	CraftResource.GoldenOakTree,	typeof( GoldenOakLog ),	typeof( GoldenOakBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "cherry", "", 0 ),        1095400,    "Cerejeira",       CraftAttributeInfo.CherryTree,      CraftResource.CherryTree,       typeof( CherryLog ),    typeof( CherryBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "rosewood", "", 0 ),      1095407,    "Pau-Brasil",     CraftAttributeInfo.RosewoodTree,    CraftResource.RosewoodTree,     typeof( RosewoodLog ),  typeof( RosewoodBoard ) ),
+                new CraftResourceInfo( MaterialInfo.GetMaterialColor( "hickory", "", 0 ),       1095403,    "Nogueira Branca",      CraftAttributeInfo.HickoryTree,     CraftResource.HickoryTree,      typeof( HickoryLog ),   typeof( HickoryBoard ) )
 				/*new CraftResourceInfo( MaterialInfo.GetMaterialColor( "mahogany", "", 0 ),		1095404,	"Mahogany",		CraftAttributeInfo.MahoganyTree,	CraftResource.MahoganyTree,		typeof( MahoganyLog ),	typeof( MahoganyBoard ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "oak", "", 0 ),			1095405,	"Oak",			CraftAttributeInfo.OakTree,			CraftResource.OakTree,			typeof( OakLog ),		typeof( OakBoard ) ),
 				new CraftResourceInfo( MaterialInfo.GetMaterialColor( "pine", "", 0 ),			1095406,	"Pine",			CraftAttributeInfo.PineTree,		CraftResource.PineTree,			typeof( PineLog ),		typeof( PineBoard ) ),

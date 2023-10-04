@@ -11,13 +11,15 @@ namespace Server.Items
 		[Constructable]
 		public DrawKnife() : base( 0x10E4 )
 		{
-			Weight = 1.0;
+            Name = "faca de tanoeiro";
+            Weight = 2.0;
 		}
 
 		[Constructable]
 		public DrawKnife( int uses ) : base( uses, 0x10E4 )
 		{
-			Weight = 1.0;
+            Name = "faca de tanoeiro";
+            Weight = 2.0;
 		}
 
 		public DrawKnife( Serial serial ) : base( serial )

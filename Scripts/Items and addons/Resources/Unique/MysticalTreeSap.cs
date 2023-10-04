@@ -18,13 +18,13 @@ namespace Server.Items
 			Stackable = true;
 			Amount = amount;
 			Hue = 0x5DD;
-			Name = "mystical tree sap";
+			Name = "seiva de árvore mística";
 		}
 
 		public override void AddNameProperties( ObjectPropertyList list )
 		{
 			base.AddNameProperties( list );
-			list.Add( 1070722, "Glues Wooden Pieces Together" );
+			list.Add( 1070722, "Cola peças de madeira");
 		}
 
 		public MysticalTreeSap( Serial serial ) : base( serial )

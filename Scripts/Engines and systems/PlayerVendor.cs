@@ -1627,9 +1627,9 @@ namespace Server.Mobiles
 		private static string GetItemName( Item item )
 		{
 		    string Label = item.Name;
-		    TextInfo cultInfo = new CultureInfo("en-US", false).TextInfo;
+		    TextInfo cultInfo = new CultureInfo("pt-BR", false).TextInfo;
 		    if ( Label != null && Label != "" ){} else { Label = MorphingItem.AddSpacesToSentence( (item.GetType()).Name ); }
-		    if ( Server.Misc.MaterialInfo.GetMaterialName( item ) != "" ){ Label = Server.Misc.MaterialInfo.GetMaterialName( item ) + " " + item.Name; }
+		    if ( Server.Misc.MaterialInfo.GetMaterialName( item ) != "" ){ Label = item.Name  + " (" + Server.Misc.MaterialInfo.GetMaterialName(item) + ")"; }
 		    Label = cultInfo.ToTitleCase(Label);
 
 		    return Label;

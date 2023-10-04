@@ -13,7 +13,7 @@ namespace Server.Items
 		public GodSmithing() : base( 0x0FB4 )
 		{
 			Weight = 20.0;
-			Name = "Magical Golden Smithing Hammer";
+			Name = "Martelo de Metalurgia Divina";
 			UsesRemaining = 10;
 			Hue = 0x501;
 		}
@@ -22,16 +22,16 @@ namespace Server.Items
 		public GodSmithing( int uses ) : base( uses, 0x0FB4 )
 		{
 			Weight = 20.0;
-			Name = "Magical Golden Smithing Hammer";
-			UsesRemaining = 10;
+			Name = "Martelo de Metalurgia Divina";
+            UsesRemaining = 10;
 		}
 
         public override void AddNameProperties(ObjectPropertyList list)
 		{
             base.AddNameProperties(list);
 
-			list.Add( 1070722, "The Legendary Smithing Hammer");
-			list.Add( 1049644, "Can Only Be Used At The Dragon Head Forge");
+			list.Add( 1070722, "O Lendário Martelo de Metalurgia");
+			list.Add( 1049644, "Só pode ser usado na forja do dragão");
         } 
 
 		public GodSmithing( Serial serial ) : base( serial )
@@ -59,7 +59,7 @@ namespace Server.Items
 		public GodSewing() : base( 0x0F9F )
 		{
 			Weight = 2.0;
-			Name = "Magical Golden Scissors";
+			Name = "Tesoura Divina";
 			UsesRemaining = 10;
 			Hue = 0x501;
 		}
@@ -68,16 +68,16 @@ namespace Server.Items
 		public GodSewing( int uses ) : base( uses, 0x0F9F )
 		{
 			Weight = 2.0;
-			Name = "Magical Golden Scissors";
-			UsesRemaining = 10;
+            Name = "Tesoura Divina";
+            UsesRemaining = 10;
 		}
 
         public override void AddNameProperties(ObjectPropertyList list)
 		{
             base.AddNameProperties(list);
 
-			list.Add( 1070722, "The Legendary Sewing Scissors");
-			list.Add( 1049644, "Can Only Be Used At The Enchanted Spinning Wheel");
+			list.Add( 1070722, "A lendária tesoura de costura dos deuses");
+			list.Add( 1049644, "Só pode ser usado na roda giratória encantada");
         } 
 
 		public GodSewing( Serial serial ) : base( serial )
@@ -104,7 +104,7 @@ namespace Server.Items
 		public GodBrewing() : base( 0x0E28 )
 		{
 			Weight = 2.0;
-			Name = "Magical Golden Alchemy Bottle";
+			Name = "Garrafa Divina de Alquimia";
 			UsesRemaining = 10;
 			Hue = 0x501;
 		}
@@ -113,16 +113,16 @@ namespace Server.Items
 		public GodBrewing( int uses ) : base( uses, 0x0E28 )
 		{
 			Weight = 2.0;
-			Name = "Magical Golden Alchemy Bottle";
-			UsesRemaining = 10;
+			Name = "Garrafa Divina de Alquimia";
+            UsesRemaining = 10;
 		}
 
         public override void AddNameProperties(ObjectPropertyList list)
 		{
             base.AddNameProperties(list);
 
-			list.Add( 1070722, "The Legendary Alchemy Bottle");
-			list.Add( 1049644, "Can Only Be Used At The Golden Alchemist");
+			list.Add( 1070722, "A lendária garrafa de alquimia");
+			list.Add( 1049644, "Só pode ser usado no Santuário de Alquimia");
         } 
 
 		public GodBrewing( Serial serial ) : base( serial )

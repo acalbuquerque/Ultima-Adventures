@@ -84,12 +84,12 @@ namespace Server.Engines.Craft
 			int index = -1;
 
 			// Materials
-			AddCraft( typeof( Kindling ), 1044457, 1023553, 0.0, 00.0, typeof( Log ), 1015101, 1, 1044351 );
+			AddCraft( typeof( Kindling ), 1044457, "gravetos", 0.0, 05.0, typeof( Log ), 1015101, 1, 1044351 );
 
-			index = AddCraft( typeof( Kindling ), 1044457, "batch of kindling", 0.0, 00.0, typeof( Log ), 1015101, 1, 1044351 );
+			index = AddCraft( typeof( Kindling ), 1044457, "lote de gravetos", 5.0, 10.0, typeof( Log ), 1015101, 1, 1044351 );
 			SetUseAllRes( index, true );
 
-			index = AddCraft( typeof( Shaft ), 1044457, 1027124, 0.0, 40.0, typeof( Log ), 1015101, 1, 1044351 );
+			index = AddCraft( typeof( Shaft ), 1044457, 1027124, 0.0, 30.0, typeof( Log ), 1015101, 1, 1044351 );
 			SetUseAllRes( index, true );
 
 			// Ammunition
@@ -107,7 +107,6 @@ namespace Server.Engines.Craft
 				SetUseAllRes( index, true );
                 index = AddCraft(typeof(ThrowingWeapon), 1044565, 1044117, 0.0, 40.0, typeof(IronIngot), 1074904, 1, 1044037);
                 SetUseAllRes(index, true);
-
             }
 
 			// Weapons

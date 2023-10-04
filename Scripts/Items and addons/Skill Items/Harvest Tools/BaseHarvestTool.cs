@@ -5,6 +5,8 @@ using Server.Network;
 using Server.Engines.Craft;
 using Server.Engines.Harvest;
 using Server.ContextMenus;
+using Server.Misc;
+using System.Globalization;
 
 namespace Server.Items
 {
@@ -19,15 +21,23 @@ namespace Server.Items
 		private Mobile m_Crafter;
 		private ToolQuality m_Quality;
 		private int m_UsesRemaining;
+        private CraftResource m_Resource;
 
-		[CommandProperty( AccessLevel.GameMaster )]
+        [CommandProperty( AccessLevel.GameMaster )]
 		public Mobile Crafter
 		{
 			get{ return m_Crafter; }
 			set{ m_Crafter = value; InvalidateProperties(); }
 		}
 
-		[CommandProperty( AccessLevel.GameMaster )]
+        [CommandProperty(AccessLevel.GameMaster)]
+        public CraftResource Resource
+        {
+            get { return m_Resource; }
+            set { /*UnscaleDurability();*/ m_Resource = value; Hue = CraftResources.GetHue(m_Resource); InvalidateProperties(); /*ScaleDurability();*/ }
+        }
+
+        [CommandProperty( AccessLevel.GameMaster )]
 		public ToolQuality Quality
 		{
 			get{ return m_Quality; }
@@ -67,8 +77,8 @@ namespace Server.Items
 		public BaseHarvestTool( int itemID ) : this( 50, itemID )
 		{
 		}
-
-		public BaseHarvestTool( int usesRemaining, int itemID ) : base( itemID )
+        public virtual CraftResource DefaultResource { get { return CraftResource.Iron; } }
+        public BaseHarvestTool( int usesRemaining, int itemID ) : base( itemID )
 		{
 			m_UsesRemaining = usesRemaining;
 			m_Quality = ToolQuality.Regular;
@@ -76,19 +86,32 @@ namespace Server.Items
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
-			base.GetProperties( list );
 
-			// Makers mark not displayed on OSI
-			//if ( m_Crafter != null )
-			//	list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
+            #region [Item Name Color]
+
+            base.GetProperties(list);
+
+            string resourceName = CraftResources.GetName(m_Resource);
+            // Makers mark not displayed on OSI - FUCKOF OSI!
+            if ( m_Crafter != null )
+                list.Add(1050043, ItemNameHue.UnifiedItemProps.SetColor(m_Crafter.Name, "#8be4fc"));
+            //list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
 
 			if ( m_Quality == ToolQuality.Exceptional )
-				list.Add( 1060636 ); // exceptional
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor("Excepcional", "#ffe066"));
+            //list.Add( 1060636 ); // exceptional
 
-			list.Add( 1060584, m_UsesRemaining.ToString() ); // uses remaining: ~1_val~
-		}
+            if (resourceName != "")
+            {
+                //list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, ((m_Quality == ArmorQuality.Exceptional) ? "Exceptional " : "") + "{0}\t{1}"), resourceName, GetNameString());
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor(resourceName, "#8be4fc"));
+            }
 
-		public virtual void DisplayDurabilityTo( Mobile m )
+            list.Add( 1060584, m_UsesRemaining.ToString() ); // uses remaining: ~1_val~
+            #endregion
+        }
+
+        public virtual void DisplayDurabilityTo( Mobile m )
 		{
 			LabelToAffix( m, 1017323, AffixType.Append, ": " + m_UsesRemaining.ToString() ); // Durability
 		}
@@ -196,43 +219,54 @@ namespace Server.Items
 		{
 		}
 
-		public override void Serialize( GenericWriter writer )
+        #region Serialization/Deserialization
+        private static void SetSaveFlag(ref SaveFlag flags, SaveFlag toSet, bool setIf)
+        {
+            if (setIf)
+                flags |= toSet;
+        }
+
+        private static bool GetSaveFlag(SaveFlag flags, SaveFlag toGet)
+        {
+            return ((flags & toGet) != 0);
+        }
+
+        [Flags]
+        private enum SaveFlag
+        {
+            None = 0x00000000,
+            Quality = 0x00000008,
+            Crafter = 0x00000200,
+            Resource = 0x00800000,
+        }
+
+        public override void Serialize( GenericWriter writer )
 		{
 			base.Serialize( writer );
 
 			writer.Write( (int) 1 ); // version
 
-			writer.Write( (Mobile) m_Crafter );
-			writer.Write( (int) m_Quality );
-
-			writer.Write( (int) m_UsesRemaining );
-		}
+            writer.Write(m_Crafter);
+            writer.WriteEncodedInt((int)m_Quality);
+            writer.WriteEncodedInt((int)m_Resource);
+            writer.WriteEncodedInt((int)UsesRemaining);
+        }
 
 		public override void Deserialize( GenericReader reader )
 		{
 			base.Deserialize( reader );
 
 			int version = reader.ReadInt();
+            m_Crafter = reader.ReadMobile();
+            m_Quality = (ToolQuality)reader.ReadEncodedInt();
+            m_Resource = (CraftResource)reader.ReadEncodedInt();
+            UsesRemaining = reader.ReadEncodedInt();
+        }
+        #endregion
 
-			switch ( version )
-			{
-				case 1:
-				{
-					m_Crafter = reader.ReadMobile();
-					m_Quality = (ToolQuality) reader.ReadInt();
-					goto case 0;
-				}
-				case 0:
-				{
-					m_UsesRemaining = reader.ReadInt();
-					break;
-				}
-			}
-		}
+        #region ICraftable Members
 
-		#region ICraftable Members
-
-		public int OnCraft( int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue )
+        public int OnCraft( int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue )
 		{
 			Quality = (ToolQuality)quality;
 

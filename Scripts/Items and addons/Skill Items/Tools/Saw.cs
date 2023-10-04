@@ -13,13 +13,15 @@ namespace Server.Items
 		public Saw() : base( 0x1034 )
 		{
 			Weight = 2.0;
-		}
+            Name = "serrote";
+        }
 
 		[Constructable]
 		public Saw( int uses ) : base( uses, 0x1034 )
 		{
 			Weight = 2.0;
-		}
+            Name = "serrote";
+        }
 
 		public Saw( Serial serial ) : base( serial )
 		{

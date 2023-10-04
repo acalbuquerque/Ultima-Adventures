@@ -17,108 +17,123 @@ namespace Server.Misc
 		{
 			string material = "";
 
-			if ( item is BaseWeapon )
+			if (item is BaseWeapon)
 			{
 				BaseWeapon weapon = (BaseWeapon)item;
 
-				if ( weapon.Resource == CraftResource.DullCopper ){ material = "dull copper"; }
-				else if ( weapon.Resource == CraftResource.ShadowIron ){ material = "shadow iron"; }
-				else if ( weapon.Resource == CraftResource.Copper ){ material = "copper"; }
-				else if ( weapon.Resource == CraftResource.Bronze ){ material = "bronze"; }
-				else if ( weapon.Resource == CraftResource.Platinum ){ material = "platinum"; }
-                else if (weapon.Resource == CraftResource.Gold) { material = "golden"; }
-                else if ( weapon.Resource == CraftResource.Agapite ){ material = "agapite"; }
-				else if ( weapon.Resource == CraftResource.Verite ){ material = "verite"; }
-				else if ( weapon.Resource == CraftResource.Valorite ){ material = "valorite"; }
-                else if ( weapon.Resource == CraftResource.Titanium) { material = "titanium"; }
-                else if (weapon.Resource == CraftResource.Rosenium) { material = "rosenium"; }
-                else if ( weapon.Resource == CraftResource.Steel ){ material = "steel"; }
-				else if ( weapon.Resource == CraftResource.Brass ){ material = "brass"; }
-				else if ( weapon.Resource == CraftResource.Mithril ){ material = "mithril"; }
-				else if ( weapon.Resource == CraftResource.Xormite ){ material = "xormite"; }
-				else if ( weapon.Resource == CraftResource.Obsidian ){ material = "obsidian"; }
-				else if ( weapon.Resource == CraftResource.Nepturite ){ material = "nepturite"; }
-				else if ( weapon.Resource == CraftResource.Dwarven ){ material = "dwarven"; }
+				if (weapon.Resource == CraftResource.DullCopper) { material = "dull copper"; }
+				else if (weapon.Resource == CraftResource.ShadowIron) { material = "shadow iron"; }
+				else if (weapon.Resource == CraftResource.Copper) { material = "copper"; }
+				else if (weapon.Resource == CraftResource.Bronze) { material = "bronze"; }
+				else if (weapon.Resource == CraftResource.Platinum) { material = "platinum"; }
+				else if (weapon.Resource == CraftResource.Gold) { material = "golden"; }
+				else if (weapon.Resource == CraftResource.Agapite) { material = "agapite"; }
+				else if (weapon.Resource == CraftResource.Verite) { material = "verite"; }
+				else if (weapon.Resource == CraftResource.Valorite) { material = "valorite"; }
+				else if (weapon.Resource == CraftResource.Titanium) { material = "titanium"; }
+				else if (weapon.Resource == CraftResource.Rosenium) { material = "rosenium"; }
+				else if (weapon.Resource == CraftResource.Steel) { material = "steel"; }
+				else if (weapon.Resource == CraftResource.Brass) { material = "brass"; }
+				else if (weapon.Resource == CraftResource.Mithril) { material = "mithril"; }
+				else if (weapon.Resource == CraftResource.Xormite) { material = "xormite"; }
+				else if (weapon.Resource == CraftResource.Obsidian) { material = "obsidian"; }
+				else if (weapon.Resource == CraftResource.Nepturite) { material = "nepturite"; }
+				else if (weapon.Resource == CraftResource.Dwarven) { material = "dwarven"; }
 				//else if ( weapon.Resource == CraftResource.Iron ){ material = "iron"; }
 				//else if ( weapon.Resource == CraftResource.RegularLeather ){ material = "leather"; }
-				else if ( weapon.Resource == CraftResource.SpinedLeather ){ material = "deep sea"; }
-				else if ( weapon.Resource == CraftResource.HornedLeather ){ material = "lizard"; }
-				else if ( weapon.Resource == CraftResource.BarbedLeather ){ material = "serpent"; }
-				else if ( weapon.Resource == CraftResource.NecroticLeather ){ material = "necrotic"; }
-				else if ( weapon.Resource == CraftResource.VolcanicLeather ){ material = "volcanic"; }
-				else if ( weapon.Resource == CraftResource.FrozenLeather ){ material = "frozen"; }
-				else if ( weapon.Resource == CraftResource.GoliathLeather ){ material = "goliath"; }
-				else if ( weapon.Resource == CraftResource.DraconicLeather ){ material = "draconic"; }
-				else if ( weapon.Resource == CraftResource.HellishLeather ){ material = "hellish"; }
-				else if ( weapon.Resource == CraftResource.DinosaurLeather ){ material = "dinosaur"; }
-				else if ( weapon.Resource == CraftResource.AlienLeather ){ material = "alien"; }
+				else if (weapon.Resource == CraftResource.SpinedLeather) { material = "deep sea"; }
+				else if (weapon.Resource == CraftResource.HornedLeather) { material = "lizard"; }
+				else if (weapon.Resource == CraftResource.BarbedLeather) { material = "serpent"; }
+				else if (weapon.Resource == CraftResource.NecroticLeather) { material = "necrotic"; }
+				else if (weapon.Resource == CraftResource.VolcanicLeather) { material = "volcanic"; }
+				else if (weapon.Resource == CraftResource.FrozenLeather) { material = "frozen"; }
+				else if (weapon.Resource == CraftResource.GoliathLeather) { material = "goliath"; }
+				else if (weapon.Resource == CraftResource.DraconicLeather) { material = "draconic"; }
+				else if (weapon.Resource == CraftResource.HellishLeather) { material = "hellish"; }
+				else if (weapon.Resource == CraftResource.DinosaurLeather) { material = "dinosaur"; }
+				else if (weapon.Resource == CraftResource.AlienLeather) { material = "alien"; }
 				//else if ( weapon.Resource == CraftResource.RegularWood ){ material = "wooden"; }
-				else if ( weapon.Resource == CraftResource.AshTree ){ material = "ash"; }
-				else if ( weapon.Resource == CraftResource.CherryTree ){ material = "cherry"; }
-				else if ( weapon.Resource == CraftResource.EbonyTree ){ material = "ebony"; }
-				else if ( weapon.Resource == CraftResource.GoldenOakTree ){ material = "golden oak"; }
-				else if ( weapon.Resource == CraftResource.HickoryTree ){ material = "hickory"; }
+				else if (weapon.Resource == CraftResource.AshTree) { material = "carvalho branco"; }
+				else if (weapon.Resource == CraftResource.CherryTree) { material = "cerejeira"; }
+				else if (weapon.Resource == CraftResource.EbonyTree) { material = "ébano"; }
+				else if (weapon.Resource == CraftResource.GoldenOakTree) { material = "ipê-amarelo"; }
+				else if (weapon.Resource == CraftResource.HickoryTree) { material = "nogueira branca"; }
 				/*else if ( weapon.Resource == CraftResource.MahoganyTree ){ material = "mahogany"; }
 				else if ( weapon.Resource == CraftResource.OakTree ){ material = "oak"; }
 				else if ( weapon.Resource == CraftResource.PineTree ){ material = "pine"; }*/
-				else if ( weapon.Resource == CraftResource.RosewoodTree ){ material = "rosewood"; }
+				else if (weapon.Resource == CraftResource.RosewoodTree) { material = "pau-brasil"; }
 				/*else if ( weapon.Resource == CraftResource.DriftwoodTree ){ material = "driftwood"; }
 				else if ( weapon.Resource == CraftResource.WalnutTree ){ material = "walnut"; }*/
-				else if ( weapon.Resource == CraftResource.ElvenTree ){ material = "elven"; }
+				else if (weapon.Resource == CraftResource.ElvenTree) { material = "élfica"; }
 				/*else if ( weapon.Resource == CraftResource.GhostTree ){ material = "ghostwood"; }
 				else if ( weapon.Resource == CraftResource.PetrifiedTree ){ material = "petrified"; }*/
 			}
-			else if ( item is BaseArmor )
+			else if (item is BaseArmor)
 			{
 				BaseArmor armor = (BaseArmor)item;
 
-				if ( armor.Resource == CraftResource.DullCopper ){ material = "dull copper"; }
-				else if ( armor.Resource == CraftResource.ShadowIron ){ material = "shadow iron"; }
-				else if ( armor.Resource == CraftResource.Copper ){ material = "copper"; }
-				else if ( armor.Resource == CraftResource.Bronze ){ material = "bronze"; }
-                else if (armor.Resource == CraftResource.Platinum) { material = "platinum"; }
-                else if ( armor.Resource == CraftResource.Gold ){ material = "golden"; }
-				else if ( armor.Resource == CraftResource.Agapite ){ material = "agapite"; }
-				else if ( armor.Resource == CraftResource.Verite ){ material = "verite"; }
-				else if ( armor.Resource == CraftResource.Valorite ){ material = "valorite"; }
-                else if ( armor.Resource == CraftResource.Titanium) { material = "titanium"; }
-                else if (armor.Resource == CraftResource.Rosenium) { material = "rosenium"; }
-                else if ( armor.Resource == CraftResource.Steel ){ material = "steel"; }
-				else if ( armor.Resource == CraftResource.Brass ){ material = "brass"; }
-				else if ( armor.Resource == CraftResource.Mithril ){ material = "mithril"; }
-				else if ( armor.Resource == CraftResource.Xormite ){ material = "xormite"; }
-				else if ( armor.Resource == CraftResource.Obsidian ){ material = "obsidian"; }
-				else if ( armor.Resource == CraftResource.Nepturite ){ material = "nepturite"; }
-				else if ( armor.Resource == CraftResource.Dwarven ){ material = "dwarven"; }
+				if (armor.Resource == CraftResource.DullCopper) { material = "dull copper"; }
+				else if (armor.Resource == CraftResource.ShadowIron) { material = "shadow iron"; }
+				else if (armor.Resource == CraftResource.Copper) { material = "copper"; }
+				else if (armor.Resource == CraftResource.Bronze) { material = "bronze"; }
+				else if (armor.Resource == CraftResource.Platinum) { material = "platinum"; }
+				else if (armor.Resource == CraftResource.Gold) { material = "golden"; }
+				else if (armor.Resource == CraftResource.Agapite) { material = "agapite"; }
+				else if (armor.Resource == CraftResource.Verite) { material = "verite"; }
+				else if (armor.Resource == CraftResource.Valorite) { material = "valorite"; }
+				else if (armor.Resource == CraftResource.Titanium) { material = "titanium"; }
+				else if (armor.Resource == CraftResource.Rosenium) { material = "rosenium"; }
+				else if (armor.Resource == CraftResource.Steel) { material = "steel"; }
+				else if (armor.Resource == CraftResource.Brass) { material = "brass"; }
+				else if (armor.Resource == CraftResource.Mithril) { material = "mithril"; }
+				else if (armor.Resource == CraftResource.Xormite) { material = "xormite"; }
+				else if (armor.Resource == CraftResource.Obsidian) { material = "obsidian"; }
+				else if (armor.Resource == CraftResource.Nepturite) { material = "nepturite"; }
+				else if (armor.Resource == CraftResource.Dwarven) { material = "dwarven"; }
 				//else if ( armor.Resource == CraftResource.Iron ){ material = "iron"; }
 				//else if ( armor.Resource == CraftResource.RegularLeather ){ material = "leather"; }
-				else if ( armor.Resource == CraftResource.SpinedLeather ){ material = "deep sea"; }
-				else if ( armor.Resource == CraftResource.HornedLeather ){ material = "lizard"; }
-				else if ( armor.Resource == CraftResource.BarbedLeather ){ material = "serpent"; }
-				else if ( armor.Resource == CraftResource.NecroticLeather ){ material = "necrotic"; }
-				else if ( armor.Resource == CraftResource.VolcanicLeather ){ material = "volcanic"; }
-				else if ( armor.Resource == CraftResource.FrozenLeather ){ material = "frozen"; }
-				else if ( armor.Resource == CraftResource.GoliathLeather ){ material = "goliath"; }
-				else if ( armor.Resource == CraftResource.DraconicLeather ){ material = "draconic"; }
-				else if ( armor.Resource == CraftResource.HellishLeather ){ material = "hellish"; }
-				else if ( armor.Resource == CraftResource.DinosaurLeather ){ material = "dinosaur"; }
-				else if ( armor.Resource == CraftResource.AlienLeather ){ material = "alien"; }
+				else if (armor.Resource == CraftResource.SpinedLeather) { material = "deep sea"; }
+				else if (armor.Resource == CraftResource.HornedLeather) { material = "lizard"; }
+				else if (armor.Resource == CraftResource.BarbedLeather) { material = "serpent"; }
+				else if (armor.Resource == CraftResource.NecroticLeather) { material = "necrotic"; }
+				else if (armor.Resource == CraftResource.VolcanicLeather) { material = "volcanic"; }
+				else if (armor.Resource == CraftResource.FrozenLeather) { material = "frozen"; }
+				else if (armor.Resource == CraftResource.GoliathLeather) { material = "goliath"; }
+				else if (armor.Resource == CraftResource.DraconicLeather) { material = "draconic"; }
+				else if (armor.Resource == CraftResource.HellishLeather) { material = "hellish"; }
+				else if (armor.Resource == CraftResource.DinosaurLeather) { material = "dinosaur"; }
+				else if (armor.Resource == CraftResource.AlienLeather) { material = "alien"; }
 				//else if ( armor.Resource == CraftResource.RegularWood ){ material = "wooden"; }
-				else if ( armor.Resource == CraftResource.AshTree ){ material = "ash"; }
-				else if ( armor.Resource == CraftResource.CherryTree ){ material = "cherry"; }
-				else if ( armor.Resource == CraftResource.EbonyTree ){ material = "ebony"; }
-				else if ( armor.Resource == CraftResource.GoldenOakTree ){ material = "golden oak"; }
-				else if ( armor.Resource == CraftResource.HickoryTree ){ material = "hickory"; }
+				else if (armor.Resource == CraftResource.AshTree) { material = "carvalho cinza"; }
+				else if (armor.Resource == CraftResource.CherryTree) { material = "cerejeira"; }
+				else if (armor.Resource == CraftResource.EbonyTree) { material = "ébano"; }
+				else if (armor.Resource == CraftResource.GoldenOakTree) { material = "ipê-amarelo"; }
+				else if (armor.Resource == CraftResource.HickoryTree) { material = "nogueira branca"; }
 				/*else if ( armor.Resource == CraftResource.MahoganyTree ){ material = "mahogany"; }
 				else if ( armor.Resource == CraftResource.OakTree ){ material = "oak"; }
 				else if ( armor.Resource == CraftResource.PineTree ){ material = "pine"; }*/
-				else if ( armor.Resource == CraftResource.RosewoodTree ){ material = "rosewood"; }
+				else if (armor.Resource == CraftResource.RosewoodTree) { material = "pau-brasil"; }
 				/*else if ( armor.Resource == CraftResource.DriftwoodTree ){ material = "driftwood"; }
 				else if ( armor.Resource == CraftResource.WalnutTree ){ material = "walnut"; }*/
-				else if ( armor.Resource == CraftResource.ElvenTree ){ material = "elven"; }
+				else if (armor.Resource == CraftResource.ElvenTree) { material = "élfica"; }
 				/*else if ( armor.Resource == CraftResource.GhostTree ){ material = "ghostwood"; }
 				else if ( armor.Resource == CraftResource.PetrifiedTree ){ material = "petrified"; }*/
 			}
+			else if (item is BaseHarvestTool)
+			{
+                BaseHarvestTool tool = (BaseHarvestTool)item;
+                if (IsWoodenItem(item)) 
+				{
+					if (tool.Resource == CraftResource.AshTree) { material = "carvalho cinza"; }
+					else if (tool.Resource == CraftResource.CherryTree) { material = "cerejeira"; }
+					else if (tool.Resource == CraftResource.EbonyTree) { material = "ébano"; }
+					else if (tool.Resource == CraftResource.GoldenOakTree) { material = "ipê-amarelo"; }
+					else if (tool.Resource == CraftResource.HickoryTree) { material = "nogueira branca"; }
+					else if (tool.Resource == CraftResource.RosewoodTree) { material = "pau-brasil"; }
+					else if (tool.Resource == CraftResource.ElvenTree) { material = "élfica"; }
+					else material = "regular";
+                }
+            }
 
 			return material;
 		}
@@ -1425,20 +1440,20 @@ namespace Server.Misc
 
 			if ( color == "ash" ){ hue = 0x41C; }
 			else if ( color == "ebony" ){ hue = 0x96C; }
-            else if (color == "elven") { hue = 0x571; }
+            else if (color == "elven") { hue = 0x1C9; } //0x571
             else if ( color == "golden oak" ){ hue = 0x501; }
-            else if (color == "cherry") { hue = 0xB22; }
+            else if (color == "cherry") { hue = 0x8D; } //0xB22
             else if (color == "rosewood") { hue = 0x66D; } // 2281 2762 2782 2850
-            else if ( color == "hickory" ){ hue = 0x921; }
+            else if ( color == "hickory" ){ hue = 0xB8B; } // 0x921 (prateado)
             /*else if ( color == "mahogany" ){ hue = 0x908; }
 			else if ( color == "oak" ){ hue = 0x712; }
 			else if ( color == "pine" ){ hue = 0x1CD; }
 			else if ( color == "ghostwood" ){ hue = 0x9C2; }*/
-			/*else if ( color == "walnut" ){ hue = 0x750; }
+            /*else if ( color == "walnut" ){ hue = 0x750; }
 			else if ( color == "petrified" ){ hue = 0xA94; }
 			else if ( color == "driftwood" ){ hue = 0x973; }*/
 
-			else if ( color == "icy skin" ){ hue = 0xB7A; }
+            else if ( color == "icy skin" ){ hue = 0xB7A; }
 			else if ( color == "lava skin" ){ hue = 0xB17; }
 			else if ( color == "seaweed" ){ hue = 0x98D; }
 			else if ( color == "demon skin" ){ hue = 0xB1E; }

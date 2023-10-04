@@ -13,13 +13,15 @@ namespace Server.Items
 		public Tongs() : base( 0xFBB )
 		{
 			Weight = 2.0;
-		}
+            Name = "Alicate de Ferreiro";
+        }
 
 		[Constructable]
 		public Tongs( int uses ) : base( uses, 0xFBB )
 		{
 			Weight = 2.0;
-		}
+            Name = "Alicate de Ferreiro";
+        }
 
 		public Tongs( Serial serial ) : base( serial )
 		{

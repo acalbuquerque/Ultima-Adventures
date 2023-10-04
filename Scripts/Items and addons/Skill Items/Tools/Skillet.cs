@@ -13,14 +13,16 @@ namespace Server.Items
 		[Constructable]
 		public Skillet() : base( 0x97F )
 		{
-			Weight = 1.0;
-		}
+            Name = "frigideira";
+            Weight = 5.0;
+        }
 
 		[Constructable]
 		public Skillet( int uses ) : base( uses, 0x97F )
 		{
-			Weight = 1.0;
-		}
+            Name = "frigideira";
+            Weight = 5.0;
+        }
 
 		public Skillet( Serial serial ) : base( serial )
 		{

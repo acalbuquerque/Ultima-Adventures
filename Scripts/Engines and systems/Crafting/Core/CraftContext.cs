@@ -11,7 +11,16 @@ namespace Server.Engines.Craft
 		PromptForMark
 	}
 
-	public class CraftContext
+    public enum CraftQtdOption
+    {
+        One,
+        Five,
+        Ten,
+        TwentyFive,
+		Fifty
+    }
+
+    public class CraftContext
 	{
 		private List<CraftItem> m_Items;
 		private int m_LastResourceIndex;
@@ -19,15 +28,17 @@ namespace Server.Engines.Craft
 		private int m_LastGroupIndex;
 		private bool m_DoNotColor;
 		private CraftMarkOption m_MarkOption;
+		private CraftQtdOption m_QtdOption;
 
-		public List<CraftItem> Items { get { return m_Items; } }
+        public List<CraftItem> Items { get { return m_Items; } }
 		public int LastResourceIndex{ get{ return m_LastResourceIndex; } set{ m_LastResourceIndex = value; } }
 		public int LastResourceIndex2{ get{ return m_LastResourceIndex2; } set{ m_LastResourceIndex2 = value; } }
 		public int LastGroupIndex{ get{ return m_LastGroupIndex; } set{ m_LastGroupIndex = value; } }
 		public bool DoNotColor{ get{ return m_DoNotColor; } set{ m_DoNotColor = value; } }
 		public CraftMarkOption MarkOption{ get{ return m_MarkOption; } set{ m_MarkOption = value; } }
+        public CraftQtdOption QtdOption { get { return m_QtdOption; } set { m_QtdOption = value; } }
 
-		public CraftContext()
+        public CraftContext()
 		{
 			m_Items = new List<CraftItem>();
 			m_LastResourceIndex = -1;

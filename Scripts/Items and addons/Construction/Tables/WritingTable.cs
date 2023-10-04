@@ -9,8 +9,9 @@ namespace Server.Items
 		[Constructable]
 		public WritingTable() : base(0xB4A)
 		{
-			Weight = 1.0;
-		}
+			Weight = 5.0;
+            Name = "mesa de estudo";
+        }
 
 		public WritingTable(Serial serial) : base(serial)
 		{

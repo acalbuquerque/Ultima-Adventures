@@ -32,14 +32,14 @@ namespace Server.Items
 		[Constructable]
 		public LumberAxe() : base( 0xF43 )
 		{
-			Name = "lumber axe";
-			Weight = 4.0;
+			Name = "machado do lenhador";
+			Weight = 3.0;
 		}
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
 			base.GetProperties( list );
-			list.Add( "Chops For Regular Wood Only" );
+			list.Add(1070722, "Este machado apenas corta madeira comum" );
 		}
 
 		public LumberAxe( Serial serial ) : base( serial )

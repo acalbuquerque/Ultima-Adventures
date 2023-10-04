@@ -12,16 +12,25 @@ namespace Server.Items
 		[Constructable]
 		public TinkerTools() : base( 0x1EB8 )
 		{
-			Weight = 1.0;
-		}
+            Name = "Kit de Ferrramentas";
+            Weight = 5.0;
+        }
 
 		[Constructable]
 		public TinkerTools( int uses ) : base( uses, 0x1EB8 )
 		{
-			Weight = 1.0;
-		}
+            Name = "Kit de Ferrramentas";
+            Weight = 5.0;
+        }
 
-		public TinkerTools( Serial serial ) : base( serial )
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            base.AddNameProperties(list);
+            list.Add(1070722, "Ferrramentas de Inventor");
+            //list.Add( 1049644, "Com este kit é possível criar todos os ítens de carpintaria.");
+        }
+
+        public TinkerTools( Serial serial ) : base( serial )
 		{
 		}
 
@@ -48,22 +57,31 @@ namespace Server.Items
 		public TinkersTools()
 			: base(0x1EBC)
 		{
-			Weight = 1.0;
-		}
+            Name = "Kit de Ferrramentas";
+            Weight = 5.0;
+        }
 
 		[Constructable]
 		public TinkersTools(int uses)
 			: base(uses, 0x1EBC)
 		{
-			Weight = 1.0;
-		}
+            Name = "Kit de Ferrramentas";
+            Weight = 5.0;
+        }
 
 		public TinkersTools(Serial serial)
 			: base(serial)
 		{
 		}
 
-		public override void Serialize(GenericWriter writer)
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            base.AddNameProperties(list);
+            list.Add(1070722, "Ferrramentas de Inventor");
+            //list.Add( 1049644, "Com este kit é possível criar todos os ítens de carpintaria.");
+        }
+
+        public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
 

@@ -12,6 +12,7 @@ using Server.Spells.Ninjitsu;
 using Server.Engines.Craft;
 using System.Collections.Generic;
 using Server.Misc;
+using System.Globalization;
 
 namespace Server.Items
 {
@@ -3830,8 +3831,14 @@ namespace Server.Items
 		public override void AddNameProperty( ObjectPropertyList list )
 		{
 			int oreType;
+            TextInfo cultInfo = new CultureInfo("en-US", false).TextInfo;
+            string resourceName = CraftResources.GetName(m_Resource);
+            if (string.IsNullOrEmpty(resourceName) || resourceName.ToLower() == "none" || resourceName.ToLower() == "normal" || resourceName.ToLower() == "iron")
+            {
+                resourceName = "";
+            }
 
-			switch ( m_Resource )
+            switch ( m_Resource )
 			{
 				case CraftResource.DullCopper:		oreType = 1053108; break; // dull copper
 				case CraftResource.ShadowIron:		oreType = 1053107; break; // shadow iron
@@ -3885,20 +3892,18 @@ namespace Server.Items
 				default: oreType = 0; break;
 			}
 
-			if ( oreType != 0 )
-				list.Add( 1053099, "#{0}\t{1}", oreType, GetNameString() ); // ~1_oretype~ ~2_armortype~
-			else if ( Name == null )
-				list.Add( LabelNumber );
+			if (Name == null)
+				list.Add(GetNameString());//list.Add(ItemNameHue.UnifiedItemProps.RarityNameMod(this, "{0}"), GetNameString());//
 			else
-				list.Add( Name );
+				list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, "{0}"), Name);
+
+            if (oreType != 0)
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor(resourceName, "#8be4fc")); //list.Add( 1053099, "#{0}\t{1}", oreType, ItemNameHue.UnifiedItemProps.SetColor(GetNameString(), "#8be4fc") ); // ~1_oretype~ ~2_armortype~
 
 			if ( !String.IsNullOrEmpty( m_EngravedText ) )
-				list.Add( 1062613, m_EngravedText );
+				list.Add( 1062613, ItemNameHue.UnifiedItemProps.SetColor(m_EngravedText, "#8be4fc") );
 
-			if (Wear >0)
-				list.Add("Wear and Tear: " + Wear + "%");
-
-				/* list.Add( 1062613, Utility.FixHtml( m_EngravedText ) ); */
+			/* list.Add( 1062613, Utility.FixHtml( m_EngravedText ) ); */
 		}
 
 		public override bool AllowEquipedCast( Mobile from )
@@ -3934,15 +3939,15 @@ namespace Server.Items
 			base.GetProperties( list );
 
 			if ( m_Crafter != null )
-				list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
+				list.Add( 1050043, ItemNameHue.UnifiedItemProps.SetColor(m_Crafter.Name, "#8be4fc") ); // crafted by ~1_NAME~
 
 			if ( m_AosSkillBonuses != null )
 				m_AosSkillBonuses.GetProperties( list );
 
 			if ( m_Quality == WeaponQuality.Exceptional )
-				list.Add( 1060636 ); // exceptional
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor("Excepcional", "#ffe066"));//list.Add( 1060636 ); // exceptional
 
-			if( RequiredRace == Race.Elf )
+            if ( RequiredRace == Race.Elf )
 				list.Add( 1075086 ); // Elves Only
 
 			if ( ArtifactRarity > 0 )
@@ -4147,32 +4152,44 @@ namespace Server.Items
 			if ( strReq > 0 )
 				list.Add( 1061170, strReq.ToString() ); // strength requirement ~1_val~
 
-			if ( Layer == Layer.TwoHanded )
-				list.Add( 1061171 ); // two-handed weapon
-			else
-				list.Add( 1061824 ); // one-handed weapon
+            if (m_Hits >= 0 && m_MaxHits > 0)
+                list.Add(1060639, "{0}\t{1}", m_Hits, m_MaxHits); // durability ~1_val~ / ~2_val~
 
-			if ( Core.SE || m_AosWeaponAttributes.UseBestSkill == 0 )
+            if (Wear > 0)
+            {
+                string wearTear = "Desgaste: " + Wear + "%";
+                list.Add(ItemNameHue.UnifiedItemProps.SetColor(wearTear, "#ffe066"));
+            }
+
+            if ( Core.SE || m_AosWeaponAttributes.UseBestSkill == 0 )
 			{
 				switch ( Skill )
 				{
-					case SkillName.Swords:  list.Add( 1061172 ); break; // skill required: swordsmanship
-					case SkillName.Macing:  list.Add( 1061173 ); break; // skill required: mace fighting
-					case SkillName.Fencing: list.Add( 1061174 ); break; // skill required: fencing
+					case SkillName.Swords:  
+						list.Add(ItemNameHue.UnifiedItemProps.SetColor("Skill: swordsmanship", "#8be4fc")); break; // skill required: swordsmanship
+					case SkillName.Macing:  
+						list.Add(ItemNameHue.UnifiedItemProps.SetColor("Skill: mace fighting", "#8be4fc")); break; // skill required: mace fighting
+					case SkillName.Fencing: 
+						list.Add(ItemNameHue.UnifiedItemProps.SetColor("Skill: fencing", "#8be4fc")); break; // skill required: fencing
 					case SkillName.Archery: 
-						if ( this is Harpoon || this is LevelHarpoon || this is GiftHarpoon || this is BaseWizardStaff || this is BaseLevelStave || this is BaseGiftStave || this is ThrowingGloves || this is GiftThrowingGloves || this is LevelThrowingGloves ){ list.Add( "skill required: marksmanship" ); }
-						else { list.Add( 1061175 ); } 
-						break; // skill required: archery
-					case SkillName.Wrestling: list.Add( "skill required: wrestling" ); break; // skill required: wrestling
+						if ( this is Harpoon || this is LevelHarpoon || this is GiftHarpoon || this is BaseWizardStaff || this is BaseLevelStave || this is BaseGiftStave || this is ThrowingGloves || this is GiftThrowingGloves || this is LevelThrowingGloves )
+						{ 
+							list.Add(ItemNameHue.UnifiedItemProps.SetColor("Skill: marksmanship", "#8be4fc")); 
+						}
+						else 
+						{ 
+							list.Add(ItemNameHue.UnifiedItemProps.SetColor("Skill: archery", "#8be4fc")); // skill required: archery
+                        } 
+						break; 
+					case SkillName.Wrestling: 
+						list.Add(ItemNameHue.UnifiedItemProps.SetColor("skill: wrestling", "#8be4fc")); break; // skill required: wrestling
 				}
 			}
-
-			if ( m_Hits >= 0 && m_MaxHits > 0 )
-				list.Add( 1060639, "{0}\t{1}", m_Hits, m_MaxHits ); // durability ~1_val~ / ~2_val~
-
-			//if (Wear > 0 )
-			//	list.Add("This item has lost "+ Wear + "% of its effectiveness due to wear and tear.");
-		}
+            if (Layer == Layer.TwoHanded)
+                list.Add(ItemNameHue.UnifiedItemProps.SetColor("Arma de duas mãos", "#8be4fc")); // two-handed weapon
+            else
+                list.Add(ItemNameHue.UnifiedItemProps.SetColor("Arma de uma mão", "#8be4fc")); // one-handed weapon
+        }
 
 		public void WearAndTear( int severity )
 		{

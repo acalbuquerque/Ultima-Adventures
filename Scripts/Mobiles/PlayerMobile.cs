@@ -632,7 +632,7 @@ namespace Server.Mobiles
 			set{ SetFlag( PlayerFlag.SandMining, value ); }
 		}
 
-		[CommandProperty( AccessLevel.GameMaster )]
+        [CommandProperty( AccessLevel.GameMaster )]
 		public bool StoneMining
 		{
 			get{ return GetFlag( PlayerFlag.StoneMining ); }
@@ -6110,8 +6110,14 @@ A little mouse catches sight of you and flees into a small hole in the ground.*/
 
 		private long m_NextMovementTime;
 		private bool m_HasMoved;
+        [CommandProperty(AccessLevel.GameMaster)]
+        public bool HasMoved
+        {
+            get { return m_HasMoved; }
+            set { m_HasMoved = value; }
+        }
 
-		public virtual bool UsesFastwalkPrevention{ get{ return ( AccessLevel < AccessLevel.Counselor ); } }
+        public virtual bool UsesFastwalkPrevention{ get{ return ( AccessLevel < AccessLevel.Counselor ); } }
 		public override int ComputeMovementSpeed(Direction dir, bool checkTurning)
 		{ 
 			if ( checkTurning && (dir & Direction.Mask) != (this.Direction & Direction.Mask) )

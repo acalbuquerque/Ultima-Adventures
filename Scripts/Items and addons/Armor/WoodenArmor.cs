@@ -6,33 +6,33 @@ using Server.Items;
 namespace Server.Items
 {
 	public class WoodenPlateLegs : BaseArmor ///////////////////////////////////////////////////////
-	{
-		public override int BasePhysicalResistance{ get{ return 10; } }
-		public override int BaseFireResistance{ get{ return 1; } }
-		public override int BaseColdResistance{ get{ return 6; } }
-		public override int BasePoisonResistance{ get{ return 9; } }
-		public override int BaseEnergyResistance{ get{ return 8; } }
+    {
+		public override int BasePhysicalResistance { get { return 8; } }
+		public override int BaseFireResistance { get { return 1; } }
+		public override int BaseColdResistance { get { return 6; } }
+		public override int BasePoisonResistance { get { return 3; } }
+		public override int BaseEnergyResistance { get { return 8; } }
 
-		public override int InitMinHits{ get{ return 50; } }
-		public override int InitMaxHits{ get{ return 65; } }
+		public override int InitMinHits { get { return 40; } }
+		public override int InitMaxHits { get { return 55; } }
 
-		public override int AosStrReq{ get{ return 70; } }
+		public override int AosStrReq { get { return 70; } }
 
-		public override int OldStrReq{ get{ return 60; } }
-		public override int OldDexBonus{ get{ return -6; } }
+		public override int OldStrReq { get { return 60; } }
+		public override int OldDexBonus { get { return -6; } }
 
-		public override int ArmorBase{ get{ return 40; } }
-		
-		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Plate; } }
+		public override int ArmorBase { get { return 30; } }
+
+		public override ArmorMaterialType MaterialType { get { return ArmorMaterialType.Plate; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularWood; } }
 
 		[Constructable]
-		public WoodenPlateLegs() : base( 0x1965 )
+		public WoodenPlateLegs() : base(0x1411)
 		{
-			Name = "wooden leggings";
+			Name = "calça de madeira";
 			Hue = 0x840;
 			Weight = 5.0;
-			Layer = Layer.Pants;
+			//Layer = Layer.Pants;
 		}
 
 		public WoodenPlateLegs( Serial serial ) : base( serial )
@@ -49,34 +49,34 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			ItemID = 0x1965;
+			ItemID = 0x1411;
 		}
 	}
 	public class WoodenPlateGloves : BaseArmor ///////////////////////////////////////////////////
-	{
-		public override int BasePhysicalResistance{ get{ return 7; } }
+    {
+		public override int BasePhysicalResistance{ get{ return 6; } }
 		public override int BaseFireResistance{ get{ return 1; } }
-		public override int BaseColdResistance{ get{ return 4; } }
-		public override int BasePoisonResistance{ get{ return 7; } }
+		public override int BaseColdResistance{ get{ return 3; } }
+		public override int BasePoisonResistance{ get{ return 3; } }
 		public override int BaseEnergyResistance{ get{ return 6; } }
 
-		public override int InitMinHits{ get{ return 50; } }
-		public override int InitMaxHits{ get{ return 65; } }
+		public override int InitMinHits{ get{ return 40; } }
+		public override int InitMaxHits{ get{ return 55; } }
 
 		public override int AosStrReq{ get{ return 50; } }
 		public override int OldStrReq{ get{ return 30; } }
 
 		public override int OldDexBonus{ get{ return -2; } }
 
-		public override int ArmorBase{ get{ return 40; } }
+		public override int ArmorBase{ get{ return 30; } }
 		
 		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Plate; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularWood; } }
 
 		[Constructable]
-		public WoodenPlateGloves() : base( 0x1968 )
+		public WoodenPlateGloves() : base(0x1414)
 		{
-			Name = "wooden gauntlets";
+			Name = "manoplas de madeira";
 			Hue = 0x840;
 			Weight = 1.0;
 			Layer = Layer.Gloves;
@@ -96,34 +96,34 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			ItemID = 0x1968;
+			ItemID = 0x1414;
 		}
 	}
 	public class WoodenPlateGorget : BaseArmor ///////////////////////////////////////////////////
-	{
+    {
 		public override int BasePhysicalResistance{ get{ return 5; } }
 		public override int BaseFireResistance{ get{ return 1; } }
-		public override int BaseColdResistance{ get{ return 3; } }
-		public override int BasePoisonResistance{ get{ return 5; } }
+		public override int BaseColdResistance{ get{ return 2; } }
+		public override int BasePoisonResistance{ get{ return 3; } }
 		public override int BaseEnergyResistance{ get{ return 4; } }
 
-		public override int InitMinHits{ get{ return 50; } }
-		public override int InitMaxHits{ get{ return 65; } }
+		public override int InitMinHits{ get{ return 40; } }
+		public override int InitMaxHits{ get{ return 55; } }
 
 		public override int AosStrReq{ get{ return 25; } }
 		public override int OldStrReq{ get{ return 30; } }
 
 		public override int OldDexBonus{ get{ return -1; } }
 
-		public override int ArmorBase{ get{ return 40; } }
+		public override int ArmorBase{ get{ return 30; } }
 
 		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Plate; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularWood; } }
         
 		[Constructable]
-		public WoodenPlateGorget() : base( 0x1967 )
+		public WoodenPlateGorget() : base(0x1413)
 		{
-			Name = "wooden gorget";
+			Name = "gorgel de madeira";
 			Hue = 0x840;
 			Weight = 1.0;
 			Layer = Layer.Neck;
@@ -143,34 +143,34 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			ItemID = 0x1967;
+			ItemID = 0x1413;
 		}
 	}
 	public class WoodenPlateArms : BaseArmor ///////////////////////////////////////////////////////
 	{
-		public override int BasePhysicalResistance{ get{ return 11; } }
+		public override int BasePhysicalResistance{ get{ return 9; } }
 		public override int BaseFireResistance{ get{ return 1; } }
 		public override int BaseColdResistance{ get{ return 6; } }
-		public override int BasePoisonResistance{ get{ return 8; } }
-		public override int BaseEnergyResistance{ get{ return 7; } }
+		public override int BasePoisonResistance{ get{ return 3; } }
+		public override int BaseEnergyResistance{ get{ return 6; } }
 
-		public override int InitMinHits{ get{ return 50; } }
-		public override int InitMaxHits{ get{ return 65; } }
+		public override int InitMinHits{ get{ return 40; } }
+		public override int InitMaxHits{ get{ return 55; } }
 
 		public override int AosStrReq{ get{ return 60; } }
 		public override int OldStrReq{ get{ return 40; } }
 
 		public override int OldDexBonus{ get{ return -2; } }
 
-		public override int ArmorBase{ get{ return 40; } }
+		public override int ArmorBase{ get{ return 30; } }
 		
 		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Plate; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularWood; } }
 
 		[Constructable]
-		public WoodenPlateArms() : base( 0x1964 )
+		public WoodenPlateArms() : base(0x1410)
 		{
-			Name = "wooden arms";
+			Name = "ombreiras de madeira";
 			Hue = 0x840;
 			Weight = 8.0;
 			Layer = Layer.Arms;
@@ -190,34 +190,34 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			ItemID = 0x1964;
+			ItemID = 0x1410;
 		}
 	}
 	public class WoodenPlateChest : BaseArmor /////////////////////////////////////////////////////
 	{
-		public override int BasePhysicalResistance{ get{ return 14; } }
-		public override int BaseFireResistance{ get{ return 3; } }
-		public override int BaseColdResistance{ get{ return 7; } }
-		public override int BasePoisonResistance{ get{ return 9; } }
-		public override int BaseEnergyResistance{ get{ return 8; } }
+		public override int BasePhysicalResistance{ get{ return 11; } }
+		public override int BaseFireResistance{ get{ return 2; } }
+		public override int BaseColdResistance{ get{ return 6; } }
+		public override int BasePoisonResistance{ get{ return 3; } }
+		public override int BaseEnergyResistance{ get{ return 7; } }
 
-		public override int InitMinHits{ get{ return 50; } }
-		public override int InitMaxHits{ get{ return 65; } }
+		public override int InitMinHits{ get{ return 40; } }
+		public override int InitMaxHits{ get{ return 55; } }
 
 		public override int AosStrReq{ get{ return 75; } }
 		public override int OldStrReq{ get{ return 60; } }
 
 		public override int OldDexBonus{ get{ return -8; } }
 
-		public override int ArmorBase{ get{ return 40; } }
+		public override int ArmorBase{ get{ return 30; } }
 
 		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Plate; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularWood; } }
 
 		[Constructable]
-		public WoodenPlateChest() : base( 0x1969 )
+		public WoodenPlateChest() : base(0x1415)
 		{
-			Name = "wooden tunic";
+			Name = "peitoral de madeira";
 			Hue = 0x840;
 			Weight = 8.0;
 			Layer = Layer.InnerTorso;
@@ -237,34 +237,34 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			ItemID = 0x1969;
+			ItemID = 0x1415;
 		}
 	}
 	public class WoodenPlateHelm : BaseArmor ///////////////////////////////////////////////////////
-	{
-		public override int BasePhysicalResistance{ get{ return 11; } }
+    {
+		public override int BasePhysicalResistance{ get{ return 9; } }
 		public override int BaseFireResistance{ get{ return 1; } }
 		public override int BaseColdResistance{ get{ return 5; } }
-		public override int BasePoisonResistance{ get{ return 6; } }
+		public override int BasePoisonResistance{ get{ return 3; } }
 		public override int BaseEnergyResistance{ get{ return 6; } }
 		
-		public override int InitMinHits{ get{ return 50; } }
-		public override int InitMaxHits{ get{ return 65; } }
+		public override int InitMinHits{ get{ return 40; } }
+		public override int InitMaxHits{ get{ return 55; } }
 
 		public override int AosStrReq{ get{ return 60; } }
 		public override int OldStrReq{ get{ return 40; } }
 
 		public override int OldDexBonus{ get{ return -1; } }
 
-		public override int ArmorBase{ get{ return 40; } }
+		public override int ArmorBase{ get{ return 30; } }
 
 		public override ArmorMaterialType MaterialType{ get{ return ArmorMaterialType.Plate; } }
 		public override CraftResource DefaultResource{ get{ return CraftResource.RegularWood; } }
 
 		[Constructable]
-		public WoodenPlateHelm() : base( 0x1966 )
+		public WoodenPlateHelm() : base(0x1412)
 		{
-			Name = "wooden helm";
+			Name = "elmo de madeira";
 			Hue = 0x840;
 			Weight = 1.0;
 			Layer = Layer.Helm;
@@ -284,7 +284,7 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-			ItemID = 0x1966;
+			ItemID = 0x1412;
 		}
 	}
 }
