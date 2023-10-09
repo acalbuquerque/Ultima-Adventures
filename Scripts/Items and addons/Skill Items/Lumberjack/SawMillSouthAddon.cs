@@ -17,10 +17,10 @@ namespace Server.Items
 		[ Constructable ]
 		public SawMillSouthAddon()
 		{
-			AddComplexComponent( (BaseAddon) this, 1928, 0, 0, 0, 0, -1, "saw mill", 1);
-			AddComplexComponent( (BaseAddon) this, 1928, 1, 0, 0, 0, -1, "saw mill", 1);
-			AddComplexComponent( (BaseAddon) this, 4525, 1, 0, 5, 0, -1, "saw mill", 1);
-			AddComplexComponent( (BaseAddon) this, 7130, 0, 0, 5, 0, -1, "saw mill", 1);
+			AddComplexComponent( (BaseAddon) this, 1928, 0, 0, 0, 0, -1, "serraria", 1);
+			AddComplexComponent( (BaseAddon) this, 1928, 1, 0, 0, 0, -1, "serraria", 1);
+			AddComplexComponent( (BaseAddon) this, 4525, 1, 0, 5, 0, -1, "serraria", 1);
+			AddComplexComponent( (BaseAddon) this, 7130, 0, 0, 5, 0, -1, "serraria", 1);
 		}
 
         private static void AddComplexComponent(BaseAddon addon, int item, int xoffset, int yoffset, int zoffset, int hue, int lightsource)
@@ -76,7 +76,7 @@ namespace Server.Items
 		[Constructable]
 		public SawMillSouthAddonDeed()
 		{
-			Name = "saw mill deed (south)";
+			Name = "escritura de serraria (sul)";
 		}
 
 		public SawMillSouthAddonDeed( Serial serial ) : base( serial )

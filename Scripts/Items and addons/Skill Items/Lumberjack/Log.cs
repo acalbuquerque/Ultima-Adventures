@@ -23,19 +23,22 @@ namespace Server.Items
 		[Constructable]
 		public BaseLog() : this( 1 )
 		{
-		}
+            Name = "Tora(s)";
+        }
 
 		[Constructable]
 		public BaseLog( int amount ) : this( CraftResource.RegularWood, amount )
 		{
-		}
+            Name = "Tora(s)";
+        }
 
 		public abstract BaseWoodBoard GetLog();
 
 		[Constructable]
 		public BaseLog( CraftResource resource ) : this( resource, 1 )
 		{
-		}
+            Name = "Tora(s)";
+        }
 
 		[Constructable]
 		public BaseLog( CraftResource resource, int amount ) : base( 0x1BE0 )
@@ -43,8 +46,8 @@ namespace Server.Items
 			Stackable = true;
 			Weight = 2.0;
 			Amount = amount;
-
-			m_Resource = resource;
+            Name = "Tora(s)";
+            m_Resource = resource;
 			Hue = CraftResources.GetHue( resource );
 		}
 
@@ -109,12 +112,12 @@ namespace Server.Items
 			}
 			else if ( from.InRange( this.GetWorldLocation(), 2 ) )
 			{
-				from.SendMessage( "Select the saw mill on which to cut the logs." );
+				from.SendMessage("Selecione a serraria na qual deseja cortar as toras.");
 				from.Target = new InternalTarget( this );
 			}
 			else
 			{
-				from.SendMessage( "The logs are too far away." );
+				from.SendMessage( "As toras estão muito longe." );
 			}
 		}
 
@@ -133,7 +136,7 @@ namespace Server.Items
 				{
 					Item saw = (Item)obj;
 
-					if ( saw.Name == "saw mill" && 
+					if ( saw.Name == "serraria" && 
 						( saw.ItemID == 1928 || saw.ItemID == 4525 || saw.ItemID == 7130 || saw.ItemID == 4530 || saw.ItemID == 7127 )
 					   )
 						return true;
@@ -151,7 +154,7 @@ namespace Server.Items
 
 				if ( !from.InRange( m_Log.GetWorldLocation(), 2 ) )
 				{
-					from.SendMessage( "The logs are too far away." );
+					from.SendMessage("As toras estão muito longe.");
 					return;
 				}
 
@@ -180,12 +183,12 @@ namespace Server.Items
 						
 					}
 
-					double minSkill = difficulty - 25.0;
-					double maxSkill = difficulty + 25.0;
+					double minSkill = difficulty - 10.0;
+					double maxSkill = difficulty + 10.0;
 					
 					if ( difficulty > 50.0 && difficulty > from.Skills[SkillName.Lumberjacking].Value )
 					{
-						from.SendMessage( "You have no idea how to best cut this type of wood!" );
+						from.SendMessage(55,"Você não tem ideia de como cortar e trabalhar esse tipo de madeira!");
 						return;
 					}
 
@@ -193,7 +196,7 @@ namespace Server.Items
 					{
 						if ( m_Log.Amount <= 0 )
 						{
-							from.SendMessage( "There is not enough wood in this pile to make a board." );
+							from.SendMessage(55,"Não há madeira suficiente nesta pilha para fazer uma tábua.");
 						}
 						else
 						{
@@ -203,7 +206,7 @@ namespace Server.Items
 							wood.Amount = amount;
 							from.AddToBackpack( wood );
 							from.PlaySound( 0x21C );
-							from.SendMessage( "You cut the logs and put some boards in your backpack." );
+							from.SendMessage( 55, "Você corta as toras e coloca algumas tábuas na mochila.");
 						}
 					}
 					else
@@ -214,12 +217,12 @@ namespace Server.Items
 						if ( amount < 2 || lose == amount )
 						{
 							m_Log.Delete();
-							from.SendMessage( "You try to cut the logs but ruin all of the wood." );
+							from.SendMessage(55, "Você tenta cortar as toras, mas estraga toda a madeira.");
 						}
 						else
 						{
 							m_Log.Amount = amount - lose;
-							from.SendMessage( "You try to cut the logs but ruin some of the wood." );
+							from.SendMessage(55, "Você tenta cortar as toras, mas estraga um pouco da madeira.");
 						}
 
 						from.PlaySound( 0x21C );
@@ -227,7 +230,7 @@ namespace Server.Items
 				}
 				else
 				{
-					from.SendMessage( "That is not a saw mill." );
+					from.SendMessage(55, "Isso não é uma serraria");
 				}
 			}
 		}
@@ -459,7 +462,7 @@ namespace Server.Items
         {
             base.Deserialize(reader);
             int version = reader.ReadInt();
-            Weight = 5.0;
+            Weight = 4.0;
         }
         public override BaseWoodBoard GetLog()
         {

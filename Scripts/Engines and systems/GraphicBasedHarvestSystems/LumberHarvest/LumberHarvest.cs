@@ -56,13 +56,13 @@ namespace Server.Engines.Harvest
       lumber.PackFullMessage = 500497; // You can't place any wood into your backpack!
       lumber.ToolBrokeMessage = 500499; // You broke your axe.
 
-            //not used
-            lumber.RaceBonus = false;// Core.ML;
-            lumber.RandomizeVeins = true;// Core.ML;
-      lumber.BankWidth = 4;
-      lumber.BankHeight = 4;
-      lumber.MinTotal = 5;
-      lumber.MaxTotal = 30;
+        //not used
+        lumber.RaceBonus = false;// Core.ML;
+        lumber.RandomizeVeins = true;// Core.ML;
+      lumber.BankWidth = 3;
+      lumber.BankHeight = 3;
+      lumber.MinTotal = 6;
+      lumber.MaxTotal = 36;
       lumber.Resources = new HarvestResource[] { new HarvestResource(00.0, 00.0, 100.0, 500498, typeof(Log)) };
       lumber.BonusResources = new BonusHarvestResource[] { new BonusHarvestResource(0, 83.9, null, null) };
       lumber.Veins = new HarvestVein[] { new HarvestVein(49.0, 0.0, lumber.Resources[0], null) };

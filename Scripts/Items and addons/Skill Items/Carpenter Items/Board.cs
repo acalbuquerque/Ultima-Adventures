@@ -45,16 +45,19 @@ namespace Server.Items
 		[Constructable]
 		public BaseWoodBoard() : this( 1 )
 		{
+			Name = "Tábua(s)";
 		}
 
 		[Constructable]
 		public BaseWoodBoard( int amount ) : this( CraftResource.RegularWood, amount )
 		{
-		}
+            Name = "Tábua(s)";
+        }
 
 		public BaseWoodBoard( Serial serial ) : base( serial )
 		{
-		}
+            Name = "Tábua(s)";
+        }
 
 		[Constructable]
 		public BaseWoodBoard( CraftResource resource ) : this( resource, 1 )
@@ -111,8 +114,8 @@ namespace Server.Items
 					}
 			}
 
-			if ( Weight != 0.1 )
-				Weight = 0.1;
+			if ( Weight != 0.5 )
+				Weight = 0.5;
 
 			if ( version <= 1 )
 				m_Resource = CraftResource.RegularWood;
