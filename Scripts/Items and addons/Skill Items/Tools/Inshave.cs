@@ -11,14 +11,16 @@ namespace Server.Items
 		[Constructable]
 		public Inshave() : base( 0x10E6 )
 		{
-			Weight = 1.0;
-		}
+            Weight = 2.0;
+            Name = "ishave tool";
+        }
 
 		[Constructable]
 		public Inshave( int uses ) : base( uses, 0x10E6 )
 		{
-			Weight = 1.0;
-		}
+            Weight = 2.0;
+            Name = "ishave tool";
+        }
 
 		public Inshave( Serial serial ) : base( serial )
 		{

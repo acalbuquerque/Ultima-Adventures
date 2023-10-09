@@ -63,7 +63,7 @@ namespace Server.Mobiles
 
 			VirtualArmor = 40;
 
-			switch ( Utility.Random( 11 ) )
+			switch ( Utility.Random( 7 ) )
 			{
 				case 0: PackItem( new Log( Utility.RandomMinMax( 10, 20 ) ) ); 			break;
 				case 1: PackItem( new AshLog( Utility.RandomMinMax( 10, 20 ) ) ); 		break;
@@ -71,11 +71,11 @@ namespace Server.Mobiles
 				case 3: PackItem( new EbonyLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
 				case 4: PackItem( new GoldenOakLog( Utility.RandomMinMax( 10, 20 ) ) ); break;
 				case 5: PackItem( new HickoryLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
-				case 6: PackItem( new MahoganyLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
+				/*case 6: PackItem( new MahoganyLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
 				case 7: PackItem( new OakLog( Utility.RandomMinMax( 10, 20 ) ) ); 		break;
-				case 8: PackItem( new PineLog( Utility.RandomMinMax( 10, 20 ) ) ); 		break;
-				case 9: PackItem( new RosewoodLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
-				case 10: PackItem( new WalnutLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
+				case 8: PackItem( new PineLog( Utility.RandomMinMax( 10, 20 ) ) ); 		break;*/
+				case 6: PackItem( new RosewoodLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;
+				/*case 10: PackItem( new WalnutLog( Utility.RandomMinMax( 10, 20 ) ) ); 	break;*/
 			}
 
 			if ( Utility.Random( 100 ) > 60 )

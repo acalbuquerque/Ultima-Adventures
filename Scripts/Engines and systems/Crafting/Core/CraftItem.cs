@@ -314,14 +314,14 @@ namespace Server.Engines.Craft
 				new Type[]{ typeof( EbonyLog ), typeof( EbonyBoard ) },
 				new Type[]{ typeof( GoldenOakLog ), typeof( GoldenOakBoard ) },
 				new Type[]{ typeof( HickoryLog ), typeof( HickoryBoard ) },
-				new Type[]{ typeof( MahoganyLog ), typeof( MahoganyBoard ) },
+				/*new Type[]{ typeof( MahoganyLog ), typeof( MahoganyBoard ) },
 				new Type[]{ typeof( DriftwoodLog ), typeof( DriftwoodBoard ) },
 				new Type[]{ typeof( OakLog ), typeof( OakBoard ) },
 				new Type[]{ typeof( PineLog ), typeof( PineBoard ) },
-				new Type[]{ typeof( GhostLog ), typeof( GhostBoard ) },
+				new Type[]{ typeof( GhostLog ), typeof( GhostBoard ) },*/
 				new Type[]{ typeof( RosewoodLog ), typeof( RosewoodBoard ) },
-				new Type[]{ typeof( WalnutLog ), typeof( WalnutBoard ) },
-				new Type[]{ typeof( PetrifiedLog ), typeof( PetrifiedBoard ) },
+				/*new Type[]{ typeof( WalnutLog ), typeof( WalnutBoard ) },
+				new Type[]{ typeof( PetrifiedLog ), typeof( PetrifiedBoard ) },*/
 				new Type[]{ typeof( ElvenLog ), typeof( ElvenBoard ) },
 				new Type[]{ typeof( Leather ), typeof( Hides ) },
 				new Type[]{ typeof( SpinedLeather ), typeof( SpinedHides ) },
@@ -338,8 +338,8 @@ namespace Server.Engines.Craft
 
 		private static Type[] m_ColoredItemTable = new Type[]
 			{
-				typeof( BaseWeapon ), typeof( BaseArmor ), typeof( BaseClothing ),
-				typeof( BaseJewel ), typeof( DragonBardingDeed )
+				typeof( BaseWeapon ), typeof( BaseArmor ), typeof( BaseClothing ), typeof( BaseInstrument ),
+				typeof( BaseJewel ), typeof( DragonBardingDeed ), typeof( BaseHarvestTool ), typeof( BaseContainer )
 			};
 
 		private static Type[] m_ColoredResourceTable = new Type[]
@@ -362,8 +362,9 @@ namespace Server.Engines.Craft
 					typeof( BaseHarvestTool ),
 					typeof( FukiyaDarts ), typeof( Shuriken ),
 					typeof( Spellbook ), typeof( Runebook ),
-					typeof( BaseQuiver )
-				};
+					typeof( BaseQuiver ),
+                    typeof( BaseHarvestTool ), typeof( BaseContainer ), typeof( BaseInstrument )
+                };
 		#endregion
 
 		public bool IsMarkable( Type type )
@@ -892,7 +893,8 @@ namespace Server.Engines.Craft
 
 		public void Craft( Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool )
 		{
-			if ( from.BeginAction( typeof( CraftSystem ) ) )
+            PlayerMobile pm = from as PlayerMobile;
+            if ( from.BeginAction( typeof( CraftSystem ) ) )
 			{
 				if( RequiredExpansion == Expansion.None || ( from.NetState != null && from.NetState.SupportsExpansion( RequiredExpansion ) ) )
 				{
@@ -930,37 +932,43 @@ namespace Server.Engines.Craft
 									}
 									else
 									{
-										from.EndAction( typeof( CraftSystem ) );
+                                        craftSystem.stopCraftAction(pm);
+                                        from.EndAction( typeof( CraftSystem ) );
 										from.SendGump( new CraftGump( from, craftSystem, tool, message ) );
 									}
 								}
 								else
 								{
-									from.EndAction( typeof( CraftSystem ) );
+                                    craftSystem.stopCraftAction(pm);
+                                    from.EndAction( typeof( CraftSystem ) );
 									from.SendGump( new CraftGump( from, craftSystem, tool, message ) );
 								}
 							}
 							else
 							{
-								from.EndAction( typeof( CraftSystem ) );
+                                craftSystem.stopCraftAction(pm);
+                                from.EndAction( typeof( CraftSystem ) );
 								from.SendGump( new CraftGump( from, craftSystem, tool, badCraft ) );
 							}
 						}
 						else
 						{
-							from.EndAction( typeof( CraftSystem ) );
+                            craftSystem.stopCraftAction(pm);
+                            from.EndAction( typeof( CraftSystem ) );
 							from.SendGump( new CraftGump( from, craftSystem, tool, 1072847 ) ); // You must learn that recipe from a scroll.
 						}
 					}
 					else
 					{
-						from.EndAction( typeof( CraftSystem ) );
+                        craftSystem.stopCraftAction(pm);
+                        from.EndAction( typeof( CraftSystem ) );
 						from.SendGump( new CraftGump( from, craftSystem, tool, 1044153 ) ); // You don't have the required skills to attempt this item.
 					}
 				}
 				else
 				{
-					from.EndAction( typeof( CraftSystem ) );
+                    craftSystem.stopCraftAction(pm);
+                    from.EndAction( typeof( CraftSystem ) );
 					from.SendGump( new CraftGump( from, craftSystem, tool, RequiredExpansionMessage( RequiredExpansion ) ) ); //The {0} expansion is required to attempt this item.
 				}
 			}
@@ -985,15 +993,18 @@ namespace Server.Engines.Craft
 
 		public void CompleteCraft( int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CustomCraft customCraft )
 		{
-			int badCraft = craftSystem.CanCraft( from, tool, m_Type );
+            PlayerMobile pm = from as PlayerMobile;
+            int badCraft = craftSystem.CanCraft( from, tool, m_Type );
 
 			if ( badCraft > 0 )
 			{
 				if ( tool != null && !tool.Deleted && tool.UsesRemaining > 0 )
 					from.SendGump( new CraftGump( from, craftSystem, tool, badCraft ) );
 				else
-					from.SendLocalizedMessage( badCraft );
-
+				{
+                    from.SendLocalizedMessage(badCraft);
+                    craftSystem.stopCraftAction(pm);
+                }
 				return;
 			}
 
@@ -1010,7 +1021,9 @@ namespace Server.Engines.Craft
 				else if ( checkMessage is string )
 					from.SendMessage( (string)checkMessage );
 
-				return;
+                craftSystem.stopCraftAction(pm);
+
+                return;
 			}
 			else if ( !ConsumeAttributes( from, ref checkMessage, false ) )
 			{
@@ -1021,7 +1034,9 @@ namespace Server.Engines.Craft
 				else if ( checkMessage is string )
 					from.SendMessage( (string)checkMessage );
 
-				return;
+                craftSystem.stopCraftAction(pm);
+
+                return;
 			}
 
 			bool toolBroken = false;
@@ -1031,7 +1046,7 @@ namespace Server.Engines.Craft
 
 			bool allRequiredSkills = true;
 
-			if ( CheckSkills( from, typeRes, craftSystem, ref ignored, ref allRequiredSkills ) )
+			if (CheckSkills(from, typeRes, craftSystem, ref ignored, ref allRequiredSkills))
 			{
 				// Resource
 				int resHue = 0;
@@ -1040,308 +1055,320 @@ namespace Server.Engines.Craft
 				object message = null;
 
 				// Not enough resource to craft it
-				if ( !ConsumeRes( from, typeRes, craftSystem, ref resHue, ref maxAmount, ConsumeType.All, ref message ) )
+				if (!ConsumeRes(from, typeRes, craftSystem, ref resHue, ref maxAmount, ConsumeType.All, ref message))
 				{
-					if ( tool != null && !tool.Deleted && tool.UsesRemaining > 0 )
-						from.SendGump( new CraftGump( from, craftSystem, tool, message ) );
-					else if ( message is int && (int)message > 0 )
-						from.SendLocalizedMessage( (int)message );
-					else if ( message is string )
-						from.SendMessage( (string)message );
+					if (tool != null && !tool.Deleted && tool.UsesRemaining > 0)
+						from.SendGump(new CraftGump(from, craftSystem, tool, message));
+					else if (message is int && (int)message > 0)
+						from.SendLocalizedMessage((int)message);
+					else if (message is string)
+						from.SendMessage((string)message);
+
+					craftSystem.stopCraftAction(pm);
 
 					return;
 				}
-				else if ( !ConsumeAttributes( from, ref message, true ) )
+				else if (!ConsumeAttributes(from, ref message, true))
 				{
-					if ( tool != null && !tool.Deleted && tool.UsesRemaining > 0 )
-						from.SendGump( new CraftGump( from, craftSystem, tool, message ) );
-					else if ( message is int && (int)message > 0 )
-						from.SendLocalizedMessage( (int)message );
-					else if ( message is string )
-						from.SendMessage( (string)message );
+					if (tool != null && !tool.Deleted && tool.UsesRemaining > 0)
+						from.SendGump(new CraftGump(from, craftSystem, tool, message));
+					else if (message is int && (int)message > 0)
+						from.SendLocalizedMessage((int)message);
+					else if (message is string)
+						from.SendMessage((string)message);
+
+					craftSystem.stopCraftAction(pm);
 
 					return;
 				}
 
 				tool.UsesRemaining--;
 
-				if ( craftSystem is DefBlacksmithy )
+				if (craftSystem is DefBlacksmithy)
 				{
-					AncientSmithyHammer hammer = from.FindItemOnLayer( Layer.OneHanded ) as AncientSmithyHammer;
-					if ( hammer != null && hammer != tool )
+					AncientSmithyHammer hammer = from.FindItemOnLayer(Layer.OneHanded) as AncientSmithyHammer;
+					if (hammer != null && hammer != tool)
 					{
 						hammer.UsesRemaining--;
-						if ( hammer.UsesRemaining < 1 )
+						if (hammer.UsesRemaining < 1)
+						{
 							hammer.Delete();
+							craftSystem.stopCraftAction(pm);
+						}
+
 					}
 				}
 
-				if ( tool.UsesRemaining < 1 )
+				if (tool.UsesRemaining < 1)
 					toolBroken = true;
 
-				if ( toolBroken )
+				if (toolBroken)
+				{
 					tool.Delete();
+					craftSystem.stopCraftAction(pm);
+				}
+
 
 				int num = 0;
 
 				Item item;
-				if ( customCraft != null )
+				if (customCraft != null)
 				{
-					item = customCraft.CompleteCraft( out num );
+					item = customCraft.CompleteCraft(out num);
 				}
-				else if ( typeof( MapItem ).IsAssignableFrom( ItemType ) && Worlds.IsPlayerInTheLand( from.Map, from.Location, from.X, from.Y ) == false )
+				else if (typeof(MapItem).IsAssignableFrom(ItemType) && Worlds.IsPlayerInTheLand(from.Map, from.Location, from.X, from.Y) == false)
 				{
 					item = new IndecipherableMap();
-					from.SendMessage( "You cannot seem to create a map of this area." );
+					from.SendMessage("You cannot seem to create a map of this area.");
 				}
 				else
 				{
-					item = Activator.CreateInstance( ItemType ) as Item;
+					item = Activator.CreateInstance(ItemType) as Item;
 				}
 
-				if ( item != null )
+				if (item != null)
 				{
-					if( item is ICraftable ) {
+					if (item is ICraftable) {
 						item.IsCrafted = true;
-						endquality = ((ICraftable)item).OnCraft( quality, makersMark, from, craftSystem, typeRes, tool, this, resHue );
-					} else if ( item.Hue == 0 ) {
+						endquality = ((ICraftable)item).OnCraft(quality, makersMark, from, craftSystem, typeRes, tool, this, resHue);
+					} else if (item.Hue == 0) {
 						item.Hue = resHue;
 					}
 
-					if ( maxAmount > 0 )
+					if (maxAmount > 0)
 					{
-						if ( !item.Stackable && item is IUsesRemaining )
+						if (!item.Stackable && item is IUsesRemaining)
 							((IUsesRemaining)item).UsesRemaining *= maxAmount;
 						else
 							item.Amount = maxAmount;
 					}
 
-					if ( item is Kindling || item is BarkFragment || item is Shaft )
+					if (item is Kindling || item is BarkFragment || item is Shaft)
 					{
 						item.Amount = item.Amount * 2;
 					}
-					else if ( item is WoodenPlateLegs || 
-							item is WoodenPlateGloves || 
-							item is WoodenPlateGorget || 
-							item is WoodenPlateArms || 
-							item is WoodenPlateChest || 
-							item is WoodenPlateHelm )
+					else if (item is WoodenPlateLegs ||
+							item is WoodenPlateGloves ||
+							item is WoodenPlateGorget ||
+							item is WoodenPlateArms ||
+							item is WoodenPlateChest ||
+							item is WoodenPlateHelm)
 					{
-						if ( item is BaseArmor )
+						if (item is BaseArmor)
 						{
 							BaseArmor woody = (BaseArmor)item;
-							if ( woody.Resource == CraftResource.None )
+							if (woody.Resource == CraftResource.None)
 							{
 								woody.Resource = CraftResource.RegularWood;
 								item.Hue = 0x840;
 							}
 						}
 					}
-					else if ( item is PlateArms )
+					else if (item is PlateArms)
 					{
-						item.ItemID = Utility.RandomList( 0x1410, 0x1417 );
+						item.ItemID = Utility.RandomList(0x1410, 0x1417);
 					}
-					else if ( item is LeatherCloak || item is LeatherRobe || item is LeatherSandals || item is LeatherShoes || item is LeatherBoots || item is LeatherThighBoots || item is LeatherSoftBoots )
+					else if (item is LeatherCloak || item is LeatherRobe || item is LeatherSandals || item is LeatherShoes || item is LeatherBoots || item is LeatherThighBoots || item is LeatherSoftBoots)
 					{
-						if ( item is BaseArmor )
+						if (item is BaseArmor)
 						{
 							BaseArmor cloak = (BaseArmor)item;
-							if ( cloak.Resource == CraftResource.None )
+							if (cloak.Resource == CraftResource.None)
 							{
 								cloak.Resource = CraftResource.RegularLeather;
 								item.Hue = 0x83E;
 							}
 						}
 					}
-					else if ( item is DragonArms || item is DragonChest || item is DragonGloves || item is DragonHelm || item is DragonLegs )
+					else if (item is DragonArms || item is DragonChest || item is DragonGloves || item is DragonHelm || item is DragonLegs)
 					{
-						if ( item is BaseArmor )
+						if (item is BaseArmor)
 						{
 							BaseArmor dino = (BaseArmor)item;
 
-							if ( dino.Resource == CraftResource.DinosaurScales )
+							if (dino.Resource == CraftResource.DinosaurScales)
 							{
-								if ( item is DragonArms ){ item.Name = "dinosaur sleeves"; }
-								else if ( item is DragonChest ){ item.Name = "dinosaur breastplate"; }
-								else if ( item is DragonGloves ){ item.Name = "dinosaur gloves"; }
-								else if ( item is DragonHelm ){ item.Name = "dinosaur helm"; }
-								else if ( item is DragonLegs ){ item.Name = "dinosaur leggings"; }
-							}	
+								if (item is DragonArms) { item.Name = "dinosaur sleeves"; }
+								else if (item is DragonChest) { item.Name = "dinosaur breastplate"; }
+								else if (item is DragonGloves) { item.Name = "dinosaur gloves"; }
+								else if (item is DragonHelm) { item.Name = "dinosaur helm"; }
+								else if (item is DragonLegs) { item.Name = "dinosaur leggings"; }
+							}
 						}
 					}
-					else if ( item is SkinUnicornLegs || 
-							item is SkinUnicornGloves || 
-							item is SkinUnicornGorget || 
-							item is SkinUnicornArms || 
-							item is SkinUnicornChest || 
-							item is SkinUnicornHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "unicorn skin", "", 0 ); if ( item is BaseArmor ){ BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } }
-					else if ( item is SkinDemonLegs || 
-							item is SkinDemonGloves || 
-							item is SkinDemonGorget || 
-							item is SkinDemonArms || 
-							item is SkinDemonChest || 
-							item is SkinDemonHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "demon skin", "", 0 ); if ( item is BaseArmor ){ BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } }
-					else if ( item is SkinDragonLegs || 
-							item is SkinDragonGloves || 
-							item is SkinDragonGorget || 
-							item is SkinDragonArms || 
-							item is SkinDragonChest || 
-							item is SkinDragonHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "dragon skin", "", 0 ); if ( item is BaseArmor ){ BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } }
-					else if ( item is SkinNightmareLegs || 
-							item is SkinNightmareGloves || 
-							item is SkinNightmareGorget || 
-							item is SkinNightmareArms || 
-							item is SkinNightmareChest || 
-							item is SkinNightmareHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "nightmare skin", "", 0 ); if ( item is BaseArmor ){ BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } }
-					else if ( item is SkinSerpentLegs || 
-							item is SkinSerpentGloves || 
-							item is SkinSerpentGorget || 
-							item is SkinSerpentArms || 
-							item is SkinSerpentChest || 
-							item is SkinSerpentHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "serpent skin", "", 0 ); if ( item is BaseArmor ){ BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } }
-					else if ( item is SkinTrollLegs || 
-							item is SkinTrollGloves || 
-							item is SkinTrollGorget || 
-							item is SkinTrollArms || 
-							item is SkinTrollChest || 
-							item is SkinTrollHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "troll skin", "", 0 ); if ( item is BaseArmor ){ BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } }
-					else if ( item is AmethystPlateLegs || 
-							item is AmethystPlateGloves || 
-							item is AmethystPlateGorget || 
-							item is AmethystPlateArms || 
-							item is AmethystPlateChest || 
-							item is AmethystFemalePlateChest || 
-							item is AmethystShield || 
-							item is AmethystPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "amethyst", "", 0 ); }
-					else if ( item is CaddellitePlateLegs || 
-							item is CaddellitePlateGloves || 
-							item is CaddellitePlateGorget || 
-							item is CaddellitePlateArms || 
-							item is CaddellitePlateChest || 
-							item is CaddelliteFemalePlateChest || 
-							item is CaddelliteShield || 
-							item is CaddellitePlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "caddellite", "", 0 ); }
-					else if ( item is EmeraldPlateLegs || 
-							item is EmeraldPlateGloves || 
-							item is EmeraldPlateGorget || 
-							item is EmeraldPlateArms || 
-							item is EmeraldPlateChest || 
-							item is EmeraldFemalePlateChest || 
-							item is EmeraldShield || 
-							item is EmeraldPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "emerald", "", 0 ); }
-					else if ( item is GarnetPlateLegs || 
-							item is GarnetPlateGloves || 
-							item is GarnetPlateGorget || 
-							item is GarnetPlateArms || 
-							item is GarnetPlateChest || 
-							item is GarnetFemalePlateChest || 
-							item is GarnetShield || 
-							item is GarnetPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "garnet", "", 0 ); }
-					else if ( item is IcePlateLegs || 
-							item is IcePlateGloves || 
-							item is IcePlateGorget || 
-							item is IcePlateArms || 
-							item is IcePlateChest || 
-							item is IceFemalePlateChest || 
-							item is IceShield || 
-							item is IcePlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "ice", "", 0 ); }
-					else if ( item is JadePlateLegs || 
-							item is JadePlateGloves || 
-							item is JadePlateGorget || 
-							item is JadePlateArms || 
-							item is JadePlateChest || 
-							item is JadeFemalePlateChest || 
-							item is JadeShield || 
-							item is JadePlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "jade", "", 0 ); }
-					else if ( item is MarblePlateLegs || 
-							item is MarblePlateGloves || 
-							item is MarblePlateGorget || 
-							item is MarblePlateArms || 
-							item is MarblePlateChest || 
-							item is MarbleFemalePlateChest || 
-							item is MarbleShields || 
-							item is MarblePlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "marble", "", 0 ); }
-					else if ( item is OnyxPlateLegs || 
-							item is OnyxPlateGloves || 
-							item is OnyxPlateGorget || 
-							item is OnyxPlateArms || 
-							item is OnyxPlateChest || 
-							item is OnyxFemalePlateChest || 
-							item is OnyxShield || 
-							item is OnyxPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "onyx", "", 0 ); }
-					else if ( item is QuartzPlateLegs || 
-							item is QuartzPlateGloves || 
-							item is QuartzPlateGorget || 
-							item is QuartzPlateArms || 
-							item is QuartzPlateChest || 
-							item is QuartzFemalePlateChest || 
-							item is QuartzShield || 
-							item is QuartzPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "quartz", "", 0 ); }
-					else if ( item is RubyPlateLegs || 
-							item is RubyPlateGloves || 
-							item is RubyPlateGorget || 
-							item is RubyPlateArms || 
-							item is RubyPlateChest || 
-							item is RubyFemalePlateChest || 
-							item is RubyShield || 
-							item is RubyPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "ruby", "", 0 ); }
-					else if ( item is SapphirePlateLegs || 
-							item is SapphirePlateGloves || 
-							item is SapphirePlateGorget || 
-							item is SapphirePlateArms || 
-							item is SapphirePlateChest || 
-							item is SapphireFemalePlateChest || 
-							item is SapphireShield || 
-							item is SapphirePlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "sapphire", "", 0 ); }
-					else if ( item is SilverPlateLegs || 
-							item is SilverPlateGloves || 
-							item is SilverPlateGorget || 
-							item is SilverPlateArms || 
-							item is SilverPlateChest || 
-							item is SilverFemalePlateChest || 
-							item is SilverShield || 
-							item is SilverPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "silver", "", 0 ); }
-					else if ( item is SpinelPlateLegs || 
-							item is SpinelPlateGloves || 
-							item is SpinelPlateGorget || 
-							item is SpinelPlateArms || 
-							item is SpinelPlateChest || 
-							item is SpinelFemalePlateChest || 
-							item is SpinelShield || 
-							item is SpinelPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "spinel", "", 0 ); }
-					else if ( item is StarRubyPlateLegs || 
-							item is StarRubyPlateGloves || 
-							item is StarRubyPlateGorget || 
-							item is StarRubyPlateArms || 
-							item is StarRubyPlateChest || 
-							item is StarRubyFemalePlateChest || 
-							item is StarRubyShield || 
-							item is StarRubyPlateHelm ){ item.Hue = MaterialInfo.GetMaterialColor( "star ruby", "", 0 ); }
-					else if ( item is TopazPlateLegs || 
-							item is TopazPlateGloves || 
-							item is TopazPlateGorget || 
-							item is TopazPlateArms || 
-							item is TopazPlateChest || 
-							item is TopazFemalePlateChest || 
-							item is TopazPlateHelm || 
-							item is TopazShield ){ item.Hue = MaterialInfo.GetMaterialColor( "topaz", "", 0 ); }
-					else if ( item is WhiteFurRobe || 
-							item is WhiteFurCape || 
-							item is WhiteFurCap || 
-							item is WhiteFurBoots || 
-							item is WhiteFurSarong ){ item.Hue = 0x481; }
-					else if ( item is FurRobe || 
-							item is FurCape || 
-							item is FurCap || 
-							item is FurBoots || 
-							item is FurSarong ){ item.Hue = 0x907; }
+					else if (item is SkinUnicornLegs ||
+							item is SkinUnicornGloves ||
+							item is SkinUnicornGorget ||
+							item is SkinUnicornArms ||
+							item is SkinUnicornChest ||
+							item is SkinUnicornHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("unicorn skin", "", 0); }
+					else if (item is SkinDemonLegs ||
+							item is SkinDemonGloves ||
+							item is SkinDemonGorget ||
+							item is SkinDemonArms ||
+							item is SkinDemonChest ||
+							item is SkinDemonHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("demon skin", "", 0); }
+                    else if (item is SkinDragonLegs ||
+							item is SkinDragonGloves ||
+							item is SkinDragonGorget ||
+							item is SkinDragonArms ||
+							item is SkinDragonChest ||
+							item is SkinDragonHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("dragon skin", "", 0); }
+					else if (item is SkinNightmareLegs ||
+							item is SkinNightmareGloves ||
+							item is SkinNightmareGorget ||
+							item is SkinNightmareArms ||
+							item is SkinNightmareChest ||
+							item is SkinNightmareHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("nightmare skin", "", 0);  }
+					else if (item is SkinSerpentLegs ||
+							item is SkinSerpentGloves ||
+							item is SkinSerpentGorget ||
+							item is SkinSerpentArms ||
+							item is SkinSerpentChest ||
+							item is SkinSerpentHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("serpent skin", "", 0); }
+					else if (item is SkinTrollLegs ||
+							item is SkinTrollGloves ||
+							item is SkinTrollGorget ||
+							item is SkinTrollArms ||
+							item is SkinTrollChest ||
+							item is SkinTrollHelm) {  if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("troll skin", "", 0); }
+					else if (item is AmethystPlateLegs ||
+							item is AmethystPlateGloves ||
+							item is AmethystPlateGorget ||
+							item is AmethystPlateArms ||
+							item is AmethystPlateChest ||
+							item is AmethystFemalePlateChest ||
+							item is AmethystShield ||
+							item is AmethystPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("amethyst", "", 0); }
+					else if (item is CaddellitePlateLegs ||
+							item is CaddellitePlateGloves ||
+							item is CaddellitePlateGorget ||
+							item is CaddellitePlateArms ||
+							item is CaddellitePlateChest ||
+							item is CaddelliteFemalePlateChest ||
+							item is CaddelliteShield ||
+							item is CaddellitePlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("caddellite", "", 0); }
+					else if (item is EmeraldPlateLegs ||
+							item is EmeraldPlateGloves ||
+							item is EmeraldPlateGorget ||
+							item is EmeraldPlateArms ||
+							item is EmeraldPlateChest ||
+							item is EmeraldFemalePlateChest ||
+							item is EmeraldShield ||
+							item is EmeraldPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("emerald", "", 0); }
+					else if (item is GarnetPlateLegs ||
+							item is GarnetPlateGloves ||
+							item is GarnetPlateGorget ||
+							item is GarnetPlateArms ||
+							item is GarnetPlateChest ||
+							item is GarnetFemalePlateChest ||
+							item is GarnetShield ||
+							item is GarnetPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("garnet", "", 0); }
+					else if (item is IcePlateLegs ||
+							item is IcePlateGloves ||
+							item is IcePlateGorget ||
+							item is IcePlateArms ||
+							item is IcePlateChest ||
+							item is IceFemalePlateChest ||
+							item is IceShield ||
+							item is IcePlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("ice", "", 0); }
+					else if (item is JadePlateLegs ||
+							item is JadePlateGloves ||
+							item is JadePlateGorget ||
+							item is JadePlateArms ||
+							item is JadePlateChest ||
+							item is JadeFemalePlateChest ||
+							item is JadeShield ||
+							item is JadePlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("jade", "", 0); }
+					else if (item is MarblePlateLegs ||
+							item is MarblePlateGloves ||
+							item is MarblePlateGorget ||
+							item is MarblePlateArms ||
+							item is MarblePlateChest ||
+							item is MarbleFemalePlateChest ||
+							item is MarbleShields ||
+							item is MarblePlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("marble", "", 0); }
+					else if (item is OnyxPlateLegs ||
+							item is OnyxPlateGloves ||
+							item is OnyxPlateGorget ||
+							item is OnyxPlateArms ||
+							item is OnyxPlateChest ||
+							item is OnyxFemalePlateChest ||
+							item is OnyxShield ||
+							item is OnyxPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("onyx", "", 0); }
+					else if (item is QuartzPlateLegs ||
+							item is QuartzPlateGloves ||
+							item is QuartzPlateGorget ||
+							item is QuartzPlateArms ||
+							item is QuartzPlateChest ||
+							item is QuartzFemalePlateChest ||
+							item is QuartzShield ||
+							item is QuartzPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("quartz", "", 0); }
+					else if (item is RubyPlateLegs ||
+							item is RubyPlateGloves ||
+							item is RubyPlateGorget ||
+							item is RubyPlateArms ||
+							item is RubyPlateChest ||
+							item is RubyFemalePlateChest ||
+							item is RubyShield ||
+							item is RubyPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("ruby", "", 0); }
+					else if (item is SapphirePlateLegs ||
+							item is SapphirePlateGloves ||
+							item is SapphirePlateGorget ||
+							item is SapphirePlateArms ||
+							item is SapphirePlateChest ||
+							item is SapphireFemalePlateChest ||
+							item is SapphireShield ||
+							item is SapphirePlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("sapphire", "", 0); }
+					else if (item is SilverPlateLegs ||
+							item is SilverPlateGloves ||
+							item is SilverPlateGorget ||
+							item is SilverPlateArms ||
+							item is SilverPlateChest ||
+							item is SilverFemalePlateChest ||
+							item is SilverShield ||
+							item is SilverPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("silver", "", 0); }
+					else if (item is SpinelPlateLegs ||
+							item is SpinelPlateGloves ||
+							item is SpinelPlateGorget ||
+							item is SpinelPlateArms ||
+							item is SpinelPlateChest ||
+							item is SpinelFemalePlateChest ||
+							item is SpinelShield ||
+							item is SpinelPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("spinel", "", 0); }
+					else if (item is StarRubyPlateLegs ||
+							item is StarRubyPlateGloves ||
+							item is StarRubyPlateGorget ||
+							item is StarRubyPlateArms ||
+							item is StarRubyPlateChest ||
+							item is StarRubyFemalePlateChest ||
+							item is StarRubyShield ||
+							item is StarRubyPlateHelm) { item.Hue = MaterialInfo.GetMaterialColor("star ruby", "", 0); }
+					else if (item is TopazPlateLegs ||
+							item is TopazPlateGloves ||
+							item is TopazPlateGorget ||
+							item is TopazPlateArms ||
+							item is TopazPlateChest ||
+							item is TopazFemalePlateChest ||
+							item is TopazPlateHelm ||
+							item is TopazShield) { item.Hue = MaterialInfo.GetMaterialColor("topaz", "", 0); }
+					else if (item is WhiteFurRobe ||
+							item is WhiteFurCape ||
+							item is WhiteFurCap ||
+							item is WhiteFurBoots ||
+							item is WhiteFurSarong) { item.Hue = 0x481; }
+					else if (item is FurRobe ||
+							item is FurCape ||
+							item is FurCap ||
+							item is FurBoots ||
+							item is FurSarong) { item.Hue = 0x907; }
 
-					else if ( item is BaseMagicStaff )
+					else if (item is BaseMagicStaff)
 					{
 						((BaseBashing)item).Resource = CraftResource.None;
 						string CrafterName = from.Name;
 
-						if ( CrafterName.EndsWith( "s" ) )
+						if (CrafterName.EndsWith("s"))
 						{
 							CrafterName = CrafterName + "'";
 						}
@@ -1350,632 +1377,671 @@ namespace Server.Engines.Craft
 							CrafterName = CrafterName + "'s";
 						}
 
-						if ( item is ClumsyMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 20 ); }
-						else if ( item is CreateFoodMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 17 ); }
-						else if ( item is FeebleMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 16 ); }
-						else if ( item is HealMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 21 ); }
-						else if ( item is MagicArrowMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 18 ); }
-						else if ( item is NightSightMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 14 ); }
-						else if ( item is ReactiveArmorMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 15 ); }
-						else if ( item is WeaknessMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 19 ); }
-						else if ( item is AgilityMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 21 ); }
-						else if ( item is CunningMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 14 ); }
-						else if ( item is CureMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 17 ); }
-						else if ( item is HarmMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 15 ); }
-						else if ( item is MagicTrapMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 19 ); }
-						else if ( item is MagicUntrapMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 20 ); }
-						else if ( item is ProtectionMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 16 ); }
-						else if ( item is StrengthMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 21 ); }
-						else if ( item is BlessMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 18 ); }
-						else if ( item is FireballMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 14 ); }
-						else if ( item is MagicLockMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 19 ); }
-						else if ( item is MagicUnlockMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 17 ); }
-						else if ( item is PoisonMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 16 ); }
-						else if ( item is TelekinesisMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 20 ); }
-						else if ( item is TeleportMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 15 ); }
-						else if ( item is WallofStoneMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 18 ); }
-						else if ( item is ArchCureMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 21 ); }
-						else if ( item is ArchProtectionMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 15 ); }
-						else if ( item is CurseMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 17 ); }
-						else if ( item is FireFieldMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 14 ); }
-						else if ( item is GreaterHealMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 18 ); }
-						else if ( item is LightningMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 20 ); }
-						else if ( item is ManaDrainMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 19 ); }
-						else if ( item is RecallMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 20 ); }
-						else if ( item is BladeSpiritsMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 1 ); }
-						else if ( item is DispelFieldMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 7 ); }
-						else if ( item is IncognitoMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 9 ); }
-						else if ( item is MagicReflectionMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 24 ); }
-						else if ( item is MindBlastMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 11 ); }
-						else if ( item is ParalyzeMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 13 ); }
-						else if ( item is PoisonFieldMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 10 ); }
-						else if ( item is SummonCreatureMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 4 ); }
-						else if ( item is DispelMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 29 ); }
-						else if ( item is EnergyBoltMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 3 ); }
-						else if ( item is ExplosionMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 2 ); }
-						else if ( item is InvisibilityMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 5 ); }
-						else if ( item is MarkMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 23 ); }
-						else if ( item is MassCurseMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 22 ); }
-						else if ( item is ParalyzeFieldMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 8 ); }
-						else if ( item is RevealMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 37 ); }
-						else if ( item is ChainLightningMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 6 ); }
-						else if ( item is EnergyFieldMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 11 ); }
-						else if ( item is FlameStrikeMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 22 ); }
-						else if ( item is GateTravelMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 29 ); }
-						else if ( item is ManaVampireMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 9 ); }
-						else if ( item is MassDispelMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 1 ); }
-						else if ( item is MeteorSwarmMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 2 ); }
-						else if ( item is PolymorphMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 23 ); }
-						else if ( item is AirElementalMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 6 ); }
-						else if ( item is EarthElementalMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 10 ); }
-						else if ( item is EarthquakeMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 4 ); }
-						else if ( item is EnergyVortexMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 3 ); }
-						else if ( item is FireElementalMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 5 ); }
-						else if ( item is ResurrectionMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 24 ); }
-						else if ( item is SummonDaemonMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 13 ); }
-						else if ( item is WaterElementalMagicStaff ){ Server.Misc.MaterialInfo.ColorMetal( item, 8 ); }
+						if (item is ClumsyMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 20); }
+						else if (item is CreateFoodMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 17); }
+						else if (item is FeebleMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 16); }
+						else if (item is HealMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 21); }
+						else if (item is MagicArrowMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 18); }
+						else if (item is NightSightMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 14); }
+						else if (item is ReactiveArmorMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 15); }
+						else if (item is WeaknessMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 19); }
+						else if (item is AgilityMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 21); }
+						else if (item is CunningMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 14); }
+						else if (item is CureMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 17); }
+						else if (item is HarmMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 15); }
+						else if (item is MagicTrapMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 19); }
+						else if (item is MagicUntrapMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 20); }
+						else if (item is ProtectionMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 16); }
+						else if (item is StrengthMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 21); }
+						else if (item is BlessMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 18); }
+						else if (item is FireballMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 14); }
+						else if (item is MagicLockMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 19); }
+						else if (item is MagicUnlockMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 17); }
+						else if (item is PoisonMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 16); }
+						else if (item is TelekinesisMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 20); }
+						else if (item is TeleportMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 15); }
+						else if (item is WallofStoneMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 18); }
+						else if (item is ArchCureMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 21); }
+						else if (item is ArchProtectionMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 15); }
+						else if (item is CurseMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 17); }
+						else if (item is FireFieldMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 14); }
+						else if (item is GreaterHealMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 18); }
+						else if (item is LightningMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 20); }
+						else if (item is ManaDrainMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 19); }
+						else if (item is RecallMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 20); }
+						else if (item is BladeSpiritsMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 1); }
+						else if (item is DispelFieldMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 7); }
+						else if (item is IncognitoMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 9); }
+						else if (item is MagicReflectionMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 24); }
+						else if (item is MindBlastMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 11); }
+						else if (item is ParalyzeMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 13); }
+						else if (item is PoisonFieldMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 10); }
+						else if (item is SummonCreatureMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 4); }
+						else if (item is DispelMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 29); }
+						else if (item is EnergyBoltMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 3); }
+						else if (item is ExplosionMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 2); }
+						else if (item is InvisibilityMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 5); }
+						else if (item is MarkMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 23); }
+						else if (item is MassCurseMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 22); }
+						else if (item is ParalyzeFieldMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 8); }
+						else if (item is RevealMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 37); }
+						else if (item is ChainLightningMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 6); }
+						else if (item is EnergyFieldMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 11); }
+						else if (item is FlameStrikeMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 22); }
+						else if (item is GateTravelMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 29); }
+						else if (item is ManaVampireMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 9); }
+						else if (item is MassDispelMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 1); }
+						else if (item is MeteorSwarmMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 2); }
+						else if (item is PolymorphMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 23); }
+						else if (item is AirElementalMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 6); }
+						else if (item is EarthElementalMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 10); }
+						else if (item is EarthquakeMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 4); }
+						else if (item is EnergyVortexMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 3); }
+						else if (item is FireElementalMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 5); }
+						else if (item is ResurrectionMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 24); }
+						else if (item is SummonDaemonMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 13); }
+						else if (item is WaterElementalMagicStaff) { Server.Misc.MaterialInfo.ColorMetal(item, 8); }
 
 						item.Name = CrafterName + " " + item.Name;
 					}
-					else if ( item is BaseInstrument )
+					else if (item is BaseInstrument)
 					{
 						int cHue = 0;
 						int cUse = 0;
 						Type resourceType = typeRes;
-						if ( resourceType == null )
-							resourceType = Resources.GetAt( 0 ).ItemType;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-						CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						switch ( thisResource )
+						switch (thisResource)
 						{
-							case CraftResource.AshTree: cHue = MaterialInfo.GetMaterialColor( "ash", "", 0 ); cUse = 20; break;
-							case CraftResource.CherryTree: cHue = MaterialInfo.GetMaterialColor( "cherry", "", 0 ); cUse = 40; break;
-							case CraftResource.EbonyTree: cHue = MaterialInfo.GetMaterialColor( "ebony", "", 0 ); cUse = 60; break;
-							case CraftResource.GoldenOakTree: cHue = MaterialInfo.GetMaterialColor( "golden oak", "", 0 ); cUse = 80; break;
-							case CraftResource.HickoryTree: cHue = MaterialInfo.GetMaterialColor( "hickory", "", 0 ); cUse = 100; break;
-							case CraftResource.MahoganyTree: cHue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 ); cUse = 120; break;
+							case CraftResource.AshTree: cHue = MaterialInfo.GetMaterialColor("ash", "", 0); cUse = 20; break;
+							case CraftResource.CherryTree: cHue = MaterialInfo.GetMaterialColor("cherry", "", 0); cUse = 40; break;
+							case CraftResource.EbonyTree: cHue = MaterialInfo.GetMaterialColor("ebony", "", 0); cUse = 60; break;
+							case CraftResource.GoldenOakTree: cHue = MaterialInfo.GetMaterialColor("golden oak", "", 0); cUse = 80; break;
+							case CraftResource.HickoryTree: cHue = MaterialInfo.GetMaterialColor("hickory", "", 0); cUse = 100; break;
+							/*case CraftResource.MahoganyTree: cHue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 ); cUse = 120; break;
 							case CraftResource.DriftwoodTree: cHue = MaterialInfo.GetMaterialColor( "driftwood", "", 0 ); cUse = 120; break;
 							case CraftResource.OakTree: cHue = MaterialInfo.GetMaterialColor( "oak", "", 0 ); cUse = 140; break;
 							case CraftResource.PineTree: cHue = MaterialInfo.GetMaterialColor( "pine", "", 0 ); cUse = 160; break;
-							case CraftResource.GhostTree: cHue = MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ); cUse = 160; break;
-							case CraftResource.RosewoodTree: cHue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 ); cUse = 180; break;
-							case CraftResource.WalnutTree: cHue = MaterialInfo.GetMaterialColor( "walnut", "", 0 ); cUse = 200; break;
-							case CraftResource.PetrifiedTree: cHue = MaterialInfo.GetMaterialColor( "petrified", "", 0 ); cUse = 250; break;
-							case CraftResource.ElvenTree: cHue = MaterialInfo.GetMaterialColor( "elven", "", 0 ); cUse = 400; break;
+							case CraftResource.GhostTree: cHue = MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ); cUse = 160; break;*/
+							case CraftResource.RosewoodTree: cHue = MaterialInfo.GetMaterialColor("rosewood", "", 0); cUse = 180; break;
+							/*case CraftResource.WalnutTree: cHue = MaterialInfo.GetMaterialColor( "walnut", "", 0 ); cUse = 200; break;
+							case CraftResource.PetrifiedTree: cHue = MaterialInfo.GetMaterialColor( "petrified", "", 0 ); cUse = 250; break;*/
+							case CraftResource.ElvenTree: cHue = MaterialInfo.GetMaterialColor("elven", "", 0); cUse = 400; break;
 						}
 
 						((BaseInstrument)item).UsesRemaining = ((BaseInstrument)item).UsesRemaining + cUse;
 						item.Hue = cHue;
 					}
-					else if ( item is PotionKeg )
+					else if (item is PotionKeg)
 					{
 						item.Hue = 0x96D;
 					}
-					else if ( item is HorseArmor )
+					else if (item is HorseArmor)
 					{
-						int color = MaterialInfo.GetMaterialColor( "silver", "monster", 0 );
+						int color = MaterialInfo.GetMaterialColor("silver", "monster", 0);
 						string material = "Iron";
 
 						Type resourceType = typeRes;
-						if ( resourceType == null )
-							resourceType = Resources.GetAt( 0 ).ItemType;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-						CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						switch ( thisResource )
+						switch (thisResource)
 						{
-							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); material = "Dull Copper"; break;
-							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); material = "Shadow Iron"; break;
-							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); material = "Copper"; break;
-							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); material = "Bronze"; break;
-                            case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); material = "Platinum"; break;
-                            case CraftResource.Gold: color = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); material = "Gold"; break;
-							case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); material = "Agapite"; break;
-							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); material = "Verite"; break;
-							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); material = "Valorite"; break;
-                            case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); material = "Titanium"; break;
-                            case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); material = "Rosenium"; break;
-                            case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); material = "Nepturite"; break;
-							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); material = "Obsidian"; break;
-							case CraftResource.Steel: color = MaterialInfo.GetMaterialColor( "steel", "classic", 0 ); material = "Steel"; break;
-							case CraftResource.Brass: color = MaterialInfo.GetMaterialColor( "brass", "classic", 0 ); material = "Brass"; break;
-							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); material = "Mithril"; break;
-							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); material = "Xormite"; break;
-							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); material = "Dwarven"; break;
+							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor("dull copper", "classic", 0); material = "Dull Copper"; break;
+							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor("shadow iron", "classic", 0); material = "Shadow Iron"; break;
+							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor("copper", "classic", 0); material = "Copper"; break;
+							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor("bronze", "classic", 0); material = "Bronze"; break;
+							case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); material = "Platinum"; break;
+							case CraftResource.Gold: color = MaterialInfo.GetMaterialColor("gold", "classic", 0); material = "Gold"; break;
+							case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor("agapite", "classic", 0); material = "Agapite"; break;
+							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor("verite", "classic", 0); material = "Verite"; break;
+							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor("valorite", "classic", 0); material = "Valorite"; break;
+							case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); material = "Titanium"; break;
+							case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); material = "Rosenium"; break;
+							case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor("nepturite", "classic", 0); material = "Nepturite"; break;
+							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor("obsidian", "classic", 0); material = "Obsidian"; break;
+							case CraftResource.Steel: color = MaterialInfo.GetMaterialColor("steel", "classic", 0); material = "Steel"; break;
+							case CraftResource.Brass: color = MaterialInfo.GetMaterialColor("brass", "classic", 0); material = "Brass"; break;
+							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor("mithril", "classic", 0); material = "Mithril"; break;
+							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor("xormite", "classic", 0); material = "Xormite"; break;
+							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor("dwarven", "classic", 0); material = "Dwarven"; break;
 						}
 
 						((HorseArmor)item).ArmorMaterial = material;
 						item.Hue = color;
 					}
-					else if ( item is BaseStatue )
+					else if (item is BaseStatue)
 					{
 						int color = 0xB8E;
 						string material = "Granite";
 						string maker = from.Name;
 
 						Type resourceType = typeRes;
-						if ( resourceType == null )
-							resourceType = Resources.GetAt( 0 ).ItemType;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-						CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						switch ( thisResource )
+						switch (thisResource)
 						{
-							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); material = "Dull Copper Granite"; break;
-							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); material = "Shadow Iron Granite"; break;
-							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); material = "Copper Granite"; break;
-							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); material = "Bronze Granite"; break;
-                            case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); material = "Platinum Granite"; break;
-                            case CraftResource.Gold: color = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); material = "Gold Granite"; break;
-							case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); material = "Agapite Granite"; break;
-							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); material = "Verite Granite"; break;
-							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); material = "Valorite Granite"; break;
-                            case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); material = "Titanium Granite"; break;
-                            case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); material = "Rosenium Granite"; break;
-                            case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); material = "Nepturite Granite"; break;
-							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); material = "Obsidian Granite"; break;
-							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); material = "Mithril Granite"; break;
-							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); material = "Xormite Granite"; break;
-							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); material = "Dwarven Granite"; break;
+							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor("dull copper", "classic", 0); material = "Dull Copper Granite"; break;
+							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor("shadow iron", "classic", 0); material = "Shadow Iron Granite"; break;
+							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor("copper", "classic", 0); material = "Copper Granite"; break;
+							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor("bronze", "classic", 0); material = "Bronze Granite"; break;
+							case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); material = "Platinum Granite"; break;
+							case CraftResource.Gold: color = MaterialInfo.GetMaterialColor("gold", "classic", 0); material = "Gold Granite"; break;
+							case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor("agapite", "classic", 0); material = "Agapite Granite"; break;
+							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor("verite", "classic", 0); material = "Verite Granite"; break;
+							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor("valorite", "classic", 0); material = "Valorite Granite"; break;
+							case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); material = "Titanium Granite"; break;
+							case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); material = "Rosenium Granite"; break;
+							case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor("nepturite", "classic", 0); material = "Nepturite Granite"; break;
+							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor("obsidian", "classic", 0); material = "Obsidian Granite"; break;
+							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor("mithril", "classic", 0); material = "Mithril Granite"; break;
+							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor("xormite", "classic", 0); material = "Xormite Granite"; break;
+							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor("dwarven", "classic", 0); material = "Dwarven Granite"; break;
 						}
 
 						((BaseStatue)item).Crafter = maker;
 						((BaseStatue)item).Resource = material;
 						item.Hue = color;
 					}
-					else if ( item is BaseStatueDeed )
+					else if (item is BaseStatueDeed)
 					{
 						int color = 0xB8E;
 						string material = "Granite";
 						string maker = from.Name;
 
 						Type resourceType = typeRes;
-						if ( resourceType == null )
-							resourceType = Resources.GetAt( 0 ).ItemType;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-						CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						switch ( thisResource )
+						switch (thisResource)
 						{
-							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); material = "Dull Copper Granite"; break;
-							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); material = "Shadow Iron Granite"; break;
-							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); material = "Copper Granite"; break;
-							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); material = "Bronze Granite"; break;
-                            case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); material = "Rosenium Granite"; break;
-                            case CraftResource.Gold: color = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); material = "Gold Granite"; break;
-							case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); material = "Agapite Granite"; break;
-							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); material = "Verite Granite"; break;
-							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); material = "Valorite Granite"; break;
-                            case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); material = "Titanium Granite"; break;
-                            case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); material = "Platinum Granite"; break;
-                            case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); material = "Nepturite Granite"; break;
-							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); material = "Obsidian Granite"; break;
-							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); material = "Mithril Granite"; break;
-							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); material = "Xormite Granite"; break;
-							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); material = "Dwarven Granite"; break;
+							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor("dull copper", "classic", 0); material = "Dull Copper Granite"; break;
+							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor("shadow iron", "classic", 0); material = "Shadow Iron Granite"; break;
+							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor("copper", "classic", 0); material = "Copper Granite"; break;
+							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor("bronze", "classic", 0); material = "Bronze Granite"; break;
+							case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); material = "Rosenium Granite"; break;
+							case CraftResource.Gold: color = MaterialInfo.GetMaterialColor("gold", "classic", 0); material = "Gold Granite"; break;
+							case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor("agapite", "classic", 0); material = "Agapite Granite"; break;
+							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor("verite", "classic", 0); material = "Verite Granite"; break;
+							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor("valorite", "classic", 0); material = "Valorite Granite"; break;
+							case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); material = "Titanium Granite"; break;
+							case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); material = "Platinum Granite"; break;
+							case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor("nepturite", "classic", 0); material = "Nepturite Granite"; break;
+							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor("obsidian", "classic", 0); material = "Obsidian Granite"; break;
+							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor("mithril", "classic", 0); material = "Mithril Granite"; break;
+							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor("xormite", "classic", 0); material = "Xormite Granite"; break;
+							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor("dwarven", "classic", 0); material = "Dwarven Granite"; break;
 						}
 
-						Server.Items.Statues.SetStatue( (BaseStatueDeed)item, (int)item.Weight, color, material, maker, item.Name );
+						Server.Items.Statues.SetStatue((BaseStatueDeed)item, (int)item.Weight, color, material, maker, item.Name);
 					}
-					else if ( craftSystem is DefMasonry )
+					else if (craftSystem is DefMasonry)
 					{
 						int color = 0;
 
 						Type resourceType = typeRes;
-						if ( resourceType == null )
-							resourceType = Resources.GetAt( 0 ).ItemType;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-						CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						switch ( thisResource )
+						switch (thisResource)
 						{
-							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); break;
-							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); break;
-							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); break;
-							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); break;
-							case CraftResource.Gold: color = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); break;
-                            case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); break;
-                            case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); break;
-							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); break;
-							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); break;
-                            case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); break;
-                            case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); break;
-                            case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); break;
-							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); break;
-							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); break;
-							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); break;
-							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); break;
+							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor("dull copper", "classic", 0); break;
+							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor("shadow iron", "classic", 0); break;
+							case CraftResource.Copper: color = MaterialInfo.GetMaterialColor("copper", "classic", 0); break;
+							case CraftResource.Bronze: color = MaterialInfo.GetMaterialColor("bronze", "classic", 0); break;
+							case CraftResource.Gold: color = MaterialInfo.GetMaterialColor("gold", "classic", 0); break;
+							case CraftResource.Platinum: color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); break;
+							case CraftResource.Agapite: color = MaterialInfo.GetMaterialColor("agapite", "classic", 0); break;
+							case CraftResource.Verite: color = MaterialInfo.GetMaterialColor("verite", "classic", 0); break;
+							case CraftResource.Valorite: color = MaterialInfo.GetMaterialColor("valorite", "classic", 0); break;
+							case CraftResource.Titanium: color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); break;
+							case CraftResource.Rosenium: color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); break;
+							case CraftResource.Nepturite: color = MaterialInfo.GetMaterialColor("nepturite", "classic", 0); break;
+							case CraftResource.Obsidian: color = MaterialInfo.GetMaterialColor("obsidian", "classic", 0); break;
+							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor("mithril", "classic", 0); break;
+							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor("xormite", "classic", 0); break;
+							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor("dwarven", "classic", 0); break;
 						}
 
 						item.Hue = color;
 					}
-					else if ( item is TrapKit )
+					else if (item is TrapKit)
 					{
 						Type resourceType = typeRes;
-						if ( resourceType == null )
-							resourceType = Resources.GetAt( 0 ).ItemType;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-						CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						switch ( thisResource )
+						switch (thisResource)
 						{
-							case CraftResource.DullCopper: 	item.Hue = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); ((TrapKit)item).m_Metal = "Dull Copper"; 	break;
-							case CraftResource.ShadowIron: 	item.Hue = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); ((TrapKit)item).m_Metal = "Shadow Iron"; 	break;
-							case CraftResource.Copper: 		item.Hue = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); ((TrapKit)item).m_Metal = "Copper"; 			break;
-							case CraftResource.Bronze: 		item.Hue = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); ((TrapKit)item).m_Metal = "Bronze"; 			break;
-                            case CraftResource.Platinum:	item.Hue = MaterialInfo.GetMaterialColor("platinum", "classic", 0); ((TrapKit)item).m_Metal = "Platinum";			break;
-                            case CraftResource.Gold: 		item.Hue = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); ((TrapKit)item).m_Metal = "Gold";					break;
-                            case CraftResource.Agapite: 	item.Hue = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); ((TrapKit)item).m_Metal = "Agapite"; 			break;
-							case CraftResource.Verite: 		item.Hue = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); ((TrapKit)item).m_Metal = "Verite"; 			break;
-							case CraftResource.Valorite: 	item.Hue = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); ((TrapKit)item).m_Metal = "Valorite";			break;
-                            case CraftResource.Rosenium:	item.Hue = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); ((TrapKit)item).m_Metal = "Rosenium";			break;
-                            case CraftResource.Titanium:	item.Hue = MaterialInfo.GetMaterialColor("titanium", "classic", 0); ((TrapKit)item).m_Metal = "Titanium";			break;
-							case CraftResource.Nepturite: 	item.Hue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); ((TrapKit)item).m_Metal = "Nepturite"; 		break;
-							case CraftResource.Obsidian: 	item.Hue = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); ((TrapKit)item).m_Metal = "Obsidian"; 		break;
-							case CraftResource.Steel: 		item.Hue = MaterialInfo.GetMaterialColor( "steel", "classic", 0 ); ((TrapKit)item).m_Metal = "Steel"; 				break;
-							case CraftResource.Brass: 		item.Hue = MaterialInfo.GetMaterialColor( "brass", "classic", 0 ); ((TrapKit)item).m_Metal = "Brass"; 				break;
-							case CraftResource.Mithril: 	item.Hue = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); ((TrapKit)item).m_Metal = "Mithril"; 			break;
-							case CraftResource.Xormite: 	item.Hue = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); ((TrapKit)item).m_Metal = "Xormite"; 			break;
-							case CraftResource.Dwarven: 	item.Hue = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); ((TrapKit)item).m_Metal = "Dwarven"; 			break;
+							case CraftResource.DullCopper: item.Hue = MaterialInfo.GetMaterialColor("dull copper", "classic", 0); ((TrapKit)item).m_Metal = "Dull Copper"; break;
+							case CraftResource.ShadowIron: item.Hue = MaterialInfo.GetMaterialColor("shadow iron", "classic", 0); ((TrapKit)item).m_Metal = "Shadow Iron"; break;
+							case CraftResource.Copper: item.Hue = MaterialInfo.GetMaterialColor("copper", "classic", 0); ((TrapKit)item).m_Metal = "Copper"; break;
+							case CraftResource.Bronze: item.Hue = MaterialInfo.GetMaterialColor("bronze", "classic", 0); ((TrapKit)item).m_Metal = "Bronze"; break;
+							case CraftResource.Platinum: item.Hue = MaterialInfo.GetMaterialColor("platinum", "classic", 0); ((TrapKit)item).m_Metal = "Platinum"; break;
+							case CraftResource.Gold: item.Hue = MaterialInfo.GetMaterialColor("gold", "classic", 0); ((TrapKit)item).m_Metal = "Gold"; break;
+							case CraftResource.Agapite: item.Hue = MaterialInfo.GetMaterialColor("agapite", "classic", 0); ((TrapKit)item).m_Metal = "Agapite"; break;
+							case CraftResource.Verite: item.Hue = MaterialInfo.GetMaterialColor("verite", "classic", 0); ((TrapKit)item).m_Metal = "Verite"; break;
+							case CraftResource.Valorite: item.Hue = MaterialInfo.GetMaterialColor("valorite", "classic", 0); ((TrapKit)item).m_Metal = "Valorite"; break;
+							case CraftResource.Rosenium: item.Hue = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); ((TrapKit)item).m_Metal = "Rosenium"; break;
+							case CraftResource.Titanium: item.Hue = MaterialInfo.GetMaterialColor("titanium", "classic", 0); ((TrapKit)item).m_Metal = "Titanium"; break;
+							case CraftResource.Nepturite: item.Hue = MaterialInfo.GetMaterialColor("nepturite", "classic", 0); ((TrapKit)item).m_Metal = "Nepturite"; break;
+							case CraftResource.Obsidian: item.Hue = MaterialInfo.GetMaterialColor("obsidian", "classic", 0); ((TrapKit)item).m_Metal = "Obsidian"; break;
+							case CraftResource.Steel: item.Hue = MaterialInfo.GetMaterialColor("steel", "classic", 0); ((TrapKit)item).m_Metal = "Steel"; break;
+							case CraftResource.Brass: item.Hue = MaterialInfo.GetMaterialColor("brass", "classic", 0); ((TrapKit)item).m_Metal = "Brass"; break;
+							case CraftResource.Mithril: item.Hue = MaterialInfo.GetMaterialColor("mithril", "classic", 0); ((TrapKit)item).m_Metal = "Mithril"; break;
+							case CraftResource.Xormite: item.Hue = MaterialInfo.GetMaterialColor("xormite", "classic", 0); ((TrapKit)item).m_Metal = "Xormite"; break;
+							case CraftResource.Dwarven: item.Hue = MaterialInfo.GetMaterialColor("dwarven", "classic", 0); ((TrapKit)item).m_Metal = "Dwarven"; break;
 						}
 					}
-					else if ( item is ShortMusicStand || 
-						item is Backpack || 
-						item is Pouch || 
-						item is Bag || 
-						item is LargeBag || 
-						item is GiantBag || 
-						item is LargeSack || 
-						item is Scales || 
-						item is Key || 
-						item is Globe || 
-						item is WindChimes || 
-						item is FancyWindChimes || 
-						item is TallMusicStand || 
-						item is Easle || 
-						item is ShojiScreen || 
-						item is BambooScreen || 
-						item is FootStool || 
-						item is Stool || 
-						item is BambooChair || 
-						item is WoodenChair || 
-						item is WoodenCoffin || 
-						item is WoodenCasket || 
-						item is StoneCoffin || 
-						item is StoneCasket || 
-						item is RockUrn || 
-						item is RockVase || 
-						item is FancyWoodenChairCushion || 
-						item is WoodenChairCushion || 
-						item is WoodenBench || 
-						item is WoodenThrone || 
-						item is Throne || 
-						item is Nightstand || 
-						item is WritingTable || 
-						item is YewWoodTable || 
-						item is LargeTable || 
-						item is ElegantLowTable || 
-						item is PlainLowTable || 
-						item is CandleLarge || 
-						item is Candelabra || 
-						item is CandelabraStand || 
-						item is WoodenBox || 
-						item is WoodenChest || 
-						item is SmallCrate || 
-						item is MediumCrate || 
-						item is LargeCrate || 
-						item is AdventurerCrate || 
-						item is AlchemyCrate || 
-						item is ArmsCrate || 
-						item is BakerCrate || 
-						item is BeekeeperCrate || 
-						item is BlacksmithCrate || 
-						item is BowyerCrate || 
-						item is ButcherCrate || 
-						item is CarpenterCrate || 
-						item is FletcherCrate || 
-						item is HealerCrate || 
-						item is HugeCrate || 
-						item is JewelerCrate || 
-						item is LibrarianCrate || 
-						item is MusicianCrate || 
-						item is NecromancerCrate || 
-						item is ProvisionerCrate || 
-						item is SailorCrate || 
-						item is StableCrate || 
-						item is SupplyCrate || 
-						item is TailorCrate || 
-						item is TavernCrate || 
-						item is TinkerCrate || 
-						item is TreasureCrate || 
-						item is WizardryCrate || 
-						item is SailorShelf || 
-						item is ColoredArmoireA || 
-						item is ColoredArmoireB || 
-						item is ColoredCabinetA || 
-						item is ColoredCabinetB || 
-						item is ColoredCabinetC || 
-						item is ColoredCabinetD || 
-						item is ColoredCabinetE || 
-						item is ColoredCabinetF || 
-						item is ColoredCabinetG || 
-						item is ColoredCabinetH || 
-						item is ColoredCabinetI || 
-						item is ColoredCabinetJ || 
-						item is ColoredCabinetK || 
-						item is ColoredCabinetL || 
-						item is ColoredCabinetM || 
-						item is ColoredCabinetN || 
-						item is ColoredDresserA || 
-						item is ColoredDresserB || 
-						item is ColoredDresserC || 
-						item is ColoredDresserD || 
-						item is ColoredDresserE || 
-						item is ColoredDresserF || 
-						item is ColoredDresserG || 
-						item is ColoredDresserH || 
-						item is ColoredDresserI || 
-						item is ColoredDresserJ || 
-						item is ColoredShelf1 || 
-						item is ColoredShelf2 || 
-						item is ColoredShelf3 || 
-						item is ColoredShelf4 || 
-						item is ColoredShelf5 || 
-						item is ColoredShelf6 || 
-						item is ColoredShelf7 || 
-						item is ColoredShelf8 || 
-						item is ColoredShelfA || 
-						item is ColoredShelfB || 
-						item is ColoredShelfC || 
-						item is ColoredShelfD || 
-						item is ColoredShelfE || 
-						item is ColoredShelfF || 
-						item is ColoredShelfG || 
-						item is ColoredShelfH || 
-						item is ColoredShelfI || 
-						item is ColoredShelfJ || 
-						item is ColoredShelfK || 
-						item is ColoredShelfL || 
-						item is ColoredShelfM || 
-						item is ColoredShelfN || 
-						item is ColoredShelfO || 
-						item is ColoredShelfP || 
-						item is ColoredShelfQ || 
-						item is ColoredShelfR || 
-						item is ColoredShelfS || 
-						item is ColoredShelfT || 
-						item is ColoredShelfU || 
-						item is ColoredShelfV || 
-						item is ColoredShelfW || 
-						item is ColoredShelfX || 
-						item is ColoredShelfY || 
-						item is ColoredShelfZ || 
-						item is EmptyBookcase || 
-						item is FancyArmoire || 
-						item is Armoire || 
-						item is PlainWoodenChest || 
-						item is OrnateWoodenChest || 
-						item is GildedWoodenChest || 
-						item is WoodenFootLocker || 
-						item is FinishedWoodenChest || 
-						item is TallCabinet || 
-						item is ShortCabinet || 
-						item is RedArmoire || 
-						item is ElegantArmoire || 
-						item is MapleArmoire || 
-						item is CherryArmoire )
+					else if (item is ShortMusicStand ||
+								item is Backpack ||
+								item is Pouch ||
+								item is Bag ||
+								item is LargeBag ||
+								item is GiantBag ||
+								item is LargeSack ||
+								item is Scales ||
+								item is Key ||
+								item is Globe ||
+								item is WindChimes ||
+								item is FancyWindChimes ||
+								item is TallMusicStand ||
+								item is Easle ||
+								item is ShojiScreen ||
+								item is BambooScreen ||
+								item is FootStool ||
+								item is Stool ||
+								item is BambooChair ||
+								item is WoodenChair ||
+								item is WoodenCoffin ||
+								item is WoodenCasket ||
+								item is StoneCoffin ||
+								item is StoneCasket ||
+								item is RockUrn ||
+								item is RockVase ||
+								item is FancyWoodenChairCushion ||
+								item is WoodenChairCushion ||
+								item is WoodenBench ||
+								item is WoodenThrone ||
+								item is Throne ||
+								item is Nightstand ||
+								item is WritingTable ||
+								item is YewWoodTable ||
+								item is LargeTable ||
+								item is ElegantLowTable ||
+								item is PlainLowTable ||
+								item is CandleLarge ||
+								item is Candelabra ||
+								item is CandelabraStand ||
+								item is WoodenBox ||
+								item is WoodenChest ||
+								item is SmallCrate ||
+								item is MediumCrate ||
+								item is LargeCrate ||
+								item is AdventurerCrate ||
+								item is AlchemyCrate ||
+								item is ArmsCrate ||
+								item is BakerCrate ||
+								item is BeekeeperCrate ||
+								item is BlacksmithCrate ||
+								item is BowyerCrate ||
+								item is ButcherCrate ||
+								item is CarpenterCrate ||
+								item is FletcherCrate ||
+								item is HealerCrate ||
+								item is HugeCrate ||
+								item is JewelerCrate ||
+								item is LibrarianCrate ||
+								item is MusicianCrate ||
+								item is NecromancerCrate ||
+								item is ProvisionerCrate ||
+								item is SailorCrate ||
+								item is StableCrate ||
+								item is SupplyCrate ||
+								item is TailorCrate ||
+								item is TavernCrate ||
+								item is TinkerCrate ||
+								item is TreasureCrate ||
+								item is WizardryCrate ||
+								item is SailorShelf ||
+								item is ColoredArmoireA ||
+								item is ColoredArmoireB ||
+								item is ColoredCabinetA ||
+								item is ColoredCabinetB ||
+								item is ColoredCabinetC ||
+								item is ColoredCabinetD ||
+								item is ColoredCabinetE ||
+								item is ColoredCabinetF ||
+								item is ColoredCabinetG ||
+								item is ColoredCabinetH ||
+								item is ColoredCabinetI ||
+								item is ColoredCabinetJ ||
+								item is ColoredCabinetK ||
+								item is ColoredCabinetL ||
+								item is ColoredCabinetM ||
+								item is ColoredCabinetN ||
+								item is ColoredDresserA ||
+								item is ColoredDresserB ||
+								item is ColoredDresserC ||
+								item is ColoredDresserD ||
+								item is ColoredDresserE ||
+								item is ColoredDresserF ||
+								item is ColoredDresserG ||
+								item is ColoredDresserH ||
+								item is ColoredDresserI ||
+								item is ColoredDresserJ ||
+								item is ColoredShelf1 ||
+								item is ColoredShelf2 ||
+								item is ColoredShelf3 ||
+								item is ColoredShelf4 ||
+								item is ColoredShelf5 ||
+								item is ColoredShelf6 ||
+								item is ColoredShelf7 ||
+								item is ColoredShelf8 ||
+								item is ColoredShelfA ||
+								item is ColoredShelfB ||
+								item is ColoredShelfC ||
+								item is ColoredShelfD ||
+								item is ColoredShelfE ||
+								item is ColoredShelfF ||
+								item is ColoredShelfG ||
+								item is ColoredShelfH ||
+								item is ColoredShelfI ||
+								item is ColoredShelfJ ||
+								item is ColoredShelfK ||
+								item is ColoredShelfL ||
+								item is ColoredShelfM ||
+								item is ColoredShelfN ||
+								item is ColoredShelfO ||
+								item is ColoredShelfP ||
+								item is ColoredShelfQ ||
+								item is ColoredShelfR ||
+								item is ColoredShelfS ||
+								item is ColoredShelfT ||
+								item is ColoredShelfU ||
+								item is ColoredShelfV ||
+								item is ColoredShelfW ||
+								item is ColoredShelfX ||
+								item is ColoredShelfY ||
+								item is ColoredShelfZ ||
+								item is EmptyBookcase ||
+								item is FancyArmoire ||
+								item is Armoire ||
+								item is PlainWoodenChest ||
+								item is OrnateWoodenChest ||
+								item is GildedWoodenChest ||
+								item is WoodenFootLocker ||
+								item is FinishedWoodenChest ||
+								item is TallCabinet ||
+								item is ShortCabinet ||
+								item is RedArmoire ||
+								item is ElegantArmoire ||
+								item is MapleArmoire ||
+								item is CherryArmoire || item is NewShelfA || item is NewShelfB || item is NewShelfE || item is NewShelfF || item is NewShelfD || item is PlainLargeTable)
+					{
+						int cHue = 0;
+
+						if (item is WoodenChest) { cHue = 0x724; }
+						else if (item is WoodenThrone) { cHue = 0x840; }
+						else if (item is GiantBag) { cHue = 0x83E; }
+						else if (item is LargeSack) { cHue = 0x83F; }
+						else if (item is Bag) { cHue = 0xABE; }
+						else if (item is AdventurerCrate) { cHue = 0xABE; }
+						else if (item is AlchemyCrate) { cHue = 0xABE; }
+						else if (item is ArmsCrate) { cHue = 0xABE; }
+						else if (item is BakerCrate) { cHue = 0xABE; }
+						else if (item is BeekeeperCrate) { cHue = 0xABE; }
+						else if (item is BlacksmithCrate) { cHue = 0xABE; }
+						else if (item is BowyerCrate) { cHue = 0xABE; }
+						else if (item is ButcherCrate) { cHue = 0xABE; }
+						else if (item is CarpenterCrate) { cHue = 0xABE; }
+						else if (item is FletcherCrate) { cHue = 0xABE; }
+						else if (item is HealerCrate) { cHue = 0xABE; }
+						else if (item is HugeCrate) { cHue = 0xABE; }
+						else if (item is JewelerCrate) { cHue = 0xABE; }
+						else if (item is LibrarianCrate) { cHue = 0xABE; }
+						else if (item is MusicianCrate) { cHue = 0xABE; }
+						else if (item is NecromancerCrate) { cHue = 0xABE; }
+						else if (item is ProvisionerCrate) { cHue = 0xABE; }
+						else if (item is SailorCrate) { cHue = 0xABE; }
+						else if (item is StableCrate) { cHue = 0xABE; }
+						else if (item is SupplyCrate) { cHue = 0xABE; }
+						else if (item is TailorCrate) { cHue = 0xABE; }
+						else if (item is TavernCrate) { cHue = 0xABE; }
+						else if (item is TinkerCrate) { cHue = 0xABE; }
+						else if (item is TreasureCrate) { cHue = 0xABE; }
+						else if (item is WizardryCrate) { cHue = 0xABE; }
+						else if (item is ColoredArmoireA) { cHue = 0xABE; }
+						else if (item is ColoredArmoireB) { cHue = 0xABE; }
+						else if (item is ColoredCabinetA) { cHue = 0xABE; }
+						else if (item is ColoredCabinetB) { cHue = 0xABE; }
+						else if (item is ColoredCabinetC) { cHue = 0xABE; }
+						else if (item is ColoredCabinetD) { cHue = 0xABE; }
+						else if (item is ColoredCabinetE) { cHue = 0xABE; }
+						else if (item is ColoredCabinetF) { cHue = 0xABE; }
+						else if (item is ColoredCabinetG) { cHue = 0xABE; }
+						else if (item is ColoredCabinetH) { cHue = 0xABE; }
+						else if (item is ColoredCabinetI) { cHue = 0xABE; }
+						else if (item is ColoredCabinetJ) { cHue = 0xABE; }
+						else if (item is ColoredCabinetK) { cHue = 0xABE; }
+						else if (item is ColoredCabinetL) { cHue = 0xABE; }
+						else if (item is ColoredCabinetM) { cHue = 0xABE; }
+						else if (item is ColoredCabinetN) { cHue = 0xABE; }
+						else if (item is ColoredDresserA) { cHue = 0xABE; }
+						else if (item is ColoredDresserB) { cHue = 0xABE; }
+						else if (item is ColoredDresserC) { cHue = 0xABE; }
+						else if (item is ColoredDresserD) { cHue = 0xABE; }
+						else if (item is ColoredDresserE) { cHue = 0xABE; }
+						else if (item is ColoredDresserF) { cHue = 0xABE; }
+						else if (item is ColoredDresserG) { cHue = 0xABE; }
+						else if (item is ColoredDresserH) { cHue = 0xABE; }
+						else if (item is ColoredDresserI) { cHue = 0xABE; }
+						else if (item is ColoredDresserJ) { cHue = 0xABE; }
+						else if (item is ColoredShelf1) { cHue = 0xABE; }
+						else if (item is ColoredShelf2) { cHue = 0xABE; }
+						else if (item is ColoredShelf3) { cHue = 0xABE; }
+						else if (item is ColoredShelf4) { cHue = 0xABE; }
+						else if (item is ColoredShelf5) { cHue = 0xABE; }
+						else if (item is ColoredShelf6) { cHue = 0xABE; }
+						else if (item is ColoredShelf7) { cHue = 0xABE; }
+						else if (item is ColoredShelf8) { cHue = 0xABE; }
+						else if (item is ColoredShelfA) { cHue = 0xABE; }
+						else if (item is ColoredShelfB) { cHue = 0xABE; }
+						else if (item is ColoredShelfC) { cHue = 0xABE; }
+						else if (item is ColoredShelfD) { cHue = 0xABE; }
+						else if (item is ColoredShelfE) { cHue = 0xABE; }
+						else if (item is ColoredShelfF) { cHue = 0xABE; }
+						else if (item is ColoredShelfG) { cHue = 0xABE; }
+						else if (item is ColoredShelfH) { cHue = 0xABE; }
+						else if (item is ColoredShelfI) { cHue = 0xABE; }
+						else if (item is ColoredShelfJ) { cHue = 0xABE; }
+						else if (item is ColoredShelfK) { cHue = 0xABE; }
+						else if (item is ColoredShelfL) { cHue = 0xABE; }
+						else if (item is ColoredShelfM) { cHue = 0xABE; }
+						else if (item is ColoredShelfN) { cHue = 0xABE; }
+						else if (item is ColoredShelfO) { cHue = 0xABE; }
+						else if (item is ColoredShelfP) { cHue = 0xABE; }
+						else if (item is ColoredShelfQ) { cHue = 0xABE; }
+						else if (item is ColoredShelfR) { cHue = 0xABE; }
+						else if (item is ColoredShelfS) { cHue = 0xABE; }
+						else if (item is ColoredShelfT) { cHue = 0xABE; }
+						else if (item is ColoredShelfU) { cHue = 0xABE; }
+						else if (item is ColoredShelfV) { cHue = 0xABE; }
+						else if (item is ColoredShelfW) { cHue = 0xABE; }
+						else if (item is ColoredShelfX) { cHue = 0xABE; }
+						else if (item is ColoredShelfY) { cHue = 0xABE; }
+						else if (item is ColoredShelfZ) { cHue = 0xABE; }
+
+						Type resourceType = typeRes;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
+
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
+
+						switch (thisResource)
 						{
-							int cHue = 0;
+							case CraftResource.DullCopper: cHue = MaterialInfo.GetMaterialColor("dull copper", "classic", 0); break;
+							case CraftResource.ShadowIron: cHue = MaterialInfo.GetMaterialColor("shadow iron", "classic", 0); break;
+							case CraftResource.Copper: cHue = MaterialInfo.GetMaterialColor("copper", "classic", 0); break;
+							case CraftResource.Bronze: cHue = MaterialInfo.GetMaterialColor("bronze", "classic", 0); break;
+							case CraftResource.Platinum: cHue = MaterialInfo.GetMaterialColor("platinum", "classic", 0); break;
+							case CraftResource.Gold: cHue = MaterialInfo.GetMaterialColor("gold", "classic", 0); break;
+							case CraftResource.Agapite: cHue = MaterialInfo.GetMaterialColor("agapite", "classic", 0); break;
+							case CraftResource.Verite: cHue = MaterialInfo.GetMaterialColor("verite", "classic", 0); break;
+							case CraftResource.Valorite: cHue = MaterialInfo.GetMaterialColor("valorite", "classic", 0); break;
+							case CraftResource.Rosenium: cHue = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); break;
+							case CraftResource.Titanium: cHue = MaterialInfo.GetMaterialColor("titanium", "classic", 0); break;
+							case CraftResource.Obsidian: cHue = MaterialInfo.GetMaterialColor("obsidian", "classic", 0); break;
+							case CraftResource.Steel: cHue = MaterialInfo.GetMaterialColor("steel", "classic", 0); break;
+							case CraftResource.Brass: cHue = MaterialInfo.GetMaterialColor("brass", "classic", 0); break;
+							case CraftResource.Mithril: cHue = MaterialInfo.GetMaterialColor("mithril", "classic", 0); break;
+							case CraftResource.Xormite: cHue = MaterialInfo.GetMaterialColor("xormite", "classic", 0); break;
+							case CraftResource.Dwarven: cHue = MaterialInfo.GetMaterialColor("dwarven", "classic", 0); break;
+							case CraftResource.Nepturite: cHue = MaterialInfo.GetMaterialColor("nepturite", "classic", 0); break;
+							case CraftResource.AshTree: cHue = MaterialInfo.GetMaterialColor("ash", "", 0); break;
+							case CraftResource.CherryTree: cHue = MaterialInfo.GetMaterialColor("cherry", "", 0); break;
+							case CraftResource.EbonyTree: cHue = MaterialInfo.GetMaterialColor("ebony", "", 0); break;
+							case CraftResource.GoldenOakTree: cHue = MaterialInfo.GetMaterialColor("golden oak", "", 0); break;
+							case CraftResource.HickoryTree: cHue = MaterialInfo.GetMaterialColor("hickory", "", 0); break;
+							/*case CraftResource.MahoganyTree: cHue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 ); break;
+							case CraftResource.DriftwoodTree: cHue = MaterialInfo.GetMaterialColor( "driftwood", "", 0 ); break;
+							case CraftResource.OakTree: cHue = MaterialInfo.GetMaterialColor( "oak", "", 0 ); break;
+							case CraftResource.PineTree: cHue = MaterialInfo.GetMaterialColor( "pine", "", 0 ); break;
+							case CraftResource.GhostTree: cHue = MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ); break;*/
+							case CraftResource.RosewoodTree: cHue = MaterialInfo.GetMaterialColor("rosewood", "", 0); break;
+							/*case CraftResource.WalnutTree: cHue = MaterialInfo.GetMaterialColor( "walnut", "", 0 ); break;
+							case CraftResource.PetrifiedTree: cHue = MaterialInfo.GetMaterialColor( "petrified", "", 0 ); break;*/
+							case CraftResource.ElvenTree: cHue = MaterialInfo.GetMaterialColor("elven", "", 0); break;
+							case CraftResource.SpinedLeather: cHue = MaterialInfo.GetMaterialColor("deep sea", "", 0); break;
+							case CraftResource.HornedLeather: cHue = MaterialInfo.GetMaterialColor("lizard", "", 0); break;
+							case CraftResource.BarbedLeather: cHue = MaterialInfo.GetMaterialColor("serpent", "", 0); break;
+							case CraftResource.NecroticLeather: cHue = MaterialInfo.GetMaterialColor("necrotic", "", 0); break;
+							case CraftResource.VolcanicLeather: cHue = MaterialInfo.GetMaterialColor("volcanic", "", 0); break;
+							case CraftResource.FrozenLeather: cHue = MaterialInfo.GetMaterialColor("frozen", "", 0); break;
+							case CraftResource.GoliathLeather: cHue = MaterialInfo.GetMaterialColor("goliath", "", 0); break;
+							case CraftResource.DraconicLeather: cHue = MaterialInfo.GetMaterialColor("draconic", "", 0); break;
+							case CraftResource.HellishLeather: cHue = MaterialInfo.GetMaterialColor("hellish", "", 0); break;
+							case CraftResource.DinosaurLeather: cHue = MaterialInfo.GetMaterialColor("dinosaur", "", 0); break;
+							case CraftResource.AlienLeather: cHue = MaterialInfo.GetMaterialColor("alien", "", 0); break;
+						}
 
-							if ( item is WoodenChest ){ cHue = 0x724; }
-							else if ( item is WoodenThrone ){ cHue = 0x840; }
-							else if ( item is GiantBag ){ cHue = 0x83E; }
-							else if ( item is LargeSack ){ cHue = 0x83F; }
-							else if ( item is Bag ){ cHue = 0xABE; }
-							else if ( item is AdventurerCrate ){ cHue = 0xABE; }
-							else if ( item is AlchemyCrate ){ cHue = 0xABE; }
-							else if ( item is ArmsCrate ){ cHue = 0xABE; }
-							else if ( item is BakerCrate ){ cHue = 0xABE; }
-							else if ( item is BeekeeperCrate ){ cHue = 0xABE; }
-							else if ( item is BlacksmithCrate ){ cHue = 0xABE; }
-							else if ( item is BowyerCrate ){ cHue = 0xABE; }
-							else if ( item is ButcherCrate ){ cHue = 0xABE; }
-							else if ( item is CarpenterCrate ){ cHue = 0xABE; }
-							else if ( item is FletcherCrate ){ cHue = 0xABE; }
-							else if ( item is HealerCrate ){ cHue = 0xABE; }
-							else if ( item is HugeCrate ){ cHue = 0xABE; }
-							else if ( item is JewelerCrate ){ cHue = 0xABE; }
-							else if ( item is LibrarianCrate ){ cHue = 0xABE; }
-							else if ( item is MusicianCrate ){ cHue = 0xABE; }
-							else if ( item is NecromancerCrate ){ cHue = 0xABE; }
-							else if ( item is ProvisionerCrate ){ cHue = 0xABE; }
-							else if ( item is SailorCrate ){ cHue = 0xABE; }
-							else if ( item is StableCrate ){ cHue = 0xABE; }
-							else if ( item is SupplyCrate ){ cHue = 0xABE; }
-							else if ( item is TailorCrate ){ cHue = 0xABE; }
-							else if ( item is TavernCrate ){ cHue = 0xABE; }
-							else if ( item is TinkerCrate ){ cHue = 0xABE; }
-							else if ( item is TreasureCrate ){ cHue = 0xABE; }
-							else if ( item is WizardryCrate ){ cHue = 0xABE; }
-							else if ( item is ColoredArmoireA ){ cHue = 0xABE; }
-							else if ( item is ColoredArmoireB ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetA ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetB ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetC ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetD ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetE ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetF ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetG ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetH ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetI ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetJ ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetK ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetL ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetM ){ cHue = 0xABE; }
-							else if ( item is ColoredCabinetN ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserA ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserB ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserC ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserD ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserE ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserF ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserG ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserH ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserI ){ cHue = 0xABE; }
-							else if ( item is ColoredDresserJ ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf1 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf2 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf3 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf4 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf5 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf6 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf7 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelf8 ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfA ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfB ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfC ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfD ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfE ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfF ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfG ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfH ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfI ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfJ ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfK ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfL ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfM ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfN ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfO ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfP ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfQ ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfR ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfS ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfT ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfU ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfV ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfW ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfX ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfY ){ cHue = 0xABE; }
-							else if ( item is ColoredShelfZ ){ cHue = 0xABE; }
+						/*                        if (item.type.IsSubclassOf(BaseHarvestTool)) 
+												{
+													(BaseHarvestTool)item.Resource = MaterialInfo.GetMaterialName(item); // item.Resource = material;//
+												}*/
+						item.Hue = cHue;
+					}
+					else if (item is BaseHarvestTool)
+					{
+						int color = 0x0;
+						CraftResource material = CraftResource.None;
+						string maker = from.Name;
 
-							Type resourceType = typeRes;
-							if ( resourceType == null )
-								resourceType = Resources.GetAt( 0 ).ItemType;
+						Type resourceType = typeRes;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-							CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
+						material = thisResource;
 
-							switch ( thisResource )
-							{
-								case CraftResource.DullCopper: cHue = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); break;
-								case CraftResource.ShadowIron: cHue = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); break;
-								case CraftResource.Copper: cHue = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); break;
-								case CraftResource.Bronze: cHue = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); break;
-                            case CraftResource.Platinum: cHue = MaterialInfo.GetMaterialColor("platinum", "classic", 0); break;
-                            case CraftResource.Gold: cHue = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); break;
-								case CraftResource.Agapite: cHue = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); break;
-								case CraftResource.Verite: cHue = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); break;
-								case CraftResource.Valorite: cHue = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); break;
-                            case CraftResource.Rosenium: cHue = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); break;
-                            case CraftResource.Titanium: cHue = MaterialInfo.GetMaterialColor("titanium", "classic", 0 ); break;
-								case CraftResource.Obsidian: cHue = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); break;
-								case CraftResource.Steel: cHue = MaterialInfo.GetMaterialColor( "steel", "classic", 0 ); break;
-								case CraftResource.Brass: cHue = MaterialInfo.GetMaterialColor( "brass", "classic", 0 ); break;
-								case CraftResource.Mithril: cHue = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); break;
-								case CraftResource.Xormite: cHue = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); break;
-								case CraftResource.Dwarven: cHue = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); break;
-								case CraftResource.Nepturite: cHue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); break;
-								case CraftResource.AshTree: cHue = MaterialInfo.GetMaterialColor( "ash", "", 0 ); break;
-								case CraftResource.CherryTree: cHue = MaterialInfo.GetMaterialColor( "cherry", "", 0 ); break;
-								case CraftResource.EbonyTree: cHue = MaterialInfo.GetMaterialColor( "ebony", "", 0 ); break;
-								case CraftResource.GoldenOakTree: cHue = MaterialInfo.GetMaterialColor( "golden oak", "", 0 ); break;
-								case CraftResource.HickoryTree: cHue = MaterialInfo.GetMaterialColor( "hickory", "", 0 ); break;
-								case CraftResource.MahoganyTree: cHue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 ); break;
-								case CraftResource.DriftwoodTree: cHue = MaterialInfo.GetMaterialColor( "driftwood", "", 0 ); break;
-								case CraftResource.OakTree: cHue = MaterialInfo.GetMaterialColor( "oak", "", 0 ); break;
-								case CraftResource.PineTree: cHue = MaterialInfo.GetMaterialColor( "pine", "", 0 ); break;
-								case CraftResource.GhostTree: cHue = MaterialInfo.GetMaterialColor( "ghostwood", "", 0 ); break;
-								case CraftResource.RosewoodTree: cHue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 ); break;
-								case CraftResource.WalnutTree: cHue = MaterialInfo.GetMaterialColor( "walnut", "", 0 ); break;
-								case CraftResource.PetrifiedTree: cHue = MaterialInfo.GetMaterialColor( "petrified", "", 0 ); break;
-								case CraftResource.ElvenTree: cHue = MaterialInfo.GetMaterialColor( "elven", "", 0 ); break;
-								case CraftResource.SpinedLeather: cHue = MaterialInfo.GetMaterialColor( "deep sea", "", 0 ); break;
-								case CraftResource.HornedLeather: cHue = MaterialInfo.GetMaterialColor( "lizard", "", 0 ); break;
-								case CraftResource.BarbedLeather: cHue = MaterialInfo.GetMaterialColor( "serpent", "", 0 ); break;
-								case CraftResource.NecroticLeather: cHue = MaterialInfo.GetMaterialColor( "necrotic", "", 0 ); break;
-								case CraftResource.VolcanicLeather: cHue = MaterialInfo.GetMaterialColor( "volcanic", "", 0 ); break;
-								case CraftResource.FrozenLeather: cHue = MaterialInfo.GetMaterialColor( "frozen", "", 0 ); break;
-								case CraftResource.GoliathLeather: cHue = MaterialInfo.GetMaterialColor( "goliath", "", 0 ); break;
-								case CraftResource.DraconicLeather: cHue = MaterialInfo.GetMaterialColor( "draconic", "", 0 ); break;
-								case CraftResource.HellishLeather: cHue = MaterialInfo.GetMaterialColor( "hellish", "", 0 ); break;
-								case CraftResource.DinosaurLeather: cHue = MaterialInfo.GetMaterialColor( "dinosaur", "", 0 ); break;
-								case CraftResource.AlienLeather: cHue = MaterialInfo.GetMaterialColor( "alien", "", 0 ); break;
-							}
+						switch (thisResource)
+						{
+							case CraftResource.AshTree: color = MaterialInfo.GetMaterialColor("ash", "", 0); break;
+							case CraftResource.CherryTree: color = MaterialInfo.GetMaterialColor("cherry", "", 0); break;
+							case CraftResource.EbonyTree: color = MaterialInfo.GetMaterialColor("ebony", "", 0); break;
+							case CraftResource.GoldenOakTree: color = MaterialInfo.GetMaterialColor("golden oak", "", 0); break;
+							case CraftResource.HickoryTree: color = MaterialInfo.GetMaterialColor("hickory", "", 0); break;
+							case CraftResource.RosewoodTree: color = MaterialInfo.GetMaterialColor("rosewood", "", 0); break;
+							case CraftResource.ElvenTree: color = MaterialInfo.GetMaterialColor("elven", "", 0); break;
+						}
 
-							item.Hue = cHue;
+						((BaseHarvestTool)item).Resource = material;//MaterialInfo.GetMaterialName(item); ;
+						item.Hue = color;
 					}
 
-					if ( item is BaseArmor || item is BaseWeapon ) // ELVEN WOOD
+					///////////////////////////////////////////////////////////////////////////
+					///
+					/// ARMOR / WEAPON
+					/// 	
+					if (item is BaseArmor || item is BaseWeapon) // ELVEN WOOD
 					{
 						Type resourceType = typeRes;
-						if ( resourceType == null )
-							resourceType = Resources.GetAt( 0 ).ItemType;
+						if (resourceType == null)
+							resourceType = Resources.GetAt(0).ItemType;
 
-						CraftResource thisResource = CraftResources.GetFromType( resourceType );
+						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						if ( thisResource == CraftResource.ElvenTree )
+						if (thisResource == CraftResource.ElvenTree)
 						{
-							if ( item is BaseWeapon ){ ((BaseWeapon)item).Attributes.SpellChanneling = 1; ((BaseWeapon)item).Attributes.NightSight = 1; BaseRunicTool.ApplyAttributesTo( (BaseWeapon)item, false, 0, 1, 5, 10 ); }
-							else if ( item is BaseShield ){ ((BaseShield)item).Attributes.SpellChanneling = 1; ((BaseShield)item).Attributes.NightSight = 1; BaseRunicTool.ApplyAttributesTo( (BaseShield)item, false, 0, 1, 5, 10 ); }
-							else if ( item is BaseArmor ){ ((BaseArmor)item).ArmorAttributes.MageArmor = 1; ((BaseArmor)item).Attributes.NightSight = 1; BaseRunicTool.ApplyAttributesTo( (BaseArmor)item, false, 0, 1, 5, 10 ); }
+							if (item is BaseWeapon) { ((BaseWeapon)item).Attributes.SpellChanneling = 1; ((BaseWeapon)item).Attributes.NightSight = 1; BaseRunicTool.ApplyAttributesTo((BaseWeapon)item, false, 0, 1, 5, 10); }
+							else if (item is BaseShield) { ((BaseShield)item).Attributes.SpellChanneling = 1; ((BaseShield)item).Attributes.NightSight = 1; BaseRunicTool.ApplyAttributesTo((BaseShield)item, false, 0, 1, 5, 10); }
+							else if (item is BaseArmor) { ((BaseArmor)item).ArmorAttributes.MageArmor = 1; ((BaseArmor)item).Attributes.NightSight = 1; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
 						}
-						else if ( thisResource == CraftResource.Dwarven )
+						else if (thisResource == CraftResource.Dwarven)
 						{
-							if ( item is BaseWeapon ){ ((BaseWeapon)item).Attributes.RegenHits = 5; ((BaseWeapon)item).Attributes.AttackChance = 50; BaseRunicTool.ApplyAttributesTo( (BaseWeapon)item, false, 0, 1, 5, 10 ); }
-							else if ( item is BaseShield ){ ((BaseShield)item).Attributes.RegenHits = 5; ((BaseShield)item).Attributes.DefendChance = 10; BaseRunicTool.ApplyAttributesTo( (BaseShield)item, false, 0, 1, 5, 10 ); }
-							else if ( item is BaseArmor ){ ((BaseArmor)item).Attributes.RegenHits = 5; ((BaseArmor)item).Attributes.DefendChance = 10; BaseRunicTool.ApplyAttributesTo( (BaseArmor)item, false, 0, 1, 5, 10 ); }
+							if (item is BaseWeapon) { ((BaseWeapon)item).Attributes.RegenHits = 5; ((BaseWeapon)item).Attributes.AttackChance = 50; BaseRunicTool.ApplyAttributesTo((BaseWeapon)item, false, 0, 1, 5, 10); }
+							else if (item is BaseShield) { ((BaseShield)item).Attributes.RegenHits = 5; ((BaseShield)item).Attributes.DefendChance = 10; BaseRunicTool.ApplyAttributesTo((BaseShield)item, false, 0, 1, 5, 10); }
+							else if (item is BaseArmor) { ((BaseArmor)item).Attributes.RegenHits = 5; ((BaseArmor)item).Attributes.DefendChance = 10; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
 						}
-						else if ( thisResource == CraftResource.AlienLeather )
+						else if (thisResource == CraftResource.AlienLeather)
 						{
-							if ( item is BaseWeapon ){ ((BaseWeapon)item).Attributes.RegenMana = 5; ((BaseWeapon)item).Attributes.WeaponSpeed = 30; BaseRunicTool.ApplyAttributesTo( (BaseWeapon)item, false, 0, 1, 5, 10 ); }
-							else if ( item is BaseArmor ){ ((BaseArmor)item).Attributes.RegenMana = 5; ((BaseArmor)item).Attributes.WeaponSpeed = 10; BaseRunicTool.ApplyAttributesTo( (BaseArmor)item, false, 0, 1, 5, 10 ); }
+							if (item is BaseWeapon) { ((BaseWeapon)item).Attributes.RegenMana = 5; ((BaseWeapon)item).Attributes.WeaponSpeed = 30; BaseRunicTool.ApplyAttributesTo((BaseWeapon)item, false, 0, 1, 5, 10); }
+							else if (item is BaseArmor) { ((BaseArmor)item).Attributes.RegenMana = 5; ((BaseArmor)item).Attributes.WeaponSpeed = 10; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
 						}
 
-                        else if (thisResource == CraftResource.RedScales)
-                        {
-                            if (item is BaseArmor) { ((BaseArmor)item).Attributes.RegenHits = 3; ((BaseArmor)item).Attributes.BonusHits = 5; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
-                        }
-                        else if (thisResource == CraftResource.YellowScales)
-                        {
-                            if (item is BaseArmor) { ((BaseArmor)item).Attributes.RegenStam = 3; ((BaseArmor)item).Attributes.BonusStam = 5; ((BaseArmor)item).Attributes.Luck = 55; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
-                        }
-                        else if (thisResource == CraftResource.BlackScales)
-                        {
-                            if (item is BaseArmor) { ((BaseArmor)item).Attributes.ReflectPhysical = 7; ((BaseArmor)item).Attributes.DefendChance = 5; ((BaseArmor)item).Attributes.BonusStr = 3; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
-                        }
-                        else if (thisResource == CraftResource.GreenScales)
-                        {
-                            if (item is BaseArmor) { ((BaseArmor)item).Attributes.EnhancePotions = 5; ((BaseArmor)item).Attributes.WeaponSpeed = 5; ((BaseArmor)item).Attributes.BonusDex = 5; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
-                        }
-                        else if (thisResource == CraftResource.WhiteScales)
-                        {
-                            if (item is BaseArmor) { ((BaseArmor)item).Attributes.SpellDamage = 7; ((BaseArmor)item).Attributes.LowerManaCost = 7; ((BaseArmor)item).ArmorAttributes.MageArmor = 1; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
-                        }
-                        else if (thisResource == CraftResource.WhiteScales)
-                        {
-                            if (item is BaseArmor) { ((BaseArmor)item).Attributes.LowerRegCost = 10; ((BaseArmor)item).Attributes.RegenMana = 3; ((BaseArmor)item).ArmorAttributes.MageArmor = 1; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
-                        }
-                        else if (thisResource == CraftResource.DinosaurScales)
-                        {
-                            if (item is BaseArmor) { ((BaseArmor)item).Attributes.AttackChance = 5; ((BaseArmor)item).Attributes.WeaponDamage = 7; ((BaseArmor)item).Attributes.WeaponSpeed = 3; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
-                        }
-                    }
+						else if (thisResource == CraftResource.RedScales)
+						{
+							if (item is BaseArmor) { ((BaseArmor)item).Attributes.RegenHits = 3; ((BaseArmor)item).Attributes.BonusHits = 5; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
+						}
+						else if (thisResource == CraftResource.YellowScales)
+						{
+							if (item is BaseArmor) { ((BaseArmor)item).Attributes.RegenStam = 3; ((BaseArmor)item).Attributes.BonusStam = 5; ((BaseArmor)item).Attributes.Luck = 55; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
+						}
+						else if (thisResource == CraftResource.BlackScales)
+						{
+							if (item is BaseArmor) { ((BaseArmor)item).Attributes.ReflectPhysical = 7; ((BaseArmor)item).Attributes.DefendChance = 5; ((BaseArmor)item).Attributes.BonusStr = 3; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
+						}
+						else if (thisResource == CraftResource.GreenScales)
+						{
+							if (item is BaseArmor) { ((BaseArmor)item).Attributes.EnhancePotions = 5; ((BaseArmor)item).Attributes.WeaponSpeed = 5; ((BaseArmor)item).Attributes.BonusDex = 5; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
+						}
+						else if (thisResource == CraftResource.WhiteScales)
+						{
+							if (item is BaseArmor) { ((BaseArmor)item).Attributes.SpellDamage = 7; ((BaseArmor)item).Attributes.LowerManaCost = 7; ((BaseArmor)item).ArmorAttributes.MageArmor = 1; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
+						}
+						else if (thisResource == CraftResource.WhiteScales)
+						{
+							if (item is BaseArmor) { ((BaseArmor)item).Attributes.LowerRegCost = 10; ((BaseArmor)item).Attributes.RegenMana = 3; ((BaseArmor)item).ArmorAttributes.MageArmor = 1; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
+						}
+						else if (thisResource == CraftResource.DinosaurScales)
+						{
+							if (item is BaseArmor) { ((BaseArmor)item).Attributes.AttackChance = 5; ((BaseArmor)item).Attributes.WeaponDamage = 7; ((BaseArmor)item).Attributes.WeaponSpeed = 3; BaseRunicTool.ApplyAttributesTo((BaseArmor)item, false, 0, 1, 5, 10); }
+						}
+					}
 
+					///////////////////////////////////////////////////////////////////////////
+					///
+					/// FOOD
+					/// 
 					if (item is Food)
 					{
 						Food fd = (Food)item;
 
-						string title = GetPlayerInfo.GetSkillTitle( from );
+						string title = GetPlayerInfo.GetSkillTitle(from);
 						fd.Cook = from.Name + " " + title;
 						fd.CookMobile = from;
 
@@ -1983,12 +2049,12 @@ namespace Server.Engines.Craft
 						double maxMainSkill = 0.0;
 						int bn = 0;
 
-						for ( int i = 0; i < m_arCraftSkill.Count; i++)
+						for (int i = 0; i < m_arCraftSkill.Count; i++)
 						{
 							CraftSkill craftSkill = m_arCraftSkill.GetAt(i);
 
-							double MakeCookinGreatAgain = (craftSkill.MinSkill + craftSkill.MaxSkill) /2;
-							
+							double MakeCookinGreatAgain = (craftSkill.MinSkill + craftSkill.MaxSkill) / 2;
+
 							int bnn = 0;
 
 							if (MakeCookinGreatAgain < 50)
@@ -2005,43 +2071,46 @@ namespace Server.Engines.Craft
 								bnn = 12;
 							else if (MakeCookinGreatAgain >= 100)
 								bnn = 16;
-	
-							if (bn < (int)(( (from.Skills[craftSkill.SkillToMake].Value + MakeCookinGreatAgain) / 200 ) * 5) ); 
-								bn = (int)(( (from.Skills[craftSkill.SkillToMake].Value + MakeCookinGreatAgain) / 200 ) * 5); 
-							
+
+							if (bn < (int)(((from.Skills[craftSkill.SkillToMake].Value + MakeCookinGreatAgain) / 200) * 5)) ;
+							bn = (int)(((from.Skills[craftSkill.SkillToMake].Value + MakeCookinGreatAgain) / 200) * 5);
+
 							if (bnn > fd.Benefit)
 								fd.Benefit = bnn;
 						}
-						
+
 						fd.Benefit += bn;
 					}
 
+					from.AddToBackpack(item);
 
-					from.AddToBackpack( item );
-
-					if( from.AccessLevel > AccessLevel.Player )
-						CommandLogging.WriteLine( from, "Crafting {0} with craft system {1}", CommandLogging.Format( item ), craftSystem.GetType().Name );
-
+					if (from.AccessLevel > AccessLevel.Player)
+						CommandLogging.WriteLine(from, "Crafting {0} with craft system {1}", CommandLogging.Format(item), craftSystem.GetType().Name);
 					//from.PlaySound( 0x57 );
 				}
 
-				if ( num == 0 )
-					num = craftSystem.PlayEndingEffect( from, false, true, toolBroken, endquality, makersMark, this );
+				if (num == 0)
+					num = craftSystem.PlayEndingEffect(from, false, true, toolBroken, endquality, makersMark, this);
 
 
 				// TODO: Scroll imbuing
 
-				if ( tool != null && !tool.Deleted && tool.UsesRemaining > 0 )
-					from.SendGump( new CraftGump( from, craftSystem, tool, num ) );
-				else if ( num > 0 )
-					from.SendLocalizedMessage( num );
+				if (tool != null && !tool.Deleted && tool.UsesRemaining > 0)
+					from.SendGump(new CraftGump(from, craftSystem, tool, num));
+				else if (num > 0) { 
+					from.SendLocalizedMessage(num); craftSystem.stopCraftAction(pm);
+                }
 			}
 			else if ( !allRequiredSkills )
 			{
-				if ( tool != null && !tool.Deleted && tool.UsesRemaining > 0 )
-					from.SendGump( new CraftGump( from, craftSystem, tool, 1044153 ) );
-				else
-					from.SendLocalizedMessage( 1044153 ); // You don't have the required skills to attempt this item.
+				if (tool != null && !tool.Deleted && tool.UsesRemaining > 0)
+					from.SendGump(new CraftGump(from, craftSystem, tool, 1044153));
+				else 
+				{
+                    from.SendLocalizedMessage(1044153); // You don't have the required skills to attempt this item.
+                    craftSystem.stopCraftAction(pm);
+                }
+					
 			}
 			else
 			{
@@ -2061,7 +2130,8 @@ namespace Server.Engines.Craft
 					else if ( message is string )
 						from.SendMessage( (string)message );
 
-					return;
+                    craftSystem.stopCraftAction(pm);
+                    return;
 				}
 
 				tool.UsesRemaining--;
@@ -2069,17 +2139,25 @@ namespace Server.Engines.Craft
 				if ( tool.UsesRemaining < 1 )
 					toolBroken = true;
 
-				if ( toolBroken )
-					tool.Delete();
+				if (toolBroken) 
+				{
+                    tool.Delete();
+                    craftSystem.stopCraftAction(pm);
+                }
 
-				// SkillCheck failed.
-				int num = craftSystem.PlayEndingEffect( from, true, true, toolBroken, endquality, false, this );
+                // SkillCheck failed.
+                int num = craftSystem.PlayEndingEffect( from, true, true, toolBroken, endquality, false, this );
 
 				if ( tool != null && !tool.Deleted && tool.UsesRemaining > 0 )
 					from.SendGump( new CraftGump( from, craftSystem, tool, num ) );
-				else if ( num > 0 )
+				else if ( num > 0) 
+				{ 
 					from.SendLocalizedMessage( num );
-			}
+
+
+                    craftSystem.stopCraftAction(pm);
+				}
+        }
 		}
 
 		private class InternalTimer : Timer
@@ -2126,7 +2204,9 @@ namespace Server.Engines.Craft
 						else
 							m_From.SendLocalizedMessage( badCraft );
 
-						return;
+                        PlayerMobile pm = m_From as PlayerMobile;
+                        m_CraftSystem.stopCraftAction(pm);
+                        return;
 					}
 
 					int quality = 1;

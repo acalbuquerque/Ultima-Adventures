@@ -11,8 +11,9 @@ namespace Server.Items
 	public class FishingPole : BaseHarvestTool
 	{
 		public override HarvestSystem HarvestSystem{ get{ return Fishing.System; } }
+        public override CraftResource DefaultResource { get { return CraftResource.RegularWood; } }
 
-		[Constructable]
+        [Constructable]
 		public FishingPole() : this( 50 )
 		{
 		}
@@ -21,7 +22,7 @@ namespace Server.Items
 		public FishingPole( int uses ) : base( uses, 0x0DC0 )
 		{
 			Layer = Layer.OneHanded;
-			Weight = 8.0;
+			Weight = 5.0;
 		}
 
 		public FishingPole( Serial serial ) : base( serial )
@@ -30,10 +31,8 @@ namespace Server.Items
 
 		public override void AddNameProperties( ObjectPropertyList list )
 		{
-			
-			base.AddNameProperties( list );	
-			
-			list.Add("Diga '.iniciar Auto-Pescar' para usar o sistema de automação."); 
+			base.AddNameProperties( list );
+            list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor("Diga '.iniciar Auto-Pescar' para usar o sistema de automação.", "#8be4fc"));
 		}
 
 		public override void Serialize( GenericWriter writer )
@@ -46,6 +45,6 @@ namespace Server.Items
 		{
 			base.Deserialize( reader );
 			int version = reader.ReadInt();
-		}
+        }
 	}
 }

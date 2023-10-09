@@ -16,7 +16,7 @@ namespace Server.Items
 		[Constructable]
 		public MapmakersPen() : base( 0x2052 )
 		{
-			Name = "mapmaker's pen";
+			Name = "caneta de cartografia";
 			Weight = 1.0;
 			Hue = 0xA6;
 		}
@@ -24,8 +24,10 @@ namespace Server.Items
 		[Constructable]
 		public MapmakersPen( int uses ) : base( uses, 0x0FBF )
 		{
-			Weight = 1.0;
-		}
+            Name = "caneta de cartografia";
+            Weight = 1.0;
+            Hue = 0xA6;
+        }
 
 		public MapmakersPen( Serial serial ) : base( serial )
 		{
@@ -47,8 +49,8 @@ namespace Server.Items
 			if ( Weight == 2.0 )
 				Weight = 1.0;
 
-			Name = "mapmaker's pen";
-			ItemID = 0x2052;
+            Name = "caneta de cartografia";
+            ItemID = 0x2052;
 			Hue = 0xA6;
 		}
 	}

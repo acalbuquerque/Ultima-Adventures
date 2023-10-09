@@ -12,14 +12,18 @@ namespace Server.Items
 		[Constructable]
 		public SledgeHammer() : base( 0xFB5 )
 		{
-			Layer = Layer.OneHanded;
-		}
+            Name = "marreta de ferreiro";
+            Weight = 4.0;
+            Layer = Layer.OneHanded;
+        }
 
 		[Constructable]
 		public SledgeHammer( int uses ) : base( uses, 0xFB5 )
 		{
-			Layer = Layer.OneHanded;
-		}
+            Name = "marreta de ferreiro";
+            Weight = 4.0;
+            Layer = Layer.OneHanded;
+        }
 
 		public SledgeHammer( Serial serial ) : base( serial )
 		{

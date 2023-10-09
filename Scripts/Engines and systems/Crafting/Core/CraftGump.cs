@@ -1,9 +1,14 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
 using Server.Gumps;
 using Server.Network;
 using Server.Items;
+using Server.Mobiles;
 
 namespace Server.Engines.Craft
 {
@@ -19,7 +24,12 @@ namespace Server.Engines.Craft
 		private const int LabelColor = 0x7FFF;
 		private const int FontColor = 0xFFFFFF;
 
-		private enum CraftPage
+		private const int LabelPurple = 0xfcd219;
+        private const int LabelBlue = 0x7BB;
+        private const int LabelGreen = 0x7CA;
+        private const int LabelRed = 0x6400;
+
+        private enum CraftPage
 		{
 			None,
 			PickResource,
@@ -58,25 +68,41 @@ namespace Server.Engines.Craft
 			AddAlphaRegion( 10, 10, 510, 417 );
 
 			if ( craftSystem.GumpTitleNumber > 0 )
-				AddHtmlLocalized( 10, 12, 510, 20, craftSystem.GumpTitleNumber, LabelColor, false, false );
+				AddHtmlLocalized( 10, 12, 510, 20, craftSystem.GumpTitleNumber, LabelBlue, false, false );
 			else
 				AddHtml( 10, 12, 510, 20, craftSystem.GumpTitleString, false, false );
 
-			AddHtmlLocalized( 10, 37, 200, 22, 1044010, LabelColor, false, false ); // <CENTER>CATEGORIES</CENTER>
-			AddHtmlLocalized( 215, 37, 305, 22, 1044011, LabelColor, false, false ); // <CENTER>SELECTIONS</CENTER>
-			AddHtmlLocalized( 10, 302, 150, 25, 1044012, LabelColor, false, false ); // <CENTER>NOTICES</CENTER>
+			AddHtmlLocalized( 10, 37, 200, 22, 1044010, LabelPurple, false, false ); // <CENTER>CATEGORIES</CENTER>
+			AddHtmlLocalized( 215, 37, 305, 22, 1044011, LabelPurple, false, false ); // <CENTER>SELECTIONS</CENTER>
+			AddHtmlLocalized( 10, 302, 150, 25, 1044012, LabelPurple, false, false ); // <CENTER>NOTICES</CENTER>
 
 			AddButton( 15, 402, 4017, 4019, 0, GumpButtonType.Reply, 0 );
-			AddHtmlLocalized( 50, 405, 150, 18, 1011441, LabelColor, false, false ); // EXIT
+			AddHtmlLocalized( 50, 405, 150, 18, 1011441, LabelRed, false, false ); // EXIT
 
-			AddButton( 270, 402, 4005, 4007, GetButtonID( 6, 2 ), GumpButtonType.Reply, 0 );
-			AddHtmlLocalized( 305, 405, 150, 18, 1044013, LabelColor, false, false ); // MAKE LAST
+            AddButton(420, 402, 4005, 4007, GetButtonID(6, 9), GumpButtonType.Reply, 0);
+			int qtd = 1;
+			if (context != null) 
+			{
+                switch (context.QtdOption)
+                {
+                    case CraftQtdOption.One: qtd = 1; break;
+                    case CraftQtdOption.Five: qtd = 5; break;
+                    case CraftQtdOption.Ten: qtd = 10; break;
+                    case CraftQtdOption.TwentyFive: qtd = 25; break;
+                    case CraftQtdOption.Fifty: qtd = 50; break;
+                }
+			}
+            AddLabel(455, 405, LabelBlue, String.Format("QTD: {0:F1}", qtd));
+            //AddHtmlLocalized(305, 405, 150, 18, "QTD: " + qtd, LabelBlue, false, false); // QTD
+
+            AddButton( 270, 402, 4005, 4007, GetButtonID( 6, 2 ), GumpButtonType.Reply, 0 );
+			AddHtmlLocalized( 305, 405, 150, 18, 1044013, LabelBlue, false, false ); // MAKE LAST
 
 			// Mark option
 			if ( craftSystem.MarkOption )
 			{
 				AddButton( 270, 362, 4005, 4007, GetButtonID( 6, 6 ), GumpButtonType.Reply, 0 );
-				AddHtmlLocalized( 305, 365, 150, 18, 1044017 + (context == null ? 0 : (int)context.MarkOption), LabelColor, false, false ); // MARK ITEM
+				AddHtmlLocalized( 305, 365, 150, 18, 1044017 + (context == null ? 0 : (int)context.MarkOption), LabelGreen, false, false ); // MARK ITEM
 			}
 			// ****************************************
 
@@ -84,7 +110,7 @@ namespace Server.Engines.Craft
 			if ( craftSystem.Resmelt )
 			{
 				AddButton( 15, 342, 4005, 4007, GetButtonID( 6, 1 ), GumpButtonType.Reply, 0 );
-				AddHtmlLocalized( 50, 345, 150, 18, 1044259, LabelColor, false, false ); // SMELT ITEM
+				AddHtmlLocalized( 50, 345, 150, 18, 1044259, LabelGreen, false, false ); // SMELT ITEM
 			}
 			// ****************************************
 
@@ -92,7 +118,7 @@ namespace Server.Engines.Craft
 			if ( craftSystem.Repair )
 			{
 				AddButton( 270, 342, 4005, 4007, GetButtonID( 6, 5 ), GumpButtonType.Reply, 0 );
-				AddHtmlLocalized( 305, 345, 150, 18, 1044260, LabelColor, false, false ); // REPAIR ITEM
+				AddHtmlLocalized( 305, 345, 150, 18, 1044260, LabelGreen, false, false ); // REPAIR ITEM
 			}
 			// ****************************************
 
@@ -100,7 +126,7 @@ namespace Server.Engines.Craft
 			if ( craftSystem.CanEnhance )
 			{
 				AddButton( 270, 382, 4005, 4007, GetButtonID( 6, 8 ), GumpButtonType.Reply, 0 );
-				AddHtmlLocalized( 305, 385, 150, 18, 1061001, LabelColor, false, false ); // ENHANCE ITEM
+				AddHtmlLocalized( 305, 385, 150, 18, 1061001, LabelGreen, false, false ); // ENHANCE ITEM
 			}
 			// ****************************************
 
@@ -218,7 +244,7 @@ namespace Server.Engines.Craft
 					CraftContext context = m_CraftSystem.GetContext( m_From );
 
 					AddButton( 220, 260, 4005, 4007, GetButtonID( 6, 4 ), GumpButtonType.Reply, 0 );
-					AddHtmlLocalized( 255, 263, 200, 18, (context == null || !context.DoNotColor) ? 1061591 : 1061590, LabelColor, false, false );
+					AddHtmlLocalized( 255, 263, 200, 18, (context == null || !context.DoNotColor) ? 1061591 : 1061590, LabelBlue, false, false );
 				}
 
 				int resourceCount = 0;
@@ -262,7 +288,7 @@ namespace Server.Engines.Craft
 						if ( i > 0 )
 						{
 							AddButton( 370, 260, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1 );
-							AddHtmlLocalized( 405, 263, 100, 18, 1044045, LabelColor, false, false ); // NEXT PAGE
+							AddHtmlLocalized( 405, 263, 100, 18, 1044045, LabelBlue, false, false ); // NEXT PAGE
 						}
 
 						AddPage( (i / 10) + 1 );
@@ -270,7 +296,7 @@ namespace Server.Engines.Craft
 						if ( i > 0 )
 						{
 							AddButton( 220, 260, 4014, 4015, 0, GumpButtonType.Page, i / 10 );
-							AddHtmlLocalized( 255, 263, 100, 18, 1044044, LabelColor, false, false ); // PREV PAGE
+							AddHtmlLocalized( 255, 263, 100, 18, 1044044, LabelBlue, false, false ); // PREV PAGE
 						}
 					}
 
@@ -314,27 +340,27 @@ namespace Server.Engines.Craft
 				{
 					if ( i > 0 )
 					{
-						AddButton( 370, 260, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1 );
-						AddHtmlLocalized( 405, 263, 100, 18, 1044045, LabelColor, false, false ); // NEXT PAGE
+						AddButton( 370, 263, 4005, 4007, 0, GumpButtonType.Page, (i / 10) + 1 );
+						AddHtmlLocalized( 405, 266, 100, 18, 1044045, LabelBlue, false, false ); // NEXT PAGE
 					}
 
 					AddPage( (i / 10) + 1 );
 
 					if ( i > 0 )
 					{
-						AddButton( 220, 260, 4014, 4015, 0, GumpButtonType.Page, i / 10 );
-						AddHtmlLocalized( 255, 263, 100, 18, 1044044, LabelColor, false, false ); // PREV PAGE
+						AddButton( 220, 263, 4014, 4015, 0, GumpButtonType.Page, i / 10 );
+						AddHtmlLocalized( 255, 266, 100, 18, 1044044, LabelBlue, false, false ); // PREV PAGE
 					}
 				}
 
-				AddButton( 220, 60 + (index * 20), 4005, 4007, GetButtonID( 1, i ), GumpButtonType.Reply, 0 );
+				AddButton( 220, 63 + (index * 20), 4005, 4007, GetButtonID( 1, i ), GumpButtonType.Reply, 0 );
 
 				if ( craftItem.NameNumber > 0 )
-					AddHtmlLocalized( 255, 63 + (index * 20), 220, 18, craftItem.NameNumber, LabelColor, false, false );
+					AddHtmlLocalized( 255, 66 + (index * 20), 220, 18, craftItem.NameNumber, LabelColor, false, false );
 				else
-					AddLabel( 255, 60 + (index * 20), LabelHue, craftItem.NameString );
+					AddLabel( 255, 63 + (index * 20), LabelHue, craftItem.NameString );
 
-				AddButton( 480, 60 + (index * 20), 4011, 4012, GetButtonID( 2, i ), GumpButtonType.Reply, 0 );
+				AddButton( 480, 63 + (index * 20), 4011, 4012, GetButtonID( 2, i ), GumpButtonType.Reply, 0 );
 			}
 		}
 
@@ -343,18 +369,18 @@ namespace Server.Engines.Craft
 			CraftGroupCol craftGroupCol = m_CraftSystem.CraftGroups;
 
 			AddButton( 15, 60, 4005, 4007, GetButtonID( 6, 3 ), GumpButtonType.Reply, 0 );
-			AddHtmlLocalized( 50, 63, 150, 18, 1044014, LabelColor, false, false ); // LAST TEN
+			AddHtmlLocalized( 50, 63, 150, 18, 1044014, LabelBlue, false, false ); // LAST TEN
 
 			for ( int i = 0; i < craftGroupCol.Count; i++ )
 			{
 				CraftGroup craftGroup = craftGroupCol.GetAt( i );
 
-				AddButton( 15, 80 + (i * 20), 4005, 4007, GetButtonID( 0, i ), GumpButtonType.Reply, 0 );
+				AddButton( 15, 87 + (i * 20), 4005, 4007, GetButtonID( 0, i ), GumpButtonType.Reply, 0 );
 
 				if ( craftGroup.NameNumber > 0 )
-					AddHtmlLocalized( 50, 83 + (i * 20), 150, 18, craftGroup.NameNumber, LabelColor, false, false );
+					AddHtmlLocalized( 50, 90 + (i * 20), 150, 18, craftGroup.NameNumber, LabelColor, false, false );
 				else
-					AddLabel( 50, 80 + (i * 20), LabelHue, craftGroup.NameString );
+					AddLabel( 50, 87 + (i * 20), LabelHue, craftGroup.NameString );
 			}
 
 			return craftGroupCol.Count;
@@ -362,12 +388,20 @@ namespace Server.Engines.Craft
 
 		public static int GetButtonID( int type, int index )
 		{
-			return 1 + type + (index * 7);
+			return 1 + type + (index * 8);
 		}
 
-		public void CraftItem( CraftItem item )
+		public void CraftItem( CraftItem item)
 		{
-			int num = m_CraftSystem.CanCraft( m_From, m_Tool, item.ItemType );
+            PlayerMobile pm = m_From as PlayerMobile;
+            if (CraftSystem.PlayerLoc == null)
+            {
+                CraftSystem.PlayerLoc = new Hashtable();
+            }
+            if (!CraftSystem.PlayerLoc.Contains(pm))
+                CraftSystem.PlayerLoc.Add(pm, pm.Location);
+
+            int num = m_CraftSystem.CanCraft( m_From, m_Tool, item.ItemType );
 
 			if ( num > 0 )
 			{
@@ -378,6 +412,7 @@ namespace Server.Engines.Craft
 				Type type = null;
 
 				CraftContext context = m_CraftSystem.GetContext( m_From );
+				int qtd = 1;
 
 				if ( context != null )
 				{
@@ -386,20 +421,60 @@ namespace Server.Engines.Craft
 
 					if ( resIndex >= 0 && resIndex < res.Count )
 						type = res.GetAt( resIndex ).ItemType;
-				}
 
-				m_CraftSystem.CreateItem( m_From, item.ItemType, type, m_Tool, item );
-			}
+                    switch (context.QtdOption)
+                    {
+                        case CraftQtdOption.One: qtd = 1; break;
+                        case CraftQtdOption.Five: qtd = 5; break;
+                        case CraftQtdOption.Ten: qtd = 10; break;
+                        case CraftQtdOption.TwentyFive: qtd = 25; break;
+                        case CraftQtdOption.Fifty: qtd = 50; break;
+                    }
+                }
+				m_CraftSystem.CreateItem(m_From, item.ItemType, type, m_Tool, item);
+				qtd -= 1;
+
+                if (qtd > 0)
+				{
+                    
+                    var numbers = Enumerable.Range(1, qtd).ToList();
+					var interval = 4100; // 1000 ms delay
+					numbers.ForEachWithDelay(i => Task.Run(() =>
+					{
+
+						if (CraftSystem.PlayerLoc.Contains(pm))
+						{
+							pm.SendMessage(55, "Você ainda têm " + (qtd) + " item(s) para criar.");
+							m_CraftSystem.CreateItem(m_From, item.ItemType, type, m_Tool, item);
+							qtd -= 1;
+
+							if (qtd == 0)
+							{
+								CraftSystem.PlayerLoc.Remove(pm);
+								pm.SendMessage(55, "Você terminou de criar o(s) item(s) da lista.");
+								return;
+							}
+						}
+
+                    } ), interval);
+                }
+				
+            }
 		}
+        
+        /*public void teste(CraftItem item)
+        {
+			m_CraftSystem.CreateItem(m_From, item.ItemType, type, m_Tool, item);
+        }*/
 
-		public override void OnResponse( NetState sender, RelayInfo info )
+        public override void OnResponse( NetState sender, RelayInfo info )
 		{
 			if ( info.ButtonID <= 0 )
 				return; // Canceled
 
 			int buttonID = info.ButtonID - 1;
-			int type = buttonID % 7;
-			int index = buttonID / 7;
+			int type = buttonID % 8;
+			int index = buttonID / 8;
 
 			CraftSystem system = m_CraftSystem;
 			CraftGroupCol groups = system.CraftGroups;
@@ -609,6 +684,20 @@ namespace Server.Engines.Craft
 
 							break;
 						}
+						case 9: // QTD
+						{
+                            switch (context.QtdOption)
+                            {
+                                case CraftQtdOption.One: context.QtdOption = CraftQtdOption.Five; break;
+                                case CraftQtdOption.Five: context.QtdOption = CraftQtdOption.Ten; break;
+                                case CraftQtdOption.Ten: context.QtdOption = CraftQtdOption.TwentyFive; break;
+                                case CraftQtdOption.TwentyFive: context.QtdOption = CraftQtdOption.Fifty; break;
+                                case CraftQtdOption.Fifty: context.QtdOption = CraftQtdOption.One; break;
+                            }
+							m_From.SendGump( new CraftGump( m_From, m_CraftSystem, m_Tool, null, m_Page ) );
+
+							break;
+                        }
 					}
 
 					break;

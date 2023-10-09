@@ -13,15 +13,15 @@ namespace Server.Items
 		[Constructable]
 		public TomeOfWands() : base( 0x1AA3 )
 		{
-			Name = "tome of wands";
-			Weight = 1.0;
+			Name = "tomo de varinhas";
+			Weight = 2.0;
 			Hue = 0xB7E;
 		}
 
 		[Constructable]
 		public TomeOfWands( int uses ) : base( uses, 0x1AA3 )
 		{
-			Weight = 1.0;
+			Weight = 2.0;
 		}
 
 		public TomeOfWands( Serial serial ) : base( serial )

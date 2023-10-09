@@ -16,7 +16,7 @@ namespace Server.Items
 		public MinersPouch() : base()
 		{
             Weight = 1.0;
-			MaxItems = 8;
+			MaxItems = 12;
             //MaxWeight = 800;
             Name = "Bolsa Mágica de Minérios";
             Hue = Utility.RandomList(0x3bf, 1151, 1788, 1912, 1956, 2086, 2114, 2193, 2262);
@@ -52,64 +52,26 @@ namespace Server.Items
 
         public override bool OnDragDropInto( Mobile from, Item dropped, Point3D p )
         {
-            int totalItems = TotalItems();
-            int maxItems = MaxItems;
-            double totalWeight = TotalItemWeights() * (0.5);
-            int itemPlusBagWeight = (int)(totalWeight + ((dropped.Weight * dropped.Amount) * 0.5));
-            //from.SendMessage(33, "Item+Bag : " + itemPlusBagWeight);
-            if (itemPlusBagWeight > (int)MaxWeight)
+            if (addItems(from, dropped))
             {
-                from.SendMessage(55, "Adicionar este item na bolsa irá ultrapassar o peso máximo suportado.");
-                return false;
+                Open(from);
+                return base.OnDragDropInto(from, dropped, p);
             }
-            else if (totalItems > maxItems)
-            {
-                from.SendMessage(55, "A bolsa já está cheia de itens.");
-                return false;
-            }
-            else 
-            {
-/*                if (dropped is Container && !(dropped is MinersPouch))
-                {
-                    from.SendMessage("You can only use another miners rucksack within this sack.");
-                    return false;
-                }*/
-                if (dropped is IronOre ||
-                    dropped is DullCopperOre ||
-                    dropped is CopperOre ||
-                    dropped is BronzeOre ||
-                    dropped is ShadowIronOre ||
-                    dropped is PlatinumOre ||
-                    dropped is GoldOre ||
-                    dropped is AgapiteOre ||
-                    dropped is VeriteOre ||
-                    dropped is ValoriteOre ||
-                    dropped is TitaniumOre ||
-                    dropped is RoseniumOre ||
-                    dropped is Granite ||
-                    dropped is DullCopperGranite ||
-                    dropped is CopperGranite ||
-                    dropped is BronzeGranite ||
-                    dropped is ShadowIronGranite ||
-                    dropped is PlatinumGranite ||
-                    dropped is GoldGranite ||
-                    dropped is AgapiteGranite ||
-                    dropped is VeriteGranite ||
-                    dropped is ValoriteGranite ||
-                    dropped is TitaniumGranite ||
-                    dropped is RoseniumGranite)
-                {
-                    return base.OnDragDropInto(from, dropped, p);
-                }
-                else
-                {
-                    from.SendMessage(55, "Esta bolsa serve apenas para guardar minérios e granitos.");
-                    return false;
-                }
-            }
+
+            return false;
         }
 
 		public override bool OnDragDrop( Mobile from, Item dropped )
+        {
+            if (addItems(from, dropped))
+            {
+                Open(from);
+                return base.OnDragDrop(from, dropped);
+            }
+            return false;
+        }
+
+        private bool addItems(Mobile from, Item dropped)
         {
             int totalItems = TotalItems();
             int maxItems = MaxItems;
@@ -126,13 +88,8 @@ namespace Server.Items
                 from.SendMessage(55, "A bolsa já está cheia de itens.");
                 return false;
             }
-            else 
+            else
             {
-                /*                if (dropped is Container) //&& !(dropped is MinersPouch)
-                                {
-                                    from.SendMessage(55, "Esta bolsa serve apenas para guardar minérios.");
-                                    return false;
-                                }*/
                 if (dropped is IronOre ||
                     dropped is DullCopperOre ||
                     dropped is CopperOre ||
@@ -158,7 +115,7 @@ namespace Server.Items
                     dropped is TitaniumGranite ||
                     dropped is RoseniumGranite)
                 {
-                    return base.OnDragDrop(from, dropped);
+                    return true; 
                 }
                 else
                 {
@@ -168,7 +125,7 @@ namespace Server.Items
             }
         }
 
-		public MinersPouch( Serial serial ) : base( serial )
+            public MinersPouch( Serial serial ) : base( serial )
 		{
 		}
 

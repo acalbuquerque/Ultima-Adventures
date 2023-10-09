@@ -279,25 +279,25 @@ namespace Server.Engines.Harvest
 									FindSpecialGranite = true;
 
 							bool FindGhostLog = false;
-								if ( (item is WalnutLog) || (item is RosewoodLog) || (item is PineLog) || (item is OakLog) )
-									FindGhostLog = true;
+								/*if ( *//*(item is WalnutLog) || *//*(item is RosewoodLog) *//*|| (item is PineLog) || (item is OakLog)*//* )
+									FindGhostLog = true;*/
 
 							bool FindBlackLog = false;
-								if ( (item is AshLog) || (item is CherryLog) || (item is GoldenOakLog) || (item is HickoryLog) || (item is MahoganyLog) )
-									FindBlackLog = true;
+								if ( (item is AshLog) || (item is EbonyLog) /*|| (item is GoldenOakLog) || (item is HickoryLog) || (item is MahoganyLog)*/)
+								FindBlackLog = true;
 
 							bool FindToughLog = false;
 								if ( !(item is Log) )
 									FindToughLog = true;
 
-							if ( Worlds.IsExploringSeaAreas( from ) && item is BaseLog )
+							/*if ( Worlds.IsExploringSeaAreas( from ) && item is BaseLog )
 							{
 								int driftWood = item.Amount;
 								item.Delete();
 								item = new DriftwoodLog( driftWood );
 								from.SendMessage(55, "Você corta alguns troncos de madeira flutuante.");
-							}
-							else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && 
+							}*/
+							if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && 
 								FindSpecialOre && 
 								item is BaseOre && 
 								from.Map == Map.TerMur )
@@ -370,32 +370,41 @@ namespace Server.Engines.Harvest
                             }
 							else if ( reg.IsPartOf( typeof( NecromancerRegion ) ) && FindBlackLog && item is BaseLog )
 							{
-								int blackLog = item.Amount;
-								item.Delete();
-								item = new EbonyLog( blackLog );
-								from.SendMessage( "You chop some ebony logs.");
+                                if (skillValue >= resource.ReqSkill) // maybe double check?
+								{
+                                    //int blackLog = item.Amount - 1;
+                                    //item.Delete();
+                                    /*item.Amount -= 1;
+                                    if (item.Amount <= 0) { item.Amount = 1; }*/
+
+                                    // giving 1 ebony wood for free
+                                    Container pack = from.Backpack;
+                                    Item bonusItem = new EbonyLog(1);
+                                    from.AddToBackpack(bonusItem);
+                                    from.SendMessage(65, "BONUS! Esta região parece possuir madeira de Ébano de forma anormal.");
+                                }
 							}
-							else if ( reg.IsPartOf( typeof( NecromancerRegion ) ) && FindGhostLog && item is BaseLog )
+							/*else if ( reg.IsPartOf( typeof( NecromancerRegion ) ) && FindGhostLog && item is BaseLog )
 							{
 								int ghostLog = item.Amount;
 								item.Delete();
 								item = new GhostLog( ghostLog );
 								from.SendMessage( "You chop some ghost logs.");
-							}
-							else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && FindToughLog && item is BaseLog )
+							}*/
+							/*else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && FindToughLog && item is BaseLog )
 							{
 								int toughLog = item.Amount;
 								item.Delete();
 								item = new PetrifiedLog( toughLog );
 								from.SendMessage( "You chop some petrified logs.");
-							}
-							else if ( ( reg.IsPartOf( "Shipwreck Grotto" ) || reg.IsPartOf( "Barnacled Cavern" ) ) && FindToughLog && item is BaseLog )
+							}*/
+							/*else if ( ( reg.IsPartOf( "Shipwreck Grotto" ) || reg.IsPartOf( "Barnacled Cavern" ) ) && FindToughLog && item is BaseLog )
 							{
 								int driftWood = item.Amount;
 								item.Delete();
 								item = new DriftwoodLog( driftWood );
 								from.SendMessage( "You chop some driftwood logs.");
-							}
+							}*/
 							else if ( ( reg.IsPartOf( "Shipwreck Grotto" ) || reg.IsPartOf( "Barnacled Cavern" ) || reg.IsPartOf( "Savage Sea Docks" ) || reg.IsPartOf( "Serpent Sail Docks" ) || reg.IsPartOf( "Anchor Rock Docks" ) || reg.IsPartOf( "Kraken Reef Docks" ) || reg.IsPartOf( "the Forgotten Lighthouse" ) ) && FindSpecialGranite && item is BaseGranite )
 							{
 								int nepturiteGranite = item.Amount;
@@ -438,18 +447,18 @@ namespace Server.Engines.Harvest
                             else if (item is TitaniumGranite) { from.SendMessage(65, "Você encontrou granito de titânio."); }
                             else if (item is RoseniumGranite) { from.SendMessage(65, "Você encontrou granito de rosênio."); }
 
-                            else if ( item is Log ){ from.SendMessage( "You chop some logs."); }
+                            /*else if ( item is Log ){ from.SendMessage("Você corta algumas toras."); }
 							else if ( item is AshLog ){ from.SendMessage( "You chop some ash logs."); }
 							else if ( item is CherryLog ){ from.SendMessage( "You chop some cherry logs."); }
 							else if ( item is EbonyLog ){ from.SendMessage( "You chop some ebony logs."); }
 							else if ( item is GoldenOakLog ){ from.SendMessage( "You chop some golden oak logs."); }
 							else if ( item is HickoryLog ){ from.SendMessage( "You chop some hickory logs."); }
-							else if ( item is MahoganyLog ){ from.SendMessage( "You chop some mahogany logs."); }
+							*//*else if ( item is MahoganyLog ){ from.SendMessage( "You chop some mahogany logs."); }
 							else if ( item is OakLog ){ from.SendMessage( "You chop some oak logs."); }
-							else if ( item is PineLog ){ from.SendMessage( "You chop some pine logs."); }
+							else if ( item is PineLog ){ from.SendMessage( "You chop some pine logs."); }*//*
 							else if ( item is RosewoodLog ){ from.SendMessage( "You chop some rosewood logs."); }
-							else if ( item is WalnutLog ){ from.SendMessage( "You chop some walnut logs."); }
-							else if ( item is ElvenLog ){ from.SendMessage( "You chop some elven logs."); }
+							*//*else if ( item is WalnutLog ){ from.SendMessage( "You chop some walnut logs."); }*//*
+							else if ( item is ElvenLog ){ from.SendMessage( "You chop some elven logs."); }*/
 
 							if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Savaged Empire" && from.Skills[SkillName.Mining].Value > Utility.RandomMinMax( 1, 500 ) )
 							{

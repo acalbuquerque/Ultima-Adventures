@@ -18,13 +18,13 @@ namespace Server.Items
 			Stackable = true;
 			Amount = amount;
 			Hue = 0x840;
-			Name = "reaper oil";
+			Name = "óleo ceifador";
 		}
 
 		public override void AddNameProperties( ObjectPropertyList list )
 		{
 			base.AddNameProperties( list );
-			list.Add( 1070722, "Softens Wood for Molding" );
+			list.Add( 1070722, "Suaviza Madeira para Moldagem");
 		}
 
 		public ReaperOil( Serial serial ) : base( serial )

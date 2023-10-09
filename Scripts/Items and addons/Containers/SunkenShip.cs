@@ -54,7 +54,7 @@ namespace Server.Items
 			int wood = Utility.RandomMinMax( 10, 50 );
 				if ( this.Name == "sunken boat" ){ wood = Utility.RandomMinMax( 5, 25 ); }
 			int fishSkill = (int)(from.Skills[SkillName.Fishing].Value/10);
-				if ( fishSkill > 13 ){ fishSkill = 13; }
+				if ( fishSkill > 7 ){ fishSkill = 7; }
 			int woodSkill = (int)(from.Skills[SkillName.Carpentry].Value/2);
 				if ( woodSkill < 5 ){ woodSkill = 5; }
 				woodSkill = woodSkill + wood;
@@ -67,13 +67,13 @@ namespace Server.Items
 				case 3: from.AddToBackpack( new EbonyBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
 				case 4: from.AddToBackpack( new GoldenOakBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
 				case 5: from.AddToBackpack( new HickoryBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
-				case 6: from.AddToBackpack( new MahoganyBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
+				/*case 6: from.AddToBackpack( new MahoganyBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
 				case 7: from.AddToBackpack( new OakBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
-				case 8: from.AddToBackpack( new PineBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
-				case 9: from.AddToBackpack( new RosewoodBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
-				case 10: from.AddToBackpack( new WalnutBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
+				case 8: from.AddToBackpack( new PineBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;*/
+				case 6: from.AddToBackpack( new RosewoodBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
+				/*case 10: from.AddToBackpack( new WalnutBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
 				case 11: from.AddToBackpack( new DriftwoodBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
-				case 12: from.AddToBackpack( new PetrifiedBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;
+				case 12: from.AddToBackpack( new PetrifiedBoard( Utility.RandomMinMax( wood, woodSkill ) ) ); break;*/
 			}
 
 			from.PlaySound( 0x13E );

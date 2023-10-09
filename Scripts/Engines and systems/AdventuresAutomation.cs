@@ -553,23 +553,26 @@ namespace Server.Items
 
 		public static void StopAction( PlayerMobile pm )
 		{
-			pm.SetFlag( PlayerFlag.IsAutomated, false );
+			if (pm != null) 
+			{
+                pm.SetFlag(PlayerFlag.IsAutomated, false);
 
-			if ( PlayerLoc.Contains(pm))
-				PlayerLoc.Remove(pm);
-			if ( PlayerTool.Contains(pm))
-				PlayerTool.Remove(pm);
-			if ( TaskNextAction.Contains(pm))
-				TaskNextAction.Remove(pm);
-			if ( TaskTarget.Contains(pm))
-				TaskTarget.Remove(pm);
-			if ( TaskSystem.Contains(pm))
-				TaskSystem.Remove(pm);
-			if ( TaskString.Contains(pm))
-				TaskString.Remove(pm);
+                if (PlayerLoc.Contains(pm))
+                    PlayerLoc.Remove(pm);
+                if (PlayerTool.Contains(pm))
+                    PlayerTool.Remove(pm);
+                if (TaskNextAction.Contains(pm))
+                    TaskNextAction.Remove(pm);
+                if (TaskTarget.Contains(pm))
+                    TaskTarget.Remove(pm);
+                if (TaskSystem.Contains(pm))
+                    TaskSystem.Remove(pm);
+                if (TaskString.Contains(pm))
+                    TaskString.Remove(pm);
 
-            //globalAction = null;
-            pm.SendMessage(55, "Ação automática parada!");
+                //globalAction = null;
+                pm.SendMessage(55, "Ação automática parada!");
+            }
 		}
 
         private static void CopyProperties(Item dest, Item src)

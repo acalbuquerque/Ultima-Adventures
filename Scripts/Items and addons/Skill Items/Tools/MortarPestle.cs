@@ -11,14 +11,14 @@ namespace Server.Items
 		[Constructable]
 		public MortarPestle() : base( 0x4CE9 )
 		{
-			Name = "mortar and pestle";
+			Name = "almofariz e pilão";
 			Weight = 1.0;
 		}
 
 		[Constructable]
 		public MortarPestle( int uses ) : base( uses, 0x4CE9 )
 		{
-			Name = "mortar and pestle";
+			Name = "almofariz e pilão";
 			Weight = 1.0;
 		}
 

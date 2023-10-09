@@ -562,7 +562,7 @@ namespace Server.Misc
 					{
 						if ( item is BoneSkirt || item is BoneLegs || item is BoneGloves || item is BoneArms || item is BoneChest || item is OrcHelm || item is BoneHelm ){ MakeSpaceAceBoneArmor( item, null, false ); }
 						else if ( item is SavageLegs || item is SavageGloves || item is SavageArms || item is SavageChest || item is SavageHelm ){ MakeSpaceAceBoneArmor( item, null, false ); }
-						else if ( Server.Misc.MaterialInfo.IsWoodenItem( item ) && Utility.RandomMinMax( 1, 20 ) == 1 ){ ((BaseArmor)item).Resource = CraftResource.PetrifiedTree; }
+						/*else if ( Server.Misc.MaterialInfo.IsWoodenItem( item ) && Utility.RandomMinMax( 1, 20 ) == 1 ){ ((BaseArmor)item).Resource = CraftResource.PetrifiedTree; }*/
 						else if ( Server.Misc.MaterialInfo.IsWoodenItem( item ) ){ MakeSpaceAceWoodArmorWeapon( item, null ); }
 						else if ( Server.Misc.MaterialInfo.IsLeatherItem( item ) && Utility.RandomMinMax( 1, 20 ) == 1 ){ ((BaseArmor)item).Resource = CraftResource.AlienLeather; }
 						else if ( Server.Misc.MaterialInfo.IsLeatherItem( item ) ){ MakeSpaceAceClothArmorWeapon( item, null ); }
@@ -573,7 +573,7 @@ namespace Server.Misc
 					{
 						if ( Server.Misc.MaterialInfo.IsLeatherItem( item ) && Utility.RandomMinMax( 1, 20 ) == 1 ){ ((BaseWeapon)item).Resource = CraftResource.AlienLeather; }
 						else if ( Server.Misc.MaterialInfo.IsLeatherItem( item ) ){ MakeSpaceAceClothArmorWeapon( item, null ); }
-						else if ( Server.Misc.MaterialInfo.IsWoodenItem( item ) && Utility.RandomMinMax( 1, 20 ) == 1 ){ ((BaseWeapon)item).Resource = CraftResource.PetrifiedTree; }
+						/*else if ( Server.Misc.MaterialInfo.IsWoodenItem( item ) && Utility.RandomMinMax( 1, 20 ) == 1 ){ ((BaseWeapon)item).Resource = CraftResource.PetrifiedTree; }*/
 						else if ( Server.Misc.MaterialInfo.IsWoodenItem( item ) ){ MakeSpaceAceWoodArmorWeapon( item, null ); }
 						else if ( Server.Misc.MaterialInfo.IsMetalItem( item ) && Utility.RandomMinMax( 1, 20 ) == 1 ){ ((BaseWeapon)item).Resource = CraftResource.Xormite; }
 						else if ( Server.Misc.MaterialInfo.IsMetalItem( item ) ){ MakeSpaceAceMetalArmorWeapon( item, null ); }
@@ -863,47 +863,42 @@ namespace Server.Misc
 					{
 						BaseWeapon weapon = (BaseWeapon)item;
 
-						if ( chances >= 1024 ){ weapon.Resource = CraftResource.RegularWood; }
-						else if ( chances >= 512 ){ weapon.Resource = CraftResource.AshTree; }
-						else if ( chances >= 256 ){ weapon.Resource = CraftResource.CherryTree; }
-						else if ( chances >= 128 ){ weapon.Resource = CraftResource.EbonyTree; }
-						else if ( chances >= 64 ){ weapon.Resource = CraftResource.GoldenOakTree; }
-						else if ( chances >= 32 ){ weapon.Resource = CraftResource.HickoryTree; }
-						else if ( chances >= 16 ){ weapon.Resource = CraftResource.MahoganyTree; }
-						else if ( chances >= 8 ){ weapon.Resource = CraftResource.OakTree; }
-						else if ( chances >= 4 ){ weapon.Resource = CraftResource.PineTree; }
-						else if ( chances >= 2 ){ weapon.Resource = CraftResource.RosewoodTree; }
-						else if ( chances >= 1 ){ weapon.Resource = CraftResource.WalnutTree; }
+                        if (chances >= 1024) { weapon.Resource = CraftResource.RegularWood; }
+                        else if (chances >= 512) { weapon.Resource = CraftResource.AshTree; }
+                        else if (chances >= 256) { weapon.Resource = CraftResource.EbonyTree; }
+                        else if (chances >= 128) { weapon.Resource = CraftResource.ElvenTree; }
+                        else if (chances >= 64) { weapon.Resource = CraftResource.CherryTree; }
+                        else if (chances >= 32) { weapon.Resource = CraftResource.RosewoodTree; }
+                        else if (chances >= 16) { weapon.Resource = CraftResource.GoldenOakTree; }
+                        else if (chances >= 8) { weapon.Resource = CraftResource.HickoryTree; }
 
-						if ( Worlds.IsExploringSeaAreas( from ) == true ){ weapon.Resource = CraftResource.DriftwoodTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "Ravendark Woods" && chances == 1 ){ weapon.Resource = CraftResource.GhostTree; }
+
+                        /*if ( Worlds.IsExploringSeaAreas( from ) == true ){ weapon.Resource = CraftResource.DriftwoodTree; }*/
+						/*if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "Ravendark Woods" && chances == 1 ){ weapon.Resource = CraftResource.GhostTree; }
 						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Island of Dracula" && chances == 1 ){ weapon.Resource = CraftResource.GhostTree; }
 						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Castle of Dracula" && chances == 1 ){ weapon.Resource = CraftResource.GhostTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Crypts of Dracula" && chances == 1 ){ weapon.Resource = CraftResource.GhostTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && chances == 1 ){ weapon.Resource = CraftResource.PetrifiedTree; }
+						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Crypts of Dracula" && chances == 1 ){ weapon.Resource = CraftResource.GhostTree; }*/
+						/*else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && chances == 1 ){ weapon.Resource = CraftResource.PetrifiedTree; }*/
 					}
 					else if ( item is BaseArmor )
 					{
 						BaseArmor armor = (BaseArmor)item;
 
-						if ( chances >= 1024 ){ armor.Resource = CraftResource.RegularWood; }
-						else if ( chances >= 512 ){ armor.Resource = CraftResource.AshTree; }
-						else if ( chances >= 256 ){ armor.Resource = CraftResource.CherryTree; }
-						else if ( chances >= 128 ){ armor.Resource = CraftResource.EbonyTree; }
-						else if ( chances >= 64 ){ armor.Resource = CraftResource.GoldenOakTree; }
-						else if ( chances >= 32 ){ armor.Resource = CraftResource.HickoryTree; }
-						else if ( chances >= 16 ){ armor.Resource = CraftResource.MahoganyTree; }
-						else if ( chances >= 8 ){ armor.Resource = CraftResource.OakTree; }
-						else if ( chances >= 4 ){ armor.Resource = CraftResource.PineTree; }
-						else if ( chances >= 2 ){ armor.Resource = CraftResource.RosewoodTree; }
-						else if ( chances >= 1 ){ armor.Resource = CraftResource.WalnutTree; }
+                        if (chances >= 1024) { armor.Resource = CraftResource.RegularWood; }
+                        else if (chances >= 512) { armor.Resource = CraftResource.AshTree; }
+                        else if (chances >= 256) { armor.Resource = CraftResource.EbonyTree; }
+                        else if (chances >= 128) { armor.Resource = CraftResource.ElvenTree; }
+                        else if (chances >= 64) { armor.Resource = CraftResource.CherryTree; }
+                        else if (chances >= 32) { armor.Resource = CraftResource.RosewoodTree; }
+                        else if (chances >= 16) { armor.Resource = CraftResource.GoldenOakTree; }
+                        else if (chances >= 8) { armor.Resource = CraftResource.HickoryTree; }
 
-						if ( Worlds.IsExploringSeaAreas( from ) == true ){ armor.Resource = CraftResource.DriftwoodTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "Ravendark Woods" && chances == 1 ){ armor.Resource = CraftResource.GhostTree; }
+                        /*if ( Worlds.IsExploringSeaAreas( from ) == true ){ armor.Resource = CraftResource.DriftwoodTree; }*/
+						/*if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "Ravendark Woods" && chances == 1 ){ armor.Resource = CraftResource.GhostTree; }
 						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Island of Dracula" && chances == 1 ){ armor.Resource = CraftResource.GhostTree; }
 						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Castle of Dracula" && chances == 1 ){ armor.Resource = CraftResource.GhostTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Crypts of Dracula" && chances == 1 ){ armor.Resource = CraftResource.GhostTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && chances == 1 ){ armor.Resource = CraftResource.PetrifiedTree; }
+						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Crypts of Dracula" && chances == 1 ){ armor.Resource = CraftResource.GhostTree; }*/
+						/*else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && chances == 1 ){ armor.Resource = CraftResource.PetrifiedTree; }*/
 					}
 					else if ( item is BaseInstrument )
 					{
@@ -911,22 +906,23 @@ namespace Server.Misc
 
 						if ( chances >= 1024 ){ lute.Resource = CraftResource.RegularWood; }
 						else if ( chances >= 512 ){ lute.Resource = CraftResource.AshTree; }
-						else if ( chances >= 256 ){ lute.Resource = CraftResource.CherryTree; }
-						else if ( chances >= 128 ){ lute.Resource = CraftResource.EbonyTree; }
-						else if ( chances >= 64 ){ lute.Resource = CraftResource.GoldenOakTree; }
-						else if ( chances >= 32 ){ lute.Resource = CraftResource.HickoryTree; }
-						else if ( chances >= 16 ){ lute.Resource = CraftResource.MahoganyTree; }
+                        else if (chances >= 256) { lute.Resource = CraftResource.EbonyTree; }
+                        else if (chances >= 128) { lute.Resource = CraftResource.ElvenTree; }
+                        else if ( chances >= 64 ){ lute.Resource = CraftResource.CherryTree; }
+                        else if (chances >= 32) { lute.Resource = CraftResource.RosewoodTree; }
+                        else if ( chances >= 16 ){ lute.Resource = CraftResource.GoldenOakTree; }
+						else if ( chances >= 8 ){ lute.Resource = CraftResource.HickoryTree; }
+						/*else if ( chances >= 16 ){ lute.Resource = CraftResource.MahoganyTree; }
 						else if ( chances >= 8 ){ lute.Resource = CraftResource.OakTree; }
-						else if ( chances >= 4 ){ lute.Resource = CraftResource.PineTree; }
-						else if ( chances >= 2 ){ lute.Resource = CraftResource.RosewoodTree; }
-						else if ( chances >= 1 ){ lute.Resource = CraftResource.WalnutTree; }
+						else if ( chances >= 4 ){ lute.Resource = CraftResource.PineTree; }*/
+						/*else if ( chances >= 1 ){ lute.Resource = CraftResource.WalnutTree; }*/
 
-						if ( Worlds.IsExploringSeaAreas( from ) == true ){ lute.Resource = CraftResource.DriftwoodTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "Ravendark Woods" && chances == 1 ){ lute.Resource = CraftResource.GhostTree; }
+						/*if ( Worlds.IsExploringSeaAreas( from ) == true ){ lute.Resource = CraftResource.DriftwoodTree; }*/
+						/*if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "Ravendark Woods" && chances == 1 ){ lute.Resource = CraftResource.GhostTree; }
 						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Island of Dracula" && chances == 1 ){ lute.Resource = CraftResource.GhostTree; }
 						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Castle of Dracula" && chances == 1 ){ lute.Resource = CraftResource.GhostTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Crypts of Dracula" && chances == 1 ){ lute.Resource = CraftResource.GhostTree; }
-						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && chances == 1 ){ lute.Resource = CraftResource.PetrifiedTree; }
+						else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Crypts of Dracula" && chances == 1 ){ lute.Resource = CraftResource.GhostTree; }*/
+						/*else if ( Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" && chances == 1 ){ lute.Resource = CraftResource.PetrifiedTree; }*/
 					}
 				}
 

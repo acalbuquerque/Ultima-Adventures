@@ -1053,6 +1053,7 @@ namespace Server.Items
 		public WoodenBox() : base( 0x9AA )
 		{
 			Weight = 4.0;
+			Name = "Baú de Madeira (Pequeno)";
 		}
 
 		public WoodenBox( Serial serial ) : base( serial )
@@ -1840,7 +1841,9 @@ namespace Server.Items
 		{
 			Weight = 2.0;
 			Hue = 0x724;
-		}
+			Name = "Baú de Madeira (Médio)";
+
+        }
 
 		public WoodenChest( Serial serial ) : base( serial )
 		{
@@ -1871,7 +1874,9 @@ namespace Server.Items
 		[Constructable]
 		public PlainWoodenChest() : base( 0x280B )
 		{
-		}
+			Name = "Gaveteiro Real";
+
+        }
 
 		public PlainWoodenChest( Serial serial ) : base( serial )
 		{
@@ -1902,7 +1907,9 @@ namespace Server.Items
 		[Constructable]
 		public OrnateWoodenChest() : base( 0x280D )
 		{
-		}
+			Name = "Cômoda Real";
+
+        }
 
 		public OrnateWoodenChest( Serial serial ) : base( serial )
 		{
@@ -1933,7 +1940,9 @@ namespace Server.Items
 		[Constructable]
 		public GildedWoodenChest() : base( 0x280F )
 		{
-		}
+			Name = "Baú de Madeira Real";
+
+        }
 
 		public GildedWoodenChest( Serial serial ) : base( serial )
 		{
@@ -1965,7 +1974,9 @@ namespace Server.Items
 		public WoodenFootLocker() : base( 0x2811 )
 		{
 			GumpID = 0x10C;
-		}
+			Name = "Baú de Madeira (Baixo)";
+
+        }
 
 		public WoodenFootLocker( Serial serial ) : base( serial )
 		{
@@ -1998,7 +2009,7 @@ namespace Server.Items
 		[Constructable]
 		public WoodenCoffin() : base( 0x2800 )
 		{
-			Name = "coffin";
+			Name = "Caixão Simples";
 			GumpID = 0x41D;
 		}
 
@@ -2026,7 +2037,7 @@ namespace Server.Items
 		[Constructable]
 		public WoodenCasket() : base( 0x27E9 )
 		{
-			Name = "coffin";
+			Name = "Caixão Elegante";
 			GumpID = 0x41D;
 		}
 
@@ -2226,7 +2237,9 @@ namespace Server.Items
 		[Constructable]
 		public FinishedWoodenChest() : base( 0x2813 )
 		{
-		}
+			Name = "Baú de Madeira (Grande)";
+
+        }
 
 		public FinishedWoodenChest( Serial serial ) : base( serial )
 		{

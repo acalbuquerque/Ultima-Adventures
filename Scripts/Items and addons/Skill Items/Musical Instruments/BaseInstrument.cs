@@ -574,48 +574,27 @@ namespace Server.Items
 			CheckReplenishUses( false );
 
 			if ( m_Crafter != null )
-				list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
+                list.Add(1050043, ItemNameHue.UnifiedItemProps.SetColor(m_Crafter.Name, "#8be4fc"));
+            //list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
 
-			list.Add( 1060584, m_UsesRemaining.ToString() ); // uses remaining: ~1_val~
-
-			if( m_ReplenishesCharges )
-				list.Add( 1070928 ); // Replenish Charges
-
-			int oreType;
-
-			switch ( m_Resource )
-			{
-				case CraftResource.AshTree: 		oreType = 1095399; break; // ash
-				case CraftResource.CherryTree: 		oreType = 1095400; break; // cherry
-				case CraftResource.EbonyTree: 		oreType = 1095401; break; // ebony
-				case CraftResource.GoldenOakTree: 	oreType = 1095402; break; // gold oak
-				case CraftResource.HickoryTree: 	oreType = 1095403; break; // hickory
-				case CraftResource.MahoganyTree: 	oreType = 1095404; break; // mahogany
-				case CraftResource.DriftwoodTree: 	oreType = 1095510; break; // driftwood
-				case CraftResource.OakTree: 		oreType = 1095405; break; // oak
-				case CraftResource.PineTree: 		oreType = 1095406; break; // pine
-				case CraftResource.GhostTree: 		oreType = 1095513; break; // ghostwood
-				case CraftResource.RosewoodTree: 	oreType = 1095407; break; // rosewood
-				case CraftResource.WalnutTree: 		oreType = 1095408; break; // walnut
-				case CraftResource.PetrifiedTree: 	oreType = 1095534; break; // petrified
-				case CraftResource.ElvenTree: 		oreType = 1095537; break; // elven
-				default: oreType = 0; break;
-			}
+            string resourceName = CraftResources.GetName(m_Resource);
 
 			if ( m_Quality == InstrumentQuality.Exceptional )
 			{
-				if ( oreType != 0 )
-					list.Add( 1053100, "#{0}\t{1}", oreType, "Wood" ); // exceptional ~1_oretype~ ~2_armortype~
-				else
-					list.Add( 1050040, "Wood" ); // exceptional ~1_ITEMNAME~
-			}
-			else
-			{
-				if ( oreType != 0 )
-					list.Add( 1053099, "#{0}\t{1}", oreType, "Wood" ); // ~1_oretype~ ~2_armortype~
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor("Excepcional", "#ffe066"));
+
+                if (resourceName != "")
+                {
+                    list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor(resourceName, "#8be4fc"));
+                }
 			}
 
-			bool MD = false;
+            list.Add(1060584, m_UsesRemaining.ToString()); // uses remaining: ~1_val~
+
+            if (m_ReplenishesCharges)
+                list.Add(1070928); // Replenish Charges
+
+            bool MD = false;
 			if (Server.Misc.AdventuresFunctions.IsInMidland((object)this))
 				MD = true;
 

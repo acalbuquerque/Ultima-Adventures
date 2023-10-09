@@ -42,16 +42,16 @@ namespace Server.Engines.Harvest
 			#region Lumberjacking
 			HarvestDefinition lumber = new HarvestDefinition();
 
-			// Resource banks are every 4x3 tiles
-			lumber.BankWidth = 4;
+			// Resource banks are every 3x3 tiles
+			lumber.BankWidth = 3;
 			lumber.BankHeight = 3;
 
-			// Every bank holds from 20 to 45 logs
-			lumber.MinTotal = 20;
-			lumber.MaxTotal = 45;
+			// Every bank holds from 5-30 logs
+			lumber.MinTotal = 6;
+			lumber.MaxTotal = 36;
 
 			// A resource bank will respawn its content every 20 to 30 minutes
-			lumber.MinRespawn = TimeSpan.FromMinutes( 20.0 );
+			lumber.MinRespawn = TimeSpan.FromMinutes( 15.0 );
 			lumber.MaxRespawn = TimeSpan.FromMinutes( 30.0 );
 
 			// Skill checking is done on the Lumberjacking skill
@@ -64,15 +64,16 @@ namespace Server.Engines.Harvest
 			lumber.MaxRange = 2;
 
 			// Ten logs per harvest action
-			lumber.ConsumedPerHarvest = 10;
-			lumber.ConsumedPerFeluccaHarvest = 10;
+			lumber.ConsumedPerHarvest = 2;//Utility.RandomMinMax(6, 12);
+			lumber.ConsumedPerFeluccaHarvest = 2;// Utility.RandomMinMax(6, 12); ;
 
 			// The chopping effect
 			lumber.EffectActions = new int[]{ 13 };
 			lumber.EffectSounds = new int[]{ 0x13E };
-			lumber.EffectCounts = (Core.AOS ? new int[]{ 1 } : new int[]{ 1, 2, 2, 2, 3 });
-			lumber.EffectDelay = TimeSpan.FromSeconds( 1.6 );
-			lumber.EffectSoundDelay = TimeSpan.FromSeconds( 0.9 );
+			lumber.EffectCounts = new int[] { 1 };//(Core.AOS ? new int[]{ 1 } : new int[]{ 1, 2, 2, 2, 3 });
+
+            lumber.EffectDelay = TimeSpan.FromSeconds( 1.4 );
+			lumber.EffectSoundDelay = TimeSpan.FromSeconds( 0.7 );
 
 			lumber.NoResourcesMessage = 500493; // There's not enough wood here to harvest.
 			lumber.FailMessage = 500495; // You hack at the tree for a while, but fail to produce any useable wood.
@@ -82,50 +83,51 @@ namespace Server.Engines.Harvest
 
 			res = new HarvestResource[]
 			{
-				new HarvestResource(  00.0, 00.0, 85.0, "", typeof( Log ) ),
-				new HarvestResource(  55.0, 25.0, 90.0, "", typeof( AshLog ) ),
-				new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ),
-				new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ),
-				new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ),
-				new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ),
-				new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ),
-				new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ),
-				new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ),
-				new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ),
-				new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ),
-				new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) )
+				new HarvestResource(  00.0, 00.0, 120.0, "Você cortou algumas toras", typeof( Log ) ),
+				new HarvestResource(  60.0, 50.0, 120.0, "Você cortou algumas toras de Carvalho cinza", typeof( AshLog ) ),
+				new HarvestResource(  70.0, 60.0, 120.0, "Você cortou algumas toras de Ébano", typeof( EbonyLog ) ),
+                new HarvestResource(  80.0, 70.0, 120.0, "Você cortou algumas toras de Ipê-amarelo", typeof( GoldenOakLog ) ),
+                new HarvestResource(  90.0, 80.0, 120.0, "Você cortou algumas toras de Cerejeira", typeof( CherryLog ) ),
+                new HarvestResource(  95.0, 85.0, 120.0, "Você cortou algumas toras de Pau-Brasil", typeof( RosewoodLog ) ),
+                new HarvestResource(  100.0, 90.0, 120.0, "Você cortou algumas toras de madeira Élfica", typeof( ElvenLog ) ),
+                new HarvestResource(  100.0, 90.0, 120.0, "Você cortou algumas toras de Nogueira Branca", typeof( HickoryLog ) )
+/*                new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ),
+                new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ),
+                new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ),
+                new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ),*/ 
 			};
 
 			veins = new HarvestVein[]
 			{
-				new HarvestVein( 30.0, 0.0, res[0], null ),	// Ordinary Logs
-				new HarvestVein( 15.0, 0.5, res[1], res[0] ), // Ash
-				new HarvestVein( 10.0, 0.5, res[2], res[0] ), // Cherry
-				new HarvestVein( 09.0, 0.5, res[3], res[0] ), // Ebony
-				new HarvestVein( 08.0, 0.5, res[4], res[0] ), // Golden Oak
-				new HarvestVein( 07.0, 0.5, res[5], res[0] ), // Hickory
-				new HarvestVein( 06.0, 0.5, res[6], res[0] ), // Mahogany
-				new HarvestVein( 05.0, 0.5, res[7], res[0] ), // Oak
-				new HarvestVein( 04.0, 0.5, res[8], res[0] ), // Pine
-				new HarvestVein( 03.0, 0.5, res[9], res[0] ), // Rosewood
-				new HarvestVein( 02.0, 0.5, res[10], res[0] ), // Walnut
-				new HarvestVein( 01.0, 0.5, res[11], res[0] ) // Elven
+				new HarvestVein( 27.0, 0.0, res[0], null ),	// Ordinary Logs
+				new HarvestVein( 18.0, 0.5, res[1], res[0] ), // Ash
+				new HarvestVein( 15.0, 0.4, res[2], res[0] ), // Ebony
+				new HarvestVein( 12.0, 0.4, res[3], res[0] ), // Golden Oak
+				new HarvestVein( 10.0, 0.3, res[4], res[0] ), // Cherry
+				new HarvestVein( 8.0, 0.2, res[5], res[0] ), // Rosewood
+				new HarvestVein( 5.0, 0.1, res[6], res[0] ), // Elven
+				new HarvestVein( 5.0, 0.1, res[7], res[0] ) // Hickory
+				/*new HarvestVein( 7.0, 0.5, res[6], res[0] ), // Mahogany
+				new HarvestVein( 6.0, 0.5, res[7], res[0] ), // Oak
+				new HarvestVein( 5.0, 0.5, res[8], res[0] ), // Pine*/
+				/*new HarvestVein( 30.0, 0.5, res[10], res[0] ), // Walnut*/
+				
 			};
 
 			lumber.BonusResources = new BonusHarvestResource[]
 			{
-				new BonusHarvestResource( 0, 83.9, null, null ),	//Nothing
-				//new BonusHarvestResource( 100, 10.0, "wood polish", typeof( OilWood ) ),
-				new BonusHarvestResource( 100, 03.0, "reaper oil", typeof( ReaperOil ) ),
-				new BonusHarvestResource( 100, 02.0, "mystical tree sap", typeof( MysticalTreeSap ) ),
-				new BonusHarvestResource( 100, 01.0, "mushrooms", typeof( HomePlants_Mushroom ) )
-			};
+				new BonusHarvestResource( 0, 94.0, null, null ), //Nothing
+                new BonusHarvestResource( 80, 2.0, "Eba! Você achou cogumelos.", typeof( HomePlants_Mushroom ) ),
+                new BonusHarvestResource( 90, 2.0, "Eba! Você achou óleo ceifador.", typeof( ReaperOil ) ),
+				new BonusHarvestResource( 100, 1.0, "Eba! Você achou seiva de árvore mística.", typeof( MysticalTreeSap ) ),
+                new BonusHarvestResource( 110, 1.0, "Eba! Você achou óleo mutagênico!", typeof( OilWood ) )
+            };
 
 			lumber.Resources = res;
 			lumber.Veins = veins;
 
-			lumber.RaceBonus = Core.ML;
-			lumber.RandomizeVeins = Core.ML;
+			lumber.RaceBonus = false;//Core.ML;
+			lumber.RandomizeVeins = true;//Core.ML;
 
 			m_Definition = lumber;
 			Definitions.Add( lumber );

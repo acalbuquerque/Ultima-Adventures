@@ -13,13 +13,15 @@ namespace Server.Items
 		public JointingPlane() : base( 0x1030 )
 		{
 			Weight = 2.0;
-		}
+            Name = "plaina";
+        }
 
 		[Constructable]
 		public JointingPlane( int uses ) : base( uses, 0x1030 )
 		{
 			Weight = 2.0;
-		}
+            Name = "plaina";
+        }
 
 		public JointingPlane( Serial serial ) : base( serial )
 		{
