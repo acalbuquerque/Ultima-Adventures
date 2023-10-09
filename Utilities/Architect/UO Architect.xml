@@ -10,4 +10,11 @@
     <port>2594</port>
     <acct>admin</acct>
   </server>
+  <server id="f2e62952-9cd7-4aa2-bf8c-2d149a43421f">
+    <name>Nimeria</name>
+    <password>t213104br</password>
+    <ip>127.0.0.1</ip>
+    <port>2594</port>
+    <acct>developer</acct>
+  </server>
 </settings>

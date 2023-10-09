@@ -802,7 +802,12 @@ namespace Server
 			return list[RandomImpl.Next(list.Length)];
 		}
 
-		public static bool RandomBool()
+        public static int RandomObjList(params obj[] list)
+        {
+            return list[RandomImpl.Next(list.Length)];
+        }
+
+        public static bool RandomBool()
 		{
 			return RandomImpl.NextBool();
 		}
@@ -1110,6 +1115,16 @@ namespace Server
 				SkillName.Tailoring,
 				SkillName.Tinkering
 			};
+
+		private static StatName[] m_statMod = new StatName[]
+			{
+				Dex, Str, Stam;
+            };
+
+		public static StatName RandomStat()
+		{
+			return m_statMod[Utility.Random(m_statMod.Length)];
+		}
 
 		public static SkillName RandomSkill()
 		{
