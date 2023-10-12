@@ -475,18 +475,22 @@ namespace Server.Engines.Harvest
 								from.SendMessage(55, "Você encontrou zinco.");
 							}
 
-							if ( tool is FishingPole && Server.Engines.Harvest.Fishing.IsNearHugeShipWreck( from ) && from.Skills[SkillName.Fishing].Value >= Utility.RandomMinMax( 1, 250 ) )
+							// FISHING
+							/*if ( tool is FishingPole && Server.Engines.Harvest.Fishing.IsNearHugeShipWreck( from ) && 
+								from.Skills[SkillName.Fishing].Value >= Utility.RandomMinMax( 1, 250 ) )
 							{
 								Server.Engines.Harvest.Fishing.FishUpFromMajorWreck( from );
 							}
-							else if ( tool is FishingPole && Server.Engines.Harvest.Fishing.IsNearSpaceCrash( from ) && from.Skills[SkillName.Fishing].Value >= Utility.RandomMinMax( 1, 250 ) )
+							else if ( tool is FishingPole && Server.Engines.Harvest.Fishing.IsNearSpaceCrash( from ) && 
+								from.Skills[SkillName.Fishing].Value >= Utility.RandomMinMax( 1, 250 ) )
 							{
 								Server.Engines.Harvest.Fishing.FishUpFromSpaceship( from );
 							}
-							else if ( tool is FishingPole && Server.Engines.Harvest.Fishing.IsNearUnderwaterRuins( from ) && from.Skills[SkillName.Fishing].Value >= Utility.RandomMinMax( 1, 250 ) )
+							else if ( tool is FishingPole && Server.Engines.Harvest.Fishing.IsNearUnderwaterRuins( from ) && 
+								from.Skills[SkillName.Fishing].Value >= Utility.RandomMinMax( 1, 250 ) )
 							{
 								Server.Engines.Harvest.Fishing.FishUpFromRuins( from );
-							}
+							}*/
 						}
 						else if ( item is BlueBook || 
 							item is LoreBook || 

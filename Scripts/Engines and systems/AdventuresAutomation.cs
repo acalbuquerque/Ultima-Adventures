@@ -391,6 +391,7 @@ namespace Server.Items
 
 								if ( (action == "fishing" && Server.Misc.Worlds.IsWaterTile( (landTile.ID), 1 )) )
 								{
+									//pm.SendMessage(66, "REPEAT!! ****");
 									HarvestSystem system = (HarvestSystem)(Fishing.System);
 									Point3D loc = new Point3D(pm.X + x, pm.Y + y, landTile.Z);
 									HarvestDefinition def = system.GetDefinition( landTile.ID );
@@ -400,6 +401,7 @@ namespace Server.Items
 										harvesty = pm.Y + y;
 										harvestz = landTile.Z;
 										target = (object)(new LandTarget(loc, mp));
+										//pm.SendMessage(66, "target x: " + harvestx + " y: " + harvesty);
 									}
 								}
 								if ( (action == "mining" && Server.Misc.Worlds.IsMiningTile( landTile.ID, 0 )) )
@@ -423,7 +425,8 @@ namespace Server.Items
 
 									if (action == "fishing") //try to find fishing static targets
 									{
-										for ( int i = 0; (harvestx == 0 || harvesty == 0) && i < tiles.Length; ++i )
+                                    //pm.SendMessage(63, "REPEAT2!! ****");
+                                    for ( int i = 0; (harvestx == 0 || harvesty == 0) && i < tiles.Length; ++i )
 										{
 											StaticTile tile = tiles[i];
 
@@ -536,9 +539,14 @@ namespace Server.Items
 				}
 				if (harvestx != 0 && harvesty != 0)
 				{
-					if (TaskTarget.Contains(pm))
-						TaskTarget.Remove(pm);
-					
+
+					if (TaskTarget.Contains(pm)) 
+					{ 
+						TaskTarget.Remove(pm); 
+						//pm.SendMessage(66, "remove"); 
+					}
+						
+					//pm.SendMessage(66, "target: " + target);
 					TaskTarget.Add(pm, target);
 				}
 				else
@@ -571,7 +579,7 @@ namespace Server.Items
                     TaskString.Remove(pm);
 
                 //globalAction = null;
-                pm.SendMessage(55, "Ação automática parada!");
+                pm.SendMessage(55, "* Ação automática parada! *");
             }
 		}
 

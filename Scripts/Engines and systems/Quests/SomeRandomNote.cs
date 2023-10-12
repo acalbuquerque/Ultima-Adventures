@@ -39,8 +39,8 @@ namespace Server.Items
 				case 1:	Name = "an ancient" + " " + Name;	break;
 				case 2:	Name = "a worn" + " " + Name;		break;
 				case 3:	Name = "a scribbled" + " " + Name;	break;
-				case 4:	Name = "an unusual" + " " + Name;	break;
-				case 5:	Name = "a strange" + " " + Name;	break;
+				case 4:	Name = "incomum" + " " + Name;	break;
+				case 5:	Name = "estranho" + " " + Name;	break;
 			}
 
 			string poison = "lethal";

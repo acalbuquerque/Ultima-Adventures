@@ -25,9 +25,16 @@ namespace Server.Items
 		[Constructable]
 		public BigFish() : base( 0x09CC )
 		{
-			Weight = Utility.RandomMinMax( 3, 200 );	//TODO: Find correct formula.  max on OSI currently 200, OSI dev says it's not 200 as max, and ~ 1/1,000,000 chance to get highest
-			Hue = Utility.RandomBool() ? 0x847 : 0x58C;
-		}
+
+            int[] list = new int[]
+                {
+                    0x847, 0x58C, 0x9CC, 60, 1154, 1161
+				};
+
+            Weight = Utility.RandomMinMax( 3, 200 );    //TODO: Find correct formula.  max on OSI currently 200, OSI dev says it's not 200 as max, and ~ 1/1,000,000 chance to get highest
+			Hue = Utility.RandomList(list);
+
+        }
 
 		public override void GetProperties( ObjectPropertyList list )
 		{

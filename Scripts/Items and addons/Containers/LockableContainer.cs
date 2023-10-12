@@ -378,8 +378,9 @@ namespace Server.Items
 			base.AddNameProperties( list );
 
 			if ( m_IsShipwreckedItem )
-				list.Add( 1041645 ); // recovered from a shipwreck
-		}
+                list.Add(1070722, ItemNameHue.UnifiedItemProps.SetColor("Resgatado de um Naufrágio", "#8be4fc"));
+            //list.Add( 1041645 ); // recovered from a shipwreck
+        }
 
 		public override void OnSingleClick( Mobile from )
 		{

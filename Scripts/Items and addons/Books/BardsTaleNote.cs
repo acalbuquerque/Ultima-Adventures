@@ -35,8 +35,8 @@ namespace Server.Items
 				case 1:	Name = "a weathered" + " " + Name;	break;
 				case 2:	Name = "a worn" + " " + Name;		break;
 				case 3:	Name = "a scribbled" + " " + Name;	break;
-				case 4:	Name = "an unusual" + " " + Name;	break;
-				case 5:	Name = "a strange" + " " + Name;	break;
+				case 4:	Name = "incomum" + " " + Name;	break;
+				case 5:	Name = "estranho" + " " + Name;	break;
 			}
 
 			ItemID = Utility.RandomList( 0xE34, 0x14ED, 0x14EE, 0x14EF, 0x14F0 );

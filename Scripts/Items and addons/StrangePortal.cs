@@ -23,16 +23,16 @@ namespace Server.Items
 			Light = LightType.Circle300;
 
 
-			string sCalled = "a strange";
+			string sCalled = "estranho";
 			switch( Utility.RandomMinMax( 0, 6 ) )
 			{
-				case 0: sCalled = "an odd"; break;
-				case 1: sCalled = "an unusual"; break;
-				case 2: sCalled = "a bizarre"; break;
-				case 3: sCalled = "a curious"; break;
-				case 4: sCalled = "a peculiar"; break;
-				case 5: sCalled = "a strange"; break;
-				case 6: sCalled = "a weird"; break;
+				case 0: sCalled = "estranho"; break;
+				case 1: sCalled = "incomum"; break;
+				case 2: sCalled = "bizarro"; break;
+				case 3: sCalled = "curioso"; break;
+				case 4: sCalled= "peculiar"; break;
+				case 5: sCalled = "estranho"; break;
+				case 6: sCalled = "estranho"; break;
 			}
 
 

@@ -1359,31 +1359,38 @@ namespace Server.Misc
 			string sName2 = "";
 			string sName3 = "";
 			string pName3 = "";
+			bool male = true;
 
 			int nGender = Utility.RandomMinMax( 1, 2 );
 			int nNameSection = 0;
 
 			if ( nGender == 1 )
 			{
-				// MALE TITLES
-				string[] vName0 = new string[] {"Templar", "Thief", "Illusionist", "Prince", "Invoker", "Priest", "Conjurer", "Bandit", "Baron", "Wizard", "Cleric", "Monk", "Minstrel", "Defender", "Cavalier", "Magician", "Warlock", "Fighter", "Seeker", "Slayer", "Ranger", "Barbarian", "Explorer", "Heretic", "Gladiator", "Sage", "Rogue", "Paladin", "Bard", "Diviner", "Lord", "Outlaw", "Prophet", "Mercenary", "Adventurer", "Enchanter", "King", "Scout", "Mystic", "Mage", "Traveler", "Summoner", "Warrior", "Sorcerer", "Seer", "Hunter", "Knight", "Necromancer", "Shaman"};
+				male = true;
+                // MALE TITLES
+                string[] vName0 = new string[] { "Templário", "Ladrão", "Ilusionista", "Príncipe", "Invocador", "Sacerdote", "Conjurador", "Bandido", "Barão", "Feiticeiro", "Clérigo", "Monge", "Menestrel ", "Defensor", "Cavalheiro", "Mágico", "Warlock", "Lutador", "Seeker", "Assassino", "Ranger", "Bárbaro", "Explorador", "Herético", "Gladiador", "Sábio", "Rogue", "Paladin", "Bard", "Divino", "Lorde", "Bandido", "Profeta", "Mercenário", "Aventureiro", "Encantador", "Rei", "Escoteiro", "Místico", "Mago", "Viajante", "Invocador", "Guerreiro", "Feiticeiro", "Vidente", "Caçador", "Cavaleiro", "Necromante", "Xamã" };
 					sName0 = vName0[Utility.RandomMinMax( 0, (vName0.Length-1) )];
 
 				// MALE NAMES
 				if (Utility.RandomMinMax( 1, 3 ) == 1)
 				{
 					nNameSection = 1;
-					string[] vName1 = new string[] {"Ache", "Bower", "Dwarf", "Fowl", "Groan", "Kin", "Moat", "Pori", "Rush", "Tort", "Aim", "Churl", "Dwar", "Card", "Haft", "Kit", "Mould", "Quid", "Scoff", "Twig", "Bald", "Com", "Ebb", "Gay", "Hale", "Lank", "Muff", "Rau", "Skew", "Twit", "Bear", "Cuff", "El", "Gilt", "Hawk", "Leaf", "Muse", "Red", "Sky", "Vain", "Blush", "Dark", "Elf", "Girth", "Haught", "Lewd", "Not", "Rich", "Sly", "Vent", "Boar", "Dire", "Fag", "Glut", "Hiss", "Louse", "Numb", "Rob", "Sow", "Vile", "Boast", "Dour", "Fale", "Goad", "Hock", "Lure", "Odd", "Rod", "Stave", "Wail", "Boil", "Dross", "Fay", "Gold", "Hoof", "Man", "Ooze", "Rud", "Steed", "War", "Boni", "Dupe", "Fell", "Gorge", "Hook", "Mars", "Ox", "Ruff", "Swat", "Whip", "Boy", "Dusk", "Fly", "Grey", "Hom", "Meed", "Pale", "Run", "Thor", "Wise", "Wonn", "Yip"};
+					string[] vName1 = new string[] {"Tony", "Magedon", "Eddy", "Bruno", "Phillip", "Frodo", "Steven", "Mark", "Paul", "Antony", 
+						"Geralt", "Ebb", "Gary", "Ash", "Raul", "Robb", "Edward", "Steve", "Bruce", "Luke", "Obi", "Damian", "Jamie", "James", 
+						"Newton", "Alexios", "Bastian", "Eddard", "Eric", "Lex", "Sandor", "Theon", "Thor", "Alex", "Arthur", "Conrad", "Edmund", "Ian", "Alexios"};
 						sName1 = vName1[Utility.RandomMinMax( 0, (vName1.Length-1) )];
 
-					string[] vName2 = new string[] {"ander", "vid", "thur", "sard", "red", "mund", "lard", "gurd", "fird", "cester", "ard", "vred", "ton", "shan", "rence", "nald", "ley", "gus", "ford", "colt", "bald", "wald", "tor", "shaw", "reth", "nard", "lisle", "ham", "fram", "dane", "ban", "wallader", "tran", "son", "rick", "nath", "loch", "hard", "fred", "dard", "baugh", "ward", "ius", "steen", "ridge", "ney", "man", "hart", "frid", "doch", "bert", "werth", "ulf", "stone", "riel", "olas", "mar", "helm", "fried", "dolph", "brand", "wig", "vald", "ter", "ron", "pold", "mas", "home", "gal", "don", "cas", "win", "van", "than", "rone", "rad", "mon", "isler", "gard", "doric", "cent", "wood", "vard", "ther", "roth", "ram", "mond", "kild", "gemon", "dower", "cent", "yard", "ven", "thon", "sander", "rard", "mour", "ian", "gill", "dred"};
+					string[] vName2 = new string[] {"stark", "lanister", "targaryan", "baratheon", "ander", "vid", "thur", "sard", "red", "mund", "lard", "gurd", "fird", "cester", "ard", "vred", "ton", "shan", "rence", "nald", "ley", "gus", "ford", "colt", "bald", "wald", "tor", "shaw", "reth", "nard", "lisle", "ham", "fram", "dane", "ban", "wallader", "tran", "son", "rick", "nath", "loch", "hard", "fred", "dard", "baugh", "ward", "ius", "steen", "ridge", "ney", "man", "hart", "frid", "doch", "bert", "werth", "ulf", "stone", "riel", "olas", "mar", "helm", "fried", "dolph", "brand", "wig", "vald", "ter", "ron", "pold", "mas", "home", "gal", "don", "cas", "win", "van", "than", "rone", "rad", "mon", "isler", "gard", "doric", "cent", "wood", "vard", "ther", "roth", "ram", "mond", "kild", "gemon", "dower", "cent", "yard", "ven", "thon", "sander", "rard", "mour", "ian", "gill", "dred"};
 						sName2 = vName2[Utility.RandomMinMax( 0, (vName2.Length-1) )];
 
-					sName3 = sName1 + sName2 + " the " + sName0;
+					sName3 = sName1 + " " + sName2 + " o " + sName0;
 				}
 				else
 				{
-					string[] vName3 = new string[] {"Aaby", "Arkwright", "Blasco", "Dagmar", "Elsdon", "Gladstone", "Hultz", "March", "Prichard", "Theodric", 
+					string[] vName3 = new string[] {"Tony", "Magedon", "Eddy", "Bruno", "Phillip", "Frodo", "Steven", "Mark", "Paul", "Antony",
+                        "Geralt", "Ebb", "Gary", "Ash", "Raul", "Robb", "Edward", "Steve", "Bruce", "Luke", "Obi", "Damian", "Jamie", "James",
+                        "Newton", "Alexios", "Bastian", "Eddard", "Eric", "Lex", "Sandor", "Theon", "Thor", "Alex", "Arthur", "Conrad", "Edmund", "Ian", "Alexios",
+						"Aaby", "Arkwright", "Blasco", "Dagmar", "Elsdon", "Gladstone", "Hultz", "March", "Prichard", "Theodric", 
 					"Aage", "Arlo", "Bledsoe", "Damian", "Elswyth", "Glassford", "Humbert", "Markahm", "Proctor", "Thorburn", 
 					"Aanon", "Armand", "Blount", "Damon", "Elton", "Glendower", "Hunter", "Marques", "Pue", "Thordarson", 
 					"Aarlen", "Armar", "Bo", "Dana", "Elvin", "Glover", "Hurd", "Marsden", "Pulteney", "Thorkild", 
@@ -1485,28 +1492,29 @@ namespace Server.Misc
 					"Arian", "Blair", "Cyryl", "Elrad", "Gildersleeve", "Hulbeart", "Mankey", "Preston", "Thacker", "Zoltan"};
 						sName3 = vName3[Utility.RandomMinMax( 0, (vName3.Length-1) )];
 						pName3 = sName3;
-						sName3 = sName3 + " the " + sName0;
+						sName3 = sName3 + " o " + sName0;
 
 				}
 			}
 			else
 			{
-				// FEMALE TITLES
-				string[] vName0 = new string[] {"Templar", "Thief", "Illusionist", "Princess", "Invoker", "Priestess", "Conjurer", "Bandit", "Baroness", "Wizard", "Cleric", "Monk", "Minstrel", "Defender", "Cavalier", "Magician", "Witch", "Fighter", "Seeker", "Slayer", "Ranger", "Barbarian", "Explorer", "Heretic", "Gladiator", "Sage", "Rogue", "Paladin", "Bard", "Diviner", "Lady", "Outlaw", "Prophet", "Mercenary", "Adventurer", "Enchantress", "Queen", "Scout", "Mystic", "Mage", "Traveler", "Summoner", "Warrior", "Sorcereress", "Seer", "Hunter", "Knight", "Necromancer", "Shaman"};
-					sName0 = vName0[Utility.RandomMinMax( 0, (vName0.Length-1) )];
+				male = false;
+                // FEMALE TITLES
+                string[] vName0 = new string[] { "Templária", "Ladra", "Ilusionista", "Princesa", "Invocadora", "Sacerdote", "Conjuradora", "Bandida", "Baroa", "Feiticeira", "Clériga", "Monge", "Menestrel", "Defensora", "Lady", "Mágica", "Warlock", "Lutadora", "Seeker", "Assassina", "Ranger", "Bárbara", "Exploradora", "Herética", "Gladiadora", "Sábia", "Rogue", "Paladina", "Barda", "[m removeDivina", "Senhora", "Bandida", "Profeta", "Mercenária", "Aventureira", "Encantadora", "Rainha", "Escoteira", "Mística", "Maga", "Viajante", "Invocadora", "Guerreira", "Feiticeira", "Vidente", "Caçadora", "Paladina", "Necromante", "Xamã" };
+                sName0 = vName0[Utility.RandomMinMax( 0, (vName0.Length-1) )];
 
 				// FEMALE NAMES
 				if (Utility.RandomMinMax( 1, 3 ) == 1)
 				{
 					nNameSection = 1;
-					string[] vName1 = new string[] {"Angel", "Tru", "Snow", "Rich", "Nag", "Life", "Jade", "Glow", "Foal", "Ewe", "Dale", "Anim", "Tyr", "Soft", "Rose", "Noble", "Love", "Joy", "Gob", "Fond", "Fairy", "Dark", "Bear", "Ven", "Solar", "Rud", "Nob", "Lune", "Just", "Gold", "Free", "Fair", "Dawn", "Bless", "Venus", "Sol", "Sacre", "Pale", "Lynx", "Kind", "Grey", "Fur", "Fate", "Doe", "Blush", "Vile", "Spear", "Seaborn", "Palm", "Mare", "Knife", "Hiss", "Cay", "Fawn", "Doll", "Boni", "Wand", "Star", "Sea", "Peace", "Mead", "Lamb", "Honey", "Gem", "Fay", "Dour", "Bounty", "War", "Sun", "Sil", "Peach", "Mew", "Lass", "Hon", "Gift", "Fau", "Dove", "Boun", "Wave", "Sweet", "Silven", "Pearl", "Mild", "Law", "Honor", "Glad", "Fiend", "Dusk", "Claw", "Wite", "Sword", "Sky", "Queen", "Milk", "Leaf", "Hope", "Glen", "Flaxen", "Eagle", "Cloud", "Wild", "Thor", "Snowy", "Red", "Moon", "Lewd", "Horse", "Glor", "Flax", "Elf", "El"};
+					string[] vName1 = new string[] {"Angel", "Tru", "Angélica", "Maria", "Nag", "Marta", "Jade", "Luz", "Flora", "Ewe", "Dale", "Ana", "Tata", "Bia", "Rose", "Rosa", "Luisa", "Joy", "Gab", "Fernanda", "Fanny", "Dani", "Dany", "Vena", "Solar", "Rute", "Nubia", "Luna", "Jackie", "Dawn", "Aurora", "Venus", "Sol", "Mary", "Judy", "Julianne", "Mona", "Leticia", "Letty", "Sonia"};
 						sName1 = vName1[Utility.RandomMinMax( 0, (vName1.Length-1) )];
 
-					string[] vName2 = new string[] {"a", "ula", "sey", "onia", "line", "len", "ethe", "drede", "ata", "anca", "acey", "usia", "silla", "ora", "ly", "ienna", "etta", "een", "berla", "anda", "ache", "va", "sola", "phne", "lyn", "ika", "elle", "elan", "beth", "ance", "ada", "vere", "strella", "reda", "ma", "inda", "farah", "elia", "bia", "anche", "adne", "vette", "sula", "rey", "maid", "is", "garde", "ella", "ca", "andra", "aelia", "vilia", "tho", "rie", "mela", "isa", "genia", "elle", "cella", "ara", "al", "vina", "thia", "rifa", "mina", "itta", "herita", "elot", "cia", "aria", "alia", "vita", "thora", "rina", "mira", "la", "ia", "enlia", "da", "asia", "alie", "wig", "titia", "rine", "nah", "laide", "icenl", "esa", "dicla", "asla", "alia", "wina", "tola", "rota", "natta", "lene", "ie", "esca", "dida", "asta"};
-						sName2 = vName2[Utility.RandomMinMax( 0, (vName2.Length-1) )];
+					string[] vName2 = new string[] { "stark", "lanister", "targaryan", "baratheon", "ander", "vid", "thur", "sard", "red", "mund", "lard", "gurd", "fird", "cester", "ard", "vred", "ton", "shan", "rence", "nald", "ley", "gus", "ford", "colt", "bald", "wald", "tor", "shaw", "reth", "nard", "lisle", "ham", "fram", "dane", "ban", "wallader", "tran", "son", "rick", "nath", "loch", "hard", "fred", "dard", "baugh", "ward", "ius", "steen", "ridge", "ney", "man", "hart", "frid", "doch", "bert", "werth", "ulf", "stone", "riel", "olas", "mar", "helm", "fried", "dolph", "brand", "wig", "vald", "ter", "ron", "pold", "mas", "home", "gal", "don", "cas", "win", "van", "than", "rone", "rad", "mon", "isler", "gard", "doric", "cent", "wood", "vard", "ther", "roth", "ram", "mond", "kild", "gemon", "dower", "cent", "yard", "ven", "thon", "sander", "rard", "mour", "ian", "gill", "dred" };
+                    sName2 = vName2[Utility.RandomMinMax( 0, (vName2.Length-1) )];
 
-					sName3 = sName1 + sName2 + " the " + sName0;
-				}
+                    sName3 = sName1 + " " + sName2 + " a " + sName0;
+                }
 				else
 				{
 					string[] vName3 = new string[] {"Aasta", "Almira", "Ellin", "Fenella", "Grazia", "Hrefna", "Nada", "Olga", "Sceanb", "Ulrica", 
@@ -1561,11 +1569,11 @@ namespace Server.Misc
 					"Almas", "Ayame", "Fea", "Crania", "Hortensia", "Katerina", "Odilia", "Samhair", "Ula", "Zora"};
 						sName3 = vName3[Utility.RandomMinMax( 0, (vName3.Length-1) )];
 						pName3 = sName3;
-						sName3 = sName3 + " the " + sName0;
+						sName3 = sName3 + " a " + sName0;
 				}
 			}
 
-			string[] vAdj = new string[] {"Exotic", "Mysterious", "Marvelous", "Amazing", "Astonishing", "Mystical", "Astounding", "Magnificent", "Phenomenal", "Fantastic", "Incredible", "Extraordinary", "Fabulous", "Wondrous", "Glorious", "Lost", "Fabled", "Legendary", "Mythical", "Missing", "Ancestral", "Ornate", "Wonderful", "Sacred", "Unspeakable", "Unknown", "Forgotten"};
+			string[] vAdj = new string[] { "Exótico", "Misterioso", "Maravilhoso", "Incrível", "Surpreendente", "Místico", "Surpreendente", "Magnífico", "Fenomenal", "Fantástico", "Incrível", "Extraordinário", "Fabuloso ", "Maravilhoso", "Glorioso", "Perdido", "Fábula", "Lendário", "Mítico", "Desaparecido", "Ancestral", "Ornado", "Maravilhoso", "Sagrado", "Indizível", "Desconhecido", "Esquecido" };
 				string sAdj = vAdj[Utility.RandomMinMax( 0, (vAdj.Length-1) )] + " ";
 
 			if ( box == "Pilfer" )
@@ -1576,46 +1584,50 @@ namespace Server.Misc
 			{
 				if ( Utility.RandomBool() )
 				{
-					sName3 = NameList.RandomName( "female" );
+					sName3 = NameList.RandomName( "female" ) + " a ";
 				}
 				else
 				{
-					sName3 = NameList.RandomName( "male" );
+					sName3 = NameList.RandomName( "male" ) + " o ";
 				}
 
-				string[] spaceTitles = new string[] {"Mechanic", "Scientist", "Doctor", "Soldier", "Mercenary", "Engineer", "Chief Medical Officer", "Science Officer", "Counselor", "Marine", "Soldier", "Trooper", "Navigator", "Medical Officer", "Officer", "Helmsman", "Gunner", "Pilot", "Weapons Officer", "Tactical Officer", "Biologist", "Chemist", "Security Officer", "Robotics Engineer", "Avionics Engineer", "Chief Engineering", "Chief of Security", "Linguist", "Botanist", "Pathologist", "Anthropologist", "Sociologist", "First Officer", "Logistics Officer", "Nurse"};
+				string[] spaceTitles = new string[] { "Mecânico(a)", "Cientista", "Médico(a)", "Soldado(a)", "Mercenário(a)", "Engenheiro(a)", "Oficial Médico(a) Chefe", "Oficial de Ciências", "Conselheiro(a)", "Fuzileiro(a) Naval", "Soldado", "Soldado", "Navegador(a)", "Oficial Médico(a)", "Oficial", "Timoneiro(a)", "Atirador(a)", "Piloto", "Oficial de Armas", "Oficial Tático", "Biólogo(a)", "Químico(a)", "Oficial de Segurança", " Engenheiro(a) de Robótica", "Engenheiro(a) de Aviônica", "Engenharia(a) Chefe", "Chefe de Segurança", "Linguista", "Botânico(a)", "Patologista", "Antropólogo(a)", "Sociólogo(a)", "Primeiro Oficial", "Oficial de Logística", "Enfermeiro(a)" };
 					string spaceTitle = spaceTitles[Utility.RandomMinMax( 0, (spaceTitles.Length-1) )];
 
-				return sName3 + " the " + spaceTitle;
+				return sName3 + spaceTitle;
 			}
 			else if ( box == "Sunken" )
 			{
-				string[] sPirate = new string[] {"Captain", "First Mate", "Quartermaster", "Boatswain", "Sailing Master", "Sea Artist", "Navigator", "Master Gunner", "Gunner", "Sail Maker", "Cabin Boy", "Sailor", "Powder Monkey", "Buccaneer", "Privateer", "Rigger", "Swab"};
+				string[] sPirate = new string[] { "Capitão", "Primeiro(a) Imediato", "Intendente", "Co-mestre", "Mestre da Vela", "Artista do Mar", "Navegador(a)", "Mestre Artilheiro(a)", "Artilheiro(a)", "Fabricante de Vela", "Imediato", "Marinheiro(a)", "Macaco da Pólvora", "Bucaneiro(a)", "Corsário(a)", "Montador(a)", "Faxineiro(a)" };
 				string xPirate = sPirate[Utility.RandomMinMax( 0, (sPirate.Length-1) )];
-				if ( nNameSection == 1 ){ sName3 = sName1 + sName2 + " the " + xPirate; } else { sName3 = pName3 + " the " + xPirate; }
-				return "The " + sAdj + "Chest of " + sName3;
+				
+				if ( nNameSection == 1 )
+				{ sName3 = sName1 + sName2 + ((male) ? " o " : " a ") + xPirate; } 
+				else { sName3 = pName3 + ((male) ? " o " : " a ") + xPirate; }
+
+				return sAdj + "baú de " + sName3;
 			}
 			else if ( box == "SunkenBag" )
 			{
-				string[] sPirate = new string[] {"Captain", "First Mate", "Quartermaster", "Boatswain", "Sailing Master", "Sea Artist", "Navigator", "Master Gunner", "Gunner", "Sail Maker", "Cabin Boy", "Sailor", "Powder Monkey", "Buccaneer", "Privateer", "Rigger", "Swab"};
-				string xPirate = sPirate[Utility.RandomMinMax( 0, (sPirate.Length-1) )];
-				
-				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
+                string[] sPirate = new string[] { "Capitão", "Primeiro(a) Imediato", "Intendente", "Co-mestre", "Mestre da Vela", "Artista do Mar", "Navegador(a)", "Mestre Artilheiro(a)", "Artilheiro(a)", "Fabricante de Vela", "Imediato", "Marinheiro(a)", "Macaco da Pólvora", "Bucaneiro(a)", "Corsário(a)", "Montador(a)", "Faxineiro(a)" };
+                string xPirate = sPirate[Utility.RandomMinMax(0, (sPirate.Length - 1))];
+
+                if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
 				{
-					pName3 = NameList.RandomName( "female" );
-				}
+					pName3 = NameList.RandomName( "female" ) + " a ";
+                }
 				else 
 				{ 
-					pName3 = NameList.RandomName( "male" ); 
+					pName3 = NameList.RandomName( "male" ) + " o ";  
 				}
 
 				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
 				{
-					sName3 = pName3 + " the " + sName0;
+					sName3 = pName3 + sName0;
 				}
 				else 
 				{ 
-					sName3 = pName3 + " the " + xPirate;
+					sName3 = pName3 + xPirate;
 				}
 
 				return sName3;
@@ -1623,15 +1635,15 @@ namespace Server.Misc
 			else if ( box == "Body" )
 			{
 				sAdj = "";
-				string sCorpse = "bones";
+				string sCorpse = "ossos";
 				switch ( Utility.RandomMinMax( 0, 3 ) ) 
 				{
-					case 0: sCorpse = "bones"; break;
-					case 1: sCorpse = "body"; break;
-					case 2: sCorpse = "skeletal remains"; break;
-					case 3: sCorpse = "skeletal bones"; break;
+					case 0: sCorpse = "ossos"; break;
+					case 1: sCorpse = "corpo"; break;
+					case 2: sCorpse = "restos mortais"; break;
+					case 3: sCorpse = "esqueleto"; break;
 				}
-				return "The " + sCorpse + " of " + sName3;
+				return sCorpse + " de " + sName3;
 			}
 			else if ( box == "BodySailor" )
 			{
@@ -1639,34 +1651,34 @@ namespace Server.Misc
 				string sCorpse = "bones";
 				switch ( Utility.RandomMinMax( 0, 3 ) ) 
 				{
-					case 0: sCorpse = "bones"; break;
-					case 1: sCorpse = "body"; break;
-					case 2: sCorpse = "skeletal remains"; break;
-					case 3: sCorpse = "skeletal bones"; break;
-				}
-				
-				string[] sPirate = new string[] {"Captain", "First Mate", "Quartermaster", "Boatswain", "Sailing Master", "Sea Artist", "Navigator", "Master Gunner", "Gunner", "Sail Maker", "Cabin Boy", "Sailor", "Powder Monkey", "Buccaneer", "Privateer", "Rigger", "Swab"};
-				string xPirate = sPirate[Utility.RandomMinMax( 0, (sPirate.Length-1) )];
-				
-				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
+                    case 0: sCorpse = "ossos"; break;
+                    case 1: sCorpse = "corpo"; break;
+                    case 2: sCorpse = "restos mortais"; break;
+                    case 3: sCorpse = "esqueleto"; break;
+                }
+
+                string[] sPirate = new string[] { "Capitão", "Primeiro(a) Imediato", "Intendente", "Co-mestre", "Mestre da Vela", "Artista do Mar", "Navegador(a)", "Mestre Artilheiro(a)", "Artilheiro(a)", "Fabricante de Vela", "Imediato", "Marinheiro(a)", "Macaco da Pólvora", "Bucaneiro(a)", "Corsário(a)", "Montador(a)", "Faxineiro(a)" };
+                string xPirate = sPirate[Utility.RandomMinMax(0, (sPirate.Length - 1))];
+
+                if (Utility.RandomMinMax(1, 3) == 3)
+                {
+                    pName3 = NameList.RandomName("female") + " a ";
+                }
+                else
+                {
+                    pName3 = NameList.RandomName("male") + " o ";
+                }
+
+                if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
 				{
-					pName3 = NameList.RandomName( "female" );
+					sName3 = pName3 + sName0;
 				}
 				else 
 				{ 
-					pName3 = NameList.RandomName( "male" ); 
+					sName3 = pName3 + xPirate;
 				}
 
-				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
-				{
-					sName3 = pName3 + " the " + sName0;
-				}
-				else 
-				{ 
-					sName3 = pName3 + " the " + xPirate;
-				}
-
-				return "The " + sCorpse + " of " + sName3;
+				return sCorpse + " de " + sName3;
 			}
 			else if ( box == "Treasure Chest" || box == "property" )
 			{
@@ -1677,7 +1689,7 @@ namespace Server.Misc
 				sAdj = "";
 			}
 
-			return "The " + sAdj + box + " of " + sName3;
+			return sAdj + box + " de " + sName3;
 		}
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1792,7 +1804,7 @@ namespace Server.Misc
 				}
 				if (nCoins > 0)
 				{
-					i = new DDCopper( nCoins );
+					i = new DDCopper( nCoins/2 );
 					box.DropItem(i);
 				}
 			}
