@@ -67,11 +67,11 @@ namespace Server.Engines.Harvest
 			{
 				from.SendMessage(55, "Aconteceu um erro inesperado. Faça um print disso e avise ao staff team.");
 				if (map == null)
-					from.SendMessage("O mapa não existe");
+					from.SendMessage(55, "O mapa não existe");
 				if (tool == null)
-					from.SendMessage("A ferramenta não existe");
+					from.SendMessage(55, "A ferramenta não existe");
 				if (loc == Point3D.Zero)
-					from.SendMessage("A localização é inválida.");
+					from.SendMessage(55, "A localização é inválida.");
 													
 				return false;
 			}
@@ -84,7 +84,7 @@ namespace Server.Engines.Harvest
 				PlayerMobile pm = (PlayerMobile)from;
 				if ( AdventuresAutomation.TaskTarget.Contains((PlayerMobile)from)) // ran out of resources on the current target area
 				{
-					from.SendMessage("Procurando um novo local pois esse local agora está vazio.");
+					from.SendMessage(55, "Procurando um novo local pois esse local agora está vazio.");
 
 					AdventuresAutomation.TaskTarget.Remove((PlayerMobile)from); // this means next doaction itll try another spot.
 					return false;
@@ -243,8 +243,8 @@ namespace Server.Engines.Harvest
 							int amount = def.ConsumedPerHarvest;
 							if (from is PlayerMobile)
 							{
-								if ( ((PlayerMobile)from).Avatar )
-									amount = (int)Math.Ceiling( amount * 1.15);
+								/*if ( ((PlayerMobile)from).Avatar )
+									amount = (int)Math.Ceiling( amount * 1.15);*/
 							}
 							int feluccaAmount = def.ConsumedPerFeluccaHarvest;
 
@@ -583,8 +583,15 @@ namespace Server.Engines.Harvest
 				}
 			}
 
-			if ( type == null )
-				def.SendMessageTo( from, def.FailMessage );
+            if (type == null) 
+			{
+                def.SendMessageTo(from, def.FailMessage);
+                /*if (automated)
+                    AdventuresAutomation.StopAction((PlayerMobile)from);
+                from.EndAction(locked);*/
+                return;
+            }
+				
 
 			OnHarvestFinished( from, tool, def, vein, bank, resource, toHarvest );
 		}

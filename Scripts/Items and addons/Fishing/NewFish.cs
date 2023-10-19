@@ -22,7 +22,7 @@ namespace Server.Items
 		{
 			ItemID = Utility.RandomList( 0x52DA, 0x52DB, 0x52DC, 0x52DD, 0x52DE, 0x52DF, 0x52E0, 0x52E1, 0x52C9, 0x531E, 0x531F, 0x534F, 0x5350, 0x22AF, 0x22AE, 0x22AD, 0x22AC, 0x22AB, 0x22AA, 0x22A7, 0x22A8, 0x22B2, 0x22B1, 0x22B0, 0x44C3, 0x44C4, 0x44C5, 0x44C6, 0x4302, 0x4303, 0x4304, 0x4305, 0x4306, 0x4307, 0x9CC, 0x9CD, 0x9CE, 0x9CF );
 			Weight = 1.0;
-			FishGoldValue = Utility.RandomMinMax( 3, 17 );
+			FishGoldValue = Utility.RandomMinMax( 5, 25 );
 
 			string sNumber = Utility.RandomMinMax( 3, 12 ).ToString();
 
@@ -32,26 +32,25 @@ namespace Server.Items
 			string[] vType = new string[] {"eyed", /*"algae",*/ "COLORS"/*, "angel", "angler", "archer", "arctic", "armored", "barb", "barrel", "bat", "beaked", "beard", "big", "boar", "bow", "bristle", "brook", "bull", "cat", "coffin", "COLORS", "cove", "crest", "cutlass", "daggertooth", "darting", "devil", "dog", "duckbill", "fat", "flat", "flathead", "frilled", "glass", "grass", "hair", "horse", "king", "lake", "leaf", "lion", "long", "moon", "oar", "razor", "reed", "reef", "river", "rock", "rough", "sail", "salt", "sand", "sea", "seaweed", "small", "speckled", "star", "sting", "sucker", "sun", "tiger", "viper", "warty", "worm"*/};
 				string sType = vType[Utility.RandomMinMax( 0, (vType.Length-1) )];
 
-			if ( ItemID == 0x22A8 ){ sName = "marlim"; FishGoldValue = Utility.RandomMinMax( 45, 125 ); Weight = 10.0; }
-			else if ( ItemID == 0x22AA ){ sName = "marlim"; FishGoldValue = Utility.RandomMinMax( 45, 125 ); Weight = 10.0; }
-			else if ( ItemID == 0x22AD ){ sName = "tubarão"; FishGoldValue = Utility.RandomMinMax( 35, 115 ); Weight = 10.0; }
-			else if ( ItemID == 0x52DE ){ sName = "cavalo marinho"; FishGoldValue = Utility.RandomMinMax( 20, 100 ); }
-			else if ( ItemID == 0x52DF || ItemID == 0x52E0 ){ sName = "arraia"; FishGoldValue = Utility.RandomMinMax( 35, 110 ); Weight = 5.0; }
-			else if ( ItemID == 0x52E1 ){ sName = "lula"; FishGoldValue = Utility.RandomMinMax( 13, 85 ); }
-			else if ( ItemID == 0x52C9 ){ sName = "polvo"; FishGoldValue = Utility.RandomMinMax( 20, 85 ); }
-			else if ( ItemID == 0x531F ){ sName = "caranguejo"; FishGoldValue = Utility.RandomMinMax( 10, 60 ); }
+			if ( ItemID == 0x22A8 || ItemID == 0x22AA) { sName = "marlim"; FishGoldValue = Utility.RandomMinMax( 45, 100 ); Weight = 10.0; }
+			else if ( ItemID == 0x22AD ){ sName = "tubarão"; FishGoldValue = Utility.RandomMinMax( 25, 85 ); Weight = 10.0; }
+			else if ( ItemID == 0x52DE ){ sName = "cavalo marinho"; FishGoldValue = Utility.RandomMinMax( 20, 60 ); }
+			else if ( ItemID == 0x52DF || ItemID == 0x52E0 ){ sName = "arraia"; FishGoldValue = Utility.RandomMinMax( 35, 95 ); Weight = 5.0; }
+			else if ( ItemID == 0x52E1 ){ sName = "lula"; FishGoldValue = Utility.RandomMinMax( 13, 55 ); }
+			else if ( ItemID == 0x52C9 ){ sName = "polvo"; FishGoldValue = Utility.RandomMinMax( 15, 55 ); }
+			else if ( ItemID == 0x531F ){ sName = "caranguejo"; FishGoldValue = Utility.RandomMinMax( 10, 50 ); }
 
 			//if ( sType == "eyed" ){ Name = sNumber + "-Eyed " + sName; }
 			if ( sType == "COLORS" )
 			{
 				switch( Utility.Random( 11 ) )
 				{
-					case 0: Name = sName +" vermelho"; 		Hue = GetHue( 1 ); 	break;
-					case 1: Name = sName + " azul"; 	Hue = GetHue( 2 ); 	break;
-					case 2: Name = sName + " verde"; 	Hue = GetHue( 3 ); 	break;
-					case 3: Name = sName + " amarelo"; 	Hue = GetHue( 4 ); 	break;
-					case 4: Name = sName + " laranja"; 	Hue = GetHue( 9 ); 	break;
-					case 5: Name = sName + " rosa"; 	Hue = GetHue( 10 ); break;
+					case 0: Name = sName +" vermelho(a)";	Hue = GetHue( 1 ); 	break;
+					case 1: Name = sName + " azul"; 		Hue = GetHue( 2 ); 	break;
+					case 2: Name = sName + " verde"; 		Hue = GetHue( 3 ); 	break;
+					case 3: Name = sName + " amarelo(a)"; 	Hue = GetHue( 4 ); 	break;
+					case 4: Name = sName + " laranja"; 		Hue = GetHue( 9 ); 	break;
+					case 5: Name = sName + " rosa"; 		Hue = GetHue( 10 ); break;
 					case 6: Name = sName + " esmeralda";
 						Hue = Utility.RandomList( 0xB83, 0xB93, 0xB94, 0xB95, 0xB96 );
 						break;
@@ -61,27 +60,27 @@ namespace Server.Items
 					case 8: Name = sName + " de água fria ";
 						Hue = Utility.RandomList( 0x551, 0x552, 0x553, 0x554, 0x555, 0x556 );
 						break;
-					case 9: Name = sName + " venenoso";
+					case 9: Name = sName + " venenoso(a)";
 						Hue = Utility.RandomList( 0x557, 0x558, 0x559, 0x55A, 0x55B, 0x55C );
 						break;
 					case 10:
 						switch( Utility.Random( 15 ) )
 						{
-							case 0: Name = sName + " de cobre"; 						Hue = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); 			break;
-							case 1: Name = sName + "-verite "; 						Hue = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); 			break;
-							case 2: Name = sName + "-valorite "; 					Hue = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); 		break;
-							case 3: Name = sName + "-agapite " ; 						Hue = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); 		break;
-							case 4: Name = sName + " de bronze" ; 						Hue = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); 			break;
-							case 5: Name = sName + " acobreado " ; 					Hue = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); 	break;
-							case 6: Name = sName + " dourado " ; 						Hue = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); 			break;
-							case 7: Name = sName + " negro " ; 						Hue = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); 	break;
-							case 8: Name = sName + "-topázio " ; 			Hue = MaterialInfo.GetMaterialColor( "topaz", "classic", 0 ); 	break;
-							case 9: Name = sName + "-ametista " ; 		Hue = MaterialInfo.GetMaterialColor( "amethyst", "classic", 0 ); 	break;
-							case 10: Name = sName + "de mármore " ; 		Hue = MaterialInfo.GetMaterialColor( "marble", "classic", 0 ); 	break;
-							case 11: Name = sName + " de onyx " ; 			Hue = MaterialInfo.GetMaterialColor( "onyx", "classic", 0 ); 	break;
-							case 12: Name = sName + "-rubi " ; 			Hue = MaterialInfo.GetMaterialColor( "ruby", "classic", 0 ); 	break;
-							case 13: Name = sName + "-safira " ; 		Hue = MaterialInfo.GetMaterialColor( "sapphire", "classic", 0 ); 	break;
-							case 14: Name = sName + " de prata " ; 		Hue = MaterialInfo.GetMaterialColor( "silver", "classic", 0 ); 	break;
+							case 0: Name = sName + " de cobre"; Hue = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); 			break;
+							case 1: Name = sName + "-verite "; 	Hue = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); 			break;
+							case 2: Name = sName + "-valorite "; Hue = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); 		break;
+							case 3: Name = sName + "-agapite " ; Hue = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); 		break;
+							case 4: Name = sName + " de bronze" ; Hue = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); 			break;
+							case 5: Name = sName + " acobreado(a) "; Hue = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); 	break;
+							case 6: Name = sName + " dourado(a) "; Hue = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); 			break;
+							case 7: Name = sName + " negro(a) "; Hue = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); 	break;
+							case 8: Name = sName + "-topázio " ; Hue = MaterialInfo.GetMaterialColor( "topaz", "classic", 0 ); 	break;
+							case 9: Name = sName + "-ametista " ; Hue = MaterialInfo.GetMaterialColor( "amethyst", "classic", 0 ); 	break;
+							case 10: Name = sName + "de mármore " ; Hue = MaterialInfo.GetMaterialColor( "marble", "classic", 0 ); 	break;
+							case 11: Name = sName + " de onyx " ; Hue = MaterialInfo.GetMaterialColor( "onyx", "classic", 0 ); 	break;
+							case 12: Name = sName + "-rubi " ; Hue = MaterialInfo.GetMaterialColor( "ruby", "classic", 0 ); 	break;
+							case 13: Name = sName + "-safira " ; Hue = MaterialInfo.GetMaterialColor( "sapphire", "classic", 0 ); 	break;
+							case 14: Name = sName + " de prata " ; Hue = MaterialInfo.GetMaterialColor( "silver", "classic", 0 ); 	break;
 						}
 						break;
 				}

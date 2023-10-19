@@ -44,7 +44,7 @@ namespace Server.Items
 		{
             base.AddNameProperties(list);
 			list.Add( 1070722, "Use em alto mar para procurar algo");
-			list.Add( 1049644, "Requer Skill: 30.0 Fishing");
+			list.Add( 1049644, "Requer Skill: 70.0 Fishing");
         }
 
 		public override void Serialize( GenericWriter writer )
@@ -80,7 +80,7 @@ namespace Server.Items
 			{
 				from.SendLocalizedMessage( 1010483 ); // Someone is already using that net!
 			}
-			else if ( from.Skills[SkillName.Fishing].Value < 30.0 )
+			else if ( from.Skills[SkillName.Fishing].Value < 70.0 )
 			{
 				from.SendMessage(55, "Você não tem habilidade suficiente em pescar para usar esta rede.");
 			}

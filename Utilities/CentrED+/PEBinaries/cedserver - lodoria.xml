@@ -3,19 +3,19 @@
   <Language>..\Language\English.ini</Language>
   <Port>2597</Port>
   <Map>
-    <Map>c:\UO\Classicuo\map0.mul</Map>
-    <StaIdx>c:\UO\Classicuo\staidx0.mul</StaIdx>
-    <Statics>c:\UO\Classicuo\statics0.mul</Statics>
+    <Map>c:\UOShard\Ultima-Adventures\Files\map0.mul</Map>
+    <StaIdx>c:\UOShard\Ultima-Adventures\Files\staidx0.mul</StaIdx>
+    <Statics>c:\UOShard\Ultima-Adventures\Files\statics0.mul</Statics>
     <Width>896</Width>
     <Height>512</Height>
     <Prefix>0</Prefix>
     <Format>0x0000000C</Format>
   </Map>
-  <Tiledata>c:\UO\Classicuo\tiledata.mul</Tiledata>
-  <Radarcol>c:\UO\Classicuo\radarcol.mul</Radarcol>
+  <Tiledata>c:\UOShard\Ultima-Adventures\Files\tiledata.mul</Tiledata>
+  <Radarcol>c:\UOShard\Ultima-Adventures\Files\radarcol.mul</Radarcol>
   <Accounts>
     <Account>
-      <Name>wizard</Name>
+      <Name>developer</Name>
       <PasswordHash>21232f297a57a5a743894a0e4a801fc3</PasswordHash>
       <AccessLevel>255</AccessLevel>
       <LastPos x="4080" y="800"/>

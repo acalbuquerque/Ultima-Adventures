@@ -20,6 +20,11 @@ namespace Server.Items
 
 			ShipName = ThisShip;
 
+			if (itemID == 0x12AD) 
+			{
+                Name = "Garrafa de SOS vazia";
+            }
+			//
 			if ( weight >= 255 )
 				weight = 1;
 

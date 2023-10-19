@@ -3,11 +3,11 @@
   <Language>..\Language\English.ini</Language>
   <Port>2597</Port>
   <Map>
-    <Map>c:\UOShard\Ultima-Adventures\Files\map1.mul</Map>
-    <StaIdx>c:\UOShard\Ultima-Adventures\Files\staidx1.mul</StaIdx>
-    <Statics>c:\UOShard\Ultima-Adventures\Files\statics1.mul</Statics>
-    <Width>896</Width>
-    <Height>512</Height>
+    <Map>c:\UOShard\Ultima-Adventures\Files\map3.mul</Map>
+    <StaIdx>c:\UOShard\Ultima-Adventures\Files\staidx3.mul</StaIdx>
+    <Statics>c:\UOShard\Ultima-Adventures\Files\statics3.mul</Statics>
+    <Width>320</Width>
+    <Height>256</Height>
     <Prefix>0</Prefix>
     <Format>0x0000000C</Format>
   </Map>

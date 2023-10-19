@@ -47,6 +47,7 @@ namespace Server.Items
 			Weight = 1.0;
 			m_TargetMap = map;
 			m_Level = level;
+			Name = "Uma mensagem em uma garrafa (SOS)";
 		}
 
 		public MessageInABottle( Serial serial ) : base( serial )
@@ -77,12 +78,14 @@ namespace Server.Items
 			{
 				Consume();
 				from.AddToBackpack( new SOS( MapWorld, m_Level ) );
-				from.LocalOverheadMessage( Network.MessageType.Regular, 0x3B2, 501891 ); // You extract the message from the bottle.
-			}
+                from.SendMessage(55, "Você retira a mensagem da garrafa e coloca em sua mochila");
+                //from.LocalOverheadMessage( Network.MessageType.Regular, 0x3B2, 501891 ); // You extract the message from the bottle.
+            }
 			else
 			{
-				from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
-			}
+                from.SendMessage(55, "O item precisa estar em sua mochila para que você possa ler");
+                //from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
+            }
 		}
 	}
 }

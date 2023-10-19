@@ -49,7 +49,7 @@ namespace Server.Items
 				case 21 : this.Hue = 0x490; this.Name = "Algas da Invisibilidade Menor"; SkillNeeded = 50; break;
 				case 22 : this.Hue = 0x490; this.Name = "Algas da Invisibilidade"; SkillNeeded = 60; break;
 				case 23 : this.Hue = 0x490; this.Name = "Algas da Invisibilidade Maior"; SkillNeeded = 80; break;
-				case 24 : this.Hue = 0x48E; this.Name = "Algas da Rejuvenescimento Menor"; SkillNeeded = 50; break;
+				case 24 : this.Hue = 0x48E; this.Name = "Algas de Rejuvenescimento Menor"; SkillNeeded = 50; break;
 				case 25 : this.Hue = 0x48E; this.Name = "Algas de Rejuvenescimento"; SkillNeeded = 60; break;
 				case 26 : this.Hue = 0x48E; this.Name = "Algas de Rejuvenescimento Maior"; SkillNeeded = 80; break;
 				case 27 : this.Hue = 0x48D; this.Name = "Algas da Mana Menor"; SkillNeeded = 50; break;

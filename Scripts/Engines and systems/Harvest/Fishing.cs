@@ -42,13 +42,13 @@ namespace Server.Engines.Harvest
 			#region Fishing
 			HarvestDefinition fish = m_Definition = new HarvestDefinition();
 
-			// Resource banks are every 5x5 tiles
-			fish.BankWidth = 5;
-			fish.BankHeight = 5;
+			// Resource banks are every 4x4 tiles
+			fish.BankWidth = 4;
+			fish.BankHeight = 4;
 
 			// Every bank holds from 4 to 16 fish
-			fish.MinTotal = 3;
-			fish.MaxTotal = 12;
+			fish.MinTotal = 1;
+			fish.MaxTotal = 9;
 
 			// A resource bank will respawn its content every 10 to 20 minutes
 			fish.MinRespawn = TimeSpan.FromMinutes( 15.0 );
@@ -72,8 +72,8 @@ namespace Server.Engines.Harvest
 			fish.EffectActions = new int[]{ 12 };
 			fish.EffectSounds = new int[0];
 			fish.EffectCounts = new int[]{ 1 };
-			fish.EffectDelay = TimeSpan.FromSeconds(3);
-			fish.EffectSoundDelay = TimeSpan.FromSeconds( 1.5 );
+			fish.EffectDelay = TimeSpan.FromSeconds(4);
+			fish.EffectSoundDelay = TimeSpan.FromSeconds( 2 );
 
 			fish.NoResourcesMessage = 503172; // The fish don't seem to be biting here.
 			fish.FailMessage = 503171; // You fish a while, but fail to catch anything.
@@ -84,15 +84,13 @@ namespace Server.Engines.Harvest
 
 			res = new HarvestResource[]
 				{
-					new HarvestResource( 00.0, 00.0, 100.0, "Você pescou um peixe comum!", typeof( Fish ) ),
-                    new HarvestResource( 85.0, 75.0, 120.0, "Você pescou um peixe gigante!", typeof( BigFish ) )
+					new HarvestResource( 00.0, 00.0, 100.0, "Você pescou um peixe comum!", typeof( Fish ) )
                 };
 
             // the sum chance Needs to be 100%
             veins = new HarvestVein[]
 				{
-					new HarvestVein( 90.0, 0.0, res[0], null ),
-                    new HarvestVein( 10.0, 0.5, res[1], res[0] )
+                    new HarvestVein( 100.0, 0.0, res[0], null )
                 };
 
 			fish.Resources = res;
@@ -105,7 +103,7 @@ namespace Server.Engines.Harvest
             };
 
 			fish.RaceBonus = false;
-            fish.RandomizeVeins = true;
+            fish.RandomizeVeins = false;
 
 			Definitions.Add( fish );
 			#endregion
@@ -187,6 +185,11 @@ namespace Server.Engines.Harvest
                 {
                     number = 1008124;
 					name = "peixe comum";//item.ItemData.Name;
+                }
+                else if (item is BigFish)
+                {
+                    number = 1008124;
+                    name = "Peixe Gigante";//item.ItemData.Name;
                 }
                 else if (item is BaseShoes)
                 {
@@ -371,15 +374,15 @@ namespace Server.Engines.Harvest
 
 		private static MutateEntry[] m_MutateTable = new MutateEntry[]
 		{
-            /*new MutateEntry("grupo1", 70.0, 70.0, 75.0, false, typeof( CorpseSailor ), typeof( RustyJunk ), typeof( WetClothes ) ), //min 0,02% - max 10%
+			new MutateEntry("grupo1", 70.0, 70.0, 75.0, false, typeof( RustyJunk ), typeof( WetClothes ) ), //min 0,02% - max 10%
             new MutateEntry("grupo2", 75.0, 75.0, 80, false, typeof( FishingNet ), typeof( SpecialSeaweed ) , typeof( BlackPearl ) ), //min 0,02% - max 9%
-            new MutateEntry("grupo3", 80.0, 80.0, 85.0, false, typeof( PrizedFish ), typeof( InvisibleFish ), typeof( PoisonFish ) ), //min 0,02% - max 8%
-            new MutateEntry("grupo4", 85.0, 85.0, 90.0, false, typeof( WondrousFish ), typeof( StaminaFish ), typeof( HealFish ), typeof( ManaFish ) ), //min 0,02% - max 7%
-            new MutateEntry("grupo5", 90.0, 90.0, 95.0, false, typeof( TrulyRareFish )*//*, typeof( PeculiarFish )*//* ), //min 0,02% - max 6%
-            new MutateEntry("grupo6", 95.0, 95.0, 100.0, false, typeof( NewFish ), typeof( PearlSkull ) ), //min 0,02% - max 5%
-			new MutateEntry("grupo7", 100.0, 100.0,  105.0, false,typeof( SunkenBag )), //min 0,02% - max 4%
-            new MutateEntry("grupo8", 105.0,  105.0,  110.0,  true, typeof( SpecialFishingNet ), typeof( NeptunesFishingNet ), typeof( FabledFishingNet ) ), //min 0,2% - max 3%*/
-            new MutateEntry("grupo9", 100.0, 20.0,  21.0, true, typeof( MessageInABottle ) ) //min 0,02% - max 1%
+            new MutateEntry("grupo3", 80.0, 80.0, 85.0, true, typeof( PrizedFish ), typeof( InvisibleFish ), typeof( PoisonFish ), typeof( BigFish ) ), //min 0,02% - max 8%
+            new MutateEntry("grupo4", 85.0, 85.0, 90.0, true, typeof( WondrousFish ), typeof( StaminaFish ), typeof( HealFish ), typeof( ManaFish ) ), //min 0,02% - max 7%
+            new MutateEntry("grupo5", 90.0, 90.0, 95.0, true, typeof( CorpseSailor ), typeof( TrulyRareFish ), typeof( PeculiarFish ) ), //min 0,02% - max 6%
+            new MutateEntry("grupo6", 95.0, 95.0, 100.0, true, typeof( NewFish ), typeof( PearlSkull ) ), //min 0,02% - max 5% 
+			new MutateEntry("grupo7", 100.0, 100.0,  105.0, true,typeof( SunkenBag )), //min 0,02% - max 4% 
+            new MutateEntry("grupo8", 105.0,  105.0,  110.0,  true, typeof( SpecialFishingNet ), typeof( NeptunesFishingNet ), typeof( FabledFishingNet ) ), //min 0,2% - max 3%
+            new MutateEntry("grupo9", 110.0, 110.0,  120.0, true, typeof( MessageInABottle ) ) //min 0,02% - max 1% 
         };
 
 		public override Type MutateType(Type type, Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, HarvestResource resource)
@@ -403,12 +406,12 @@ namespace Server.Engines.Harvest
 				if (skillBase >= entry.m_ReqSkill)
                 { //min 0,02%
 
-                    from.SendMessage(33, "*** NOME: " + entry.m_group);
+                    //from.SendMessage(33, "*** NOME: " + entry.m_group);
 
                     double chance = ( (skillValue - entry.m_MinSkill) / (entry.m_MaxSkill - entry.m_MinSkill) ) / 100;
                     double random = Utility.RandomDouble();
 
-                    from.SendMessage(65, "*** CHANCE: " + chance + "*** RANDOM: " + random);
+                    //from.SendMessage(65, "*** CHANCE: " + chance + "*** RANDOM: " + random);
                     
 					if (chance >= random) 
 					{
@@ -818,8 +821,8 @@ namespace Server.Engines.Harvest
 
 					if (from.Map == sos.TargetMap && from.InRange(sos.TargetLocation, 60)) 
 					{
-                        pm.SendMessage(55, "Você encontrou destroços de um naufrágio!");
-                        return true;
+                        //pm.SendMessage(55, "Você encontrou destroços de um naufrágio!");
+                        return true; break;
                     }
 				}
 			}
@@ -929,8 +932,9 @@ namespace Server.Engines.Harvest
 									{
 										if (Utility.Random(20) == 1)
 										{
-											preLoot = new ShipwreckedItem(Utility.RandomList(0x4FE8, 0x4FE9), sos.ShipName);
-										}
+                                            //preLoot = new ShipwreckedItem(Utility.RandomList(0x4FE8, 0x4FE9), sos.ShipName);
+                                            preLoot = new ShipwreckedItem(Utility.RandomList(0x12AD), sos.ShipName);
+                                        }
 										else
 										{
 											preLoot = new ShipwreckedItem(Utility.Random(0x13A4, 11), sos.ShipName);
@@ -1260,7 +1264,7 @@ namespace Server.Engines.Harvest
 
 		public override bool Give(Mobile m, Item item, bool placeAtFeet)
 		{
-			if (item is TreasureMap || item is MessageInABottle || item is FishingNet || item is SpecialFishingNet || item is FabledFishingNet || item is NeptunesFishingNet)
+			if (item is TreasureMap || item is MessageInABottle || /*item is FishingNet ||*/ item is SpecialFishingNet || item is FabledFishingNet || item is NeptunesFishingNet)
 			{
 				BaseCreature serp = new DeepSeaSerpent();
 
@@ -1324,9 +1328,15 @@ namespace Server.Engines.Harvest
 
 			if (item is NewFish)
 			{
-				int nFishingSkill = (int)(m.Skills[SkillName.Fishing].Value / 6);
-				NewFish fishy = (NewFish)item;
-				fishy.FishGoldValue = fishy.FishGoldValue * nFishingSkill;
+                NewFish fishy = (NewFish)item;
+
+				double scale = 1.2;
+                int nFishingSkill = (int)(m.Skills[SkillName.Fishing].Value / 10);
+				if (nFishingSkill >= 10) 
+				{
+                    scale = 1.5;
+                }
+                fishy.FishGoldValue = (int)(fishy.FishGoldValue * scale);
 			}
 
 			return base.Give(m, item, placeAtFeet);
