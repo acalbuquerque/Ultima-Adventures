@@ -237,7 +237,7 @@ namespace Server.Items
 		}
 	}
 
-	public class MahoganyTreeFletcherTools : RunicFletcherTools
+	/*public class MahoganyTreeFletcherTools : RunicFletcherTools
 	{
 
 		[Constructable]
@@ -269,9 +269,9 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 
-	public class OakTreeFletcherTools : RunicFletcherTools
+	/*public class OakTreeFletcherTools : RunicFletcherTools
 	{
 
 		[Constructable]
@@ -303,9 +303,9 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 
-	public class PineTreeFletcherTools : RunicFletcherTools
+	/*public class PineTreeFletcherTools : RunicFletcherTools
 	{
 
 		[Constructable]
@@ -337,7 +337,7 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 
 	public class RosewoodTreeFletcherTools : RunicFletcherTools
 	{
@@ -373,7 +373,7 @@ namespace Server.Items
 		}
 	}
 
-	public class WalnutTreeFletcherTools : RunicFletcherTools
+	/*public class WalnutTreeFletcherTools : RunicFletcherTools
 	{
 
 		[Constructable]
@@ -405,5 +405,5 @@ namespace Server.Items
 
 			int version = reader.ReadInt();
 		}
-	}
+	}*/
 }

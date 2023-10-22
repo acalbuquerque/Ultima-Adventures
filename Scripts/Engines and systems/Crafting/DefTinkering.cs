@@ -508,9 +508,10 @@ namespace Server.Engines.Craft
             // Set the overridable material
             SetSubRes( typeof( IronIngot ), 1044022 );
 
-			// Add every material you want the player to be able to choose from
-			// This will override the overridable material
-			AddSubRes( typeof( IronIngot ),			1044022, 00.0, 1044036, 1044267 );
+            // Add every material you want the player to be able to choose from
+            // This will override the overridable material
+            // The NameNumber is in CILOC file!!!!
+            AddSubRes( typeof( IronIngot ),			1044022, 00.0, 1044036, 1044267 );
 			AddSubRes( typeof( DullCopperIngot ),	1044023, 65.0, 1044036, 1044268 );
 			AddSubRes( typeof( ShadowIronIngot ),	1044024, 70.0, 1044036, 1044268 );
 			AddSubRes( typeof( CopperIngot ),		1044025, 75.0, 1044036, 1044268 );
@@ -519,7 +520,10 @@ namespace Server.Engines.Craft
 			AddSubRes( typeof( AgapiteIngot ),		1044028, 90.0, 1044036, 1044268 );
 			AddSubRes( typeof( VeriteIngot ),		1044029, 95.0, 1044036, 1044268 );
 			AddSubRes( typeof( ValoriteIngot ),		1044030, 99.0, 1044036, 1044268 );
-			AddSubRes( typeof( NepturiteIngot ),	1036173, 99.0, 1044036, 1044268 );
+            AddSubRes( typeof(TitaniumIngot), 6661000, 99.0, 1044036, 1044268);
+            AddSubRes(typeof(RoseniumIngot), 6662000, 99.0, 1044036, 1044268);
+            AddSubRes(typeof(PlatinumIngot), 6663000, 99.0, 1044036, 1044268);
+            AddSubRes( typeof( NepturiteIngot ),	1036173, 99.0, 1044036, 1044268 );
 			AddSubRes( typeof( ObsidianIngot ),		1036162, 99.0, 1044036, 1044268 );
 			AddSubRes( typeof( SteelIngot ),		1036144, 99.0, 1044036, 1044268 );
 			AddSubRes( typeof( BrassIngot ),		1036152, 105.0, 1044036, 1044268 );

@@ -292,7 +292,7 @@ namespace Server.Items
 		[Constructable]
 		public NewArmoireG() : base( 0x3CC9 )
 		{
-			Name = "armoire";
+			Name = "Armário de Ripas";
 			Weight = 10.0;
 			GumpID = 0x987;
 		}
@@ -2648,7 +2648,7 @@ namespace Server.Items
 		[Constructable]
 		public NewShelfA() : base( 0x3C35 )
 		{
-			Name = "shelf";
+			Name = "Estante de Bambu (Pequena)";
 			Weight = 10.0;
 			GumpID = 0x987;
 		}
@@ -2679,7 +2679,7 @@ namespace Server.Items
 		[Constructable]
 		public NewShelfB() : base( 0x3C3D )
 		{
-			Name = "shelf";
+			Name = "Estante de Bambu (Grande)";
 			Weight = 10.0;
 			GumpID = 0x987;
 		}
@@ -2741,7 +2741,7 @@ namespace Server.Items
 		[Constructable]
 		public NewShelfD() : base( 0x3C7B )
 		{
-			Name = "shelf";
+			Name = "Estante Maciça (Pequena)";
 			Weight = 10.0;
 			GumpID = 0x987;
 		}
@@ -2772,7 +2772,7 @@ namespace Server.Items
 		[Constructable]
 		public NewShelfE() : base( 0x3CB1 )
 		{
-			Name = "shelf";
+			Name = "Estante Rústica (Pequena)";
 			Weight = 10.0;
 			GumpID = 0x987;
 		}
@@ -2803,7 +2803,7 @@ namespace Server.Items
 		[Constructable]
 		public NewShelfF() : base( 0x3CC3 )
 		{
-			Name = "shelf";
+			Name = "Estante Rústica (Grande)";
 			Weight = 10.0;
 			GumpID = 0x987;
 		}
@@ -5122,7 +5122,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetA() : base( 0x5042 )
 		{
-			Name = "book cabinet";
+			Name = "Armário de Livros (Grande)";
 			Weight = 8.0;
 			GumpID = 0x989;
 		}
@@ -5150,7 +5150,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetB() : base( 0x504A )
 		{
-			Name = "dish cabinet";
+			Name = "Armário de Cozinha";
 			Weight = 8.0;
 			GumpID = 0x989;
 		}
@@ -5178,7 +5178,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetC() : base( 0x5050 )
 		{
-			Name = "medium cabinet";
+			Name = "Armário Simples (Médio)";
 			Weight = 8.0;
 			GumpID = 0x989;
 		}
@@ -5206,7 +5206,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetD() : base( 0x505A )
 		{
-			Name = "narrow book cabinet";
+			Name = "Armário de Livros (Estreito)";
 			Weight = 8.0;
 			GumpID = 0x989;
 		}
@@ -5234,7 +5234,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetE() : base( 0x503E )
 		{
-			Name = "short cabinet";
+			Name = "Armário Simples (Pequeno)";
 			Weight = 5.0;
 			GumpID = 0x989;
 		}
@@ -5262,7 +5262,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetF() : base( 0x4FFA )
 		{
-			Name = "short elegant cabinet";
+			Name = "Armário Elegante (Pequeno)";
 			Weight = 5.0;
 			GumpID = 0x989;
 		}
@@ -5290,7 +5290,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetG() : base( 0x5046 )
 		{
-			Name = "short locker";
+			Name = "Armário Curto";
 			Weight = 5.0;
 			GumpID = 0x989;
 		}
@@ -5318,7 +5318,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetH() : base( 0x5040 )
 		{
-			Name = "storage cabinet";
+			Name = "Armário de Armazenamento (Grande)";
 			Weight = 10.0;
 			GumpID = 0x989;
 		}
@@ -5402,7 +5402,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetK() : base( 0x503C )
 		{
-			Name = "tall narrow cabinet";
+			Name = "Armário Alto Simples";
 			Weight = 10.0;
 			GumpID = 0x989;
 		}
@@ -5430,7 +5430,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetL() : base( 0x5016 )
 		{
-			Name = "tall wide cabinet";
+			Name = "Armário Alto Elegante";
 			Weight = 10.0;
 			GumpID = 0x989;
 		}
@@ -5458,7 +5458,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetM() : base( 0x5048 )
 		{
-			Name = "tall wide locker";
+			Name = "Armário Elegante (Médio)";
 			Weight = 10.0;
 			GumpID = 0x989;
 		}
@@ -5486,7 +5486,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredCabinetN() : base( 0x504E )
 		{
-			Name = "wide medium cabinet";
+			Name = "Armário de Armazenamento (Pequeno)";
 			Weight = 10.0;
 			GumpID = 0x989;
 		}
@@ -5515,7 +5515,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredArmoireA() : base( 0x504C )
 		{
-			Name = "fancy amoire";
+			Name = "Cristaleira";
 			Weight = 8.0;
 			GumpID = 0x989;
 		}
@@ -5543,7 +5543,7 @@ namespace Server.Items
 		[Constructable]
 		public ColoredArmoireB() : base( 0x5062 )
 		{
-			Name = "tall fancy armoire";
+			Name = "Armário Bonito";
 			Weight = 10.0;
 			GumpID = 0x989;
 		}

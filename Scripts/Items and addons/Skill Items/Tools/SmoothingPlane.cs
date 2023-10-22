@@ -12,14 +12,16 @@ namespace Server.Items
 		[Constructable]
 		public SmoothingPlane() : base( 0x1032 )
 		{
-			Weight = 1.0;
+            Name = "Plaina de Suavização";
+            Weight = 2.0;
 		}
 
 		[Constructable]
 		public SmoothingPlane( int uses ) : base( uses, 0x1032 )
 		{
-			Weight = 1.0;
-		}
+            Name = "Plaina de Suavização";
+            Weight = 2.0;
+        }
 
 		public SmoothingPlane( Serial serial ) : base( serial )
 		{

@@ -10,7 +10,7 @@ using Server.Misc;
 
 namespace Server.Items
 {
-	public class Bandage : Item, IDyable
+	public class Bandage : Item/*, IDyable*/
 	{
 		public static int Range = ( Server.Misc.MyServerSettings.FriendsAvoidHeels() ? 5 : 2 ); 
 
@@ -18,7 +18,7 @@ namespace Server.Items
 
 		public override double DefaultWeight
 		{
-			get { return 0.1; }
+			get { return 0.3; }
 		}
 
 		[Constructable]
@@ -38,7 +38,7 @@ namespace Server.Items
 		{
 		}
 
-		public virtual bool Dye( Mobile from, DyeTub sender )
+/*		public virtual bool Dye( Mobile from, DyeTub sender )
 		{
 			if ( Deleted )
 				return false;
@@ -46,7 +46,7 @@ namespace Server.Items
 			Hue = sender.DyedHue;
 
 			return true;
-		}
+		}*/
 
 		public override void Serialize( GenericWriter writer )
 		{

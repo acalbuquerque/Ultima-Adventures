@@ -40,7 +40,7 @@ namespace Server.Mobiles
 
 			VirtualArmor = 38;
 
-			PackItem( new DriftwoodLog( Utility.RandomMinMax( 10, 20 ) ) );
+			//PackItem( new DriftwoodLog( Utility.RandomMinMax( 10, 20 ) ) );
 		}
 
 		public override void GenerateLoot()

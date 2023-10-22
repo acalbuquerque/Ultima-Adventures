@@ -199,8 +199,8 @@ namespace Server.Misc
 
 					Item idropped = DungeonLoot.RandomWares();
 
-					if ( idropped is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( opener ) == true ){ idropped = new DriftwoodBoard(); }
-					else if ( idropped is BaseIngot && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( opener ) == true ){ idropped = new NepturiteIngot(); }
+					/*if ( idropped is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( opener ) == true ){ idropped = new DriftwoodBoard(); }*/
+					if ( idropped is BaseIngot && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( opener ) == true ){ idropped = new NepturiteIngot(); }
 					else if ( idropped is BaseIngot && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.GetMyWorld( opener.Map, opener.Location, opener.X, opener.Y ) == "the Serpent Island" ){ idropped = new ObsidianIngot(); }
 					else if ( idropped is BaseLeather && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( opener ) == true ){ idropped = new SpinedLeather(); }
 					else if ( idropped is BaseIngot && Utility.RandomMinMax( 1, 10 ) == 1 && Worlds.GetMyWorld( opener.Map, opener.Location, opener.X, opener.Y ) == "the Savaged Empire" ){ idropped = new SteelIngot(); }
@@ -216,8 +216,8 @@ namespace Server.Misc
 						if ( Utility.RandomBool() )
 							idropped.Hue = RandomThings.GetRandomSpecialColor();
 					}
-					else if ( idropped is BaseWoodBoard && Utility.RandomMinMax( 1, 10 ) == 1 && Worlds.GetMyWorld( opener.Map, opener.Location, opener.X, opener.Y ) == "the Underworld" ){ idropped = new PetrifiedBoard(); }
-					else if ( idropped is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && ( reg.IsPartOf( typeof( NecromancerRegion ) ) || reg.IsPartOf( "the Crypts of Dracula" ) || reg.IsPartOf( "the Castle of Dracula" ) ) ){ idropped = new GhostBoard(); }
+					/*else if ( idropped is BaseWoodBoard && Utility.RandomMinMax( 1, 10 ) == 1 && Worlds.GetMyWorld( opener.Map, opener.Location, opener.X, opener.Y ) == "the Underworld" ){ idropped = new PetrifiedBoard(); }*/
+					/*else if ( idropped is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && ( reg.IsPartOf( typeof( NecromancerRegion ) ) || reg.IsPartOf( "the Crypts of Dracula" ) || reg.IsPartOf( "the Castle of Dracula" ) ) ){ idropped = new GhostBoard(); }*/
 
 					if (idropped.Stackable == true){ idropped.Amount = Utility.RandomMinMax( 5, 50 ); }
 
@@ -783,20 +783,20 @@ namespace Server.Misc
 				nContainerLockable = 1;
 				box.Weight = 10.0;
 				box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Wooden Chest";		box.Hue = 0x724;
-				switch( Utility.Random( 20 ) )
+				switch( Utility.Random( 7 ) )
 				{
-					case 0:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Oak Wood Chest";			hue = "oak";									break;
-					case 1:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Ash Wood Chest";			hue = "ash";									break;
-					case 2:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Cherry Wood Chest";			hue = "cherry";									break;
-					case 3:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Walnut Wood Chest";			hue = "walnut";									break;
-					case 4:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Golden Oak Wood Chest";		hue = "golden oak";								break;
-					case 5:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Ebony Wood Chest";			hue = "ebony";									break;
-					case 6:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Hickory Wood Chest";		hue = "hickory";								break;
-					case 7:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Pine Wood Chest";			hue = "pine";									break;
-					case 8:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Rosewood Chest";			hue = "rosewood";								break;
-					case 9:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Mahogany Wood Chest";		hue = "mahogany";								break;
-					case 10:	box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Drift Wood Chest";			hue = "driftwood";								break;
-					case 11:	box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Worn Wooden Chest";			box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
+					/*case 0:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Oak Wood Chest";			hue = "oak";									break;*/
+					case 0:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Ash Wood Chest";			hue = "ash";									break;
+					case 1:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Cherry Wood Chest";			hue = "cherry";									break;
+					/*case 3:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Walnut Wood Chest";			hue = "walnut";									break;*/
+					case 2:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Golden Oak Wood Chest";		hue = "golden oak";								break;
+					case 3:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Ebony Wood Chest";			hue = "ebony";									break;
+					case 4:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Hickory Wood Chest";		hue = "hickory";								break;
+					/*case 7:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Pine Wood Chest";			hue = "pine";									break;*/
+					case 5:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Rosewood Chest";			hue = "rosewood";								break;
+					/*case 9:		box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Mahogany Wood Chest";		hue = "mahogany";								break;
+					case 10:	box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Drift Wood Chest";			hue = "driftwood";								break;*/
+					case 6:	box.ItemID = Utility.RandomList( 0xe42, 0xe43 );	box.GumpID = 0x49;		box.Name = "Worn Wooden Chest";			box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
 				}
 				box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
 				if ( thisDesign == 3 ){ box.ItemID = Utility.RandomList( 0x10EC, 0x10ED );	box.GumpID = 0x976;		box.Name = "Rusty Metal Crate";		box.Hue = 0; }
@@ -839,20 +839,20 @@ namespace Server.Misc
 				nContainerLockable = 3;
 				box.Weight = 12.0;
 				box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Wooden Footlocker";
-				switch( Utility.Random( 20 ) )
+				switch( Utility.Random( 7 ) )
 				{
 					case 0:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Worn Wooden Footlocker";		box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
-					case 1:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Oak Wood Footlocker";			hue = "oak";									break;
-					case 2:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Ash Wood Footlocker";			hue = "ash";									break;
-					case 3:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Cherry Wood Footlocker";		hue = "cherry";									break;
-					case 4:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Walnut Wood Footlocker";		hue = "walnut";									break;
-					case 5:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Golden Oak Wood Footlocker";	hue = "golden oak";								break;
-					case 6:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Ebony Wood Footlocker";			hue = "ebony";									break;
-					case 7:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Hickory Wood Footlocker";		hue = "hickory";								break;
-					case 8:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Pine Wood Footlocker";			hue = "pine";									break;
-					case 9:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Rosewood Footlocker";			hue = "rosewood";								break;
-					case 10:	box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Mahogany Wood Footlocker";		hue = "mahogany";								break;
-					case 11:	box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Drift Wood Footlocker";			hue = "driftwood";								break;
+					/*case 1:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Oak Wood Footlocker";			hue = "oak";									break;*/
+					case 1:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Ash Wood Footlocker";			hue = "ash";									break;
+					case 2:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Cherry Wood Footlocker";		hue = "cherry";									break;
+					/*case 4:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Walnut Wood Footlocker";		hue = "walnut";									break;*/
+					case 3:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Golden Oak Wood Footlocker";	hue = "golden oak";								break;
+					case 4:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Ebony Wood Footlocker";			hue = "ebony";									break;
+					case 5:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Hickory Wood Footlocker";		hue = "hickory";								break;
+					/*case 8:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Pine Wood Footlocker";			hue = "pine";									break;*/
+					case 6:		box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Rosewood Footlocker";			hue = "rosewood";								break;
+					/*case 10:	box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Mahogany Wood Footlocker";		hue = "mahogany";								break;
+					case 11:	box.ItemID = Utility.RandomList( 0x2811, 0x2812 );	box.GumpID = 0x10C;	box.Name = "Drift Wood Footlocker";			hue = "driftwood";								break;*/
 				}
 				box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
 			}
@@ -861,20 +861,20 @@ namespace Server.Misc
 				nContainerLockable = 4;
 				box.Weight = 15.0;
 				box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Wooden Trunk";
-				switch( Utility.Random( 20 ) )
+				switch( Utility.Random( 7 ) )
 				{
 					case 0:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Worn Wooden Trunk";			box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
-					case 1:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Oak Wood Trunk";			hue = "oak";									break;
-					case 2:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Ash Wood Trunk";			hue = "ash";									break;
-					case 3:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Cherry Wood Trunk";			hue = "cherry";									break;
-					case 4:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Walnut Wood Trunk";			hue = "walnut";									break;
-					case 5:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Golden Oak Wood Trunk";		hue = "golden oak";								break;
-					case 6:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Ebony Wood Trunk";			hue = "ebony";									break;
-					case 7:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Hickory Wood Trunk";		hue = "hickory";								break;
-					case 8:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Pine Wood Trunk";			hue = "pine";									break;
-					case 9:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Rosewood Trunk";			hue = "rosewood";								break;
-					case 10:	box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Mahogany Wood Trunk";		hue = "mahogany";								break;
-					case 11:	box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Drift Wood Trunk";			hue = "driftwood";								break;
+					/*case 1:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Oak Wood Trunk";			hue = "oak";									break;*/
+					case 1:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Ash Wood Trunk";			hue = "ash";									break;
+					case 2:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Cherry Wood Trunk";			hue = "cherry";									break;
+					/*case 4:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Walnut Wood Trunk";			hue = "walnut";									break;*/
+					case 3:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Golden Oak Wood Trunk";		hue = "golden oak";								break;
+					case 4:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Ebony Wood Trunk";			hue = "ebony";									break;
+					case 5:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Hickory Wood Trunk";		hue = "hickory";								break;
+					/*case 8:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Pine Wood Trunk";			hue = "pine";									break;*/
+					case 6:		box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Rosewood Trunk";			hue = "rosewood";								break;
+					/*case 10:	box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Mahogany Wood Trunk";		hue = "mahogany";								break;
+					case 11:	box.ItemID = Utility.RandomList( 0x2813, 0x2814 );	box.GumpID = 0x10D;	box.Name = "Drift Wood Trunk";			hue = "driftwood";								break;*/
 				}
 				box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
 			}
@@ -890,20 +890,20 @@ namespace Server.Misc
 
 				box.GumpID = 0x43;		box.Name = "Wooden " + boxy;			box.Hue = 0x83E;
 
-				switch( Utility.Random( 20 ) )
+				switch( Utility.Random( 7 ) )
 				{
 					case 0:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Worn Wooden " + boxy;		box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
-					case 1:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Oak Wood " + boxy;			hue = "oak";									break;
-					case 2:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Ash Wood " + boxy;			hue = "ash";									break;
-					case 3:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Cherry Wood " + boxy;		hue = "cherry";									break;
-					case 4:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Walnut Wood " + boxy;		hue = "walnut";									break;
-					case 5:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Golden Oak Wood " + boxy;	hue = "golden oak";								break;
-					case 6:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Ebony Wood " + boxy;		hue = "ebony";									break;
-					case 7:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Hickory Wood " + boxy;		hue = "hickory";								break;
-					case 8:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Pine Wood " + boxy;			hue = "pine";									break;
-					case 9:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Rosewood " + boxy;			hue = "rosewood";								break;
-					case 10:	box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Mahogany Wood " + boxy;		hue = "mahogany";								break;
-					case 11:	box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Drift Wood " + boxy;		hue = "driftwood";								break;
+					/*case 1:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Oak Wood " + boxy;			hue = "oak";									break;*/
+					case 1:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Ash Wood " + boxy;			hue = "ash";									break;
+					case 2:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Cherry Wood " + boxy;		hue = "cherry";									break;
+					/*case 4:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Walnut Wood " + boxy;		hue = "walnut";									break;*/
+					case 3:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Golden Oak Wood " + boxy;	hue = "golden oak";								break;
+					case 4:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Ebony Wood " + boxy;		hue = "ebony";									break;
+					case 5:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Hickory Wood " + boxy;		hue = "hickory";								break;
+					/*case 8:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Pine Wood " + boxy;			hue = "pine";									break;*/
+					case 6:		box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Rosewood " + boxy;			hue = "rosewood";								break;
+					/*case 10:	box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Mahogany Wood " + boxy;		hue = "mahogany";								break;
+					case 11:	box.ItemID = Utility.RandomList( 0x9AA, 0xE7D );	box.GumpID = 0x43;	box.Name = "Drift Wood " + boxy;		hue = "driftwood";								break;*/
 				}
 				box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
 				if ( box.ItemID == 0x4C2B || box.ItemID == 0x4C2C || box.ItemID == 0x1C0E || box.ItemID == 0x1C0F ){ box.GumpID = 0x2A73; }
@@ -1019,20 +1019,20 @@ namespace Server.Misc
 				box.Weight = 10.0;
 				box.Locked = false;
 				box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Wooden Crate";			box.Hue = Utility.RandomMinMax( 2413, 2430 );
-				switch( Utility.Random( 20 ) )
+				switch( Utility.Random( 7 ) )
 				{
 					case 0:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Worn Wooden Crate";			box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
-					case 1:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Oak Wood Crate";			hue = "oak";									break;
-					case 2:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Ash Wood Crate";			hue = "ash";									break;
-					case 3:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Cherry Wood Crate";			hue = "cherry";									break;
-					case 4:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Walnut Wood Crate";			hue = "walnut";									break;
-					case 5:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Golden Oak Wood Crate";		hue = "golden oak";								break;
-					case 6:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Ebony Wood Crate";			hue = "ebony";									break;
-					case 7:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Hickory Wood Crate";		hue = "hickory";								break;
-					case 8:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Pine Wood Crate";			hue = "pine";									break;
-					case 9:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Rosewood Crate";			hue = "rosewood";								break;
-					case 10:	box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Mahogany Wood Crate";		hue = "mahogany";								break;
-					case 11:	box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Drift Wood Crate";			hue = "driftwood";								break;
+					/*case 1:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Oak Wood Crate";			hue = "oak";									break;*/
+					case 1:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Ash Wood Crate";			hue = "ash";									break;
+					case 2:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Cherry Wood Crate";			hue = "cherry";									break;
+					/*case 4:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Walnut Wood Crate";			hue = "walnut";									break;*/
+					case 3:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Golden Oak Wood Crate";		hue = "golden oak";								break;
+					case 4:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Ebony Wood Crate";			hue = "ebony";									break;
+					case 5:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Hickory Wood Crate";		hue = "hickory";								break;
+					/*case 8:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Pine Wood Crate";			hue = "pine";									break;*/
+					case 6:		box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Rosewood Crate";			hue = "rosewood";								break;
+					/*case 10:	box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Mahogany Wood Crate";		hue = "mahogany";								break;
+					case 11:	box.ItemID = Utility.RandomList( 0xE3D, 0xE3C );	box.GumpID = 0x44;		box.Name = "Drift Wood Crate";			hue = "driftwood";								break;*/
 				}
 				box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
 			}
@@ -1042,20 +1042,20 @@ namespace Server.Misc
 				box.Weight = 8.0;
 				box.Locked = false;
 				box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Wooden Crate";			box.Hue = Utility.RandomMinMax( 2413, 2430 );
-				switch( Utility.Random( 13 ) )
+				switch( Utility.Random( 7 ) )
 				{
 					case 0:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Worn Wooden Crate";			box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
-					case 1:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Oak Wood Crate";			hue = "oak";									break;
-					case 2:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Ash Wood Crate";			hue = "ash";									break;
-					case 3:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Cherry Wood Crate";			hue = "cherry";									break;
-					case 4:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Walnut Wood Crate";			hue = "walnut";									break;
-					case 5:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Golden Oak Wood Crate";		hue = "golden oak";								break;
-					case 6:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Ebony Wood Crate";			hue = "ebony";									break;
-					case 7:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Hickory Wood Crate";		hue = "hickory";								break;
-					case 8:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Pine Wood Crate";			hue = "pine";									break;
-					case 9:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Rosewood Crate";			hue = "rosewood";								break;
-					case 10:	box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Mahogany Wood Crate";		hue = "mahogany";								break;
-					case 11:	box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Drift Wood Crate";			hue = "driftwood";								break;
+					/*case 1:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Oak Wood Crate";			hue = "oak";									break;*/
+					case 1:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Ash Wood Crate";			hue = "ash";									break;
+					case 2:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Cherry Wood Crate";			hue = "cherry";									break;
+					/*case 4:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Walnut Wood Crate";			hue = "walnut";									break;*/
+					case 3:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Golden Oak Wood Crate";		hue = "golden oak";								break;
+					case 4:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Ebony Wood Crate";			hue = "ebony";									break;
+					case 5:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Hickory Wood Crate";		hue = "hickory";								break;
+					/*case 8:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Pine Wood Crate";			hue = "pine";									break;*/
+					case 6:		box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Rosewood Crate";			hue = "rosewood";								break;
+					/*case 10:	box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Mahogany Wood Crate";		hue = "mahogany";								break;
+					case 11:	box.ItemID = Utility.RandomList( 0xE3F, 0xE3E );	box.GumpID = 0x44;		box.Name = "Drift Wood Crate";			hue = "driftwood";								break;*/
 				}
 				box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
             }
@@ -1065,20 +1065,20 @@ namespace Server.Misc
 				box.Weight = 25.0;
 				box.Locked = false;
 				box.ItemID = 0xFAE;	box.GumpID = 0x3E;		box.Name = "Barrel";
-				switch( Utility.Random( 13 ) )
+				switch( Utility.Random( 7 ) )
 				{
 					case 0:		box.Name = "Worn Wooden Barrel";		box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
-					case 1:		box.Name = "Oak Wood Barrel";			hue = "oak";									break;
-					case 2:		box.Name = "Ash Wood Barrel";			hue = "ash";									break;
-					case 3:		box.Name = "Cherry Wood Barrel";		hue = "cherry";									break;
-					case 4:		box.Name = "Walnut Wood Barrel";		hue = "walnut";									break;
-					case 5:		box.Name = "Golden Oak Wood Barrel";	hue = "golden oak";								break;
-					case 6:		box.Name = "Ebony Wood Barrel";			hue = "ebony";									break;
-					case 7:		box.Name = "Hickory Wood Barrel";		hue = "hickory";								break;
-					case 8:		box.Name = "Pine Wood Barrel";			hue = "pine";									break;
-					case 9:		box.Name = "Rosewood Barrel";			hue = "rosewood";								break;
-					case 10:	box.Name = "Mahogany Wood Barrel";		hue = "mahogany";								break;
-					case 11:	box.Name = "Drift Wood Barrel";			hue = "driftwood";								break;
+					/*case 1:		box.Name = "Oak Wood Barrel";			hue = "oak";									break;*/
+					case 1:		box.Name = "Ash Wood Barrel";			hue = "ash";									break;
+					case 2:		box.Name = "Cherry Wood Barrel";		hue = "cherry";									break;
+					/*case 4:		box.Name = "Walnut Wood Barrel";		hue = "walnut";									break;*/
+					case 3:		box.Name = "Golden Oak Wood Barrel";	hue = "golden oak";								break;
+					case 4:		box.Name = "Ebony Wood Barrel";			hue = "ebony";									break;
+					case 5:		box.Name = "Hickory Wood Barrel";		hue = "hickory";								break;
+					/*case 8:		box.Name = "Pine Wood Barrel";			hue = "pine";									break;*/
+					case 6:		box.Name = "Rosewood Barrel";			hue = "rosewood";								break;
+					/*case 10:	box.Name = "Mahogany Wood Barrel";		hue = "mahogany";								break;
+					case 11:	box.Name = "Drift Wood Barrel";			hue = "driftwood";								break;*/
 				}
 				box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
             }
@@ -1164,20 +1164,20 @@ namespace Server.Misc
 
 					box.Name = coffin;
 
-					switch( Utility.Random( 13 ) )
+					switch( Utility.Random( 7 ) )
 					{
 						case 0:		box.Name = "Worn " + coffin;			box.Hue = Utility.RandomMinMax( 2413, 2430 );	break;
-						case 1:		box.Name = "Oak " + coffin;				hue = "oak";									break;
-						case 2:		box.Name = "Ash " + coffin;				hue = "ash";									break;
-						case 3:		box.Name = "Cherry " + coffin;			hue = "cherry";									break;
-						case 4:		box.Name = "Walnut " + coffin;			hue = "walnut";									break;
-						case 5:		box.Name = "Golden Oak " + coffin;		hue = "golden oak";								break;
-						case 6:		box.Name = "Ebony " + coffin;			hue = "ebony";									break;
-						case 7:		box.Name = "Hickory " + coffin;			hue = "hickory";								break;
-						case 8:		box.Name = "Pine " + coffin;			hue = "pine";									break;
-						case 9:		box.Name = "Rosewood " + coffin;		hue = "rosewood";								break;
-						case 10:	box.Name = "Mahogany " + coffin;		hue = "mahogany";								break;
-						case 11:	box.Name = "Driftwood " + coffin;		hue = "driftwood";								break;
+						/*case 1:		box.Name = "Oak " + coffin;				hue = "oak";									break;*/
+						case 1:		box.Name = "Ash " + coffin;				hue = "ash";									break;
+						case 2:		box.Name = "Cherry " + coffin;			hue = "cherry";									break;
+						/*case 4:		box.Name = "Walnut " + coffin;			hue = "walnut";									break;*/
+						case 3:		box.Name = "Golden Oak " + coffin;		hue = "golden oak";								break;
+						case 4:		box.Name = "Ebony " + coffin;			hue = "ebony";									break;
+						case 5:		box.Name = "Hickory " + coffin;			hue = "hickory";								break;
+						/*case 8:		box.Name = "Pine " + coffin;			hue = "pine";									break;*/
+						case 6:		box.Name = "Rosewood " + coffin;		hue = "rosewood";								break;
+						/*case 10:	box.Name = "Mahogany " + coffin;		hue = "mahogany";								break;
+						case 11:	box.Name = "Driftwood " + coffin;		hue = "driftwood";								break;*/
 					}
 					box.Hue = MaterialInfo.GetMaterialColor( hue, "", box.Hue );
 				}
@@ -1359,31 +1359,38 @@ namespace Server.Misc
 			string sName2 = "";
 			string sName3 = "";
 			string pName3 = "";
+			bool male = true;
 
 			int nGender = Utility.RandomMinMax( 1, 2 );
 			int nNameSection = 0;
 
 			if ( nGender == 1 )
 			{
-				// MALE TITLES
-				string[] vName0 = new string[] {"Templar", "Thief", "Illusionist", "Prince", "Invoker", "Priest", "Conjurer", "Bandit", "Baron", "Wizard", "Cleric", "Monk", "Minstrel", "Defender", "Cavalier", "Magician", "Warlock", "Fighter", "Seeker", "Slayer", "Ranger", "Barbarian", "Explorer", "Heretic", "Gladiator", "Sage", "Rogue", "Paladin", "Bard", "Diviner", "Lord", "Outlaw", "Prophet", "Mercenary", "Adventurer", "Enchanter", "King", "Scout", "Mystic", "Mage", "Traveler", "Summoner", "Warrior", "Sorcerer", "Seer", "Hunter", "Knight", "Necromancer", "Shaman"};
+				male = true;
+                // MALE TITLES
+                string[] vName0 = new string[] { "Templário", "Ladrão", "Ilusionista", "Príncipe", "Invocador", "Sacerdote", "Conjurador", "Bandido", "Barão", "Feiticeiro", "Clérigo", "Monge", "Menestrel ", "Defensor", "Cavalheiro", "Mágico", "Warlock", "Lutador", "Seeker", "Assassino", "Ranger", "Bárbaro", "Explorador", "Herético", "Gladiador", "Sábio", "Rogue", "Paladin", "Bard", "Divino", "Lorde", "Bandido", "Profeta", "Mercenário", "Aventureiro", "Encantador", "Rei", "Escoteiro", "Místico", "Mago", "Viajante", "Invocador", "Guerreiro", "Feiticeiro", "Vidente", "Caçador", "Cavaleiro", "Necromante", "Xamã" };
 					sName0 = vName0[Utility.RandomMinMax( 0, (vName0.Length-1) )];
 
 				// MALE NAMES
 				if (Utility.RandomMinMax( 1, 3 ) == 1)
 				{
 					nNameSection = 1;
-					string[] vName1 = new string[] {"Ache", "Bower", "Dwarf", "Fowl", "Groan", "Kin", "Moat", "Pori", "Rush", "Tort", "Aim", "Churl", "Dwar", "Card", "Haft", "Kit", "Mould", "Quid", "Scoff", "Twig", "Bald", "Com", "Ebb", "Gay", "Hale", "Lank", "Muff", "Rau", "Skew", "Twit", "Bear", "Cuff", "El", "Gilt", "Hawk", "Leaf", "Muse", "Red", "Sky", "Vain", "Blush", "Dark", "Elf", "Girth", "Haught", "Lewd", "Not", "Rich", "Sly", "Vent", "Boar", "Dire", "Fag", "Glut", "Hiss", "Louse", "Numb", "Rob", "Sow", "Vile", "Boast", "Dour", "Fale", "Goad", "Hock", "Lure", "Odd", "Rod", "Stave", "Wail", "Boil", "Dross", "Fay", "Gold", "Hoof", "Man", "Ooze", "Rud", "Steed", "War", "Boni", "Dupe", "Fell", "Gorge", "Hook", "Mars", "Ox", "Ruff", "Swat", "Whip", "Boy", "Dusk", "Fly", "Grey", "Hom", "Meed", "Pale", "Run", "Thor", "Wise", "Wonn", "Yip"};
+					string[] vName1 = new string[] {"Tony", "Magedon", "Eddy", "Bruno", "Phillip", "Frodo", "Steven", "Mark", "Paul", "Antony", 
+						"Geralt", "Ebb", "Gary", "Ash", "Raul", "Robb", "Edward", "Steve", "Bruce", "Luke", "Obi", "Damian", "Jamie", "James", 
+						"Newton", "Alexios", "Bastian", "Eddard", "Eric", "Lex", "Sandor", "Theon", "Thor", "Alex", "Arthur", "Conrad", "Edmund", "Ian", "Alexios"};
 						sName1 = vName1[Utility.RandomMinMax( 0, (vName1.Length-1) )];
 
-					string[] vName2 = new string[] {"ander", "vid", "thur", "sard", "red", "mund", "lard", "gurd", "fird", "cester", "ard", "vred", "ton", "shan", "rence", "nald", "ley", "gus", "ford", "colt", "bald", "wald", "tor", "shaw", "reth", "nard", "lisle", "ham", "fram", "dane", "ban", "wallader", "tran", "son", "rick", "nath", "loch", "hard", "fred", "dard", "baugh", "ward", "ius", "steen", "ridge", "ney", "man", "hart", "frid", "doch", "bert", "werth", "ulf", "stone", "riel", "olas", "mar", "helm", "fried", "dolph", "brand", "wig", "vald", "ter", "ron", "pold", "mas", "home", "gal", "don", "cas", "win", "van", "than", "rone", "rad", "mon", "isler", "gard", "doric", "cent", "wood", "vard", "ther", "roth", "ram", "mond", "kild", "gemon", "dower", "cent", "yard", "ven", "thon", "sander", "rard", "mour", "ian", "gill", "dred"};
+					string[] vName2 = new string[] {"stark", "lanister", "targaryan", "baratheon", "ander", "vid", "thur", "sard", "red", "mund", "lard", "gurd", "fird", "cester", "ard", "vred", "ton", "shan", "rence", "nald", "ley", "gus", "ford", "colt", "bald", "wald", "tor", "shaw", "reth", "nard", "lisle", "ham", "fram", "dane", "ban", "wallader", "tran", "son", "rick", "nath", "loch", "hard", "fred", "dard", "baugh", "ward", "ius", "steen", "ridge", "ney", "man", "hart", "frid", "doch", "bert", "werth", "ulf", "stone", "riel", "olas", "mar", "helm", "fried", "dolph", "brand", "wig", "vald", "ter", "ron", "pold", "mas", "home", "gal", "don", "cas", "win", "van", "than", "rone", "rad", "mon", "isler", "gard", "doric", "cent", "wood", "vard", "ther", "roth", "ram", "mond", "kild", "gemon", "dower", "cent", "yard", "ven", "thon", "sander", "rard", "mour", "ian", "gill", "dred"};
 						sName2 = vName2[Utility.RandomMinMax( 0, (vName2.Length-1) )];
 
-					sName3 = sName1 + sName2 + " the " + sName0;
+					sName3 = sName1 + " " + sName2 + " o " + sName0;
 				}
 				else
 				{
-					string[] vName3 = new string[] {"Aaby", "Arkwright", "Blasco", "Dagmar", "Elsdon", "Gladstone", "Hultz", "March", "Prichard", "Theodric", 
+					string[] vName3 = new string[] {"Tony", "Magedon", "Eddy", "Bruno", "Phillip", "Frodo", "Steven", "Mark", "Paul", "Antony",
+                        "Geralt", "Ebb", "Gary", "Ash", "Raul", "Robb", "Edward", "Steve", "Bruce", "Luke", "Obi", "Damian", "Jamie", "James",
+                        "Newton", "Alexios", "Bastian", "Eddard", "Eric", "Lex", "Sandor", "Theon", "Thor", "Alex", "Arthur", "Conrad", "Edmund", "Ian", "Alexios",
+						"Aaby", "Arkwright", "Blasco", "Dagmar", "Elsdon", "Gladstone", "Hultz", "March", "Prichard", "Theodric", 
 					"Aage", "Arlo", "Bledsoe", "Damian", "Elswyth", "Glassford", "Humbert", "Markahm", "Proctor", "Thorburn", 
 					"Aanon", "Armand", "Blount", "Damon", "Elton", "Glendower", "Hunter", "Marques", "Pue", "Thordarson", 
 					"Aarlen", "Armar", "Bo", "Dana", "Elvin", "Glover", "Hurd", "Marsden", "Pulteney", "Thorkild", 
@@ -1485,28 +1492,29 @@ namespace Server.Misc
 					"Arian", "Blair", "Cyryl", "Elrad", "Gildersleeve", "Hulbeart", "Mankey", "Preston", "Thacker", "Zoltan"};
 						sName3 = vName3[Utility.RandomMinMax( 0, (vName3.Length-1) )];
 						pName3 = sName3;
-						sName3 = sName3 + " the " + sName0;
+						sName3 = sName3 + " o " + sName0;
 
 				}
 			}
 			else
 			{
-				// FEMALE TITLES
-				string[] vName0 = new string[] {"Templar", "Thief", "Illusionist", "Princess", "Invoker", "Priestess", "Conjurer", "Bandit", "Baroness", "Wizard", "Cleric", "Monk", "Minstrel", "Defender", "Cavalier", "Magician", "Witch", "Fighter", "Seeker", "Slayer", "Ranger", "Barbarian", "Explorer", "Heretic", "Gladiator", "Sage", "Rogue", "Paladin", "Bard", "Diviner", "Lady", "Outlaw", "Prophet", "Mercenary", "Adventurer", "Enchantress", "Queen", "Scout", "Mystic", "Mage", "Traveler", "Summoner", "Warrior", "Sorcereress", "Seer", "Hunter", "Knight", "Necromancer", "Shaman"};
-					sName0 = vName0[Utility.RandomMinMax( 0, (vName0.Length-1) )];
+				male = false;
+                // FEMALE TITLES
+                string[] vName0 = new string[] { "Templária", "Ladra", "Ilusionista", "Princesa", "Invocadora", "Sacerdote", "Conjuradora", "Bandida", "Baroa", "Feiticeira", "Clériga", "Monge", "Menestrel", "Defensora", "Lady", "Mágica", "Warlock", "Lutadora", "Seeker", "Assassina", "Ranger", "Bárbara", "Exploradora", "Herética", "Gladiadora", "Sábia", "Rogue", "Paladina", "Barda", "[m removeDivina", "Senhora", "Bandida", "Profeta", "Mercenária", "Aventureira", "Encantadora", "Rainha", "Escoteira", "Mística", "Maga", "Viajante", "Invocadora", "Guerreira", "Feiticeira", "Vidente", "Caçadora", "Paladina", "Necromante", "Xamã" };
+                sName0 = vName0[Utility.RandomMinMax( 0, (vName0.Length-1) )];
 
 				// FEMALE NAMES
 				if (Utility.RandomMinMax( 1, 3 ) == 1)
 				{
 					nNameSection = 1;
-					string[] vName1 = new string[] {"Angel", "Tru", "Snow", "Rich", "Nag", "Life", "Jade", "Glow", "Foal", "Ewe", "Dale", "Anim", "Tyr", "Soft", "Rose", "Noble", "Love", "Joy", "Gob", "Fond", "Fairy", "Dark", "Bear", "Ven", "Solar", "Rud", "Nob", "Lune", "Just", "Gold", "Free", "Fair", "Dawn", "Bless", "Venus", "Sol", "Sacre", "Pale", "Lynx", "Kind", "Grey", "Fur", "Fate", "Doe", "Blush", "Vile", "Spear", "Seaborn", "Palm", "Mare", "Knife", "Hiss", "Cay", "Fawn", "Doll", "Boni", "Wand", "Star", "Sea", "Peace", "Mead", "Lamb", "Honey", "Gem", "Fay", "Dour", "Bounty", "War", "Sun", "Sil", "Peach", "Mew", "Lass", "Hon", "Gift", "Fau", "Dove", "Boun", "Wave", "Sweet", "Silven", "Pearl", "Mild", "Law", "Honor", "Glad", "Fiend", "Dusk", "Claw", "Wite", "Sword", "Sky", "Queen", "Milk", "Leaf", "Hope", "Glen", "Flaxen", "Eagle", "Cloud", "Wild", "Thor", "Snowy", "Red", "Moon", "Lewd", "Horse", "Glor", "Flax", "Elf", "El"};
+					string[] vName1 = new string[] {"Angel", "Tru", "Angélica", "Maria", "Nag", "Marta", "Jade", "Luz", "Flora", "Ewe", "Dale", "Ana", "Tata", "Bia", "Rose", "Rosa", "Luisa", "Joy", "Gab", "Fernanda", "Fanny", "Dani", "Dany", "Vena", "Solar", "Rute", "Nubia", "Luna", "Jackie", "Dawn", "Aurora", "Venus", "Sol", "Mary", "Judy", "Julianne", "Mona", "Leticia", "Letty", "Sonia"};
 						sName1 = vName1[Utility.RandomMinMax( 0, (vName1.Length-1) )];
 
-					string[] vName2 = new string[] {"a", "ula", "sey", "onia", "line", "len", "ethe", "drede", "ata", "anca", "acey", "usia", "silla", "ora", "ly", "ienna", "etta", "een", "berla", "anda", "ache", "va", "sola", "phne", "lyn", "ika", "elle", "elan", "beth", "ance", "ada", "vere", "strella", "reda", "ma", "inda", "farah", "elia", "bia", "anche", "adne", "vette", "sula", "rey", "maid", "is", "garde", "ella", "ca", "andra", "aelia", "vilia", "tho", "rie", "mela", "isa", "genia", "elle", "cella", "ara", "al", "vina", "thia", "rifa", "mina", "itta", "herita", "elot", "cia", "aria", "alia", "vita", "thora", "rina", "mira", "la", "ia", "enlia", "da", "asia", "alie", "wig", "titia", "rine", "nah", "laide", "icenl", "esa", "dicla", "asla", "alia", "wina", "tola", "rota", "natta", "lene", "ie", "esca", "dida", "asta"};
-						sName2 = vName2[Utility.RandomMinMax( 0, (vName2.Length-1) )];
+					string[] vName2 = new string[] { "stark", "lanister", "targaryan", "baratheon", "ander", "vid", "thur", "sard", "red", "mund", "lard", "gurd", "fird", "cester", "ard", "vred", "ton", "shan", "rence", "nald", "ley", "gus", "ford", "colt", "bald", "wald", "tor", "shaw", "reth", "nard", "lisle", "ham", "fram", "dane", "ban", "wallader", "tran", "son", "rick", "nath", "loch", "hard", "fred", "dard", "baugh", "ward", "ius", "steen", "ridge", "ney", "man", "hart", "frid", "doch", "bert", "werth", "ulf", "stone", "riel", "olas", "mar", "helm", "fried", "dolph", "brand", "wig", "vald", "ter", "ron", "pold", "mas", "home", "gal", "don", "cas", "win", "van", "than", "rone", "rad", "mon", "isler", "gard", "doric", "cent", "wood", "vard", "ther", "roth", "ram", "mond", "kild", "gemon", "dower", "cent", "yard", "ven", "thon", "sander", "rard", "mour", "ian", "gill", "dred" };
+                    sName2 = vName2[Utility.RandomMinMax( 0, (vName2.Length-1) )];
 
-					sName3 = sName1 + sName2 + " the " + sName0;
-				}
+                    sName3 = sName1 + " " + sName2 + " a " + sName0;
+                }
 				else
 				{
 					string[] vName3 = new string[] {"Aasta", "Almira", "Ellin", "Fenella", "Grazia", "Hrefna", "Nada", "Olga", "Sceanb", "Ulrica", 
@@ -1561,11 +1569,11 @@ namespace Server.Misc
 					"Almas", "Ayame", "Fea", "Crania", "Hortensia", "Katerina", "Odilia", "Samhair", "Ula", "Zora"};
 						sName3 = vName3[Utility.RandomMinMax( 0, (vName3.Length-1) )];
 						pName3 = sName3;
-						sName3 = sName3 + " the " + sName0;
+						sName3 = sName3 + " a " + sName0;
 				}
 			}
 
-			string[] vAdj = new string[] {"Exotic", "Mysterious", "Marvelous", "Amazing", "Astonishing", "Mystical", "Astounding", "Magnificent", "Phenomenal", "Fantastic", "Incredible", "Extraordinary", "Fabulous", "Wondrous", "Glorious", "Lost", "Fabled", "Legendary", "Mythical", "Missing", "Ancestral", "Ornate", "Wonderful", "Sacred", "Unspeakable", "Unknown", "Forgotten"};
+			string[] vAdj = new string[] { "Exótico", "Misterioso", "Maravilhoso", "Incrível", "Surpreendente", "Místico", "Surpreendente", "Magnífico", "Fenomenal", "Fantástico", "Incrível", "Extraordinário", "Fabuloso ", "Maravilhoso", "Glorioso", "Perdido", "Fábula", "Lendário", "Mítico", "Desaparecido", "Ancestral", "Ornado", "Maravilhoso", "Sagrado", "Indizível", "Desconhecido", "Esquecido" };
 				string sAdj = vAdj[Utility.RandomMinMax( 0, (vAdj.Length-1) )] + " ";
 
 			if ( box == "Pilfer" )
@@ -1576,46 +1584,50 @@ namespace Server.Misc
 			{
 				if ( Utility.RandomBool() )
 				{
-					sName3 = NameList.RandomName( "female" );
+					sName3 = NameList.RandomName( "female" ) + " a ";
 				}
 				else
 				{
-					sName3 = NameList.RandomName( "male" );
+					sName3 = NameList.RandomName( "male" ) + " o ";
 				}
 
-				string[] spaceTitles = new string[] {"Mechanic", "Scientist", "Doctor", "Soldier", "Mercenary", "Engineer", "Chief Medical Officer", "Science Officer", "Counselor", "Marine", "Soldier", "Trooper", "Navigator", "Medical Officer", "Officer", "Helmsman", "Gunner", "Pilot", "Weapons Officer", "Tactical Officer", "Biologist", "Chemist", "Security Officer", "Robotics Engineer", "Avionics Engineer", "Chief Engineering", "Chief of Security", "Linguist", "Botanist", "Pathologist", "Anthropologist", "Sociologist", "First Officer", "Logistics Officer", "Nurse"};
+				string[] spaceTitles = new string[] { "Mecânico(a)", "Cientista", "Médico(a)", "Soldado(a)", "Mercenário(a)", "Engenheiro(a)", "Oficial Médico(a) Chefe", "Oficial de Ciências", "Conselheiro(a)", "Fuzileiro(a) Naval", "Soldado", "Soldado", "Navegador(a)", "Oficial Médico(a)", "Oficial", "Timoneiro(a)", "Atirador(a)", "Piloto", "Oficial de Armas", "Oficial Tático", "Biólogo(a)", "Químico(a)", "Oficial de Segurança", " Engenheiro(a) de Robótica", "Engenheiro(a) de Aviônica", "Engenharia(a) Chefe", "Chefe de Segurança", "Linguista", "Botânico(a)", "Patologista", "Antropólogo(a)", "Sociólogo(a)", "Primeiro Oficial", "Oficial de Logística", "Enfermeiro(a)" };
 					string spaceTitle = spaceTitles[Utility.RandomMinMax( 0, (spaceTitles.Length-1) )];
 
-				return sName3 + " the " + spaceTitle;
+				return sName3 + spaceTitle;
 			}
 			else if ( box == "Sunken" )
 			{
-				string[] sPirate = new string[] {"Captain", "First Mate", "Quartermaster", "Boatswain", "Sailing Master", "Sea Artist", "Navigator", "Master Gunner", "Gunner", "Sail Maker", "Cabin Boy", "Sailor", "Powder Monkey", "Buccaneer", "Privateer", "Rigger", "Swab"};
+				string[] sPirate = new string[] { "Capitão", "Primeiro(a) Imediato", "Intendente", "Co-mestre", "Mestre da Vela", "Artista do Mar", "Navegador(a)", "Mestre Artilheiro(a)", "Artilheiro(a)", "Fabricante de Vela", "Imediato", "Marinheiro(a)", "Macaco da Pólvora", "Bucaneiro(a)", "Corsário(a)", "Montador(a)", "Faxineiro(a)" };
 				string xPirate = sPirate[Utility.RandomMinMax( 0, (sPirate.Length-1) )];
-				if ( nNameSection == 1 ){ sName3 = sName1 + sName2 + " the " + xPirate; } else { sName3 = pName3 + " the " + xPirate; }
-				return "The " + sAdj + "Chest of " + sName3;
+				
+				if ( nNameSection == 1 )
+				{ sName3 = sName1 + sName2 + ((male) ? " o " : " a ") + xPirate; } 
+				else { sName3 = pName3 + ((male) ? " o " : " a ") + xPirate; }
+
+				return sAdj + "baú de " + sName3;
 			}
 			else if ( box == "SunkenBag" )
 			{
-				string[] sPirate = new string[] {"Captain", "First Mate", "Quartermaster", "Boatswain", "Sailing Master", "Sea Artist", "Navigator", "Master Gunner", "Gunner", "Sail Maker", "Cabin Boy", "Sailor", "Powder Monkey", "Buccaneer", "Privateer", "Rigger", "Swab"};
-				string xPirate = sPirate[Utility.RandomMinMax( 0, (sPirate.Length-1) )];
-				
-				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
+                string[] sPirate = new string[] { "Capitão", "Primeiro(a) Imediato", "Intendente", "Co-mestre", "Mestre da Vela", "Artista do Mar", "Navegador(a)", "Mestre Artilheiro(a)", "Artilheiro(a)", "Fabricante de Vela", "Imediato", "Marinheiro(a)", "Macaco da Pólvora", "Bucaneiro(a)", "Corsário(a)", "Montador(a)", "Faxineiro(a)" };
+                string xPirate = sPirate[Utility.RandomMinMax(0, (sPirate.Length - 1))];
+
+                if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
 				{
-					pName3 = NameList.RandomName( "female" );
-				}
+					pName3 = NameList.RandomName( "female" ) + " a ";
+                }
 				else 
 				{ 
-					pName3 = NameList.RandomName( "male" ); 
+					pName3 = NameList.RandomName( "male" ) + " o ";  
 				}
 
 				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
 				{
-					sName3 = pName3 + " the " + sName0;
+					sName3 = pName3 + sName0;
 				}
 				else 
 				{ 
-					sName3 = pName3 + " the " + xPirate;
+					sName3 = pName3 + xPirate;
 				}
 
 				return sName3;
@@ -1623,15 +1635,15 @@ namespace Server.Misc
 			else if ( box == "Body" )
 			{
 				sAdj = "";
-				string sCorpse = "bones";
+				string sCorpse = "ossos";
 				switch ( Utility.RandomMinMax( 0, 3 ) ) 
 				{
-					case 0: sCorpse = "bones"; break;
-					case 1: sCorpse = "body"; break;
-					case 2: sCorpse = "skeletal remains"; break;
-					case 3: sCorpse = "skeletal bones"; break;
+					case 0: sCorpse = "ossos"; break;
+					case 1: sCorpse = "corpo"; break;
+					case 2: sCorpse = "restos mortais"; break;
+					case 3: sCorpse = "esqueleto"; break;
 				}
-				return "The " + sCorpse + " of " + sName3;
+				return sCorpse + " de " + sName3;
 			}
 			else if ( box == "BodySailor" )
 			{
@@ -1639,34 +1651,34 @@ namespace Server.Misc
 				string sCorpse = "bones";
 				switch ( Utility.RandomMinMax( 0, 3 ) ) 
 				{
-					case 0: sCorpse = "bones"; break;
-					case 1: sCorpse = "body"; break;
-					case 2: sCorpse = "skeletal remains"; break;
-					case 3: sCorpse = "skeletal bones"; break;
-				}
-				
-				string[] sPirate = new string[] {"Captain", "First Mate", "Quartermaster", "Boatswain", "Sailing Master", "Sea Artist", "Navigator", "Master Gunner", "Gunner", "Sail Maker", "Cabin Boy", "Sailor", "Powder Monkey", "Buccaneer", "Privateer", "Rigger", "Swab"};
-				string xPirate = sPirate[Utility.RandomMinMax( 0, (sPirate.Length-1) )];
-				
-				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
+                    case 0: sCorpse = "ossos"; break;
+                    case 1: sCorpse = "corpo"; break;
+                    case 2: sCorpse = "restos mortais"; break;
+                    case 3: sCorpse = "esqueleto"; break;
+                }
+
+                string[] sPirate = new string[] { "Capitão", "Primeiro(a) Imediato", "Intendente", "Co-mestre", "Mestre da Vela", "Artista do Mar", "Navegador(a)", "Mestre Artilheiro(a)", "Artilheiro(a)", "Fabricante de Vela", "Imediato", "Marinheiro(a)", "Macaco da Pólvora", "Bucaneiro(a)", "Corsário(a)", "Montador(a)", "Faxineiro(a)" };
+                string xPirate = sPirate[Utility.RandomMinMax(0, (sPirate.Length - 1))];
+
+                if (Utility.RandomMinMax(1, 3) == 3)
+                {
+                    pName3 = NameList.RandomName("female") + " a ";
+                }
+                else
+                {
+                    pName3 = NameList.RandomName("male") + " o ";
+                }
+
+                if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
 				{
-					pName3 = NameList.RandomName( "female" );
+					sName3 = pName3 + sName0;
 				}
 				else 
 				{ 
-					pName3 = NameList.RandomName( "male" ); 
+					sName3 = pName3 + xPirate;
 				}
 
-				if ( Utility.RandomMinMax( 1, 3 ) == 3 ) 
-				{
-					sName3 = pName3 + " the " + sName0;
-				}
-				else 
-				{ 
-					sName3 = pName3 + " the " + xPirate;
-				}
-
-				return "The " + sCorpse + " of " + sName3;
+				return sCorpse + " de " + sName3;
 			}
 			else if ( box == "Treasure Chest" || box == "property" )
 			{
@@ -1677,7 +1689,7 @@ namespace Server.Misc
 				sAdj = "";
 			}
 
-			return "The " + sAdj + box + " of " + sName3;
+			return sAdj + box + " de " + sName3;
 		}
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1792,7 +1804,7 @@ namespace Server.Misc
 				}
 				if (nCoins > 0)
 				{
-					i = new DDCopper( nCoins );
+					i = new DDCopper( nCoins/2 );
 					box.DropItem(i);
 				}
 			}
@@ -1921,12 +1933,12 @@ namespace Server.Misc
 						case CraftResource.EbonyTree: cHue = MaterialInfo.GetMaterialColor( "ebony", "", 0 ); cUse = 60; break;
 						case CraftResource.GoldenOakTree: cHue = MaterialInfo.GetMaterialColor( "gold", "", 0 ); cUse = 80; break;
 						case CraftResource.HickoryTree: cHue = MaterialInfo.GetMaterialColor( "hickory", "", 0 ); cUse = 100; break;
-						case CraftResource.MahoganyTree: cHue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 ); cUse = 120; break;
+						/*case CraftResource.MahoganyTree: cHue = MaterialInfo.GetMaterialColor( "mahogany", "", 0 ); cUse = 120; break;
 						case CraftResource.DriftwoodTree: cHue = MaterialInfo.GetMaterialColor( "driftwood", "", 0 ); cUse = 120; break;
 						case CraftResource.OakTree: cHue = MaterialInfo.GetMaterialColor( "oak", "", 0 ); cUse = 140; break;
-						case CraftResource.PineTree: cHue = MaterialInfo.GetMaterialColor( "pine", "", 0 ); cUse = 160; break;
-						case CraftResource.RosewoodTree: cHue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 ); cUse = 180; break;
-						case CraftResource.WalnutTree: cHue = MaterialInfo.GetMaterialColor( "walnute", "", 0 ); cUse = 200; break;
+						case CraftResource.PineTree: cHue = MaterialInfo.GetMaterialColor( "pine", "", 0 ); cUse = 160; break;*/
+						case CraftResource.RosewoodTree: cHue = MaterialInfo.GetMaterialColor( "rosewood", "", 0 ); cUse = 120; break;
+						/*case CraftResource.WalnutTree: cHue = MaterialInfo.GetMaterialColor( "walnute", "", 0 ); cUse = 200; break;*/
 					}
 
 					instr.UsesRemaining = instr.UsesRemaining + cUse;
@@ -2087,8 +2099,8 @@ namespace Server.Misc
 			{
 				loot = DungeonLoot.RandomWares();
 
-				if ( loot is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( from ) == true ){ loot = new DriftwoodBoard(); }
-				else if ( loot is BaseIngot && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( from ) == true ){ loot = new NepturiteIngot(); }
+				/*if ( loot is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( from ) == true ){ loot = new DriftwoodBoard(); }*/
+				if ( loot is BaseIngot && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( from ) == true ){ loot = new NepturiteIngot(); }
 				else if ( loot is BaseIngot && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Serpent Island" ){ loot = new ObsidianIngot(); }
 				else if ( loot is BaseLeather && Utility.RandomMinMax( 1, 3 ) > 1 && Worlds.IsExploringSeaAreas( from ) == true ){ loot = new SpinedLeather(); }
 				else if ( loot is BaseIngot && Utility.RandomMinMax( 1, 10 ) == 1 && Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Savaged Empire" ){ loot = new SteelIngot(); }
@@ -2104,8 +2116,8 @@ namespace Server.Misc
 					if ( Utility.RandomBool() )
 						loot.Hue = RandomThings.GetRandomSpecialColor();
 				}
-				else if ( loot is BaseWoodBoard && Utility.RandomMinMax( 1, 10 ) == 1 && Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" ){ loot = new PetrifiedBoard(); }
-				else if ( loot is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && ( reg.IsPartOf( typeof( NecromancerRegion ) ) || reg.IsPartOf( "the Crypts of Dracula" ) || reg.IsPartOf( "the Castle of Dracula" ) ) ){ loot = new GhostBoard(); }
+				/*else if ( loot is BaseWoodBoard && Utility.RandomMinMax( 1, 10 ) == 1 && Worlds.GetMyWorld( from.Map, from.Location, from.X, from.Y ) == "the Underworld" ){ loot = new PetrifiedBoard(); }*/
+				/*else if ( loot is BaseWoodBoard && Utility.RandomMinMax( 1, 3 ) > 1 && ( reg.IsPartOf( typeof( NecromancerRegion ) ) || reg.IsPartOf( "the Crypts of Dracula" ) || reg.IsPartOf( "the Castle of Dracula" ) ) ){ loot = new GhostBoard(); }*/
 
 				if (loot.Stackable == true){ loot.Amount = Utility.RandomMinMax( 5, 50 ); }
 			}

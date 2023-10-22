@@ -42,7 +42,7 @@ namespace Server.Items
 			
 			base.AddNameProperties( list );	
 			
-			list.Add( "Say 'I wish to start skinning' near a corpse to butcher automatically." ); 
+			list.Add("Diga '.iniciar Auto-Esfolar' para usar o sistema de automação."); 
 		}
 
 		public override void Serialize( GenericWriter writer )

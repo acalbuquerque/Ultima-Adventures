@@ -17,6 +17,7 @@ namespace Server.Items
 		[Constructable]
 		public OilCloth() : base( 0x175D )
 		{
+			Name = "pano para óleos";
 			Hue = 2001;
 		}
 

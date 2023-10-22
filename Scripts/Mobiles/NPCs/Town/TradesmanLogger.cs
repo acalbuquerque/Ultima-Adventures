@@ -156,14 +156,14 @@ namespace Server.Items
 				else if ( CrateItem == "ebony" ){ from.AddToBackpack ( new EbonyBoard( CrateQty ) ); }
 				else if ( CrateItem == "golden oak" ){ from.AddToBackpack ( new GoldenOakBoard( CrateQty ) ); }
 				else if ( CrateItem == "hickory" ){ from.AddToBackpack ( new HickoryBoard( CrateQty ) ); }
-				else if ( CrateItem == "mahogany" ){ from.AddToBackpack ( new MahoganyBoard( CrateQty ) ); }
+				/*else if ( CrateItem == "mahogany" ){ from.AddToBackpack ( new MahoganyBoard( CrateQty ) ); }
 				else if ( CrateItem == "oak" ){ from.AddToBackpack ( new OakBoard( CrateQty ) ); }
 				else if ( CrateItem == "pine" ){ from.AddToBackpack ( new PineBoard( CrateQty ) ); }
-				else if ( CrateItem == "ghostwood" ){ from.AddToBackpack ( new GhostBoard( CrateQty ) ); }
+				else if ( CrateItem == "ghostwood" ){ from.AddToBackpack ( new GhostBoard( CrateQty ) ); }*/
 				else if ( CrateItem == "rosewood" ){ from.AddToBackpack ( new RosewoodBoard( CrateQty ) ); }
-				else if ( CrateItem == "walnut" ){ from.AddToBackpack ( new WalnutBoard( CrateQty ) ); }
+				/*else if ( CrateItem == "walnut" ){ from.AddToBackpack ( new WalnutBoard( CrateQty ) ); }
 				else if ( CrateItem == "petrified" ){ from.AddToBackpack ( new PetrifiedBoard( CrateQty ) ); }
-				else if ( CrateItem == "driftwood" ){ from.AddToBackpack ( new DriftwoodBoard( CrateQty ) ); }
+				else if ( CrateItem == "driftwood" ){ from.AddToBackpack ( new DriftwoodBoard( CrateQty ) ); }*/
 				else if ( CrateItem == "elven" ){ from.AddToBackpack ( new ElvenBoard( CrateQty ) ); }
 				else { from.AddToBackpack ( new Board( CrateQty ) ); }
 
@@ -234,14 +234,14 @@ namespace Server.Items
 				else if ( CrateItem == "ebony" ){ from.AddToBackpack ( new EbonyLog( CrateQty ) ); }
 				else if ( CrateItem == "golden oak" ){ from.AddToBackpack ( new GoldenOakLog( CrateQty ) ); }
 				else if ( CrateItem == "hickory" ){ from.AddToBackpack ( new HickoryLog( CrateQty ) ); }
-				else if ( CrateItem == "mahogany" ){ from.AddToBackpack ( new MahoganyLog( CrateQty ) ); }
+				/*else if ( CrateItem == "mahogany" ){ from.AddToBackpack ( new MahoganyLog( CrateQty ) ); }
 				else if ( CrateItem == "oak" ){ from.AddToBackpack ( new OakLog( CrateQty ) ); }
 				else if ( CrateItem == "pine" ){ from.AddToBackpack ( new PineLog( CrateQty ) ); }
-				else if ( CrateItem == "ghostwood" ){ from.AddToBackpack ( new GhostLog( CrateQty ) ); }
+				else if ( CrateItem == "ghostwood" ){ from.AddToBackpack ( new GhostLog( CrateQty ) ); }*/
 				else if ( CrateItem == "rosewood" ){ from.AddToBackpack ( new RosewoodLog( CrateQty ) ); }
-				else if ( CrateItem == "walnut" ){ from.AddToBackpack ( new WalnutLog( CrateQty ) ); }
+				/*else if ( CrateItem == "walnut" ){ from.AddToBackpack ( new WalnutLog( CrateQty ) ); }
 				else if ( CrateItem == "petrified" ){ from.AddToBackpack ( new PetrifiedLog( CrateQty ) ); }
-				else if ( CrateItem == "driftwood" ){ from.AddToBackpack ( new DriftwoodLog( CrateQty ) ); }
+				else if ( CrateItem == "driftwood" ){ from.AddToBackpack ( new DriftwoodLog( CrateQty ) ); }*/
 				else if ( CrateItem == "elven" ){ from.AddToBackpack ( new ElvenLog( CrateQty ) ); }
 				else { from.AddToBackpack ( new Log( CrateQty ) ); }
 

@@ -135,11 +135,14 @@ namespace Server.Items
 					case CraftResource.ShadowIron:		ar += 12; break;
 					case CraftResource.Copper:			ar += 18; break;
 					case CraftResource.Bronze:			ar += 24; break;
-					case CraftResource.Gold:			ar += 30; break;
+                    case CraftResource.Platinum:		ar += 28; break;
+                    case CraftResource.Gold:			ar += 30; break;
 					case CraftResource.Agapite:			ar += 36; break;
 					case CraftResource.Verite:			ar += 42; break;
 					case CraftResource.Valorite:		ar += 48; break;
-					case CraftResource.Nepturite:		ar += 48; break;
+                    case CraftResource.Titanium:		ar += 50; break;
+                    case CraftResource.Rosenium:		ar += 50; break;
+                    case CraftResource.Nepturite:		ar += 48; break;
 					case CraftResource.Obsidian:		ar += 48; break;
 					case CraftResource.Steel:			ar += 53; break;
 					case CraftResource.Brass:			ar += 60; break;
@@ -162,14 +165,14 @@ namespace Server.Items
 					case CraftResource.EbonyTree: 		ar += 18; break;
 					case CraftResource.GoldenOakTree: 	ar += 24; break;
 					case CraftResource.HickoryTree: 	ar += 30; break;
-					case CraftResource.MahoganyTree: 	ar += 32; break;
+					/*case CraftResource.MahoganyTree: 	ar += 32; break;
 					case CraftResource.DriftwoodTree: 	ar += 32; break;
 					case CraftResource.OakTree: 		ar += 36; break;
 					case CraftResource.PineTree: 		ar += 38; break;
-					case CraftResource.GhostTree: 		ar += 38; break;
+					case CraftResource.GhostTree: 		ar += 38; break;*/
 					case CraftResource.RosewoodTree: 	ar += 42; break;
-					case CraftResource.WalnutTree: 		ar += 46; break;
-					case CraftResource.PetrifiedTree: 	ar += 54; break;
+					/*case CraftResource.WalnutTree: 		ar += 46; break;
+					case CraftResource.PetrifiedTree: 	ar += 54; break;*/
 					case CraftResource.ElvenTree: 		ar += 90; break;
 					case CraftResource.YellowScales:	ar += 32; break;
 					case CraftResource.RedScales:		ar += 36; break;
@@ -536,14 +539,17 @@ namespace Server.Items
 			if ( m_Quality == ArmorQuality.Exceptional )
 				bonus += 20;
 
-			switch ( m_Durability )
+			if (m_Durability != null) 
 			{
-				case ArmorDurabilityLevel.Durable: bonus += 20; break;
-				case ArmorDurabilityLevel.Substantial: bonus += 50; break;
-				case ArmorDurabilityLevel.Massive: bonus += 70; break;
-				case ArmorDurabilityLevel.Fortified: bonus += 100; break;
-				case ArmorDurabilityLevel.Indestructible: bonus += 120; break;
-			}
+                switch (m_Durability)
+                {
+                    case ArmorDurabilityLevel.Durable: bonus += 20; break;
+                    case ArmorDurabilityLevel.Substantial: bonus += 50; break;
+                    case ArmorDurabilityLevel.Massive: bonus += 70; break;
+                    case ArmorDurabilityLevel.Fortified: bonus += 100; break;
+                    case ArmorDurabilityLevel.Indestructible: bonus += 120; break;
+                }
+            }
 
 			if ( Core.AOS )
 			{
@@ -1052,13 +1058,16 @@ namespace Server.Items
 							default:
 							case 0: info = OreInfo.Iron; break;
 							case 1: info = OreInfo.DullCopper; break;
-							case 2: info = OreInfo.ShadowIron; break;
-							case 3: info = OreInfo.Copper; break;
-							case 4: info = OreInfo.Bronze; break;
-							case 5: info = OreInfo.Gold; break;
-							case 6: info = OreInfo.Agapite; break;
-							case 7: info = OreInfo.Verite; break;
-							case 8: info = OreInfo.Valorite; break;
+							case 2: info = OreInfo.Copper; break;
+							case 3: info = OreInfo.Bronze; break;
+                            case 4: info = OreInfo.ShadowIron; break;
+                            case 5: info = OreInfo.Platinum; break;
+                            case 6: info = OreInfo.Gold; break;
+							case 7: info = OreInfo.Agapite; break;
+							case 8: info = OreInfo.Verite; break;
+							case 9: info = OreInfo.Valorite; break;
+                            case 10: info = OreInfo.Titanium; break;
+                            case 11: info = OreInfo.Rosenium; break;
 						}
 
 						m_Resource = CraftResources.GetFromOreInfo( info, mat );
@@ -1767,15 +1776,28 @@ m_MaxHits
 		{
 		    #region [Item Name Color]
 		    string resourceName = CraftResources.GetName(m_Resource);
+
 		    TextInfo cultInfo = new CultureInfo("en-US", false).TextInfo;
 
 		    if (string.IsNullOrEmpty(resourceName) || resourceName.ToLower() == "none" || resourceName.ToLower() == "normal" || resourceName.ToLower() == "iron")
-			resourceName = "";
+			{
+                resourceName = "";
+            }
 
-		    if (resourceName == "")
-			list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, ((m_Quality == ArmorQuality.Exceptional) ? "Exceptional " : "") + "{0}"), cultInfo.ToTitleCase(GetNameString()));
-		    else
-			list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, ((m_Quality == ArmorQuality.Exceptional) ? "Exceptional " : "") + "{0}\t{1}"), resourceName, GetNameString());
+            list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, "{0}"), cultInfo.ToTitleCase(GetNameString()));
+
+			if (m_Quality == ArmorQuality.Exceptional) 
+			{
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor("Excepcional", "#ffe066"));
+                //list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, "Excepcional"));
+            }
+			
+            if (resourceName != "")
+			{
+                //list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, ((m_Quality == ArmorQuality.Exceptional) ? "Exceptional " : "") + "{0}\t{1}"), resourceName, GetNameString());
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor(resourceName, "#8be4fc"));
+            }
+				
 		    #endregion
 		}
 
@@ -1807,8 +1829,8 @@ m_MaxHits
 			base.GetProperties( list );
 
 			if ( m_Crafter != null )
-				list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
-
+                list.Add(1050043, ItemNameHue.UnifiedItemProps.SetColor(m_Crafter.Name, "#8be4fc"));
+            //list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
 
 			bool md = false;
 			if (AdventuresFunctions.IsInMidland((object)this))
@@ -1917,7 +1939,7 @@ m_MaxHits
 			if ( m_HitPoints >= 0 && m_MaxHitPoints > 0 )
 				list.Add( 1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints ); // durability ~1_val~ / ~2_val~
 
-			list.Add("this item is considered armor");
+            list.Add(ItemNameHue.UnifiedItemProps.SetColor("Este item considerado como armadura", "#8be4fc"));
 		}
 
 		public override void OnSingleClick( Mobile from )
@@ -1995,7 +2017,7 @@ m_MaxHits
 
 				if( Core.ML && !(this is BaseShield) )
 				{
-					int bonus = (int)(from.Skills.ArmsLore.Value / 15);
+					int bonus = (int)(from.Skills.ArmsLore.Value / 20);
 
 					for( int i = 0; i < bonus; i++ )
 					{

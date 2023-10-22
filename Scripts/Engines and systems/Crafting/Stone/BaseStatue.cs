@@ -61,11 +61,14 @@ namespace Server.Items
 				else if ( statue.Resource == "Shadow Iron Granite" ){ color = MaterialInfo.GetMaterialColor( "shadow iron", "classic", 0 ); }
 				else if ( statue.Resource == "Copper Granite" ){ color = MaterialInfo.GetMaterialColor( "copper", "classic", 0 ); }
 				else if ( statue.Resource == "Bronze Granite" ){ color = MaterialInfo.GetMaterialColor( "bronze", "classic", 0 ); }
-				else if ( statue.Resource == "Gold Granite" ){ color = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); }
+                else if (statue.Resource == "Platinum Granite") { color = MaterialInfo.GetMaterialColor("platinum", "classic", 0); }
+                else if ( statue.Resource == "Gold Granite" ){ color = MaterialInfo.GetMaterialColor( "gold", "classic", 0 ); }
 				else if ( statue.Resource == "Agapite Granite" ){ color = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); }
 				else if ( statue.Resource == "Verite Granite" ){ color = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); }
 				else if ( statue.Resource == "Valorite Granite" ){ color = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); }
-				else if ( statue.Resource == "Nepturite Granite" ){ color = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); }
+                else if (statue.Resource == "Titanium Granite") { color = MaterialInfo.GetMaterialColor("titanium", "classic", 0); }
+                else if (statue.Resource == "Rosenium Granite") { color = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); }
+                else if ( statue.Resource == "Nepturite Granite" ){ color = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); }
 				else if ( statue.Resource == "Obsidian Granite" ){ color = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); }
 				else if ( statue.Resource == "Mithril Granite" ){ color = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); }
 				else if ( statue.Resource == "Xormite Granite" ){ color = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); }

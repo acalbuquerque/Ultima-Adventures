@@ -70,11 +70,11 @@ namespace Server.Items
 				typeof( EbonyBoard ),			typeof( EbonyBoard ),			typeof( EbonyBoard ),			typeof( EbonyBoard ),		typeof( EbonyBoard ),
 				typeof( GoldenOakBoard ),		typeof( GoldenOakBoard ),		typeof( GoldenOakBoard ),		typeof( GoldenOakBoard ),
 				typeof( HickoryBoard ),			typeof( HickoryBoard ),			typeof( HickoryBoard ),			typeof( HickoryBoard ),
-				typeof( MahoganyBoard ),		typeof( MahoganyBoard ),		typeof( MahoganyBoard ),
+				/*typeof( MahoganyBoard ),		typeof( MahoganyBoard ),		typeof( MahoganyBoard ),
 				typeof( OakBoard ),				typeof( OakBoard ),				typeof( OakBoard ),
-				typeof( PineBoard ),			typeof( PineBoard ),
+				typeof( PineBoard ),			typeof( PineBoard ),*/
 				typeof( RosewoodBoard ),		typeof( RosewoodBoard ),
-				typeof( WalnutBoard ),
+				/*typeof( WalnutBoard ),*/
 				typeof( IronIngot ),			typeof( IronIngot ),			typeof( IronIngot ),			typeof( IronIngot ),		typeof( IronIngot ),	typeof( IronIngot ),	typeof( IronIngot ),	typeof( IronIngot ),	typeof( IronIngot ),
 				typeof( DullCopperIngot ),		typeof( DullCopperIngot ),		typeof( DullCopperIngot ),		typeof( DullCopperIngot ),
 				typeof( ShadowIronIngot ),		typeof( ShadowIronIngot ),		typeof( ShadowIronIngot ),		typeof( ShadowIronIngot ),

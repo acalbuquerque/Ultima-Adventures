@@ -14,7 +14,9 @@ namespace Server.Items
 		public TallCabinet() : base( 0x2815 )
 		{
 			Weight = 1.0;
-		}
+			Name = "Gabinete Alto";
+
+        }
 
 		public TallCabinet( Serial serial ) : base( serial )
 		{
@@ -41,7 +43,9 @@ namespace Server.Items
 		public ShortCabinet() : base( 0x2817 )
 		{
 			Weight = 1.0;
-		}
+			Name = "Gabinete Baixo";
+
+        }
 
 		public ShortCabinet( Serial serial ) : base( serial )
 		{
@@ -69,7 +73,9 @@ namespace Server.Items
 		public RedArmoire() : base( 0x2857 )
 		{
 			Weight = 1.0;
-		}
+			Name = "Gaveteiro Simples";
+
+        }
 
 		public RedArmoire( Serial serial ) : base( serial )
 		{
@@ -96,7 +102,9 @@ namespace Server.Items
 		public CherryArmoire() : base( 0x285D )
 		{
 			Weight = 1.0;
-		}
+			Name = "Cômoda Grande";
+
+        }
 
 		public CherryArmoire( Serial serial ) : base( serial )
 		{
@@ -123,7 +131,9 @@ namespace Server.Items
 		public MapleArmoire() : base( 0x285B )
 		{
 			Weight = 1.0;
-		}
+			Name = "Cômoda Simples";
+
+        }
 
 		public MapleArmoire( Serial serial ) : base( serial )
 		{
@@ -150,7 +160,9 @@ namespace Server.Items
 		public ElegantArmoire() : base( 0x2859 )
 		{
 			Weight = 1.0;
-		}
+			Name = "Gaveteiro Elegante";
+
+        }
 
 		public ElegantArmoire( Serial serial ) : base( serial )
 		{
@@ -203,7 +215,9 @@ namespace Server.Items
 		[Constructable]
 		public EmptyBookcase() : base( 0xA9D )
 		{
-		}
+			Name = "Estante Maciça (Grande)";
+
+        }
 
 		public EmptyBookcase( Serial serial ) : base( serial )
 		{
@@ -288,6 +302,7 @@ namespace Server.Items
 		public Armoire() : base( 0xA4F )
 		{
 			Weight = 1.0;
+			Name = "Roupeiro";
 		}
 
 		public override void DisplayTo( Mobile m )
@@ -322,6 +337,7 @@ namespace Server.Items
 		[Constructable]
 		public FancyArmoire() : base( 0xA4D )
 		{
+			Name = "Guarda-Roupa";
 			Weight = 1.0;
 		}
 

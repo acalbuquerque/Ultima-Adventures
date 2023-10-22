@@ -16,7 +16,7 @@ namespace Server.Items
 		[Constructable]
 		public ScribesPen() : base( 0x2051 )
 		{
-			Name = "scribe's pen";
+			Name = "caneta de escriba";
 			Weight = 1.0;
 			Hue = 0x60;
 		}
@@ -24,8 +24,10 @@ namespace Server.Items
 		[Constructable]
 		public ScribesPen( int uses ) : base( uses, 0x0FBF )
 		{
-			Weight = 1.0;
-		}
+            Name = "caneta de escriba";
+            Weight = 1.0;
+            Hue = 0x60;
+        }
 
 		public ScribesPen( Serial serial ) : base( serial )
 		{
@@ -47,8 +49,8 @@ namespace Server.Items
 			if ( Weight == 2.0 )
 				Weight = 1.0;
 
-			Name = "scribe's pen";
-			ItemID = 0x2051;
+            Name = "caneta de escriba";
+            ItemID = 0x2051;
 			Hue = 0x60;
 		}
 	}

@@ -384,7 +384,13 @@ namespace Server.Mobiles
 				ore.ItemID = 0x19B9;
 				c.DropItem( ore );
 			}
-			else if ( this.RealName == "a shadow iron grue" )
+            else if (this.RealName == "a platinum grue")
+            {
+                Item ore = new PlatinumOre(Utility.RandomMinMax(3, 8));
+                ore.ItemID = 0x19B9;
+                c.DropItem(ore);
+            }
+            else if ( this.RealName == "a shadow iron grue" )
 			{
 				Item ore = new ShadowIronOre( Utility.RandomMinMax( 3, 8 ) );
 				ore.ItemID = 0x19B9;

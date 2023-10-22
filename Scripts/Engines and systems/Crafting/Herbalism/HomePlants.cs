@@ -262,10 +262,10 @@ namespace Server.Items
 			}
 			else
 			{
-				HomePlantName = "mushroom"; HomePlantID = Utility.RandomList( 0xD0C, 0xD0D, 0xD0E, 0xD0F, 0xD10, 0xD11, 0xD12, 0xD13, 0xD14, 0xD15, 0xD16, 0xD17, 0xD18, 0xD19 );
+				HomePlantName = "cogumelo"; HomePlantID = Utility.RandomList( 0xD0C, 0xD0D, 0xD0E, 0xD0F, 0xD10, 0xD11, 0xD12, 0xD13, 0xD14, 0xD15, 0xD16, 0xD17, 0xD18, 0xD19 );
 				switch ( Utility.RandomMinMax( 0, 5 ) )
 				{
-					case 1: HomePlantName = "large mushroom"; HomePlantID = Utility.RandomList( 0x222E, 0x222F, 0x2230, 0x2231 ); break;
+					case 1: HomePlantName = "cogumelo gigante"; HomePlantID = Utility.RandomList( 0x222E, 0x222F, 0x2230, 0x2231 ); break;
 				}
 
 				ItemID = HomePlantID;
@@ -318,7 +318,7 @@ namespace Server.Items
 			}
 			else
 			{
-				HomePlantName = "grass"; HomePlantID = Utility.RandomList( 0xCBB, 0xCBA, 0xCB9, 0xCC6, 0xD32, 0xD33 );
+				HomePlantName = "grama"; HomePlantID = Utility.RandomList( 0xCBB, 0xCBA, 0xCB9, 0xCC6, 0xD32, 0xD33 );
 				ItemID = HomePlantID;
 				Name = HomePlantName;
 			}

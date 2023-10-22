@@ -352,14 +352,14 @@ namespace Server.Items
 						case CraftResource.EbonyTree: price = (int)( price * 1.65 ); break;
 						case CraftResource.GoldenOakTree: price = (int)( price * 1.85 ); break;
 						case CraftResource.HickoryTree: price = (int)( price * 2.05 ); break;
-						case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
+						/*case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.DriftwoodTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.OakTree: price = (int)( price * 2.45 ); break;
 						case CraftResource.PineTree: price = (int)( price * 2.65 ); break;
-						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;
+						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;*/
 						case CraftResource.RosewoodTree: price = (int)( price * 2.85 ); break;
-						case CraftResource.WalnutTree: price = (int)( price * 3 ); break;
-						case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;
+						/*case CraftResource.WalnutTree: price = (int)( price * 3 ); break;
+						case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;*/
 						case CraftResource.ElvenTree: price = (int)( price * 6 ); break;
 					}
 
@@ -403,14 +403,14 @@ namespace Server.Items
 						case CraftResource.EbonyTree: price = (int)( price * 1.65 ); break;
 						case CraftResource.GoldenOakTree: price = (int)( price * 1.85 ); break;
 						case CraftResource.HickoryTree: price = (int)( price * 2.05 ); break;
-						case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
+						/*case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.DriftwoodTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.OakTree: price = (int)( price * 2.45 ); break;
 						case CraftResource.PineTree: price = (int)( price * 2.65 ); break;
-						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;
+						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;*/
 						case CraftResource.RosewoodTree: price = (int)( price * 2.85 ); break;
-						case CraftResource.WalnutTree: price = (int)( price * 3 ); break;
-						case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;
+						/*case CraftResource.WalnutTree: price = (int)( price * 3 ); break;
+						case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;*/
 						case CraftResource.ElvenTree: price = (int)( price * 6 ); break;
                     }
 
@@ -454,14 +454,14 @@ namespace Server.Items
 						case CraftResource.EbonyTree: price = (int)( price * 1.65 ); break;
 						case CraftResource.GoldenOakTree: price = (int)( price * 1.85 ); break;
 						case CraftResource.HickoryTree: price = (int)( price * 2.05 ); break;
-						case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
+						/*case CraftResource.MahoganyTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.DriftwoodTree: price = (int)( price * 2.25 ); break;
 						case CraftResource.OakTree: price = (int)( price * 2.45 ); break;
 						case CraftResource.PineTree: price = (int)( price * 2.65 ); break;
-						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;
+						case CraftResource.GhostTree: price = (int)( price * 2.65 ); break;*/
 						case CraftResource.RosewoodTree: price = (int)( price * 2.85 ); break;
-						case CraftResource.WalnutTree: price = (int)( price * 3 ); break;
-						case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;
+						/*case CraftResource.WalnutTree: price = (int)( price * 3 ); break;
+						case CraftResource.PetrifiedTree: price = (int)( price * 3.25 ); break;*/
 						case CraftResource.ElvenTree: price = (int)( price * 6 ); break;
                     }
 
@@ -564,14 +564,14 @@ namespace Server.Items
 			else if ( item is EbonyBoard ){ gold = 6 * amount; }
 			else if ( item is GoldenOakBoard ){ gold = 7 * amount; }
 			else if ( item is HickoryBoard ){ gold = 8 * amount; }
-			else if ( item is MahoganyBoard ){ gold = 9 * amount; }
+			/*else if ( item is MahoganyBoard ){ gold = 9 * amount; }
 			else if ( item is OakBoard ){ gold = 10 * amount; }
 			else if ( item is PineBoard ){ gold = 11 * amount; }
-			else if ( item is GhostBoard ){ gold = 11 * amount; }
+			else if ( item is GhostBoard ){ gold = 11 * amount; }*/
 			else if ( item is RosewoodBoard ){ gold = 12 * amount; }
-			else if ( item is WalnutBoard ){ gold = 13 * amount; }
+			/*else if ( item is WalnutBoard ){ gold = 13 * amount; }*/
 			else if ( item is ElvenBoard ){ gold = 26 * amount; }
-			else if ( item is PetrifiedBoard ){ gold = 14 * amount; }
+			/*else if ( item is PetrifiedBoard ){ gold = 14 * amount; }*/
 			else if ( item is BodySash ){ gold = 3 * amount; }
 			else if ( item is Bokuto ){ gold = 10 * amount; }
 			else if ( item is Bokuto ){ gold = 27 * amount; }
@@ -964,14 +964,14 @@ namespace Server.Items
 			else if ( item is EbonyLog ){ gold = 5 * amount; }
 			else if ( item is GoldenOakLog ){ gold = 6 * amount; }
 			else if ( item is HickoryLog ){ gold = 7 * amount; }
-			else if ( item is MahoganyLog ){ gold = 8 * amount; }
+			/*else if ( item is MahoganyLog ){ gold = 8 * amount; }
 			else if ( item is OakLog ){ gold = 9 * amount; }
 			else if ( item is PineLog ){ gold = 10 * amount; }
-			else if ( item is GhostLog ){ gold = 10 * amount; }
+			else if ( item is GhostLog ){ gold = 10 * amount; }*/
 			else if ( item is RosewoodLog ){ gold = 11 * amount; }
-			else if ( item is WalnutLog ){ gold = 12 * amount; }
+			/*else if ( item is WalnutLog ){ gold = 12 * amount; }*/
 			else if ( item is ElvenLog ){ gold = 24 * amount; }
-			else if ( item is PetrifiedLog ){ gold = 13 * amount; }
+			/*else if ( item is PetrifiedLog ){ gold = 13 * amount; }*/
 			else if ( item is LongFlask ){ gold = 40 * amount; }
 			else if ( item is LongPants ){ gold = 5 * amount; }
 			else if ( item is Longsword ){ gold = 27 * amount; }

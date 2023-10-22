@@ -686,9 +686,9 @@ namespace Server.Items
 								case 6: resource = new AgapiteOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
 								case 7: resource = new VeriteOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
 								case 8: resource = new ValoriteOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 9: resource = new ObsidianOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 10: resource = new MithrilOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 11: resource = new DwarvenOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
+								case 9: resource = new TitaniumOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
+								case 10: resource = new RoseniumOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
+								case 11: resource = new PlatinumOre(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
 							}	
 						}						
 					}
@@ -708,12 +708,12 @@ namespace Server.Items
 								case 2: resource = new EbonyLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
 								case 3: resource = new GoldenOakLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
 								case 4: resource = new HickoryLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 5: resource = new MahoganyLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
+								/*case 5: resource = new MahoganyLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
 								case 6: resource = new OakLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 7: resource = new PineLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 8: resource = new RosewoodLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 9: resource = new WalnutLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
-								case 10: resource = new DriftwoodLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
+								case 7: resource = new PineLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;*/
+								case 5: resource = new RosewoodLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
+								/*case 9: resource = new WalnutLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;
+								case 10: resource = new DriftwoodLog(); resource.Amount = Utility.RandomMinMax(1, 2); 		break;*/
 							}	
 						}					
 					}

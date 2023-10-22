@@ -23,32 +23,32 @@ namespace UltimaLive.LumberHarvest
     public override Type FinalHarvestPhase { get { return typeof(SmallFallenTreeEastWest); } }
     public SmallTree() : base ()
     {
-      #region Full Grown Tree Phase
-      //This is a simple tree type, so there is only main Tree phase
-/*
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(350, new HarvestResource(65.0, 25.0, 105.0, 1072541, typeof(OakLog)));
-      PhaseResources.Add(751, new HarvestResource(80.0, 40.0, 120.0, 1072542, typeof(AshLog)));
-      PhaseResources.Add(545, new HarvestResource(95.0, 55.0, 135.0, 1072543, typeof(YewLog)));
-      PhaseResources.Add(436, new HarvestResource(100.0, 60.0, 140.0, 1072544, typeof(HeartwoodLog)));
-      PhaseResources.Add(339, new HarvestResource(100.0, 60.0, 140.0, 1072545, typeof(BloodwoodLog)));
-      PhaseResources.Add(688, new HarvestResource(100.0, 60.0, 140.0, 1072546, typeof(FrostwoodLog)));
-*/
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            #region Full Grown Tree Phase
+            //This is a simple tree type, so there is only main Tree phase
+            /*
+                  PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
+                  PhaseResources.Add(350, new HarvestResource(65.0, 25.0, 105.0, 1072541, typeof(OakLog)));
+                  PhaseResources.Add(751, new HarvestResource(80.0, 40.0, 120.0, 1072542, typeof(AshLog)));
+                  PhaseResources.Add(545, new HarvestResource(95.0, 55.0, 135.0, 1072543, typeof(YewLog)));
+                  PhaseResources.Add(436, new HarvestResource(100.0, 60.0, 140.0, 1072544, typeof(HeartwoodLog)));
+                  PhaseResources.Add(339, new HarvestResource(100.0, 60.0, 140.0, 1072545, typeof(BloodwoodLog)));
+                  PhaseResources.Add(688, new HarvestResource(100.0, 60.0, 140.0, 1072546, typeof(FrostwoodLog)));
+            */
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 30.0, 90.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 40.0, 100.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(80.0, 50.0, 110.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(85.0, 55.0, 115.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 60.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 65.0, 125.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 70.0, 130.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
-      //this tree has two sets of leafs that are possible
-      foreach (int treeTrunkId in SmallTreeTrunkGraphics)
+            //this tree has two sets of leafs that are possible
+            foreach (int treeTrunkId in SmallTreeTrunkGraphics)
       {
         BaseAssetSets.Add(new GraphicAsset[] { new GraphicAsset(treeTrunkId, 0, 0) });
       }
@@ -125,41 +125,41 @@ namespace UltimaLive.LumberHarvest
     public SmallFallenTreeEastWest()
     {
 
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
-/*
-      HarvestResource logResource       = new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log));
-      HarvestResource ashResource       = new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) );
-      HarvestResource cherryResource       = new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) );
-      HarvestResource ebonyResource       = new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) );
-      HarvestResource goldenoakResource = new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) );
-      HarvestResource hickoryResource = new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) );
-      HarvestResource mahoganyResource = new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) );
-      HarvestResource oakResource       = new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) );
-      HarvestResource pineResource = new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) );
-      HarvestResource rosewoodResource = new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) );
-      HarvestResource walnutResource = new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) );
-      HarvestResource elvenResource = new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) );
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
+            /*
+                  HarvestResource logResource       = new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log));
+                  HarvestResource ashResource       = new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) );
+                  HarvestResource cherryResource       = new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) );
+                  HarvestResource ebonyResource       = new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) );
+                  HarvestResource goldenoakResource = new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) );
+                  HarvestResource hickoryResource = new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) );
+                  HarvestResource mahoganyResource = new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) );
+                  HarvestResource oakResource       = new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) );
+                  HarvestResource pineResource = new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) );
+                  HarvestResource rosewoodResource = new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) );
+                  HarvestResource walnutResource = new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) );
+                  HarvestResource elvenResource = new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) );
 
-      PhaseResources.Add(0,   logResource);
-      PhaseResources.Add(350, oakResource);      
-      PhaseResources.Add(751, ashResource);       
-      PhaseResources.Add(545, yewResource);       
-      PhaseResources.Add(436, heartwoodResource); 
-      PhaseResources.Add(339, bloodwoodResource);
-      PhaseResources.Add(688, frostwoodResource); 
-*/
-      GraphicAsset asset1 = new GraphicAsset(0xCF5, -3, 0);
+                  PhaseResources.Add(0,   logResource);
+                  PhaseResources.Add(350, oakResource);      
+                  PhaseResources.Add(751, ashResource);       
+                  PhaseResources.Add(545, yewResource);       
+                  PhaseResources.Add(436, heartwoodResource); 
+                  PhaseResources.Add(339, bloodwoodResource);
+                  PhaseResources.Add(688, frostwoodResource); 
+            */
+            GraphicAsset asset1 = new GraphicAsset(0xCF5, -3, 0);
       asset1.HarvestResourceBaseAmount = 10;
 
       GraphicAsset asset2 = new GraphicAsset(0xCF6, -2, 0);
@@ -178,20 +178,20 @@ namespace UltimaLive.LumberHarvest
 
     public SmallFallenTreeNorthSouth()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
-      GraphicAsset asset1 = new GraphicAsset(0xCF4, 0, -1);
+            GraphicAsset asset1 = new GraphicAsset(0xCF4, 0, -1);
       asset1.HarvestResourceBaseAmount = 10;
 
       GraphicAsset asset2 = new GraphicAsset(0xCF3, 0, -2);
@@ -280,21 +280,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenOhiiTree()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C83, -1, 0);// bad
+            GraphicAsset asset1 = new GraphicAsset(0x3C83, -1, 0);// bad
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C84, -2, 0);// bad
       asset2.HarvestResourceBaseAmount = 10;
@@ -374,21 +374,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenGenericTree()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C0E, -1, 0);// bad
+            GraphicAsset asset1 = new GraphicAsset(0x3C0E, -1, 0);// bad
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C0F, -2, 0);// bad
       asset2.HarvestResourceBaseAmount = 10;
@@ -479,21 +479,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenGenericTree2()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C21, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3C21, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C22, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -578,21 +578,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenGenericTree3()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C32, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3C32, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C33, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -688,21 +688,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenCedarTree()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3BEC, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3BEC, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3BED, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -784,21 +784,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenCedarTree2()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3BFC, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3BFC, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3BFD, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -880,21 +880,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenOakTree()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3BC2, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3BC2, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
 
       GraphicAsset asset2 = new GraphicAsset(0x3BC3, -2, 0);
@@ -993,21 +993,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenOakTree2()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3BD5, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3BD5, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3BD6, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -1105,21 +1105,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenWalnutTree()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C48, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3C48, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C49, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -1203,21 +1203,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenWalnutTree2()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C59, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3C59, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C5A, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -1312,21 +1312,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenWillowTree()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C6F, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3C6F, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C70, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -1418,21 +1418,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenCypressTree()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3C92, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3C92, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3C93, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -1519,21 +1519,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenCypressTree2()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3CA4, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3CA4, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3CA5, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -1616,21 +1616,21 @@ namespace UltimaLive.LumberHarvest
 
     public FallenCypressTree3()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3CB4, -1, 0);
+            GraphicAsset asset1 = new GraphicAsset(0x3CB4, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3CB5, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;
@@ -1719,21 +1719,22 @@ namespace UltimaLive.LumberHarvest
 
     public FallenCypressTree4()
     {
-      PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ash", "", 0 ), new HarvestResource(55.0, 25.0, 90.0, "", typeof( AshLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "cherry", "", 0 ), new HarvestResource(  60.0, 30.0, 95.0, "", typeof( CherryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "ebony", "", 0 ), new HarvestResource(  65.0, 35.0, 100.0, "", typeof( EbonyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "golden oak", "", 0 ), new HarvestResource(  70.0, 40.0, 105.0, "", typeof( GoldenOakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "hickory", "", 0 ), new HarvestResource(  75.0, 45.0, 110.0, "", typeof( HickoryLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "rosewood", "", 0 ), new HarvestResource(  95.0, 75.0, 130.0, "", typeof( RosewoodLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));
-      PhaseResources.Add(MaterialInfo.GetMaterialColor( "elven", "", 0 ), new HarvestResource(  100.1, 95.0, 140.0, "", typeof( ElvenLog ) ));
+            PhaseResources.Add(0, new HarvestResource(00.0, 00.0, 120.0, 1072540, typeof(Log)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ash", "", 0), new HarvestResource(60.0, 50.0, 120.0, "", typeof(AshLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("ebony", "", 0), new HarvestResource(70.0, 60.0, 120.0, "", typeof(EbonyLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("golden oak", "", 0), new HarvestResource(80.0, 70.0, 120.0, "", typeof(GoldenOakLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("cherry", "", 0), new HarvestResource(90.0, 80.0, 120.0, "", typeof(CherryLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("rosewood", "", 0), new HarvestResource(95.0, 85.0, 120.0, "", typeof(RosewoodLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("elven", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(ElvenLog)));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor("hickory", "", 0), new HarvestResource(100.0, 90.0, 120.0, "", typeof(HickoryLog)));
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "mahogany", "", 0 ), new HarvestResource(  80.0, 50.0, 115.0, "", typeof( MahoganyLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "oak", "", 0 ), new HarvestResource(  85.0, 55.0, 120.0, "", typeof( OakLog ) ));
+            PhaseResources.Add(MaterialInfo.GetMaterialColor( "pine", "", 0 ), new HarvestResource(  90.0, 65.0, 125.0, "", typeof( PineLog ) ));*/
+            /*PhaseResources.Add(MaterialInfo.GetMaterialColor( "walnut", "", 0 ), new HarvestResource(  100.0, 85.0, 135.0, "", typeof( WalnutLog ) ));*/
 
 
-      GraphicAsset asset1 = new GraphicAsset(0x3CC7, -1, 0);
+
+            GraphicAsset asset1 = new GraphicAsset(0x3CC7, -1, 0);
       asset1.HarvestResourceBaseAmount = 10;
       GraphicAsset asset2 = new GraphicAsset(0x3CC8, -2, 0);
       asset2.HarvestResourceBaseAmount = 10;

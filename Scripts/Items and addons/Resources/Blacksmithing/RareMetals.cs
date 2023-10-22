@@ -40,11 +40,14 @@ namespace Server.Items
 			else if ( Name == "copper stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "copper", "", 0 ); }
 			else if ( Name == "verite stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "verite", "", 0 ); }
 			else if ( Name == "valorite stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "valorite", "", 0 ); }
-			else if ( Name == "agapite stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "agapite", "", 0 ); }
+            else if (Name == "titanium stones") { Hue = Server.Misc.MaterialInfo.GetMaterialColor("titanium", "", 0); }
+            else if (Name == "rosenium stones") { Hue = Server.Misc.MaterialInfo.GetMaterialColor("rosenium", "", 0); }
+            else if ( Name == "agapite stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "agapite", "", 0 ); }
 			else if ( Name == "bronze stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "bronze", "", 0 ); }
 			else if ( Name == "dull copper stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "dull copper", "", 0 ); }
 			else if ( Name == "gold stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "gold", "", 0 ); }
-			else if ( Name == "shadow iron stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "shadow iron", "", 0 ); }
+            else if (Name == "platinum stones") { Hue = Server.Misc.MaterialInfo.GetMaterialColor("platinum", "", 0); }
+            else if ( Name == "shadow iron stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "shadow iron", "", 0 ); }
 			else if ( Name == "mithril stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "mithril", "", 0 ); }
 			else if ( Name == "xormite stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "xormite", "", 0 ); }
 			else if ( Name == "obsidian stones" ){ Hue = Server.Misc.MaterialInfo.GetMaterialColor( "obsidian", "", 0 ); }
@@ -228,8 +231,26 @@ namespace Server.Items
 					ingot.Amount = this.Amount;
 					from.AddToBackpack( ingot );
 				}
+                else if (Name == "titanium stones")
+                {
+                    Item ingot = new TitaniumIngot();
+                    ingot.Amount = this.Amount;
+                    from.AddToBackpack(ingot);
+                }
+                else if (Name == "rosenium stones")
+                {
+                    Item ingot = new RoseniumIngot();
+                    ingot.Amount = this.Amount;
+                    from.AddToBackpack(ingot);
+                }
+                else if (Name == "platinum stones")
+                {
+                    Item ingot = new PlatinumIngot();
+                    ingot.Amount = this.Amount;
+                    from.AddToBackpack(ingot);
+                }
 
-				from.PlaySound( 0x208 );
+                from.PlaySound( 0x208 );
 				from.SendMessage( "You smelt the stones and put the ingots in your backpack." );
 				this.Delete();
 			}

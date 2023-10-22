@@ -44,7 +44,7 @@ namespace Server.Items
 
 			int iColor = 0;
 			int iThing = 0x9AA;
-			string sArty = "a strange";
+			string sArty = "estranho";
 			switch( Utility.RandomMinMax( 0, 6 ) )
 			{
 				case 0: sArty = "an odd ";		break;
@@ -63,7 +63,7 @@ namespace Server.Items
 				case 1: iThing = 0xE7D; sThing = "metal chest"; break;
 			}
 
-			switch ( Utility.RandomMinMax( 0, 18 ) ) 
+			switch ( Utility.RandomMinMax( 0, 22 ) ) 
 			{
 				case 0: iColor = MaterialInfo.GetMaterialColor( "silver", "classic", 0 ); sThing = "silver chest";		break;
 				case 1: iColor = MaterialInfo.GetMaterialColor( "emerald", "classic", 0 ); sThing = "emerald chest";		break;
@@ -84,7 +84,10 @@ namespace Server.Items
 				case 16: iColor = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); sThing = "obsidian chest";			break;
 				case 17: iColor = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); sThing = "mithril chest";			break;
 				case 18: iColor = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); sThing = "dwarven chest";			break;
-			}
+                case 19: iColor = MaterialInfo.GetMaterialColor("titanium", "classic", 0); sThing = "titanium chest"; break;
+                case 20: iColor = MaterialInfo.GetMaterialColor("rosenium", "classic", 0); sThing = "rosenium chest"; break;
+                case 21: iColor = MaterialInfo.GetMaterialColor("platinum", "classic", 0); sThing = "platinum chest"; break;
+            }
 
 			sThing = sArty + sThing;
 
@@ -120,13 +123,13 @@ namespace Server.Items
 				case 25: sLanguage = "magic"; break;
 			}
 
-			string sPart = "a strange";
+			string sPart = "estranho";
 			switch( Utility.RandomMinMax( 0, 5 ) )
 			{
-				case 0:	sPart = "a strange";	break;
-				case 1:	sPart = "an odd";		break;
+				case 0:	sPart = "estranho";	break;
+				case 1:	sPart = "estranho";		break;
 				case 2:	sPart = "an ancient";	break;
-				case 3:	sPart = "a weird";		break;
+				case 3:	sPart = "estranho";		break;
 				case 4:	sPart = "a cryptic";	break;
 				case 5:	sPart = "a mystical";	break;
 			}

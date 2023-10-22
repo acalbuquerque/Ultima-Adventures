@@ -12,16 +12,19 @@ namespace Server.Items
 		[Constructable]
 		public SewingKit() : base( 0x4C81 )
 		{
-			Name = "sewing kit";
-			Weight = 2.0;
+            Name = "Kit de Costura";
+            Weight = 2.0;
 			Hue = Utility.RandomDyedHue();
-		}
+            if (Utility.RandomBool()) { ItemID = 0x4C80; }
+        }
 
 		[Constructable]
 		public SewingKit( int uses ) : base( uses, 0x4C81 )
 		{
-			Weight = 2.0;
-			if ( Utility.RandomBool() ){ ItemID = 0x4C80; }
+            Name = "Kit de Costura";
+            Weight = 2.0;
+            Hue = Utility.RandomDyedHue();
+            if ( Utility.RandomBool() ){ ItemID = 0x4C80; }
 		}
 
 		public SewingKit( Serial serial ) : base( serial )

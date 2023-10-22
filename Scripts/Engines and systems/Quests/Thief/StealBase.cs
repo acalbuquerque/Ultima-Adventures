@@ -376,7 +376,7 @@ namespace Server.Items
 
 				int iColor = 0;
 				int iThing = 0x9A8;
-				string sArty = "a strange";
+				string sArty = "estranho";
 				switch( Utility.RandomMinMax( 0, 6 ) )
 				{
 					case 0: sArty = "an odd ";		break;

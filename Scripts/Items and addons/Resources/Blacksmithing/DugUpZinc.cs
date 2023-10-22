@@ -29,7 +29,7 @@ namespace Server.Items
 		[Constructable]
 		public DugUpZinc( int amount ) : base( 0x19B9 )
 		{
-			Name = "zinc";
+			Name = "zinco";
 			Stackable = true;
 			Hue = 0x9C4;
 			Amount = amount;

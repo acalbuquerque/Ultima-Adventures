@@ -12,13 +12,15 @@ namespace Server.Items
 		public Scorp() : base( 0x10E7 )
 		{
 			Weight = 1.0;
-		}
+            Name = "scorps tool";
+        }
 
 		[Constructable]
 		public Scorp( int uses ) : base( uses, 0x10E7 )
 		{
 			Weight = 1.0;
-		}
+            Name = "scorps tool";
+        }
 
 		public Scorp( Serial serial ) : base( serial )
 		{

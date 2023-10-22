@@ -11,14 +11,16 @@ namespace Server.Items
 		[Constructable]
 		public MalletAndChisel() : base( 0x12B3 )
 		{
-			Weight = 1.0;
-		}
+			Weight = 2.0;
+            Name = "martelo e cinzel";
+        }
 
 		[Constructable]
 		public MalletAndChisel( int uses ) : base( uses, 0x12B3 )
 		{
-			Weight = 1.0;
-		}
+            Weight = 2.0;
+            Name = "martelo e cinzel";
+        }
 
 		public MalletAndChisel( Serial serial ) : base( serial )
 		{

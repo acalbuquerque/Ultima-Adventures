@@ -13,13 +13,15 @@ namespace Server.Items
 		public MouldingPlane() : base( 0x102C )
 		{
 			Weight = 2.0;
-		}
+            Name = "Plaina";
+        }
 
 		[Constructable]
 		public MouldingPlane( int uses ) : base( uses, 0x102C )
 		{
 			Weight = 2.0;
-		}
+            Name = "Plaina";
+        }
 
 		public MouldingPlane( Serial serial ) : base( serial )
 		{

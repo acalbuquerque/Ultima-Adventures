@@ -35,7 +35,7 @@ namespace Server.Items
             else if (chancetest < 0.95)
                 chance = 11;
             else if (chancetest >= 0.95)
-                chance = 14;
+                chance = 15;
             
             switch ( Utility.Random( chance ) )
             {
@@ -48,11 +48,13 @@ namespace Server.Items
                 case 6: ArmorMaterial = "Agapite"; break;
                 case 7: ArmorMaterial = "Verite"; break;
                 case 8: ArmorMaterial = "Valorite"; break;
-                case 9: ArmorMaterial = "Nepturite"; break;
-                case 10: ArmorMaterial = "Obsidian"; break;
-                case 11: ArmorMaterial = "Steel"; break;
-                case 12: ArmorMaterial = "Brass"; break;
-                case 13: ArmorMaterial = "Mithril"; break;   
+                case 9: ArmorMaterial = "Titanium"; break;
+                case 10: ArmorMaterial = "Nepturite"; break;
+                case 11: ArmorMaterial = "Obsidian"; break;
+                case 12: ArmorMaterial = "Steel"; break;
+                case 13: ArmorMaterial = "Brass"; break;
+                case 14: ArmorMaterial = "Mithril"; break;
+                
             }
 
 			if ( ArmorMaterial == "Dull Copper" ){ 		Hue = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); }
@@ -63,7 +65,8 @@ namespace Server.Items
 			else if ( ArmorMaterial == "Agapite" ){ 	Hue = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); }
 			else if ( ArmorMaterial == "Verite" ){ 		Hue = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); }
 			else if ( ArmorMaterial == "Valorite" ){ 	Hue = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); }
-			else if ( ArmorMaterial == "Nepturite" ){ 	Hue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); }
+            else if (ArmorMaterial == "Titanium") { Hue = MaterialInfo.GetMaterialColor("titanium", "classic", 0); }
+            else if ( ArmorMaterial == "Nepturite" ){ 	Hue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); }
 			else if ( ArmorMaterial == "Obsidian" ){ 	Hue = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); }
 			else if ( ArmorMaterial == "Steel" ){ 		Hue = MaterialInfo.GetMaterialColor( "steel", "classic", 0 ); }
 			else if ( ArmorMaterial == "Brass" ){ 		Hue = MaterialInfo.GetMaterialColor( "brass", "classic", 0 ); }
@@ -140,13 +143,14 @@ namespace Server.Items
 							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ) ){ 		mod=mod-6; }
 							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "verite", "classic", 0 ) ){ 			mod=mod-7; }
 							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ) ){ 		mod=mod-8; }
-							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ) ){ 		mod=mod-9; }
-							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ) ){ 		mod=mod-10; }
-							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "steel", "classic", 0 ) ){ 			mod=mod-11; }
-							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "brass", "classic", 0 ) ){ 			mod=mod-12; }
-							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ) ){ 		mod=mod-13; }
-							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ) ){ 		mod=mod-14; }
-							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ) ){ 		mod=mod-15; }
+                            else if (xArmor.Hue == MaterialInfo.GetMaterialColor("titanium", "classic", 0)) { mod = mod - 9; }
+                            else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ) ){ 		mod=mod-10; }
+							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ) ){ 		mod=mod-11; }
+							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "steel", "classic", 0 ) ){ 			mod=mod-12; }
+							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "brass", "classic", 0 ) ){ 			mod=mod-13; }
+							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ) ){ 		mod=mod-14; }
+							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ) ){ 		mod=mod-15; }
+							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ) ){ 		mod=mod-16; }
 							else if ( xArmor.Hue == MaterialInfo.GetMaterialColor( "silver", "classic", 0 ) ){ 			mod=mod-0; }
 
 							if ( m_ArmorMaterial == "Dull Copper" ){ 		mod=mod+1; 		xArmor.Hue = MaterialInfo.GetMaterialColor( "dull copper", "classic", 0 ); }
@@ -157,13 +161,14 @@ namespace Server.Items
 							else if ( m_ArmorMaterial == "Agapite" ){ 		mod=mod+6; 		xArmor.Hue = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); }
 							else if ( m_ArmorMaterial == "Verite" ){ 		mod=mod+7; 		xArmor.Hue = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); }
 							else if ( m_ArmorMaterial == "Valorite" ){ 		mod=mod+8; 		xArmor.Hue = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); }
-							else if ( m_ArmorMaterial == "Nepturite" ){ 	mod=mod+9; 		xArmor.Hue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); }
-							else if ( m_ArmorMaterial == "Obsidian" ){ 		mod=mod+10; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); }
-							else if ( m_ArmorMaterial == "Steel" ){ 		mod=mod+11; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "steel", "classic", 0 ); }
-							else if ( m_ArmorMaterial == "Brass" ){ 		mod=mod+12; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "brass", "classic", 0 ); }
-							else if ( m_ArmorMaterial == "Mithril" ){ 		mod=mod+13; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); }
-							else if ( m_ArmorMaterial == "Xormite" ){ 		mod=mod+14; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); }
-							else if ( m_ArmorMaterial == "Dwarven" ){ 		mod=mod+15; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); }
+                            else if (m_ArmorMaterial == "Titanium") { mod = mod + 9; xArmor.Hue = MaterialInfo.GetMaterialColor("titanium", "classic", 0); }
+                            else if ( m_ArmorMaterial == "Nepturite" ){ 	mod=mod+10; 		xArmor.Hue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); }
+							else if ( m_ArmorMaterial == "Obsidian" ){ 		mod=mod+11; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); }
+							else if ( m_ArmorMaterial == "Steel" ){ 		mod=mod+12; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "steel", "classic", 0 ); }
+							else if ( m_ArmorMaterial == "Brass" ){ 		mod=mod+13; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "brass", "classic", 0 ); }
+							else if ( m_ArmorMaterial == "Mithril" ){ 		mod=mod+14; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "mithril", "classic", 0 ); }
+							else if ( m_ArmorMaterial == "Xormite" ){ 		mod=mod+15; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "xormite", "classic", 0 ); }
+							else if ( m_ArmorMaterial == "Dwarven" ){ 		mod=mod+16; 	xArmor.Hue = MaterialInfo.GetMaterialColor( "dwarven", "classic", 0 ); }
 							else { 											mod=mod+0; 		xArmor.Hue = MaterialInfo.GetMaterialColor( "silver", "classic", 0 ); }
 
 							xArmor.SetStr( xArmor.RawStr+mod );
@@ -211,7 +216,8 @@ namespace Server.Items
 			else if ( bc.Hue == MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ) ){ 		armor.Hue = MaterialInfo.GetMaterialColor( "agapite", "classic", 0 ); 		armor.ArmorMaterial = "Agapite"; }
 			else if ( bc.Hue == MaterialInfo.GetMaterialColor( "verite", "classic", 0 ) ){ 			armor.Hue = MaterialInfo.GetMaterialColor( "verite", "classic", 0 ); 		armor.ArmorMaterial = "Verite"; }
 			else if ( bc.Hue == MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ) ){ 		armor.Hue = MaterialInfo.GetMaterialColor( "valorite", "classic", 0 ); 		armor.ArmorMaterial = "Valorite"; }
-			else if ( bc.Hue == MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ) ){ 		armor.Hue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); 	armor.ArmorMaterial = "Nepturite"; }
+            else if (bc.Hue == MaterialInfo.GetMaterialColor("titanium", "classic", 0)) { armor.Hue = MaterialInfo.GetMaterialColor("titanium", "classic", 0); armor.ArmorMaterial = "Titanium"; }
+            else if ( bc.Hue == MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ) ){ 		armor.Hue = MaterialInfo.GetMaterialColor( "nepturite", "classic", 0 ); 	armor.ArmorMaterial = "Nepturite"; }
 			else if ( bc.Hue == MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ) ){ 		armor.Hue = MaterialInfo.GetMaterialColor( "obsidian", "classic", 0 ); 		armor.ArmorMaterial = "Obsidian"; }
 			else if ( bc.Hue == MaterialInfo.GetMaterialColor( "steel", "classic", 0 ) ){ 			armor.Hue = MaterialInfo.GetMaterialColor( "steel", "classic", 0 ); 		armor.ArmorMaterial = "Steel"; }
 			else if ( bc.Hue == MaterialInfo.GetMaterialColor( "brass", "classic", 0 ) ){ 			armor.Hue = MaterialInfo.GetMaterialColor( "brass", "classic", 0 ); 		armor.ArmorMaterial = "Brass"; }

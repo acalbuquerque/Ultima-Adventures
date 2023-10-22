@@ -12,17 +12,18 @@ namespace Server.Items
 		[Constructable]
 		public SmithHammer() : base( 0x0FB4 )
 		{
-			Name = "smith hammer";
-			Weight = 8.0;
+			Name = "martelo de ferreiro";
+			Weight = 4.0;
 			Layer = Layer.OneHanded;
 		}
 
 		[Constructable]
 		public SmithHammer( int uses ) : base( uses, 0x0FB4 )
 		{
-			Weight = 8.0;
-			Layer = Layer.OneHanded;
-		}
+            Name = "martelo de ferreiro";
+            Weight = 4.0;
+            Layer = Layer.OneHanded;
+        }
 
 		public SmithHammer( Serial serial ) : base( serial )
 		{

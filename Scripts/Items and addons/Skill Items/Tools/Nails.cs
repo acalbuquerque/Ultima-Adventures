@@ -7,21 +7,22 @@ namespace Server.Items
 	[Flipable( 0x102E, 0x102F )]
 	public class Nails : BaseTool
 	{
-		public override CraftSystem CraftSystem{ get{ return DefCarpentry.CraftSystem; } }
+		public override CraftSystem CraftSystem{ get{ return DefTailoring.CraftSystem; } }
 
 		[Constructable]
 		public Nails() : base( 0x102E )
 		{
 			Weight = 2.0;
 			Stackable = true;
-		}
+            Name = "Kit de Costura";
+        }
 
 		[Constructable]
 		public Nails( int uses ) : base( uses, 0x102C )
 		{
 			Weight = 2.0;
-			
-		}
+            Name = "Kit de Costura";
+        }
 
 		public Nails( Serial serial ) : base( serial )
 		{

@@ -11,14 +11,16 @@ namespace Server.Items
 		[Constructable]
 		public Hammer() : base( 0x102A )
 		{
-			Weight = 2.0;
-		}
+            Weight = 2.0;
+            Name = "martelo";
+        }
 
 		[Constructable]
 		public Hammer( int uses ) : base( uses, 0x102A )
 		{
-			Weight = 2.0;
-		}
+            Weight = 2.0;
+            Name = "martelo";
+        }
 
 		public Hammer( Serial serial ) : base( serial )
 		{

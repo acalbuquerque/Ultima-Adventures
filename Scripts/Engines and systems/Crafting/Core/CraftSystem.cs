@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Server.Items;
+using Server.Mobiles;
 
 namespace Server.Engines.Craft
 {
@@ -34,8 +36,10 @@ namespace Server.Engines.Craft
 		public CraftGroupCol CraftGroups{ get { return m_CraftGroups; } }
 		public CraftSubResCol CraftSubRes{ get { return m_CraftSubRes; } }
 		public CraftSubResCol CraftSubRes2{ get { return m_CraftSubRes2; } }
-		
-		public abstract SkillName MainSkill{ get; }
+
+        public static Hashtable PlayerLoc;
+
+        public abstract SkillName MainSkill{ get; }
 
 		public virtual int GumpTitleNumber{ get{ return 0; } }
 		public virtual string GumpTitleString{ get{ return ""; } }
@@ -126,14 +130,42 @@ namespace Server.Engines.Craft
 		{	
 			// Verify if the type is in the list of the craftable item
 			CraftItem craftItem = m_CraftItems.SearchFor( type );
+
 			if ( craftItem != null )
 			{
-				// The item is in the list, try to create it
-				// Test code: items like sextant parts can be crafted either directly from ingots, or from different parts
-				realCraftItem.Craft( from, this, typeRes, tool );
-				//craftItem.Craft( from, this, typeRes, tool );
-			}
+				PlayerMobile pm = from as PlayerMobile;
+                Point3D loc = pm.Location; //check if player moved, if so, stop
+                foreach (DictionaryEntry de in CraftSystem.PlayerLoc)
+                {
+                    if (de.Key == pm)
+                    {
+                        Point3D oldloc = (Point3D)de.Value;
+                        if (loc.X != oldloc.X || loc.Y != oldloc.Y)
+                        {
+							stopCraftAction(pm);
+                            pm.SendMessage(55, "Você se moveu e parou de criar o(s) item(s).");
+                            break;
+                        }
+                    }
+                }
+
+				if (CraftSystem.PlayerLoc.Contains(pm)) 
+				{
+                    // The item is in the list, try to create it
+                    // Test code: items like sextant parts can be crafted either directly from ingots, or from different parts
+                    realCraftItem.Craft(from, this, typeRes, tool);
+                    //craftItem.Craft( from, this, typeRes, tool );
+                }
+            }
 		}
+
+		public void stopCraftAction(PlayerMobile pm) 
+		{
+            if (CraftSystem.PlayerLoc.Contains(pm))
+                CraftSystem.PlayerLoc.Remove(pm);
+
+            pm.SendMessage(55, "Você parou de criar item(s).");
+        }
 
 		public int AddCraft( Type typeItem, TextDefinition group, TextDefinition name, double minSkill, double maxSkill, Type typeRes, TextDefinition nameRes, int amount )
 		{

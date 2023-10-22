@@ -89,11 +89,11 @@ namespace Server.Items
 				case 0:	sLook = "a rare";		break;
 				case 1:	sLook = "an old";		break;
 				case 2:	sLook = "an ancient";	break;
-				case 3:	sLook = "an unusual";	break;
-				case 4:	sLook = "a curious";	break;
+				case 3:	sLook = "incomum";	break;
+				case 4:	sLook = "curioso";	break;
 				case 5:	sLook = "a unique";		break;
-				case 6:	sLook = "a strange";	break;
-				case 7:	sLook = "an odd";		break;
+				case 6:	sLook = "estranho";	break;
+				case 7:	sLook = "estranho";		break;
 			}
 
 			switch ( Utility.RandomMinMax( 0, 50 ) )
@@ -164,7 +164,7 @@ namespace Server.Items
 				case 28: sLanguage = "runic"; break;
 			}
 
-			string sPart = "a strange";
+			string sPart = "estranho";
 			switch( Utility.RandomMinMax( 0, 5 ) )
 			{
 				case 0:	sPart = "a strange ";	break;

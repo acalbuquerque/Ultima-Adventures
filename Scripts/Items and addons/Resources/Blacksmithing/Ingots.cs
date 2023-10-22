@@ -51,21 +51,24 @@ namespace Server.Items
 
 					switch ( reader.ReadInt() )
 					{
-						case 0: info = OreInfo.Iron; break;
-						case 1: info = OreInfo.DullCopper; break;
-						case 2: info = OreInfo.ShadowIron; break;
-						case 3: info = OreInfo.Copper; break;
-						case 4: info = OreInfo.Bronze; break;
-						case 5: info = OreInfo.Gold; break;
-						case 6: info = OreInfo.Agapite; break;
-						case 7: info = OreInfo.Verite; break;
-						case 8: info = OreInfo.Valorite; break;
-						case 9: info = OreInfo.Nepturite; break;
-						case 10: info = OreInfo.Obsidian; break;
-						case 11: info = OreInfo.Mithril; break;
-						case 12: info = OreInfo.Xormite; break;
-						case 13: info = OreInfo.Dwarven; break;
-						default: info = null; break;
+                            case 0: info = OreInfo.Iron; break;
+                            case 1: info = OreInfo.DullCopper; break;
+                            case 2: info = OreInfo.Copper; break;
+                            case 3: info = OreInfo.Bronze; break;
+                            case 4: info = OreInfo.ShadowIron; break;
+                            case 5: info = OreInfo.Platinum; break;
+                            case 6: info = OreInfo.Gold; break;
+                            case 7: info = OreInfo.Agapite; break;
+                            case 8: info = OreInfo.Verite; break;
+                            case 9: info = OreInfo.Valorite; break;
+                            case 10: info = OreInfo.Titanium; break;
+                            case 11: info = OreInfo.Rosenium; break;
+                            case 12: info = OreInfo.Nepturite; break;
+                            case 13: info = OreInfo.Obsidian; break;
+                            case 14: info = OreInfo.Mithril; break;
+                            case 15: info = OreInfo.Xormite; break;
+                            case 16: info = OreInfo.Dwarven; break;
+                            default: info = null; break;
 					}
 
 					m_Resource = CraftResources.GetFromOreInfo( info );
@@ -121,25 +124,32 @@ namespace Server.Items
 				if ( m_Resource >= CraftResource.DullCopper && m_Resource <= CraftResource.Valorite )
 					return 1042684 + (int)(m_Resource - CraftResource.DullCopper);
 
-				if ( m_Resource == CraftResource.Steel )
+				else if (m_Resource == CraftResource.Titanium)
+                    return 6661001;
+                else if (m_Resource == CraftResource.Rosenium)
+                    return 6662001;
+                else if (m_Resource == CraftResource.Platinum)
+                    return 6663001;
+
+                else if( m_Resource == CraftResource.Steel )
 					return 1036159;
 
-				if ( m_Resource == CraftResource.Brass )
+                else if( m_Resource == CraftResource.Brass )
 					return 1036160;
 
-				if ( m_Resource == CraftResource.Mithril )
+                else if( m_Resource == CraftResource.Mithril )
 					return 1036158;
 
-				if ( m_Resource == CraftResource.Obsidian )
+                else if( m_Resource == CraftResource.Obsidian )
 					return 1036168;
 
-				if ( m_Resource == CraftResource.Nepturite )
+                else if( m_Resource == CraftResource.Nepturite )
 					return 1036176;
 
-				if ( m_Resource == CraftResource.Xormite )
+                else if( m_Resource == CraftResource.Xormite )
 					return 1034443;
 
-				if ( m_Resource == CraftResource.Dwarven )
+                else if( m_Resource == CraftResource.Dwarven )
 					return 1036187;
 
 				return 1042692;
@@ -437,7 +447,112 @@ namespace Server.Items
 		}
 	}
 
-	[FlipableAttribute( 0x1BF2, 0x1BEF )]
+    [FlipableAttribute(0x1BF2, 0x1BEF)]
+    public class TitaniumIngot : BaseIngot
+    {
+        //protected override CraftResource DefaultResource { get { return CraftResource.Titanium; } }
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("titanium", "classic", 0)); } }
+        
+        [Constructable]
+        public TitaniumIngot() : this(1)
+        {
+        }
+
+        [Constructable]
+        public TitaniumIngot(int amount) : base(CraftResource.Titanium, amount)
+        {
+        }
+
+        public TitaniumIngot(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    [FlipableAttribute(0x1BF2, 0x1BEF)]
+    public class RoseniumIngot : BaseIngot
+    {
+        //protected override CraftResource DefaultResource { get { return CraftResource.Titanium; } }
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("rosenium", "classic", 0)); } }
+
+        [Constructable]
+        public RoseniumIngot() : this(1)
+        {
+        }
+
+        [Constructable]
+        public RoseniumIngot(int amount) : base(CraftResource.Rosenium, amount)
+        {
+        }
+
+        public RoseniumIngot(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    [FlipableAttribute(0x1BF2, 0x1BEF)]
+    public class PlatinumIngot : BaseIngot
+    {
+        //protected override CraftResource DefaultResource { get { return CraftResource.Titanium; } }
+        public override int Hue { get { return (Server.Misc.MaterialInfo.GetMaterialColor("platinum", "classic", 0)); } }
+
+        [Constructable]
+        public PlatinumIngot() : this(1)
+        {
+        }
+
+        [Constructable]
+        public PlatinumIngot(int amount) : base(CraftResource.Platinum, amount)
+        {
+        }
+
+        public PlatinumIngot(Serial serial) : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    [FlipableAttribute( 0x1BF2, 0x1BEF )]
 	public class SteelIngot : BaseIngot
 	{
 		[Constructable]

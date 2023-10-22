@@ -5,7 +5,7 @@ using Server.Engines.Harvest;
 namespace Server.Items
 {
 	public class OreShovel : BaseHarvestTool
-	{
+    {
 		public override int Hue { get{ return 0x96D; } }
 		//public override HarvestSystem HarvestSystem{ get{ return Mining.System; } }
 
@@ -20,27 +20,27 @@ namespace Server.Items
 					if (m.Map == Map.Midland || m.Map == Map.Underground) 
 						return DeepMine.DeepMining.GetSystem(this);
 				}	 
-				return Mining.System;
-
-			} 
+				//return Mining.System;
+                return ((HarvestSystem)DynamicMining.GetSystem(this) != null) ? (HarvestSystem)DynamicMining.GetSystem(this) : (HarvestSystem)(Mining.System);
+            } 
 		}
 
 		[Constructable]
-		public OreShovel() : this( 50 )
+		public OreShovel() : this(50)
 		{
 		}
 
 		[Constructable]
 		public OreShovel( int uses ) : base( uses, 0xF3A )
 		{
-			Name = "ore spade";
-			Weight = 5.0;
-		}
+			Name = "Pá de Ferro";
+			Weight = 2.0;
+        }
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
 			base.GetProperties( list );
-			list.Add( "Digs Up Iron Ore Only" );
+			list.Add( "* Apenas extrai minério/pedra de ferro! *" );
 		}
 		
 		public override void AddNameProperties( ObjectPropertyList list )
@@ -48,7 +48,7 @@ namespace Server.Items
 			
 			base.AddNameProperties( list );	
 			
-			list.Add( "Say 'I wish to start mining' near cave/mountain to mine automatically." ); 
+			list.Add("Diga '.iniciar Auto-Minerar' para usar o sistema de automação."); 
 		}
 
 		public OreShovel( Serial serial ) : base( serial )

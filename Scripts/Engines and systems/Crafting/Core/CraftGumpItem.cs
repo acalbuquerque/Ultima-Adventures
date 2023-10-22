@@ -1,4 +1,8 @@
 using System;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+
 using Server.Gumps;
 using Server.Network;
 using Server.Items;
@@ -21,7 +25,11 @@ namespace Server.Engines.Craft
 
 		private const int GreyLabelColor = 0x3DEF;
 
-		private int m_OtherCount;
+        private const int LabelPurple = 0xfcd219;
+        private const int LabelBlue = 0x7BB;
+        private const int LabelGreen = 0x7CA;
+
+        private int m_OtherCount;
 
 		public CraftGumpItem( Mobile from, CraftSystem craftSystem, CraftItem craftItem, BaseTool tool ) : base( 40, 40 )
 		{
@@ -49,18 +57,18 @@ namespace Server.Engines.Craft
 			AddImageTiled( 10, 387, 510, 22, 2624 );
 			AddAlphaRegion( 10, 10, 510, 399 );
 
-			AddHtmlLocalized( 170, 40, 150, 20, 1044053, LabelColor, false, false ); // ITEM
-			AddHtmlLocalized( 10, 192, 150, 22, 1044054, LabelColor, false, false ); // <CENTER>SKILLS</CENTER>
-			AddHtmlLocalized( 10, 277, 150, 22, 1044055, LabelColor, false, false ); // <CENTER>MATERIALS</CENTER>
-			AddHtmlLocalized( 10, 362, 150, 22, 1044056, LabelColor, false, false ); // <CENTER>OTHER</CENTER>
+			AddHtmlLocalized( 170, 40, 150, 20, 1044053, LabelPurple, false, false ); // ITEM
+			AddHtmlLocalized( 10, 192, 150, 22, 1044054, LabelPurple, false, false ); // <CENTER>SKILLS</CENTER>
+			AddHtmlLocalized( 10, 277, 150, 22, 1044055, LabelPurple, false, false ); // <CENTER>MATERIALS</CENTER>
+			AddHtmlLocalized( 10, 362, 150, 22, 1044056, LabelPurple, false, false ); // <CENTER>OTHER</CENTER>
 
 			if ( craftSystem.GumpTitleNumber > 0 )
-				AddHtmlLocalized( 10, 12, 510, 20, craftSystem.GumpTitleNumber, LabelColor, false, false );
+				AddHtmlLocalized( 10, 12, 510, 20, craftSystem.GumpTitleNumber, LabelBlue, false, false );
 			else
 				AddHtml( 10, 12, 510, 20, craftSystem.GumpTitleString, false, false );
 
 			AddButton( 15, 387, 4014, 4016, 0, GumpButtonType.Reply, 0 );
-			AddHtmlLocalized( 50, 390, 150, 18, 1044150, LabelColor, false, false ); // BACK
+			AddHtmlLocalized( 50, 390, 150, 18, 1044150, LabelBlue, false, false ); // BACK
 
 			bool needsRecipe = ( craftItem.Recipe != null && from is PlayerMobile && !((PlayerMobile)from).HasRecipe( craftItem.Recipe ) );
 
@@ -72,16 +80,16 @@ namespace Server.Engines.Craft
 			else
 			{
 				AddButton( 270, 387, 4005, 4007, 1, GumpButtonType.Reply, 0 );
-				AddHtmlLocalized( 305, 390, 150, 18, 1044151, LabelColor, false, false ); // MAKE NOW
+				AddHtmlLocalized( 305, 390, 150, 18, 1044151, LabelGreen, false, false ); // MAKE NOW
 			}
 
 			if ( craftItem.NameNumber > 0 )
-				AddHtmlLocalized( 330, 40, 180, 18, craftItem.NameNumber, LabelColor, false, false );
+				AddHtmlLocalized( 330, 40, 180, 18, craftItem.NameNumber, LabelPurple, false, false );
 			else
 				AddLabel( 330, 40, LabelHue, craftItem.NameString );
 
 			if ( craftItem.UseAllRes )
-				AddHtmlLocalized( 170, 302 + (m_OtherCount++ * 20), 310, 18, 1048176, LabelColor, false, false ); // Makes as many as possible at once
+				AddHtmlLocalized( 170, 302 + (m_OtherCount++ * 20), 310, 18, 1048176, RedLabelColor, false, false ); // Makes as many as possible at once
 
 			DrawItem();
 			DrawSkill();
@@ -130,7 +138,7 @@ namespace Server.Engines.Craft
 			}
 			else if ( m_CraftItem.IsMarkable( type ) )
 			{
-				AddHtmlLocalized( 170, 302 + (m_OtherCount++ * 20), 310, 18, 1044059, LabelColor, false, false ); // This item may hold its maker's mark
+				AddHtmlLocalized( 170, 302 + (m_OtherCount++ * 20), 310, 18, 1044059, LabelBlue, false, false ); // This item may hold its maker's mark
 				m_ShowExceptionalChance = true;
 			}
 		}
@@ -145,8 +153,8 @@ namespace Server.Engines.Craft
 				if ( minSkill < 0 )
 					minSkill = 0;
 
-				AddHtmlLocalized( 170, 132 + (i * 20), 200, 18, 1044060 + (int)skill.SkillToMake, LabelColor, false, false );
-				AddLabel( 430, 132 + (i * 20), LabelHue, String.Format( "{0:F1}", minSkill ) );
+				AddHtmlLocalized( 170, 132 + (i * 20), 200, 18, 1044060 + (int)skill.SkillToMake, LabelGreen, false, false );
+				AddLabel( 430, 132 + (i * 20), LabelBlue, String.Format( "{0:F1}", minSkill ) );
 			}
 
 			CraftSubResCol res = ( m_CraftItem.UseSubRes2 ? m_CraftSystem.CraftSubRes2 : m_CraftSystem.CraftSubRes );
@@ -166,7 +174,7 @@ namespace Server.Engines.Craft
 			else if ( chance > 1.0 )
 				chance = 1.0;
 
-			AddHtmlLocalized( 170, 80, 250, 18, 1044057, LabelColor, false, false ); // Success Chance:
+			AddHtmlLocalized( 170, 80, 250, 18, 1044057, LabelGreen, false, false ); // Success Chance:
 			AddLabel( 430, 80, LabelHue, String.Format( "{0:F1}%", chance * 100 ) );
 
 			if ( m_ShowExceptionalChance )
@@ -230,14 +238,14 @@ namespace Server.Engines.Craft
 				if ( !retainedColor && m_CraftItem.RetainsColorFrom( m_CraftSystem, type ) )
 				{
 					retainedColor = true;
-					AddHtmlLocalized( 170, 302 + (m_OtherCount++ * 20), 310, 18, 1044152, LabelColor, false, false ); // * The item retains the color of this material
-					AddLabel( 500, 219 + (i * 20), LabelHue, "*" );
+					AddHtmlLocalized( 170, 302 + (m_OtherCount++ * 20), 310, 18, 1044152, LabelBlue, false, false ); // * The item retains the color of this material
+					AddLabel( 500, 219 + (i * 20), LabelBlue, "*" );
 				}
 
 				if ( nameNumber > 0 )
-					AddHtmlLocalized( 170, 219 + (i * 20), 310, 18, nameNumber, LabelColor, false, false );
+					AddHtmlLocalized( 170, 219 + (i * 20), 310, 18, nameNumber, LabelGreen, false, false );
 				else
-					AddLabel( 170, 219 + (i * 20), LabelHue, nameString );
+					AddLabel( 170, 219 + (i * 20), LabelGreen, nameString );
 
 				AddLabel( 430, 219 + (i * 20), LabelHue, craftResource.Amount.ToString() );
 			}
@@ -262,7 +270,15 @@ namespace Server.Engines.Craft
 			}
 			else // Make Button
 			{
-				int num = m_CraftSystem.CanCraft( m_From, m_Tool, m_CraftItem.ItemType );
+                PlayerMobile pm = m_From as PlayerMobile;
+                if (CraftSystem.PlayerLoc == null)
+                {
+                    CraftSystem.PlayerLoc = new Hashtable();
+                }
+                if (!CraftSystem.PlayerLoc.Contains(pm))
+                    CraftSystem.PlayerLoc.Add(pm, pm.Location);
+
+                int num = m_CraftSystem.CanCraft( m_From, m_Tool, m_CraftItem.ItemType );
 
 				if ( num > 0 )
 				{

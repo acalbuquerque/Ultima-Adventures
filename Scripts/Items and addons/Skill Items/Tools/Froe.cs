@@ -12,13 +12,15 @@ namespace Server.Items
 		public Froe() : base( 0x10E5 )
 		{
 			Weight = 1.0;
-		}
+            Name = "froe";
+        }
 
 		[Constructable]
 		public Froe( int uses ) : base( uses, 0x10E5 )
 		{
 			Weight = 1.0;
-		}
+            Name = "froe";
+        }
 
 		public Froe( Serial serial ) : base( serial )
 		{
