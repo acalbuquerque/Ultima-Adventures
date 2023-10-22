@@ -114,13 +114,33 @@ namespace Server.Items
 			set{ m_PlayerConstructed = value; }
 		}
 
-		public virtual CraftResource DefaultResource{ get{ return CraftResource.None; } }
+		public virtual CraftResource DefaultResource{ get{ return CraftResource.Cotton; } }
 
 		[CommandProperty( AccessLevel.GameMaster )]
 		public CraftResource Resource
 		{
 			get{ return m_Resource; }
-			set{ m_Resource = value; Hue = CraftResources.GetHue( m_Resource ); InvalidateProperties(); }
+			set{
+
+				if (m_Resource != value)
+				{
+                    UnscaleDurability();
+                    m_Resource = value;
+
+                    if (!DefTailoring.IsNonColorable(this.GetType()))
+                    {
+                        Hue = CraftResources.GetHue(m_Resource);
+                    }
+
+                    Invalidate();
+                    InvalidateProperties();
+
+                    if (Parent is Mobile)
+                        ((Mobile)Parent).UpdateResistances();
+
+                    ScaleDurability();
+                }
+			}
 		}
 
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -175,7 +195,13 @@ namespace Server.Items
 			return base.AllowSecureTrade( from, to, newOwner, accepted );
 		}
 
-		public virtual Race RequiredRace { get { return null; } }
+        protected void Invalidate()
+        {
+            if (Parent is Mobile)
+                ((Mobile)Parent).Delta(MobileDelta.Armor); // Tell them armor rating has changed
+
+        }
+        public virtual Race RequiredRace { get { return null; } }
 
 		public override bool CanEquip( Mobile from )
 		{
@@ -541,17 +567,40 @@ namespace Server.Items
 		    string resourceName = CraftResources.GetName(m_Resource);
 		    TextInfo cultInfo = new CultureInfo("en-US", false).TextInfo;
 
-		    if (string.IsNullOrEmpty(resourceName) || resourceName.ToLower() == "none" || resourceName.ToLower() == "normal" || resourceName.ToLower() == "iron")
+            list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, "{0}"), cultInfo.ToTitleCase(GetNameString()));
+
+            /*if (string.IsNullOrEmpty(resourceName) || resourceName.ToLower() == "none" || resourceName.ToLower() == "normal" || resourceName.ToLower() == "iron")
 			resourceName = "";
 
 		    if (resourceName == "")
-			list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, ((m_Quality == ClothingQuality.Exceptional) ? "Exceptional " : "") + "{0}"), cultInfo.ToTitleCase(GetNameString()));
+			
 		    else
-			list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, ((m_Quality == ClothingQuality.Exceptional) ? "Exceptional " : "") + "{0}\t{1}"), resourceName, GetNameString());
+			list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, ((m_Quality == ClothingQuality.Exceptional) ? "Exceptional " : "") + "{0}\t{1}"), resourceName, GetNameString());*/
 
-		    #endregion
+            #endregion
 
-		    /*
+            if (m_Quality == ClothingQuality.Exceptional)
+            {
+                list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor("Excepcional", "#ffe066"));
+                //list.Add(1053099, ItemNameHue.UnifiedItemProps.RarityNameMod(this, "Excepcional"));
+            }
+
+            if (m_Resource != CraftResource.None)
+            {
+                if (string.IsNullOrEmpty(resourceName) || resourceName.ToLower() == "none" || resourceName.ToLower() == "normal")
+                {
+                    resourceName = "";
+                }
+
+                if (resourceName != "")
+                {
+                    list.Add(1053099, ItemNameHue.UnifiedItemProps.SetColor(resourceName, "#8be4fc"));
+                }
+            }
+
+            
+
+            /*
 			int oreType;
 
 			switch ( m_Resource )
@@ -612,16 +661,16 @@ namespace Server.Items
 			else
 				list.Add( Name );
 		    */
-		}
+        }
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
 			base.GetProperties( list );
 
-			if ( m_Crafter != null )
-				list.Add( 1050043, m_Crafter.Name ); // crafted by ~1_NAME~
+            if (m_Crafter != null)
+                list.Add(1050043, ItemNameHue.UnifiedItemProps.SetColor(m_Crafter.Name, "#8be4fc"));
 
-				bool md = false;
+            bool md = false;
 			if (AdventuresFunctions.IsInMidland((object)this))
 				md = true;
 
@@ -630,8 +679,8 @@ namespace Server.Items
 			//int value = ItemNameHue.ClothingItemProps.CheckClothing(this);
 			#endregion
 
-			if ( m_Quality == ClothingQuality.Exceptional )
-				list.Add( 1060636 ); // exceptional
+			/*if ( m_Quality == ClothingQuality.Exceptional )
+				list.Add( 1060636 ); // exceptional*/
 
 			if( RequiredRace == Race.Elf )
 				list.Add( 1075086 ); // Elves Only
@@ -739,7 +788,7 @@ namespace Server.Items
 			if ( m_HitPoints >= 0 && m_MaxHitPoints > 0 )
 				list.Add( 1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints ); // durability ~1_val~ / ~2_val~
 
-			list.Add("this item is considered clothing");
+            list.Add(ItemNameHue.UnifiedItemProps.SetColor("Este item é considerado vestuário", "#8be4fc"));
 		}
 
 		public override void OnSingleClick( Mobile from )

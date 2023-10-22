@@ -9,7 +9,7 @@ namespace Server.Items
 		[Constructable]
 		public Dyes() : base( 0xFA9 )
 		{
-			Weight = 3.0;
+			Weight = 2.0;
 		}
 
 		public Dyes( Serial serial ) : base( serial )
@@ -30,12 +30,13 @@ namespace Server.Items
 			int version = reader.ReadInt();
 
 			if ( Weight == 0.0 )
-				Weight = 3.0;
+				Weight = 2.0;
 		}
 
 		public override void OnDoubleClick( Mobile from )
-		{
-			from.SendLocalizedMessage( 500856 ); // Select the dye tub to use the dyes on.
+        {
+			Delete();
+            from.SendLocalizedMessage( 500856 ); // Select the dye tub to use the dyes on.
 			from.Target = new InternalTarget();
 		}
 
