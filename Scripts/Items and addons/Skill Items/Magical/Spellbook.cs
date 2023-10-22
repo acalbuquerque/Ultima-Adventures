@@ -477,10 +477,10 @@ namespace Server.Items
 			m_AosAttributes = new AosAttributes( this );
 			m_AosSkillBonuses = new AosSkillBonuses( this );
 
-			Weight = 3.0;
+			Weight = 2.0;
 			Layer = Layer.Talisman;
 
-			// LootType = LootType.Blessed; // WIZARD WANTS NO BLESSING HERE
+			LootType = LootType.Blessed;
 
 			Content = content;
 		}
