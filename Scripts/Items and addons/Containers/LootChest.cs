@@ -15,7 +15,7 @@ namespace Server.Items
 		[Constructable]
 		public LootChest( int level ) : base( 0xe40 )
 		{
-			Name = "chest";
+			Name = "baú";
 			ContainerFunctions.BuildContainer( this, 0, Utility.RandomList( 1, 2 ), 0, 0 );
 			ContainerFunctions.LockTheContainer( level, this, 1 );
 			Weight = 51.0 + (double)level;

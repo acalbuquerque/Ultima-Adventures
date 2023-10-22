@@ -31,23 +31,23 @@ namespace Server.Misc
 			if ( arty == "driftwood" ) // ONLY FOR SEA TRAVELERS
 			{
 				artifact = CreateWoodItem();
-				if ( artifact != null ){ artifact.Hue = 0x5B2; artifact.Name = "runed driftwood " + artifact.Name; }
+				if ( artifact != null ){ artifact.Hue = 0x5B2; artifact.Name = artifact.Name + " de madeira marinha "; }
 			}
 			else if ( arty == "kelp" ) // ONLY FOR SEA TRAVELERS
 			{
 				artifact = CreateLeatherArmor( "any" );
-				if ( artifact != null ){ artifact.Hue = 0x483; artifact.Name = artifact.Name.Replace("leather", "kelp woven"); }
+				if ( artifact != null ){ artifact.Hue = 0x483; artifact.Name = artifact.Name.Replace("leather", "algas marinhas"); }
 			}
 			else if ( arty == "barnacle" ) // ONLY FOR SEA TRAVELERS
 			{
 				artifact = CreatePlateArmor( "any" );
 					if ( Utility.RandomMinMax( 1, 3 ) == 1 ){ artifact = CreateMetalShield(); }
-				if ( artifact != null ){ artifact.Name = "barnacled " + artifact.Name; artifact.Hue = 0xB91; }
+				if ( artifact != null ){ artifact.Name = artifact.Name + "de cirrípedes"; artifact.Hue = 0xB91; }
 			}
 			else if ( arty == "bronzed" ) // ONLY FOR SEA TRAVELERS
 			{
 				artifact = CreateMetalItem( "female" );
-				if ( artifact != null ){ artifact.Name = "bronzed " + artifact.Name + " of the valkyrie"; artifact.Hue = 2418; }
+				if ( artifact != null ){ artifact.Name = artifact.Name + " oxidado(a)"; artifact.Hue = 2418; }
 			}
 			else if ( arty == "neptune" ) // ONLY FOR SEA TRAVELERS
 			{
@@ -61,14 +61,14 @@ namespace Server.Misc
 				if ( artifact is PlateLegs ){ artifact.ItemID = 0x2B6B; }
 				else if ( artifact is PlateArms ){ artifact.ItemID = 0x2B6C; }
 				else if ( artifact is PlateChest ){ artifact.ItemID = 0x2B67; }
-				else if ( artifact is PlateHelm ){ artifact.ItemID = 0x140E; artifact.Name = "helm"; }
+				else if ( artifact is PlateHelm ){ artifact.ItemID = 0x140E; artifact.Name = "elmo"; }
 
-				if ( artifact != null ){ artifact.Name = artifact.Name + " of Neptune"; artifact.Hue = 0x84C; }
+				if ( artifact != null ){ artifact.Name = artifact.Name + " netuniano"; artifact.Hue = 0x84C; }
 			}
 			else if ( arty == "invulnerable" )
 			{
 				artifact = CreateMetalProtection( "any" );
-				if ( artifact != null ){ artifact.Hue = 0x4F2; artifact.Name = artifact.Name + " of invulnerability"; }
+				if ( artifact != null ){ artifact.Hue = 0x4F2; artifact.Name = artifact.Name + " da invulnerabilidade"; }
 			}
 			else
 			{
@@ -95,7 +95,7 @@ namespace Server.Misc
 				box.DropItem(artifact);
 				box.ItemID = artifact.ItemID;
 				box.Hue = artifact.Hue;
-				box.Name = RandomThings.GetOddityAdjective() + " artifact";
+				box.Name = RandomThings.GetOddityAdjective() + " artefato";
 				return box;
 			}
 			return artifact;
@@ -282,10 +282,10 @@ namespace Server.Misc
 
 			switch ( nType )
 			{
-				case 0:		item = new QuarterStaff();			item.Name = "staff";				break;
-				case 3:		item = new Club();					item.Name = "club";					break;
-				case 4:		item = new GnarledStaff();			item.Name = "staff";				break;
-				case 5:		item = new ShepherdsCrook();		item.Name = "crook";				break;
+				case 0:		item = new QuarterStaff();			item.Name = "mastro";				break;
+				case 3:		item = new Club();					item.Name = "porrete";					break;
+				case 4:		item = new GnarledStaff();			item.Name = "bastão";				break;
+				case 5:		item = new ShepherdsCrook();		item.Name = "Cajado";				break;
 				case 6: case 7: case 8: case 9:
 							item = CreateWoodenArmor();												break;
 				case 10: case 11: case 12: case 13:
@@ -356,39 +356,39 @@ namespace Server.Misc
 
 			switch ( nType )
 			{
-				case 1:		item = new Cutlass();			item.Name = "cutlass";			break;
+				case 1:		item = new Cutlass();			item.Name = "cutelo";			break;
 				case 2:		item = new Katana();			item.Name = "katana";			break;
-				case 3:		item = new Kryss();				item.Name = "kryss";			break;
-				case 4:		item = new Broadsword();		item.Name = "broadsword";		break;
-				case 5:		item = new Longsword();			item.Name = "longsword";		break;
-				case 6:		item = new ThinLongsword();		item.Name = "longsword";		break;
-				case 7:		item = new VikingSword();		item.Name = "barbarian sword";	break;
-				case 8:		item = new Scimitar();			item.Name = "scimitar";			break;
-				case 9:		item = new BoneHarvester();		item.Name = "sickle";			break;
-				case 10:	item = new CrescentBlade();		item.Name = "crescent blade";	break;
-				case 11:	item = new DoubleBladedStaff();	item.Name = "bladed staff";		break;
-				case 12:	item = new Lance();				item.Name = "lance";			break;
-				case 13:	item = new Pike();				item.Name = "pike";				break;
-				case 14:	item = new Scythe();			item.Name = "scythe";			break;
-				case 15:	item = new Dagger();			item.Name = "dagger";			break;
-				case 16:	item = new HammerPick();		item.Name = "hammer pick";		break;
-				case 17:	item = new Mace();				item.Name = "mace";				break;
-				case 18:	item = new Maul();				item.Name = "maul";				break;
-				case 19:	item = new WarHammer();			item.Name = "war hammer";		break;
-				case 20:	item = new WarMace();			item.Name = "war mace";			break;
-				case 21:	item = new ExecutionersAxe();	item.Name = "great axe";		break;
-				case 22:	item = new BattleAxe();			item.Name = "battle axe";		break;
-				case 23:	item = new TwoHandedAxe();		item.Name = "two-handed axe";	break;
-				case 24:	item = new Axe();				item.Name = "axe";				break;
-				case 25:	item = new DoubleAxe();			item.Name = "double axe";		break;
-				case 26:	item = new RoyalSword();		item.Name = "royal sword";		break;
-				case 27:	item = new LargeBattleAxe();	item.Name = "large battle axe";	break;
-				case 28:	item = new WarAxe();			item.Name = "war axe";			break;
+				case 3:		item = new Kryss();				item.Name = "khopesh";			break;
+				case 4:		item = new Broadsword();		item.Name = "espada larga";		break;
+				case 5:		item = new Longsword();			item.Name = "espada longa";		break;
+				case 6:		item = new ThinLongsword();		item.Name = "Gladius";		break;
+				case 7:		item = new VikingSword();		item.Name = "espada bastarda";	break;
+				case 8:		item = new Scimitar();			item.Name = "cimitarra";			break;
+				case 9:		item = new BoneHarvester();		item.Name = "foice";			break;
+				case 10:	item = new CrescentBlade();		item.Name = "lâmina do Guan";	break;
+				case 11:	item = new DoubleBladedStaff();	item.Name = "cajado laminado";		break;
+				case 12:	item = new Lance();				item.Name = "lança";			break;
+				case 13:	item = new Pike();				item.Name = "pique";				break;
+				case 14:	item = new Scythe();			item.Name = "foice longa";			break;
+				case 15:	item = new Dagger();			item.Name = "adaga";			break;
+				case 16:	item = new HammerPick();		item.Name = "martelo-picareta";		break;
+				case 17:	item = new Mace();				item.Name = "maca";				break;
+				case 18:	item = new Maul();				item.Name = "marreta";				break;
+				case 19:	item = new WarHammer();			item.Name = "martelo de guerra";		break;
+				case 20:	item = new WarMace();			item.Name = "maca de guerra";			break;
+				case 21:	item = new ExecutionersAxe();	item.Name = "machado carrasco";		break;
+				case 22:	item = new BattleAxe();			item.Name = "machado de batalha";		break;
+				case 23:	item = new TwoHandedAxe();		item.Name = "machado de duas mãos";	break;
+				case 24:	item = new Axe();				item.Name = "machado";				break;
+				case 25:	item = new DoubleAxe();			item.Name = "machado duplo";		break;
+				case 26:	item = new RoyalSword();		item.Name = "espada real";		break;
+				case 27:	item = new LargeBattleAxe();	item.Name = "grande machado de batalha";	break;
+				case 28:	item = new WarAxe();			item.Name = "machado de guerra";			break;
 				case 29:	item = new Bardiche();			item.Name = "bardiche";			break;
-				case 30:	item = new Halberd();			item.Name = "halberd";			break;
-				case 31:	item = new Pitchfork();			item.Name = "trident";			break;
-				case 32:	item = new ShortSpear();		item.Name = "short spear";		break;
-				case 33:	item = new Spear();				item.Name = "spear";			break;
+				case 30:	item = new Halberd();			item.Name = "alabarda";			break;
+				case 31:	item = new Pitchfork();			item.Name = "tridente";			break;
+				case 32:	item = new ShortSpear();		item.Name = "lança pequena";		break;
+				case 33:	item = new Spear();				item.Name = "lança longa";			break;
 				case 34:	item = new NoDachi();			item.Name = "no dachi";			break;
 				case 35:	item = new Wakizashi();			item.Name = "wakizashi";		break;
 				case 36:	item = new Tetsubo();			item.Name = "tetsubo";			break;
@@ -410,14 +410,14 @@ namespace Server.Misc
 
 			switch ( Utility.RandomMinMax( 0, 7 ) )
 			{
-				case 0:		item = new BronzeShield();		item.Name = "shield";			break;
-				case 1:		item = new Buckler();			item.Name = "buckler";			break;
-				case 2:		item = new MetalKiteShield();	item.Name = "kite shield";		break;
-				case 3:		item = new HeaterShield();		item.Name = "large shield";		break;
-				case 4:		item = new MetalShield();		item.Name = "small shield";		break;
-				case 5:		item = new ChaosShield();		item.Name = "chaos shield";		break;
-				case 6:		item = new OrderShield();		item.Name = "order shield";		break;
-				case 7:		item = new RoyalShield();		item.Name = "royal shield";		break;
+				case 0:		item = new BronzeShield();		item.Name = "escudo";			break;
+				case 1:		item = new Buckler();			item.Name = "broquel";			break;
+				case 2:		item = new MetalKiteShield();	item.Name = "escudo curvo";		break;
+				case 3:		item = new HeaterShield();		item.Name = "escudo corporal";		break;
+				case 4:		item = new MetalShield();		item.Name = "escudo pequeno";		break;
+				case 5:		item = new ChaosShield();		item.Name = "escudo do caos";		break;
+				case 6:		item = new OrderShield();		item.Name = "escudo da ordem";		break;
+				case 7:		item = new RoyalShield();		item.Name = "escudo real";		break;
 			}
 
 			return item;
@@ -451,27 +451,27 @@ namespace Server.Misc
 
 			switch ( nType )
 			{
-				case 0:		item = new LeatherArms();			item.Name = "leather sleeves";		break;
-				case 1:		item = new LeatherChest();			item.Name = "leather tunic";
+				case 0:		item = new LeatherArms();			item.Name = "ombreiras de leather";		break;
+				case 1:		item = new LeatherChest();			item.Name = "tunica de leather";
 					if ( gender == "female" || Utility.RandomMinMax( 0, 3 ) == 1 )
-						{ item = new FemaleLeatherChest();		item.Name = "leather armor"; }
+						{ item = new FemaleLeatherChest();		item.Name = "peitoral de leather"; }
 					else if ( gender == "female" || Utility.RandomMinMax( 0, 3 ) == 1 )
-						{ item = new LeatherBustierArms();		item.Name = "leather bustier"; }	break;
-				case 2:		item = new LeatherGloves();			item.Name = "leather gloves";		break;
-				case 3:		item = new LeatherGorget();			item.Name = "leather gorget";		break;
-				case 4:	item = new LeatherLegs();				item.Name = "leather leggings";
+						{ item = new LeatherBustierArms();		item.Name = "corpete de leather"; }	break;
+				case 2:		item = new LeatherGloves();			item.Name = "lucas de leather";		break;
+				case 3:		item = new LeatherGorget();			item.Name = "gorgel de leather";		break;
+				case 4:	item = new LeatherLegs();				item.Name = "perneiras de leather";
 					if ( gender == "female" || Utility.RandomMinMax( 0, 3 ) == 1 )
-						{ item = new LeatherSkirt();				item.Name = "leather skirt"; }
+						{ item = new LeatherSkirt();				item.Name = "saia de leather"; }
 					if ( Utility.RandomMinMax( 0, 5 ) == 1 )
-						{ item = new LeatherShorts();				item.Name = "leather shorts"; }	break;
-				case 5:		item = new LeatherCap();			item.Name = "leather cap";			break;
-				case 6:		item = new LeatherJingasa();		item.Name = "leather jingasa";		break;
-				case 7:		item = new LeatherDo();				item.Name = "leather do";			break;
-				case 8:		item = new LeatherHiroSode();		item.Name = "leather hiro sode";	break;
-				case 9:		item = new LeatherSuneate();		item.Name = "leather suneate";		break;
-				case 10:	item = new LeatherHaidate();		item.Name = "leather haidate";		break;
-				case 11:	item = new LeatherNinjaPants();		item.Name = "leather ninja pants";	break;
-				case 12:	item = new LeatherNinjaJacket();	item.Name = "leather ninja jacket";	break;
+						{ item = new LeatherShorts();				item.Name = "calçao de leather"; }	break;
+				case 5:		item = new LeatherCap();			item.Name = "capuz de leather";			break;
+				case 6:		item = new LeatherJingasa();		item.Name = "jingasa de leather";		break;
+				case 7:		item = new LeatherDo();				item.Name = "do de leather";			break;
+				case 8:		item = new LeatherHiroSode();		item.Name = "hiro sode de leather";	break;
+				case 9:		item = new LeatherSuneate();		item.Name = "suneate de leather";		break;
+				case 10:	item = new LeatherHaidate();		item.Name = "haidate de leather";		break;
+				case 11:	item = new LeatherNinjaPants();		item.Name = "calça ninja de leather";	break;
+				case 12:	item = new LeatherNinjaJacket();	item.Name = "jaqueta ninja de leather";	break;
 			}
 
 			return item;
@@ -486,21 +486,21 @@ namespace Server.Misc
 
 			switch ( nType )
 			{
-				case 0:		item = new LeatherCap();			item.Name = "leather cap";			break;
-				case 1:		item = new StuddedArms();			item.Name = "studded sleeves";		break;
-				case 2:		item = new StuddedGloves();			item.Name = "studded gloves";		break;
-				case 3:		item = new StuddedGorget();			item.Name = "studded gorget";		break;
-				case 4:		item = new StuddedLegs();			item.Name = "studded leggings";		break;
-				case 5:		item = new StuddedChest();			item.Name = "studded tunic";
+				case 0:		item = new LeatherCap();			item.Name = "capuz de couro reforçado";			break;
+				case 1:		item = new StuddedArms();			item.Name = "ombreias de couro reforçado";		break;
+				case 2:		item = new StuddedGloves();			item.Name = "luvas de couro reforçado";		break;
+				case 3:		item = new StuddedGorget();			item.Name = "gorgel de couro reforçado";		break;
+				case 4:		item = new StuddedLegs();			item.Name = "calças de couro reforçado";		break;
+				case 5:		item = new StuddedChest();			item.Name = "tunica de couro reforçado";
 					if ( gender == "female" || Utility.RandomMinMax( 0, 3 ) == 1 )
-							{ item = new FemaleStuddedChest();	item.Name = "studded armor"; }
+							{ item = new FemaleStuddedChest();	item.Name = "peitoral de couro reforçado"; }
 					else if ( gender == "female" || Utility.RandomMinMax( 0, 3 ) == 1 )
-							{ item = new StuddedBustierArms();	item.Name = "studded bustier"; }	break;
-				case 6:		item = new StuddedMempo();			item.Name = "studded mempo";		break;
-				case 7:		item = new StuddedDo();				item.Name = "studded do";			break;
-				case 8:		item = new StuddedHiroSode();		item.Name = "studded hiro sode";	break;
-				case 9:		item = new StuddedSuneate();		item.Name = "studded suneate";		break;
-				case 10:	item = new StuddedHaidate();		item.Name = "studded haidate";		break;
+							{ item = new StuddedBustierArms();	item.Name = "corpete de couro reforçado"; }	break;
+				case 6:		item = new StuddedMempo();			item.Name = "mempo de couro reforçado";		break;
+				case 7:		item = new StuddedDo();				item.Name = "do de couro reforçado";			break;
+				case 8:		item = new StuddedHiroSode();		item.Name = "hiro sode de couro reforçado";	break;
+				case 9:		item = new StuddedSuneate();		item.Name = "suneate de couro reforçado";		break;
+				case 10:	item = new StuddedHaidate();		item.Name = "haidate de couro reforçado";		break;
 			}
 
 			return item;
@@ -512,47 +512,46 @@ namespace Server.Misc
 		{
 			Item item = null;
 
-			int nType = Utility.RandomMinMax( 0, 26 );
+			int nType = Utility.RandomMinMax( 0, 25 );
 
 			switch ( nType )
 			{
-				case 0:		item = new ChainCoif();			item.Name = "chainmail coif";		break;
-				case 1:		item = new ChainChest();		item.Name = "chainmail tunic";		break;
-				case 2:		item = new ChainLegs();			item.Name = "chainmail leggings";	break;
-				case 3:		item = new RingmailChest();		item.Name = "ringmail tunic";		break;
-				case 4:		item = new RingmailLegs();		item.Name = "ringmail leggings";	break;
-				case 5:		item = new RingmailArms();		item.Name = "ringmail sleeves";		break;
-				case 6:		item = new RingmailGloves();	item.Name = "ringmail gloves";		break;
-				case 7:		item = new PlateGorget();		item.Name = "platemail gorget";		break;
-				case 8:		item = new PlateLegs();			item.Name = "platemail leggings";	break;
-				case 9:		item = new PlateArms();			item.Name = "platemail arms";		break;
-				case 10:	item = new PlateGloves();		item.Name = "platemail gauntlets";	break;
-				case 11:	item = new PlateChest();		item.Name = "platemail tunic";
+				case 0:		item = new ChainCoif();			item.Name = "coifa de malha";		break;
+				case 1:		item = new ChainChest();		item.Name = "tunica de malha";		break;
+				case 2:		item = new ChainLegs();			item.Name = "calça de malha";	break;
+				case 3:		item = new RingmailChest();		item.Name = "tunica de loriga";		break;
+				case 4:		item = new RingmailLegs();		item.Name = "calça de loriga";	break;
+				case 5:		item = new RingmailArms();		item.Name = "ombreiras de loriga";		break;
+				case 6:		item = new RingmailGloves();	item.Name = "luvas de loriga";		break;
+				case 7:		item = new PlateGorget();		item.Name = "gorgel de loriga";		break;
+				case 8:		item = new PlateLegs();			item.Name = "calça de placas";	break;
+				case 9:		item = new PlateArms();			item.Name = "ombreiras de placas";		break;
+				case 10:	item = new PlateGloves();		item.Name = "manoplas de placas";	break;
+				case 11:	item = new PlateChest();		item.Name = "tunica de placas";
 					if ( gender == "female" || Utility.RandomMinMax( 0, 3 ) == 1 )
-						{ item = new FemalePlateChest(); item.Name = "platemail tunic"; }		break;
+						{ item = new FemalePlateChest(); item.Name = "corpete de placas"; }		break;
 				case 12: case 13:
 					switch ( Utility.RandomMinMax( 0, 4 ) )
 					{
-						case 0:		item = new PlateHelm();		item.Name = "platemail helm";	break;
-						case 1:		item = new CloseHelm();		item.Name = "close helm";		break;
-						case 2:		item = new Helmet();		item.Name = "helmet";			break;
-						case 3:		item = new NorseHelm();		item.Name = "norse helm";		break;
-						case 4:		item = new Bascinet();		item.Name = "bascinet";			break;
+						case 0:		item = new PlateHelm();		item.Name = "elmo";	break;
+						case 1:		item = new CloseHelm();		item.Name = "elmo fechado";		break;
+						case 2:		item = new Helmet();		item.Name = "capacete";			break;
+						case 3:		item = new NorseHelm();		item.Name = "elmo nórdico";		break;
+						case 4:		item = new Bascinet();		item.Name = "bascinete";			break;
 					}
 					break;
-				case 14: item = new ChainHatsuburi();			item.Name = "chainmail hatsuburi";	break;
-				case 15: item = new PlateHatsuburi();			item.Name = "platemail hatsuburi";	break;
-				case 16: item = new LightPlateJingasa();		item.Name = "platemail jingasa";	break;
-				case 17: item = new HeavyPlateJingasa();		item.Name = "platemail jingasa";	break;
-				case 18: item = new SmallPlateJingasa();		item.Name = "platemail jingasa";	break;
-				case 19: item = new DecorativePlateKabuto();	item.Name = "platemail kabuto";		break;
-				case 20: item = new PlateBattleKabuto();		item.Name = "platemail kabuto";		break;
-				case 21: item = new StandardPlateKabuto();		item.Name = "platemail kabuto";		break;
-				case 22: item = new PlateDo();					item.Name = "platemail do";			break;
-				case 23: item = new PlateHiroSode();			item.Name = "platemail hiro sade";	break;
-				case 24: item = new PlateSuneate();				item.Name = "platemail suneate";	break;
-				case 25: item = new PlateHaidate();				item.Name = "platemail haidate";	break;
-				case 26: item = new ChainHatsuburi();			item.Name = "chainmail hatsuburi";	break;
+				case 14: item = new ChainHatsuburi();			item.Name = "hatsuburi de malha";	break;
+				case 15: item = new PlateHatsuburi();			item.Name = "hatsuburi";	break;
+				case 16: item = new LightPlateJingasa();		item.Name = "jingasa leve";	break;
+				case 17: item = new HeavyPlateJingasa();		item.Name = "jingasa pesada";	break;
+				case 18: item = new SmallPlateJingasa();		item.Name = "jingasa";	break;
+				case 19: item = new DecorativePlateKabuto();	item.Name = "kabuto";		break;
+				case 20: item = new PlateBattleKabuto();		item.Name = "kabuto de batalha";		break;
+				case 21: item = new StandardPlateKabuto();		item.Name = "kabuto simples";		break;
+				case 22: item = new PlateDo();					item.Name = "do";			break;
+				case 23: item = new PlateHiroSode();			item.Name = "hiro sade";	break;
+				case 24: item = new PlateSuneate();				item.Name = "suneate";	break;
+				case 25: item = new PlateHaidate();				item.Name = "haidate";	break;
 			}
 
 			return item;
@@ -568,26 +567,26 @@ namespace Server.Misc
 
 			switch ( nType )
 			{
-				case 0: case 1: item = new PlateGorget();		item.Name = "platemail gorget";		break;
-				case 2: case 3: item = new PlateLegs();			item.Name = "platemail leggings";	break;
-				case 4: case 5: item = new PlateArms();			item.Name = "platemail arms";		break;
-				case 6: case 7: item = new PlateGloves();		item.Name = "platemail gauntlets";	break;
-				case 8: case 9: item = new PlateChest();		item.Name = "platemail tunic";
+				case 0: case 1: item = new PlateGorget();		item.Name = "gorgel de placas";		break;
+				case 2: case 3: item = new PlateLegs();			item.Name = "calças de placas";	break;
+				case 4: case 5: item = new PlateArms();			item.Name = "ombreiras de placas";		break;
+				case 6: case 7: item = new PlateGloves();		item.Name = "manoplas de placas";	break;
+				case 8: case 9: item = new PlateChest();		item.Name = "tunica de placas";
 					if ( gender == "female" || Utility.RandomMinMax( 0, 3 ) == 1 )
-						{ item = new FemalePlateChest(); 		item.Name = "platemail tunic"; }	break;
+						{ item = new FemalePlateChest(); 		item.Name = "tunica de placas"; }	break;
 				case 10: case 11: case 12: case 13:
-						{ item = new PlateHelm();				item.Name = "platemail helm"; }		break;
-				case 14: item = new PlateHatsuburi();			item.Name = "platemail hatsuburi";	break;
-				case 15: item = new LightPlateJingasa();		item.Name = "platemail jingasa";	break;
-				case 16: item = new HeavyPlateJingasa();		item.Name = "platemail jingasa";	break;
-				case 17: item = new SmallPlateJingasa();		item.Name = "platemail jingasa";	break;
-				case 18: item = new DecorativePlateKabuto();	item.Name = "platemail kabuto";		break;
-				case 19: item = new PlateBattleKabuto();		item.Name = "platemail kabuto";		break;
-				case 20: item = new StandardPlateKabuto();		item.Name = "platemail kabuto";		break;
-				case 21: item = new PlateDo();					item.Name = "platemail do";			break;
-				case 22: item = new PlateHiroSode();			item.Name = "platemail hiro sade";	break;
-				case 23: item = new PlateSuneate();				item.Name = "platemail suneate";	break;
-				case 24: item = new PlateHaidate();				item.Name = "platemail haidate";	break;
+						{ item = new PlateHelm();				item.Name = "elmo"; }		break;
+				case 14: item = new PlateHatsuburi();			item.Name = "hatsuburi";	break;
+				case 15: item = new LightPlateJingasa(); item.Name = "jingasa leve"; break;
+                case 16: item = new HeavyPlateJingasa(); item.Name = "jingasa pesada"; break;
+                case 17: item = new SmallPlateJingasa();		item.Name = "jingasa";	break;
+				case 18: item = new DecorativePlateKabuto();	item.Name = "kabuto";		break;
+				case 19: item = new PlateBattleKabuto();		item.Name = "kabuto de batalha";		break;
+				case 20: item = new StandardPlateKabuto();		item.Name = "kabuto simples";		break;
+				case 21: item = new PlateDo();					item.Name = "do";			break;
+				case 22: item = new PlateHiroSode();			item.Name = "hiro sade";	break;
+				case 23: item = new PlateSuneate();				item.Name = "suneate";	break;
+				case 24: item = new PlateHaidate();				item.Name = "haidate";	break;
 			}
 
 			return item;
@@ -603,13 +602,13 @@ namespace Server.Misc
 
 			switch ( nType )
 			{
-				case 0:		item = new Crossbow();				item.Name = "crossbow";				break;
-				case 1:		item = new HeavyCrossbow();			item.Name = "heavy crossbow";		break;
-				case 2:		item = new RepeatingCrossbow();		item.Name = "repeating crossbow";	break;
-				case 3:		item = new CompositeBow();			item.Name = "composite bow";		break;
-				case 4:		item = new Bow();					item.Name = "bow";					break;
-				case 5:		item = new ElvenCompositeLongbow();	item.Name = "woodland longbow";		break;
-				case 6:		item = new MagicalShortbow();		item.Name = "woodland shortbow";		break;
+				case 0:		item = new Crossbow();				item.Name = "besta";				break;
+				case 1:		item = new HeavyCrossbow();			item.Name = "besta pesada";		break;
+				case 2:		item = new RepeatingCrossbow();		item.Name = "besta de repetição";	break;
+				case 3:		item = new CompositeBow();			item.Name = "arco composto";		break;
+				case 4:		item = new Bow();					item.Name = "arco";					break;
+				case 5:		item = new ElvenCompositeLongbow();	item.Name = "arco élfico";		break;
+				case 6:		item = new MagicalShortbow();		item.Name = "arco curto";		break;
 				case 7:		item = new Yumi();					item.Name = "yumi";					break;
 			}
 
@@ -623,14 +622,14 @@ namespace Server.Misc
 			Item item = null;
 			switch ( Utility.RandomMinMax( 0, 7 ) ) 
 			{
-				case 0:		item = new LeatherArms();		item.ItemID = 0x1410;	item.Name = "arms";			break;
-				case 1:		item = new LeatherChest();		item.ItemID = 0x1415;	item.Name = "tunic";		break;
-				case 2:		item = new LeatherGloves();		item.ItemID = 0x1414;	item.Name = "gauntlets";	break;
-				case 3:		item = new LeatherGorget();		item.ItemID = 0x1413;	item.Name = "gorget";		break;
-				case 4:		item = new LeatherLegs();		item.ItemID = 0x1411;	item.Name = "leggings";		break;
-				case 5:		item = new LeatherCap();		item.ItemID = 0x1412;	item.Name = "helm";			break;
-				case 6:		item = new WoodenKiteShield();							item.Name = "kite shield";	break;
-				case 7:		item = new WoodenShield();								item.Name = "shield";		break;
+				case 0:		item = new LeatherArms();		item.ItemID = 0x1410;	item.Name = "ombreiras";			break;
+				case 1:		item = new LeatherChest();		item.ItemID = 0x1415;	item.Name = "tunica";		break;
+				case 2:		item = new LeatherGloves();		item.ItemID = 0x1414;	item.Name = "manoplas";	break;
+				case 3:		item = new LeatherGorget();		item.ItemID = 0x1413;	item.Name = "gorgel";		break;
+				case 4:		item = new LeatherLegs();		item.ItemID = 0x1411;	item.Name = "calças";		break;
+				case 5:		item = new LeatherCap();		item.ItemID = 0x1412;	item.Name = "elmo";			break;
+				case 6:		item = new WoodenKiteShield();							item.Name = "escudo curvo";	break;
+				case 7:		item = new WoodenShield();								item.Name = "escudo";		break;
 			}
 			((BaseArmor)item).Resource = CraftResource.RegularWood;
 

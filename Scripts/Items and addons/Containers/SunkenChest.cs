@@ -41,7 +41,7 @@ namespace Server.Items
 			ContainerOwner = ContainerFunctions.GetOwner( "Sunken" );
 			ContainerDigger = digger.Name;
 
-			Name = "sunken chest";
+			Name = "baú naufragado";
 
 			// = ARTIFACTS
 			int artychance = GetPlayerInfo.LuckyPlayerArtifacts( digger.Luck, digger ) + 10;
@@ -73,7 +73,7 @@ namespace Server.Items
 
 			if ( ancient > 0 )
 			{
-				Name = "ancient sunken chest";
+				Name = "baú naufragado";
 				Hue = Utility.RandomList( 0xB8E, 0xB8F, 0xB90, 0xB91, 0xB92, 0xB89, 0xB8B );
 				Item net = new FabledFishingNet();
 				DropItem( net );
@@ -97,8 +97,8 @@ namespace Server.Items
         public override void AddNameProperties(ObjectPropertyList list)
 		{
             base.AddNameProperties(list);
-			list.Add( 1070722, ContainerOwner );
-			list.Add( 1049644, "Pulled From The Sea By " + ContainerDigger + "" ); // PARENTHESIS
+            list.Add(1070722, ItemNameHue.UnifiedItemProps.SetColor(ContainerOwner, "#8be4fc"));
+            list.Add(1049644, ItemNameHue.UnifiedItemProps.SetColor("Retirado do fundo do mar por " + ContainerDigger + "", "#ffe066"));
         }
 
 		public override void Serialize( GenericWriter writer )

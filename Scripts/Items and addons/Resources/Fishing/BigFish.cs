@@ -17,7 +17,7 @@ namespace Server.Items
 
 		public void Carve( Mobile from, Item item )
 		{
-			base.ScissorHelper( from, new RawFishSteak(), Math.Max( 16, (int)Weight ) / 4 , false );
+			base.ScissorHelper( from, new RawFishSteak(), (int)Weight * 2 , false );
 		}
 
 		public override int LabelNumber{ get{ return 1041112; } } // a big fish
@@ -25,9 +25,16 @@ namespace Server.Items
 		[Constructable]
 		public BigFish() : base( 0x09CC )
 		{
-			Weight = Utility.RandomMinMax( 3, 200 );	//TODO: Find correct formula.  max on OSI currently 200, OSI dev says it's not 200 as max, and ~ 1/1,000,000 chance to get highest
-			Hue = Utility.RandomBool() ? 0x847 : 0x58C;
-		}
+
+            int[] list = new int[]
+                {
+                    0x847, 0x58C, 0x9CC, 60, 1154, 1161
+				};
+
+            Weight = Utility.RandomMinMax( 4, 24 );    //TODO: Find correct formula.  max on OSI currently 200, OSI dev says it's not 200 as max, and ~ 1/1,000,000 chance to get highest
+			Hue = Utility.RandomList(list);
+			Name = "Peixe Gigante";
+        }
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
@@ -70,7 +77,7 @@ namespace Server.Items
 				}
 				case 0:
 				{
-					Weight = Utility.RandomMinMax( 3, 200 );
+					Weight = Utility.RandomMinMax( 4, 24 );
 					break;
 				}
 			}

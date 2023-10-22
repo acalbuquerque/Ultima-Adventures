@@ -38,10 +38,10 @@ namespace Server.Items
 				case 12:sLook = "a splendid";	break;
 				case 13:sLook = "a wonderful";	break;
 				case 14:sLook = "an extraordinary";	break;
-				case 15:sLook = "a strange";	break;
-				case 16:sLook = "an odd";	break;
+				case 15:sLook = "estranho";	break;
+				case 16:sLook = "estranho";	break;
 				case 17:sLook = "a unique";	break;
-				case 18:sLook = "an unusual";	break;
+				case 18:sLook = "incomum";	break;
 			}
 
 			string sType = "animal";
@@ -75,8 +75,8 @@ namespace Server.Items
 
 		public override void OnDoubleClick( Mobile from )
 		{
-			from.SendMessage( "This can be identified to determine its value." );
-			return;
+            from.SendMessage(55, "Identifique o item para descobrir o valor.");
+            return;
 		}
 
 		public DDRelicLeather(Serial serial) : base(serial)
