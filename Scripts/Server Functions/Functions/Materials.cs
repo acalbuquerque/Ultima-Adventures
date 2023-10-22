@@ -1335,7 +1335,10 @@ namespace Server.Misc
 				else if ( color == "garnet" ){ hue = 0x48F; }
 				else if ( color == "ice" ){ hue = 0x480; }
 				else if ( color == "silver" ){ hue = 0x9C4; }
-			}
+                else if (color == "silk") { hue = 2173; }
+                else if (color == "flax") { hue = 1382; }
+
+            }
 			else if ( style == "monster" )
 			{
 				if ( color == "agapite" ){ hue = 0x957; }
@@ -1407,7 +1410,9 @@ namespace Server.Misc
 				else if ( color == "garnet" ){ hue = 0x8C4; }
 				else if ( color == "ice" ){ hue = 0x8E2; }
 				else if ( color == "silver" ){ hue = 0x911; }
-			}
+                else if (color == "silk") { hue = 2173; }
+                else if (color == "flax") { hue = 1382; }
+            }
 
 			if ( leather == "classic" )
 			{
@@ -1464,7 +1469,10 @@ namespace Server.Misc
 			else if ( color == "unicorn skin" ){ hue = 0xBB4; }
 			else if ( color == "dead skin" ){ hue = 0xB4A; }
 
-			if ( color != "" && hue == 0 ){ Console.WriteLine( "Defined Color Mismatch For Search: " + color + "!" ); }
+            else if (color == "silk") { hue = 2173; }
+            else if (color == "flax") { hue = 1382; }
+
+            if ( color != "" && hue == 0 ){ Console.WriteLine( "Defined Color Mismatch For Search: " + color + "!" ); }
 
 			return hue;
 		}

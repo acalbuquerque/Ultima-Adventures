@@ -55,7 +55,7 @@ namespace Server.Items
         GoldenOakTree,
         CherryTree,
         RosewoodTree,
-        HickoryTree
+        HickoryTree,
         /*MahoganyTree,
 		OakTree,
 		PineTree,
@@ -63,6 +63,13 @@ namespace Server.Items
 		WalnutTree,
 		PetrifiedTree,
 		DriftwoodTree*/
+
+		Cotton = 401,
+		Flax,
+		Silk,
+		Poliester,
+		Wool
+
     }
 
 	public enum CraftResourceType
@@ -71,8 +78,9 @@ namespace Server.Items
 		Metal,
 		Leather,
 		Scales,
-		Wood
-	}
+		Wood,
+        Fabric
+    }
 
 	public class CraftAttributeInfo
 	{
@@ -137,8 +145,9 @@ namespace Server.Items
 		public static readonly CraftAttributeInfo Spined, Horned, Barbed, Necrotic, Volcanic, Frozen, Goliath, Draconic, Hellish, Dinosaur, Alien;
 		public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales, DinosaurScales;
 		public static readonly CraftAttributeInfo AshTree, EbonyTree, ElvenTree, GoldenOakTree, CherryTree, RosewoodTree, HickoryTree /*MahoganyTree, OakTree, PineTree, GhostTree,*/  /*WalnutTree, PetrifiedTree, DriftwoodTree,*/ ;
+        public static readonly CraftAttributeInfo Cotton, Flax, Silk, Wool, Poliester;
 
-		static CraftAttributeInfo()
+        static CraftAttributeInfo()
 		{
 			Blank = new CraftAttributeInfo();
 
@@ -821,6 +830,38 @@ namespace Server.Items
 			petrifiedtree.RunicMaxAttributes = 5;
 				petrifiedtree.RunicMinIntensity = 80;
 				petrifiedtree.RunicMaxIntensity = 100;*/
+
+            CraftAttributeInfo cottonFabric = Cotton = new CraftAttributeInfo(); //2
+
+            //cottonFabric.ArmorPhysicalResist = 1;
+            cottonFabric.ArmorColdResist = 1;
+            //cottonFabric.ArmorPoisonResist = 1;
+            //cottonFabric.ArmorEnergyResist = 1;
+            //cottonFabric.ArmorDurability = 2;
+
+            CraftAttributeInfo flaxFabric = Flax = new CraftAttributeInfo(); //2
+
+            flaxFabric.ArmorPhysicalResist = 2;
+            //flaxFabric.ArmorColdResist = 2;
+            //flaxFabric.ArmorPoisonResist = 1;
+            flaxFabric.ArmorEnergyResist = 2;
+            //flaxFabric.ArmorDurability = 4;
+
+            CraftAttributeInfo silkFabric = Silk = new CraftAttributeInfo(); //2
+
+            silkFabric.ArmorPhysicalResist = 2;
+            //silkFabric.ArmorColdResist = 1;
+            silkFabric.ArmorPoisonResist = 1;
+            silkFabric.ArmorEnergyResist = 3;
+            //silkFabric.ArmorDurability = 4;
+
+            CraftAttributeInfo woolFabric = Wool = new CraftAttributeInfo(); //2
+
+            woolFabric.ArmorPhysicalResist = 3;
+            woolFabric.ArmorColdResist = 4;
+            //woolFabric.ArmorPoisonResist = 1;
+            //woolFabric.ArmorEnergyResist = 1;
+            //woolFabric.ArmorDurability = 4;
         }
 	}
 
@@ -927,12 +968,22 @@ namespace Server.Items
 				
 			};
 
-		/// <summary>
-		/// Returns true if '<paramref name="resource"/>' is None, Iron, RegularLeather or RegularWood. False if otherwise.
-		/// </summary>
-		public static bool IsStandard( CraftResource resource )
+        private static CraftResourceInfo[] m_FabricInfo = new CraftResourceInfo[]
+            {
+                new CraftResourceInfo( 0x000,	1011542,    "Algodão",		CraftAttributeInfo.Cotton,     CraftResource.Cotton,    typeof( Cotton ) ),
+                new CraftResourceInfo( 1382,    1026809,    "Linho",		CraftAttributeInfo.Flax,     CraftResource.Flax,      typeof( Flax ) ),
+                new CraftResourceInfo( 2173,    1074333,    "Seda",        CraftAttributeInfo.Silk,     CraftResource.Silk,      typeof( Silk ) ),
+                new CraftResourceInfo( 0x000,    1026808,    "Poliéster",        CraftAttributeInfo.Blank,     CraftResource.Poliester/*,      typeof( Poliester )*/ ),
+                
+                new CraftResourceInfo( 946,    1023613,    "Lã",        CraftAttributeInfo.Wool,     CraftResource.Wool,      typeof( Wool ) )
+            };
+
+        /// <summary>
+        /// Returns true if '<paramref name="resource"/>' is None, Iron, RegularLeather or RegularWood. False if otherwise.
+        /// </summary>
+        public static bool IsStandard( CraftResource resource )
 		{
-			return ( resource == CraftResource.None || resource == CraftResource.Iron || resource == CraftResource.RegularLeather || resource == CraftResource.RegularWood );
+			return ( resource == CraftResource.None || resource == CraftResource.Iron || resource == CraftResource.RegularLeather || resource == CraftResource.RegularWood || resource == CraftResource.Cotton );
 		}
 
 		private static Hashtable m_TypeTable;
@@ -977,7 +1028,8 @@ namespace Server.Items
 				case CraftResourceType.Leather: list = m_AOSLeatherInfo; break;
 				case CraftResourceType.Scales: list = m_ScaleInfo; break;
 				case CraftResourceType.Wood: list = m_WoodInfo; break;
-			}
+                case CraftResourceType.Fabric: list = m_FabricInfo; break;
+            }
 
 			if ( list != null )
 			{
@@ -1047,7 +1099,10 @@ namespace Server.Items
 					resource == CraftResource.PetrifiedTree*/ )
 				return CraftResourceType.Wood;
 
-			return CraftResourceType.None;
+            if (resource == CraftResource.Cotton || resource == CraftResource.Flax || resource == CraftResource.Silk || resource == CraftResource.Wool || resource == CraftResource.Poliester)
+                return CraftResourceType.Fabric;
+
+            return CraftResourceType.None;
 		}
 
 		/// <summary>
@@ -1061,7 +1116,8 @@ namespace Server.Items
 				case CraftResourceType.Leather: return CraftResource.RegularLeather;
 				case CraftResourceType.Scales: return CraftResource.RedScales;
 				case CraftResourceType.Wood: return CraftResource.RegularWood;
-			}
+                case CraftResourceType.Fabric: return CraftResource.Cotton;
+            }
 
 			return CraftResource.None;
 		}
