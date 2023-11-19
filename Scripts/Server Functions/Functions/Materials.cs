@@ -1414,9 +1414,9 @@ namespace Server.Misc
 				if ( color == "frozen" ){ hue = 0x47E; }
 				else if ( color == "volcanic" ){ hue = 0x4EB; }
 				else if ( color == "dinosaur" ){ hue = 0x430; }
-				else if ( color == "serpent" ){ hue = 0x7D1; }
-				else if ( color == "lizard" ){ hue = 0x586; }
-				else if ( color == "deep sea" ){ hue = 0x555; }
+				else if ( color == "serpent" ){ hue = 0x1D0; /*0x7D1;*/ }
+				else if ( color == "lizard" ){ hue = 0xEF;  /*0x586;*/ }
+				else if ( color == "deep sea" ){ hue = 0x128; /*0x555*/; }
 				else if ( color == "draconic" ){ hue = 0x846; }
 				else if ( color == "hellish" ){ hue = 0x5B5; }
 				else if ( color == "goliath" ){ hue = 0x6DF; }
@@ -1428,9 +1428,9 @@ namespace Server.Misc
 				if ( color == "frozen" ){ hue = 0xB5B; }
 				else if ( color == "volcanic" ){ hue = 0xB39; }
 				else if ( color == "dinosaur" ){ hue = 0x91D; }
-				else if ( color == "serpent" ){ hue = 0xB19; }
-				else if ( color == "lizard" ){ hue = 0xAB0; }
-				else if ( color == "deep sea" ){ hue = 0xABB; }
+				else if ( color == "serpent" ){ hue = 0x1D0;/*0xB19;*/ }
+				else if ( color == "lizard" ){ hue = 0xEF;/*0xAB0;*/ }
+				else if ( color == "deep sea" ){ hue = 0x128;/*0xABB;*/ }
 				else if ( color == "draconic" ){ hue = 0xAB4; }
 				else if ( color == "hellish" ){ hue = 0xAFA; }
 				else if ( color == "goliath" ){ hue = 0x86A; }

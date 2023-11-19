@@ -12,8 +12,8 @@ namespace Server.Items
 		[Constructable]
 		public SewingKit() : base( 0x4C81 )
 		{
-            Name = "Kit de Costura";
-            Weight = 2.0;
+            Name = "Super Kit de Costura";
+            Weight = 4.0;
 			Hue = Utility.RandomDyedHue();
             if (Utility.RandomBool()) { ItemID = 0x4C80; }
         }
@@ -21,7 +21,7 @@ namespace Server.Items
 		[Constructable]
 		public SewingKit( int uses ) : base( uses, 0x4C81 )
 		{
-            Name = "Kit de Costura";
+            Name = "Super Kit de Costura";
             Weight = 2.0;
             Hue = Utility.RandomDyedHue();
             if ( Utility.RandomBool() ){ ItemID = 0x4C80; }
