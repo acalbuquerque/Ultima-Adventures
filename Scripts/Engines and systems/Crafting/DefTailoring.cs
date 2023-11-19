@@ -283,12 +283,12 @@ namespace Server.Engines.Craft
             #endregion
 
             #region Leather Armor
-            AddCraft( typeof( LeatherGorget ), "Armadura de Couro", 1025063, 53.9, 78.9, typeof( Leather ), 1044462, 4, 1044463 );
+            AddCraft( typeof( LeatherGorget ), "Armadura de Couro", 1025063, 53.9, 78.9, typeof(Leather), 1044462, 4, 1044463 );
 			AddCraft( typeof( LeatherCap ), "Armadura de Couro", 1027609, 6.2, 31.2, typeof( Leather ), 1044462, 2, 1044463 );
 			AddCraft( typeof( LeatherGloves ), "Armadura de Couro", 1025062, 51.8, 76.8, typeof( Leather ), 1044462, 3, 1044463 );
 			AddCraft( typeof( LeatherArms ), "Armadura de Couro", 1025061, 53.9, 78.9, typeof( Leather ), 1044462, 4, 1044463 );
 			AddCraft( typeof( LeatherLegs ), "Armadura de Couro", 1025067, 66.3, 91.3, typeof( Leather ), 1044462, 10, 1044463 );
-			AddCraft( typeof( LeatherChest ), "Armadura de Couro", 1025068, 70.5, 95.5, typeof( Leather ), 1044462, 12, 1044463 );
+			AddCraft( typeof( LeatherChest ), "Armadura de Couro", 1025068, 70.5, 95.5, typeof(Leather), 1044462, 12, 1044463 );
 			AddCraft( typeof( LeatherCloak ), "Armadura de Couro", "leather cloak", 66.3, 91.3, typeof( Leather ), 1044462, 10, 1044463 );
 			AddCraft( typeof( LeatherRobe ), "Armadura de Couro", "leather robe", 76.3, 101.3, typeof( Leather ), 1044462, 18, 1044463 );
 			AddCraft( typeof( LeatherShorts ), "Armadura de Couro", 1027168, 62.2, 87.2, typeof( Leather ), 1044462, 8, 1044463 );
@@ -375,18 +375,19 @@ namespace Server.Engines.Craft
 			// This will override the overridable material
 			AddSubRes2( typeof( Leather ),			1049150, 00.0, 1044462, 1049311 );
             AddSubRes2( typeof( SpinedLeather),		1049151, 70.0, 1044462, 1049311);
-            AddSubRes2( typeof( BarbedLeather),		1049153, 80.0, 1044462, 1049311);
             AddSubRes2( typeof( HornedLeather ),	1049152, 85.0, 1044462, 1049311 );
-			AddSubRes2( typeof( NecroticLeather ),	1034403, 90.0, 1044462, 1049311 );
-			AddSubRes2( typeof( VolcanicLeather ),	1034414, 90.0, 1044462, 1049311 );
-			AddSubRes2( typeof( FrozenLeather ),	1034425, 95.0, 1044462, 1049311 );
-			AddSubRes2( typeof( GoliathLeather ),	1034370, 95.0, 1044462, 1049311 );
-			AddSubRes2( typeof( DraconicLeather ),	1034381, 100.0, 1044462, 1049311 );
-			AddSubRes2( typeof( HellishLeather ),	1034392, 100.0, 1044462, 1049311 );
-			AddSubRes2( typeof( DinosaurLeather ),	1036104, 105.0, 1044462, 1049311 );
-			AddSubRes2( typeof( AlienLeather ),		1034444, 110.0, 1044462, 1049311 );
+            AddSubRes2(typeof( BarbedLeather),		1049153, 80.0, 1044462, 1049311);
+            AddSubRes2(typeof(AlienLeather), 1034444, 110.0, 1044462, 1049311);
+            /*			AddSubRes2( typeof( NecroticLeather ),	1034403, 90.0, 1044462, 1049311 );
+                        AddSubRes2( typeof( VolcanicLeather ),	1034414, 90.0, 1044462, 1049311 );
+                        AddSubRes2( typeof( FrozenLeather ),	1034425, 95.0, 1044462, 1049311 );
+                        AddSubRes2( typeof( GoliathLeather ),	1034370, 95.0, 1044462, 1049311 );
+                        AddSubRes2( typeof( DraconicLeather ),	1034381, 100.0, 1044462, 1049311 );
+                        AddSubRes2( typeof( HellishLeather ),	1034392, 100.0, 1044462, 1049311 );
+                        AddSubRes2( typeof( DinosaurLeather ),	1036104, 105.0, 1044462, 1049311 );
+             */
 
-            
+
 
             MarkOption = true;
 			Repair = Core.AOS;

@@ -16,8 +16,9 @@ namespace Server.Items
 		[Constructable]
 		public Scissors() : base( 0xF9F )
 		{
+			Name = "Tesoura";
 			Weight = 1.0;
-		}
+        }
 
 		public Scissors( Serial serial ) : base( serial )
 		{
