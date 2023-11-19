@@ -55,32 +55,28 @@ namespace Server.Items
 		private static bool m_IsRunicTool;
 		private static int m_LuckChance;
 
-		private static int Scale( int min, int max, int low, int high, bool force = false)
+		private static int Scale( int min, int max, int low, int high )
 		{
 			int percent;
 
-			if (m_IsRunicTool)
+			if ( m_IsRunicTool )
 			{
-				percent = Utility.RandomMinMax(min, max);
+				percent = Utility.RandomMinMax( min, max );
 			}
-			else if (force) 
-			{ 
-				return Utility.RandomMinMax(min, max);
-            }
 			else
 			{
 				// Behold, the worst system ever!
-				int v = Utility.RandomMinMax(0, 10000);
+				int v = Utility.RandomMinMax( 0, 10000 );
 
-				v = (int)Math.Sqrt(v);
+				v = (int) Math.Sqrt( v );
 				v = 100 - v;
 
-				if (LootPack.CheckLuck(m_LuckChance))
+				if ( LootPack.CheckLuck( m_LuckChance ) )
 					v += 10;
 
-				if (v < min)
+				if ( v < min )
 					v = min;
-				else if (v > max)
+				else if ( v > max )
 					v = max;
 
 				percent = v;
@@ -96,43 +92,28 @@ namespace Server.Items
 			return low + (((high - low) * percent) / 1000001);
 		}
 
-		private static void ApplyAttribute( AosAttributes attrs, int min, int max, AosAttribute attr, int low, int high, bool force = false )
+		private static void ApplyAttribute( AosAttributes attrs, int min, int max, AosAttribute attr, int low, int high )
 		{
-			ApplyAttribute( attrs, min, max, attr, low, high, 1, force);
+			ApplyAttribute( attrs, min, max, attr, low, high, 1 );
 		}
 
-		private static void ApplyAttribute( AosAttributes attrs, int min, int max, AosAttribute attr, int low, int high, int scale, bool force = false)
+		private static void ApplyAttribute( AosAttributes attrs, int min, int max, AosAttribute attr, int low, int high, int scale )
 		{
 			if ( attr == AosAttribute.CastSpeed )
-				attrs[attr] += Scale( min, max, low / scale, high / scale, force) * scale;
+				attrs[attr] += Scale( min, max, low / scale, high / scale ) * scale;
 			else
-				attrs[attr] = Scale( min, max, low / scale, high / scale, force) * scale;
+				attrs[attr] = Scale( min, max, low / scale, high / scale ) * scale;
 
 			if ( attr == AosAttribute.SpellChanneling )
 				attrs[AosAttribute.CastSpeed] -= 1;
 		}
 
-		private static void ApplyAttribute( AosArmorAttributes attrs, int min, int max, AosArmorAttribute attr, int low, int high, bool force = false)
+		private static void ApplyAttribute( AosArmorAttributes attrs, int min, int max, AosArmorAttribute attr, int low, int high )
 		{
-			attrs[attr] = Scale( min, max, low, high, force);
+			attrs[attr] = Scale( min, max, low, high );
 		}
 
-/*        private static void NewApplyAttribute(AosArmorAttributes attrs, int min, int max, AosAttribute attr)
-        {
-			attrs[attr] = Utility.RandomMinMax(min, max);//Scale(min, max, low, high);
-        }
-
-        private static void NewApplyAttribute(AosArmorAttributes attrs, int min, int max, AosArmorAttribute attr)
-        {
-			attrs[attr] = Utility.RandomMinMax(min, max);//Scale(min, max, low, high);
-        }
-
-        private static void NewApplyAttribute(AosArmorAttributes attrs, int min, int max, AosElementAttribute attr)
-        {
-			attrs[attr] = Utility.RandomMinMax(min, max);//Scale(min, max, low, high);
-        }*/
-
-        private static void ApplyAttribute( AosArmorAttributes attrs, int min, int max, AosArmorAttribute attr, int low, int high, int scale )
+		private static void ApplyAttribute( AosArmorAttributes attrs, int min, int max, AosArmorAttribute attr, int low, int high, int scale )
 		{
 			attrs[attr] = Scale( min, max, low / scale, high / scale ) * scale;
 		}
@@ -147,9 +128,9 @@ namespace Server.Items
 			attrs[attr] = Scale( min, max, low / scale, high / scale ) * scale;
 		}
 
-		private static void ApplyAttribute( AosElementAttributes attrs, int min, int max, AosElementAttribute attr, int low, int high, bool force = false)
+		private static void ApplyAttribute( AosElementAttributes attrs, int min, int max, AosElementAttribute attr, int low, int high )
 		{
-			attrs[attr] = Scale( min, max, low, high, force );
+			attrs[attr] = Scale( min, max, low, high );
 		}
 
 		private static void ApplyAttribute( AosElementAttributes attrs, int min, int max, AosElementAttribute attr, int low, int high, int scale )
@@ -719,28 +700,7 @@ namespace Server.Items
 			}
 		}
 
-		public static void ApplySpecificAttributeTo(BaseClothing cloth, int min, int max, AosAttribute attribute, int low, int high) 
-		{
-			m_IsRunicTool = true;
-            AosAttributes primary = cloth.Attributes;
-            ApplyAttribute(primary, min, max, attribute, low, high, true);
-        }
-
-        public static void ApplySpecificAttributeTo(BaseClothing cloth, int min, int max, AosArmorAttribute attribute, int low, int high)
-        {
-            m_IsRunicTool = true;
-            AosArmorAttributes secondary = cloth.ClothingAttributes;
-            ApplyAttribute(secondary, min, max, attribute, low, high, true);
-        }
-
-        public static void ApplySpecificAttributeTo(BaseClothing cloth, int min, int max, AosElementAttribute attribute, int low, int high)
-        {
-            m_IsRunicTool = true;
-            AosElementAttributes resists = cloth.Resistances;
-            ApplyAttribute(resists, min, max, attribute, low, high, true);
-        }
-
-        public static void ApplyAttributesTo( BaseClothing cloth, int attributeCount, int min, int max )
+		public static void ApplyAttributesTo( BaseClothing cloth, int attributeCount, int min, int max )
 		{
 			ApplyAttributesTo( cloth, false, 0, attributeCount, min, max );
 		}
@@ -756,19 +716,7 @@ namespace Server.Items
 
 			m_Props.SetAll( false );
 
-/*			int resistMin = 1;
-			int resistMax = 15;
-
-            int aosMin = 1;
-            int aosMax = 20;
-
-            int luckMin = 1;
-            int luckMax = 20;
-
-            int armorMin = 1;
-            int armorMax = 20;*/
-
-            for ( int i = 0; i < attributeCount; ++i )
+			for ( int i = 0; i < attributeCount; ++i )
 			{
 				int random = GetUniqueRandom( 19 );
 

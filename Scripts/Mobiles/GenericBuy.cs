@@ -249,8 +249,8 @@ namespace Server.Mobiles
 		public GenericBuyInfo( string name, Type type, int price, int amount, int itemID, int hue, object[] args )
 		{
 			m_Type = type;
-			m_Price = price;// GetRandBuyPriceFor( price );
-            m_MaxAmount = m_Amount = GetRandBuyAmountFor( amount );
+			m_Price = GetRandBuyPriceFor( price );
+			m_MaxAmount = m_Amount = GetRandBuyAmountFor( amount );
 			m_ItemID = itemID;
 			m_Hue = hue;
 			m_Args = args;

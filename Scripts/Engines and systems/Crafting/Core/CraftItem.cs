@@ -1147,7 +1147,12 @@ namespace Server.Engines.Craft
 					{
 						item.Amount = item.Amount * 2;
 					}
-					else if (item is WoodenPlateLegs || item is WoodenPlateGloves || item is WoodenPlateGorget || item is WoodenPlateArms || item is WoodenPlateChest || item is WoodenPlateHelm)
+					else if (item is WoodenPlateLegs ||
+							item is WoodenPlateGloves ||
+							item is WoodenPlateGorget ||
+							item is WoodenPlateArms ||
+							item is WoodenPlateChest ||
+							item is WoodenPlateHelm)
 					{
 						if (item is BaseArmor)
 						{
@@ -1197,14 +1202,13 @@ namespace Server.Engines.Craft
 							item is SkinUnicornArms ||
 							item is SkinUnicornChest ||
 							item is SkinUnicornHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("unicorn skin", "", 0); }
-
 					else if (item is SkinDemonLegs ||
 							item is SkinDemonGloves ||
 							item is SkinDemonGorget ||
 							item is SkinDemonArms ||
 							item is SkinDemonChest ||
 							item is SkinDemonHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("demon skin", "", 0); }
-					else if (item is SkinDragonLegs ||
+                    else if (item is SkinDragonLegs ||
 							item is SkinDragonGloves ||
 							item is SkinDragonGorget ||
 							item is SkinDragonArms ||
@@ -1215,7 +1219,7 @@ namespace Server.Engines.Craft
 							item is SkinNightmareGorget ||
 							item is SkinNightmareArms ||
 							item is SkinNightmareChest ||
-							item is SkinNightmareHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("nightmare skin", "", 0); }
+							item is SkinNightmareHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("nightmare skin", "", 0);  }
 					else if (item is SkinSerpentLegs ||
 							item is SkinSerpentGloves ||
 							item is SkinSerpentGorget ||
@@ -1227,7 +1231,7 @@ namespace Server.Engines.Craft
 							item is SkinTrollGorget ||
 							item is SkinTrollArms ||
 							item is SkinTrollChest ||
-							item is SkinTrollHelm) { if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("troll skin", "", 0); }
+							item is SkinTrollHelm) {  if (item is BaseArmor) { BaseArmor woody = (BaseArmor)item; woody.Resource = CraftResource.RegularLeather; } item.Hue = MaterialInfo.GetMaterialColor("troll skin", "", 0); }
 					else if (item is AmethystPlateLegs ||
 							item is AmethystPlateGloves ||
 							item is AmethystPlateGorget ||
@@ -1348,9 +1352,16 @@ namespace Server.Engines.Craft
 							item is TopazFemalePlateChest ||
 							item is TopazPlateHelm ||
 							item is TopazShield) { item.Hue = MaterialInfo.GetMaterialColor("topaz", "", 0); }
-					else if (item is WhiteFurRobe || item is WhiteFurCape || item is WhiteFurCap || item is WhiteFurBoots || item is WhiteFurSarong) { item.Hue = 0x481; }
-					else if (item is FurRobe || item is FurCape || item is FurCap || item is FurBoots || item is FurSarong) { item.Hue = 0x907; }
-					
+					else if (item is WhiteFurRobe ||
+							item is WhiteFurCape ||
+							item is WhiteFurCap ||
+							item is WhiteFurBoots ||
+							item is WhiteFurSarong) { item.Hue = 0x481; }
+					else if (item is FurRobe ||
+							item is FurCape ||
+							item is FurCap ||
+							item is FurBoots ||
+							item is FurSarong) { item.Hue = 0x907; }
 
 					else if (item is BaseMagicStaff)
 					{
@@ -1962,78 +1973,11 @@ namespace Server.Engines.Craft
 						item.Hue = color;
 					}
 
-                    ///////////////////////////////////////////////////////////////////////////
-                    ///
-                    /// CLOTHING
-                    /// 
-                    if (item is BaseClothing)
-                    {
-                        Type resourceType = typeRes;
-                        CraftResource thisResource = CraftResource.Cotton;
-
-                        if (resourceType == typeof(FlaxCloth) ) 
-						{ 
-							thisResource = CraftResource.Flax;
-
-                            ((BaseClothing)item).Attributes.Luck = 1; 
-							((BaseClothing)item).Attributes.RegenStam = 2;
-                            //BaseRunicTool.ApplyAttributesTo((BaseClothing)item, false, 0, 1, 5, 10);
-
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 2, 3, AosArmorAttribute.SelfRepair, 1, 5);
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 2, 3, AosElementAttribute.Chaos, 2, 5);
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 2, 3, AosElementAttribute.Energy, 1, 5);
-                        }
-						else if (resourceType == typeof(SilkCloth) ) 
-						{ 
-							thisResource = CraftResource.Silk;
-
-                            ((BaseClothing)item).Attributes.Luck = 2;
-                            ((BaseClothing)item).Attributes.RegenStam = 2;
-
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosAttribute.LowerManaCost, 1, 8);
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosElementAttribute.Energy, 2, 8);
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosElementAttribute.Poison, 1, 8);
-                        }
-                        else if (resourceType == typeof(PoliesterCloth)) // poliester
-                        {
-                            thisResource = CraftResource.Poliester;
-
-                            ((BaseClothing)item).Attributes.Luck = 1;
-                            ((BaseClothing)item).Attributes.RegenStam = 1;
-
-                            //BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosAttribute.LowerManaCost, 1, 8);
-                            //BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosAttribute.BonusDex, 1, 8);
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosElementAttribute.Energy, 2, 8);
-                            //BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosElementAttribute.Poison, 1, 8);
-                        }
-                        else if (resourceType == typeof(WoolCloth) ) 
-						{ 
-							thisResource = CraftResource.Wool;
-
-                            ((BaseClothing)item).Attributes.Luck = 1;
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosAttribute.DefendChance, 2, 8);
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 3, 5, AosElementAttribute.Physical, 2, 10);
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 4, 5, AosElementAttribute.Cold, 3, 10);
-                        }
-                        else if (resourceType == typeof(CottonCloth)) 
-						{ 
-							thisResource = CraftResource.Cotton;
-
-                            ((BaseClothing)item).Attributes.RegenStam = 1;
-                            BaseRunicTool.ApplySpecificAttributeTo((BaseClothing)item, 5, 8, AosAttribute.BonusStam, 1, 8);
-                        }
-
-                        ((BaseClothing)item).Resource = thisResource;
-                        ((BaseClothing)item).Hue = m_ResHue;
-
-                    }
-
-
-                    ///////////////////////////////////////////////////////////////////////////
-                    ///
-                    /// ARMOR / WEAPON
-                    /// 	
-                    if (item is BaseArmor || item is BaseWeapon) // ELVEN WOOD
+					///////////////////////////////////////////////////////////////////////////
+					///
+					/// ARMOR / WEAPON
+					/// 	
+					if (item is BaseArmor || item is BaseWeapon) // ELVEN WOOD
 					{
 						Type resourceType = typeRes;
 						if (resourceType == null)

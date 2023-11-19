@@ -6,7 +6,6 @@ using Server.Targeting;
 using Server.ContextMenus;
 using Server.Gumps;
 using Server.Multis.Deeds;
-using Server.Commands.Generic;
 
 namespace Server.Items
 {
@@ -67,8 +66,7 @@ namespace Server.Items
 			writer.Write( (int)m_SecureLevel );
 			writer.Write( (bool) m_Redyable );
 			writer.Write( (int) m_DyedHue );
-            writer.Write((int)m_UsesRemaining);
-        }
+		}
 
 		public override void Deserialize( GenericReader reader )
 		{
@@ -87,22 +85,13 @@ namespace Server.Items
 				{
 					m_Redyable = reader.ReadBool();
 					m_DyedHue = reader.ReadInt();
-                    m_UsesRemaining = reader.ReadInt();
-                    break;
+
+					break;
 				}
 			}
 		}
 
-        private int m_UsesRemaining;
-
-        [CommandProperty(AccessLevel.GameMaster)]
-        public int UsesRemaining
-        {
-            get { return m_UsesRemaining; }
-            set { m_UsesRemaining = value; if (value <= 0) { Delete(); } InvalidateProperties(); }
-        }
-
-        [CommandProperty( AccessLevel.GameMaster )]
+		[CommandProperty( AccessLevel.GameMaster )]
 		public bool Redyable
 		{
 			get
@@ -150,7 +139,6 @@ namespace Server.Items
 		{
 			Weight = 10.0;
 			m_Redyable = true;
-			m_UsesRemaining = 15;
 		}
 		
 		public override void GetContextMenuEntries( Mobile from, List<ContextMenuEntry> list )
@@ -163,15 +151,8 @@ namespace Server.Items
 		{
 		}
 
-        public override void GetProperties(ObjectPropertyList list)
-        {
-            base.GetProperties(list);
-
-            list.Add(1060584, m_UsesRemaining.ToString()); // uses remaining: ~1_val~
-        }
-
-        // Select the clothing to dye.
-        public virtual int TargetMessage{ get{ return 500859; } }
+		// Select the clothing to dye.
+		public virtual int TargetMessage{ get{ return 500859; } }
 
 		// You can not dye that.
 		public virtual int FailMessage{ get{ return 1042083; } }
@@ -210,12 +191,8 @@ namespace Server.Items
 							from.SendLocalizedMessage( 500446 ); // That is too far away.
 						else if ( item.Parent is Mobile )
 							from.SendLocalizedMessage( 500861 ); // Can't Dye clothing that is being worn.
-						else if ( ((IDyable)item).Dye( from, m_Tub ))
-						{
-							m_Tub.UsesRemaining -= 1;
-                            from.PlaySound(0x23E);
-                        }
-							
+						else if ( ((IDyable)item).Dye( from, m_Tub ) )
+							from.PlaySound( 0x23E );
 					}
 					else if ( FurnitureAttribute.Check( item ) )
 					{
@@ -248,8 +225,7 @@ namespace Server.Items
 
 							if ( okay )
 							{
-                                m_Tub.UsesRemaining -= 1;
-                                item.Hue = m_Tub.DyedHue;
+								item.Hue = m_Tub.DyedHue;
 								from.PlaySound( 0x23E );
 							}
 						}
@@ -316,8 +292,7 @@ namespace Server.Items
 						}
 						else
 						{
-                            m_Tub.UsesRemaining -= 1;
-                            item.Hue = m_Tub.DyedHue;
+							item.Hue = m_Tub.DyedHue;
 							from.PlaySound( 0x23E );
 						}
 
@@ -339,8 +314,7 @@ namespace Server.Items
 							DDRelicRugAddonDeed relic = (DDRelicRugAddonDeed)item;
 							relic.RelicColor = m_Tub.DyedHue;
 							from.PlaySound( 0x23E );
-                            m_Tub.UsesRemaining -= 1;
-                        }
+						}
 					}
 					else if ( item is HenchmanFamiliarItem || item is WaxPainting || item is WaxSculptors || item is WaxSculptorsD || item is WaxSculptorsE || item is ColorCandleShort || item is ColorCandleLong )
 					{
@@ -356,8 +330,7 @@ namespace Server.Items
 						{
 							item.Hue = m_Tub.DyedHue;
 							from.PlaySound( 0x23E );
-                            m_Tub.UsesRemaining -= 1;
-                        }
+						}
 					}
 					else if ( ( item is MyTentEastAddonDeed ) || ( item is MyTentSouthAddonDeed ) )
 					{
@@ -375,8 +348,7 @@ namespace Server.Items
 							if ( item is MyTentEastAddonDeed ) { MyTentEastAddonDeed tent = (MyTentEastAddonDeed)item; tent.TentColor = m_Tub.DyedHue; }
 							else { MyTentSouthAddonDeed tent = (MyTentSouthAddonDeed)item; tent.TentColor = m_Tub.DyedHue; }
 							from.PlaySound( 0x23E );
-                            m_Tub.UsesRemaining -= 1;
-                        }
+						}
 					}
 					else if ( ( item is MyCircusTentEastAddonDeed ) || ( item is MyCircusTentSouthAddonDeed ) )
 					{
@@ -394,8 +366,7 @@ namespace Server.Items
 							if ( item is MyCircusTentEastAddonDeed ) { MyCircusTentEastAddonDeed tent = (MyCircusTentEastAddonDeed)item; tent.TentColor1 = m_Tub.DyedHue; }
 							else { MyCircusTentSouthAddonDeed tent = (MyCircusTentSouthAddonDeed)item; tent.TentColor1 = m_Tub.DyedHue; }
 							from.PlaySound( 0x23E );
-                            m_Tub.UsesRemaining -= 1;
-                        }
+						}
 					}
 					else if ( item is MonsterStatuette && m_Tub.AllowStatuettes )
 					{
@@ -411,8 +382,7 @@ namespace Server.Items
 						{
 							item.Hue = m_Tub.DyedHue;
 							from.PlaySound( 0x23E );
-                            m_Tub.UsesRemaining -= 1;
-                        }
+						}
 					}
 					else if ( item is BaseArmor && ( Server.Misc.MaterialInfo.IsAnyKindOfClothItem( item ) || item is ElvenBoots ) && m_Tub.AllowLeather )
 					{
@@ -432,8 +402,7 @@ namespace Server.Items
 						{
 							item.Hue = m_Tub.DyedHue;
 							from.PlaySound( 0x23E );
-                            m_Tub.UsesRemaining -= 1;
-                        }
+						}
 					}
 					else if ( item is BaseArmor && ( Server.Misc.MaterialInfo.IsAnyKindOfMetalItem( item ) || Server.Misc.MaterialInfo.IsAnyKindOfWoodItem( item ) ) && m_Tub.AllowArmor )
 					{
@@ -453,8 +422,7 @@ namespace Server.Items
 						{
 							item.Hue = m_Tub.DyedHue;
 							from.PlaySound( 0x23E );
-                            m_Tub.UsesRemaining -= 1;
-                        }
+						}
 					}
 					else if ( item is BaseWeapon && m_Tub.AllowWeapons )
 					{
@@ -473,8 +441,7 @@ namespace Server.Items
 						else
 						{
 							item.Hue = m_Tub.DyedHue;
-                            m_Tub.UsesRemaining -= 1;
-                            from.PlaySound( 0x23E );
+							from.PlaySound( 0x23E );
 						}
 					}
 					else

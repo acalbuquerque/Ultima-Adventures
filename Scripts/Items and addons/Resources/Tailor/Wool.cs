@@ -1,68 +1,41 @@
 using System;
 using Server.Items;
 using Server.Targeting;
-using Server.Mobiles;
+
 namespace Server.Items
 {
 	public class Wool : Item, IDyable
 	{
-        private bool m_colored;
-
-        [CommandProperty(AccessLevel.GameMaster)]
-        public bool ArtificialColored
-        {
-            get { return m_colored; }
-            set { m_colored = value; InvalidateProperties(); }
-        }
-
-        [Constructable]
+		[Constructable]
 		public Wool() : this( 1 )
 		{
-            Name = "fardo(s) de lã fina";
-            Hue = 946;
-        }
+		}
 
 		[Constructable]
 		public Wool( int amount ) : base( 0xDF8 )
 		{
 			Stackable = true;
-			Weight = 3.0;
+			Weight = 4.0;
 			Amount = amount;
-            Hue = 946;
-            Name = "fardo(s) de lã fina";
-        }
+		}
 
 		public Wool( Serial serial ) : base( serial )
 		{
 		}
 
-        public override void AddNameProperties(ObjectPropertyList list)
-        {
-            base.AddNameProperties(list);
-
-			if(m_colored)
-                list.Add(1070722, ItemNameHue.UnifiedItemProps.SetColor("Colorido Artificalmente", "#8be4fc"));
-
-            list.Add(1049644, ItemNameHue.UnifiedItemProps.SetColor("Utilize uma roda de fiar para transformar.", "#ffe066")); // PARENTHESIS
-        }
-
-        public override void Serialize( GenericWriter writer )
+		public override void Serialize( GenericWriter writer )
 		{
 			base.Serialize( writer );
 
 			writer.Write( (int) 0 ); // version
-
-            writer.Write(m_colored);
-        }
+		}
 
 		public override void Deserialize( GenericReader reader )
 		{
 			base.Deserialize( reader );
 
 			int version = reader.ReadInt();
-            m_colored = reader.ReadBool();
-            Name = "fardo(s) de lã fina";
-        }
+		}
 		public bool Dye( Mobile from, DyeTub sender )
 		{
 			if ( Deleted )
@@ -70,10 +43,8 @@ namespace Server.Items
 
 			Hue = sender.DyedHue;
 
-            ArtificialColored = true;
-
-            return ArtificialColored;
-        }
+			return true;
+		}
 
 		public override void OnDoubleClick( Mobile from )
 		{
@@ -88,49 +59,18 @@ namespace Server.Items
 			}
 		}
 
-		public static void OnSpun( ISpinningWheel wheel, Mobile from, Item yarn, Point3D originLoc)
+		public static void OnSpun( ISpinningWheel wheel, Mobile from, Item yarn )
 		{
-            bool stopped = false;
-            PlayerMobile pm = from as PlayerMobile;
-            //pm.SendMessage(33, "Origin X:" + originLoc.X + "Origin Y: " + originLoc.Y);
+			if ( yarn != null )
+			{
+				Item item = new DarkYarn( (yarn.Amount * 3 ) );
+				item.Hue = yarn.Hue;
+				yarn.Delete();
 
-            if (yarn != null)
-            {
-
-                for (int i = 0; i < yarn.Amount; i++)
-                {
-                    Point3D atualLoc = pm.Location; //check if player moved, if so, stop
-                    //pm.SendMessage(35, "atual X: " + atualLoc.X + " - atual Y: " + atualLoc.Y);
-
-                    if (originLoc.X != atualLoc.X || originLoc.Y != atualLoc.Y)
-                    {
-                        stopped = true;
-                        pm.SendMessage(55, "Você se moveu e parou de transformar o(s) item(s).");
-
-                        break;
-                    }
-                }
-
-                if (!stopped)
-                {
-                    Wool bYarn = yarn as Wool;
-                    BaseClothMaterial item = new LightYarn(yarn.Amount * 4);
-                    item.Hue = yarn.Hue;
-                    item.ArtificialColored = bYarn.ArtificialColored;
-                    item.Resource = CraftResource.Wool;
-                    yarn.Delete();
-
-                    from.AddToBackpack(item);
-                    from.SendMessage(55, "Você coloca a(s) bola(s) de lã na mochila.");
-                    //from.SendLocalizedMessage(1010574); // You put a ball of yarn in your backpack.
-                }
-                else
-                {
-                    yarn.Amount -= ((yarn.Amount * 0.1) < 1) ? 1 : (int)(yarn.Amount * 0.1);
-                    from.SendMessage(33, "Você perdeu uma pequena quantidade de material quando falhou na transformação.");
-                }
-            }
-        }
+				from.AddToBackpack( item );
+				from.SendLocalizedMessage( 1010576 ); // You put the balls of yarn in your backpack.
+			}
+		}
 
 		private class PickWheelTarget : Target
 		{
@@ -178,12 +118,10 @@ namespace Server.Items
 	}
 	public class TaintedWool : Wool
 	{
-
-        [Constructable]
+		[Constructable]
 		public TaintedWool() : this( 1 )
 		{
-            Name = "fardo(s) de lã grossa";
-        }
+		}
 		
 		[Constructable]
 		public TaintedWool( int amount ) : base( 0x101F )
@@ -191,9 +129,7 @@ namespace Server.Items
 			Stackable = true;
 			Weight = 4.0;
 			Amount = amount;
-			Hue = 914;
-            Name = "fardo(s) de lã grossa";
-        }
+		}
 
 		public TaintedWool( Serial serial ) : base( serial )
 		{
@@ -204,64 +140,26 @@ namespace Server.Items
 			base.Serialize( writer );
 
 			writer.Write( (int) 0 ); // version
-
-            //Wool t = base as Wool;
-        }
+		}
 
 		public override void Deserialize( GenericReader reader )
 		{
 			base.Deserialize( reader );
 
-            //ToolbarHelper.Infos = this;
-
-            int version = reader.ReadInt();
-
-            Name = "fardo(s) de lã grossa";
-        }
+			int version = reader.ReadInt();
+		}
 		
-		new public static void OnSpun( ISpinningWheel wheel, Mobile from, Item yarn, Point3D originLoc)
+		new public static void OnSpun( ISpinningWheel wheel, Mobile from, Item yarn )
 		{
-            bool stopped = false;
-            PlayerMobile pm = from as PlayerMobile;
-            //pm.SendMessage(33, "Origin X:" + originLoc.X + "Origin Y: " + originLoc.Y);
+			if ( yarn != null )
+			{
+				Item item = new DarkYarn( yarn.Amount );
+				item.Hue = yarn.Hue;
+				yarn.Delete();
 
-            if (yarn != null)
-            {
-
-                for (int i = 0; i < yarn.Amount; i++)
-                {
-                    Point3D atualLoc = pm.Location; //check if player moved, if so, stop
-                    //pm.SendMessage(35, "atual X: " + atualLoc.X + " - atual Y: " + atualLoc.Y);
-
-                    if (originLoc.X != atualLoc.X || originLoc.Y != atualLoc.Y)
-                    {
-                        stopped = true;
-                        pm.SendMessage(55, "Você se moveu e parou de transformar o(s) item(s).");
-
-                        break;
-                    }
-                }
-
-                if (!stopped)
-                {
-					Wool bYarn = yarn as Wool;
-
-                    BaseClothMaterial item = new DarkYarn(yarn.Amount * 3);
-                    item.Hue = yarn.Hue;
-					item.ArtificialColored = bYarn.ArtificialColored;
-                    item.Resource = CraftResource.Wool;
-                    yarn.Delete();
-
-                    from.AddToBackpack(item);
-                    from.SendMessage(55, "Você coloca a(s) bola(s) de lã na mochila.");
-                    //from.SendLocalizedMessage(1010574); // You put a ball of yarn in your backpack.
-                }
-                else
-                {
-                    yarn.Amount -= ((yarn.Amount * 0.1) < 1) ? 1 : (int)(yarn.Amount * 0.1);
-                    from.SendMessage(33, "Você perdeu uma pequena quantidade de material quando falhou na transformação.");
-                }
-            }
-        }
+				from.AddToBackpack( item );
+				from.SendLocalizedMessage( 1010574 ); // You put a ball of yarn in your backpack.
+			}
+		}
 	}
 }

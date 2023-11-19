@@ -5454,25 +5454,11 @@ namespace Server.Mobiles
 		{
 			public InternalBuyInfo()
 			{
-				//Always
-                Add(new GenericBuyInfo(typeof(Scissors), 11, Utility.Random(5, 15), 0xF9F, 0));
-                Add(new GenericBuyInfo(typeof(SewingKit), 8, Utility.Random(5, 15), 0x4C81, 0));
-                Add(new GenericBuyInfo(typeof(Dyes), 5, Utility.Random(5, 30), 0xFA9, 0));
-                Add(new GenericBuyInfo(typeof(DyeTub), 8, Utility.Random(3, 15), 0xFAB, 0));
-                Add(new GenericBuyInfo(typeof(CottonSpoolOfThread), 18, Utility.Random(15, 35), 0x543A/*0xFA0*/, 0));
-
-                /*Add(new GenericBuyInfo(typeof(LightYarn), 36, Utility.Random(5, 20), 0xE1E, 0));
-                Add(new GenericBuyInfo(typeof(DarkYarn), 36, Utility.Random(5, 20), 0xE1D, 0));*/
-
-                Add(new GenericBuyInfo(typeof(Bandana), 6, Utility.Random(1, 15), 0x1540, Utility.RandomDyedHue()));
-                Add(new GenericBuyInfo(typeof(SkullCap), 7, Utility.Random(1, 15), 0x1544, Utility.RandomDyedHue()));
-                Add(new GenericBuyInfo(typeof(Cap), 10, Utility.Random(1, 15), 0x1715, Utility.RandomDyedHue()));
-
-
-                /*if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( DyeTub ), 8, Utility.Random( 1,15 ), 0xFAB, 0 ) ); } 
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Dyes ), 8, Utility.Random( 1,15 ), 0xFA9, 0 ) ); } */
-                if (MyServerSettings.SellChance()) { Add(new GenericBuyInfo(typeof(FlaxSpoolOfThread), 18, Utility.Random(2, 15), 0xFA0, 0)); }
-                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Shirt ), 12, Utility.Random( 1,15 ), 0x1517, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( SewingKit ), 3, Utility.Random( 1,15 ), 0x4C81, 0 ) ); } 
+				if ( 1 > 0 ){Add( new GenericBuyInfo( typeof( Scissors ), 11, Utility.Random( 1,15 ), 0xF9F, 0 ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( DyeTub ), 8, Utility.Random( 1,15 ), 0xFAB, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Dyes ), 8, Utility.Random( 1,15 ), 0xFA9, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Shirt ), 12, Utility.Random( 1,15 ), 0x1517, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( ShortPants ), 7, Utility.Random( 1,15 ), 0x152E, 0 ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FancyShirt ), 21, Utility.Random( 1,15 ), 0x1EFD, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( RoyalCoat ), 21, Utility.Random( 1,15 ), 0x307, Utility.RandomDyedHue() ) ); }
@@ -5497,7 +5483,7 @@ namespace Server.Mobiles
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( LoinCloth ), 10, Utility.Random( 1,15 ), 0x2B68, 637 ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( RoyalLoinCloth ), 10, Utility.Random( 1,15 ), 0x55DB, 637 ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Robe ), 18, Utility.Random( 1,15 ), 0x1F03, Utility.RandomDyedHue() ) ); }
-                /*if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( JokerRobe ), 40, Utility.Random( 1,5 ), 0x2B6B, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( JokerRobe ), 40, Utility.Random( 1,5 ), 0x2B6B, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( AssassinRobe ), 40, Utility.Random( 1,5 ), 0x2B69, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FancyRobe ), 40, Utility.Random( 1,5 ), 0x2B6A, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( GildedRobe ), 40, Utility.Random( 1,5 ), 0x2B6C, Utility.RandomDyedHue() ) ); }
@@ -5519,15 +5505,15 @@ namespace Server.Mobiles
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( CultistRobe ), 40, Utility.Random( 1,5 ), 0x289, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( GildedDarkRobe ), 40, Utility.Random( 1,5 ), 0x28A, 0 ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( GildedLightRobe ), 40, Utility.Random( 1,5 ), 0x301, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( SageRobe ), 40, Utility.Random( 1,5 ), 0x302, Utility.RandomDyedHue() ) ); }*/
-                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Cloak ), 8, Utility.Random( 1,15 ), 0x1515, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( SageRobe ), 40, Utility.Random( 1,5 ), 0x302, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Cloak ), 8, Utility.Random( 1,15 ), 0x1515, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Doublet ), 13, Utility.Random( 1,15 ), 0x1F7B, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Tunic ), 18, Utility.Random( 1,15 ), 0x1FA1, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( JesterSuit ), 26, Utility.Random( 1,15 ), 0x1F9F, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( JesterHat ), 12, Utility.Random( 1,15 ), 0x171C, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FloppyHat ), 7, Utility.Random( 1,15 ), 0x1713, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WideBrimHat ), 8, Utility.Random( 1,15 ), 0x1714, Utility.RandomDyedHue() ) ); }
-
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Cap ), 10, Utility.Random( 1,15 ), 0x1715, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( TallStrawHat ), 8, Utility.Random( 1,15 ), 0x1716, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( StrawHat ), 7, Utility.Random( 1,15 ), 0x1717, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WizardsHat ), 11, Utility.Random( 1,15 ), 0x1718, Utility.RandomDyedHue() ) ); }
@@ -5536,20 +5522,21 @@ namespace Server.Mobiles
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FeatheredHat ), 10, Utility.Random( 1,15 ), 0x171A, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( TricorneHat ), 8, Utility.Random( 1,15 ), 0x171B, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( PirateHat ), 8, Utility.Random( 1,15 ), 0x2FBC, Utility.RandomDyedHue() ) ); }
-
-				/*if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( ClothHood ), 12, Utility.Random( 1,15 ), 0x2B71, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Bandana ), 6, Utility.Random( 1,15 ), 0x1540, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( SkullCap ), 7, Utility.Random( 1,15 ), 0x1544, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( ClothHood ), 12, Utility.Random( 1,15 ), 0x2B71, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( ClothCowl ), 12, Utility.Random( 1,15 ), 0x3176, Utility.RandomDyedHue() ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( WizardHood ), 12, Utility.Random( 1,15 ), 0x310, Utility.RandomDyedHue() ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FancyHood ), 12, Utility.Random( 1,15 ), 0x4D09, Utility.RandomDyedHue() ) ); }*/
-                /*if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,15 ), 0xf95, Utility.RandomDyedHue() ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FancyHood ), 12, Utility.Random( 1,15 ), 0x4D09, Utility.RandomDyedHue() ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,15 ), 0xf95, Utility.RandomDyedHue() ) ); } 
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Cloth ), 2, Utility.Random( 1,15 ), 0x1766, Utility.RandomDyedHue() ) ); } 
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 2, Utility.Random( 1,15 ), 0x1767, Utility.RandomDyedHue() ) ); } 
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Cotton ), 102, Utility.Random( 1,15 ), 0xDF9, 0 ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Wool ), 62, Utility.Random( 1,15 ), 0xDF8, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Flax ), 102, Utility.Random( 1,15 ), 0x1A9C, 0 ) ); }*/
-
-                /*if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FemaleMannequinDeed ), Utility.Random( 5000,15000 ), 1, 0x14F0, 0 ) ); }
-				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( MaleMannequinDeed ), Utility.Random( 5000,15000 ), 1, 0x14F0, 0 ) ); }*/
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Flax ), 102, Utility.Random( 1,15 ), 0x1A9C, 0 ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( SpoolOfThread ), 18, Utility.Random( 1,15 ), 0x543A, 0 ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FemaleMannequinDeed ), Utility.Random( 5000,15000 ), 1, 0x14F0, 0 ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( MaleMannequinDeed ), Utility.Random( 5000,15000 ), 1, 0x14F0, 0 ) ); }
 			}
 		}
 
@@ -6369,35 +6356,23 @@ namespace Server.Mobiles
 		public class InternalBuyInfo : List<GenericBuyInfo> 
 		{ 
 			public InternalBuyInfo() 
-			{
-                //Always
-                Add(new GenericBuyInfo(typeof(Scissors), 9, 9, 0xF9F, 0));
-                Add(new GenericBuyInfo(typeof(Dyes), 5, Utility.Random(5, 30), 0xFA9, 0));
-                Add(new GenericBuyInfo(typeof(DyeTub), 8, Utility.Random(3, 15), 0xFAB, 0));
-                Add(new GenericBuyInfo(typeof(Cotton), 5, Utility.Random(10, 20), 0xDF9, 0));
-                Add(new GenericBuyInfo(typeof(Wool), 4, Utility.Random(10, 20), 0xDF8, 0));
-                Add(new GenericBuyInfo(typeof(Flax), 6, Utility.Random(10, 20), 0x1A9C, 0));
-
-				// 
-                if (MyServerSettings.SellRareChance()) { Add(new GenericBuyInfo(typeof(Silk), 21, Utility.Random(5, 15), 0xE1F, 2173)); }
-                if (MyServerSettings.SellCommonChance()) { Add(new GenericBuyInfo(typeof(DarkYarn), 36, Utility.Random(20, 50), 0xE1D, 0)); }
-                if (MyServerSettings.SellCommonChance()) { Add(new GenericBuyInfo(typeof(LightYarn), 36, Utility.Random(20, 50), 0xE1E, 0)); }
-                if (MyServerSettings.SellChance()) { Add(new GenericBuyInfo(typeof(BoltOfCloth), 100, Utility.Random(5, 15), 0xf95, 0)); }
-                if (MyServerSettings.SellVeryRareChance()) { Add(new GenericBuyInfo(typeof(PaintCanvas), 500, Utility.Random(1, 5), 0xA6C, 0x47E)); }
-
-                /*                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1761, 0 ) ); } 
-                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1762, 0 ) ); } 
-                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1763, 0 ) ); } 
-                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1764, 0 ) ); } 
-                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf9B, 0 ) ); } 
-                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf9C, 0 ) ); } 
-                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf96, 0 ) ); } 
-                                if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf97, 0 ) ); } */
-
-                /*if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( LightYarnUnraveled ), 18, Utility.Random( 1,100 ), 0xE1F, 0 ) ); }*/
-                /*if (MyServerSettings.SellChance()) { Add(new GenericBuyInfo(typeof(Cloth), 2, Utility.Random(1, 15), 0x1766, Utility.RandomDyedHue())); }
-                if (MyServerSettings.SellChance()) { Add(new GenericBuyInfo(typeof(UncutCloth), 2, Utility.Random(1, 15), 0x1767, Utility.RandomDyedHue())); }*/
-            } 
+			{ 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( Dyes ), 8, Utility.Random( 1,100 ), 0xFA9, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( DyeTub ), 8, Utility.Random( 1,100 ), 0xFAB, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1761, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1762, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1763, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( UncutCloth ), 3, Utility.Random( 1,100 ), 0x1764, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf9B, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf9C, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf96, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( BoltOfCloth ), 100, Utility.Random( 1,100 ), 0xf97, 0 ) ); } 
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( DarkYarn ), 18, Utility.Random( 1,100 ), 0xE1D, 0 ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( LightYarn ), 18, Utility.Random( 1,100 ), 0xE1E, 0 ) ); }
+				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( LightYarnUnraveled ), 18, Utility.Random( 1,100 ), 0xE1F, 0 ) ); }
+				if ( MyServerSettings.SellVeryRareChance() ){Add( new GenericBuyInfo( typeof( PaintCanvas ), 500, Utility.Random( 1,100 ), 0xA6C, 0x47E ) ); }
+				if ( 1 > 0 ){Add( new GenericBuyInfo( typeof( Scissors ), 11, Utility.Random( 1,100 ), 0xF9F, 0 ) ); }
+			} 
 		} 
 
 		public class InternalSellInfo : GenericSellInfo 
@@ -6407,12 +6382,12 @@ namespace Server.Mobiles
 				if ( MyServerSettings.BuyChance() ){Add( typeof( Scissors ), 6 ); }  
 				if ( MyServerSettings.BuyChance() ){Add( typeof( Dyes ), 4 ); }  
 				if ( MyServerSettings.BuyChance() ){Add( typeof( DyeTub ), 4 ); }  
-				if ( MyServerSettings.BuyChance() ){Add( typeof( UncutCloth ), 3 ); } 
-				if ( MyServerSettings.BuyChance() ){Add( typeof( BoltOfCloth ), 70 ); }  
-				/*if ( MyServerSettings.BuyChance() ){Add( typeof( LightYarnUnraveled ), 9 ); } */
+				if ( MyServerSettings.BuyChance() ){Add( typeof( UncutCloth ), 1 ); } 
+				if ( MyServerSettings.BuyChance() ){Add( typeof( BoltOfCloth ), 35 ); }  
+				if ( MyServerSettings.BuyChance() ){Add( typeof( LightYarnUnraveled ), 9 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( LightYarn ), 9 ); } 
 				if ( MyServerSettings.BuyChance() ){Add( typeof( DarkYarn ), 9 ); } 
-				if ( MyServerSettings.BuyVeryRareChance() ){Add( typeof( PaintCanvas ), 250 ); } 
+				if ( MyServerSettings.BuyChance() ){Add( typeof( PaintCanvas ), 250 ); } 
 			} 
 		} 
 	}
@@ -8347,7 +8322,7 @@ namespace Server.Mobiles
 				Add( new GenericBuyInfo( typeof( Cotton ), 102, Utility.Random( 3,31 ), 0xDF9, 0 ) );
 				Add( new GenericBuyInfo( typeof( Wool ), 62, Utility.Random( 3,31 ), 0xDF8, 0 ) );
 				Add( new GenericBuyInfo( typeof( Flax ), 102, Utility.Random( 3,31 ), 0x1A9C, 0 ) );
-				Add( new GenericBuyInfo( typeof( SpoolOfThread ), 18, Utility.Random( 3,31 ), 0xFA0, 0 ) );
+				Add( new GenericBuyInfo( typeof( SpoolOfThread ), 18, Utility.Random( 3,31 ), 0x543A, 0 ) );
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( FemaleMannequinDeed ), Utility.Random( 5000,10000 ), 1, 0x14F0, 0 ) ); }
 				if ( MyServerSettings.SellChance() ){Add( new GenericBuyInfo( typeof( MaleMannequinDeed ), Utility.Random( 5000,10000 ), 1, 0x14F0, 0 ) ); }
 				

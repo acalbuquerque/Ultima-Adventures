@@ -1,11 +1,9 @@
 using System;
 using Server;
-using Server.Mobiles;
-using Server.Gumps;
 
 namespace Server.Items
 {
-	public delegate void SpinCallback( ISpinningWheel sender, Mobile from, Item yarn, Point3D originLoc );
+	public delegate void SpinCallback( ISpinningWheel sender, Mobile from, Item yarn );
 
 	public interface ISpinningWheel
 	{
@@ -20,8 +18,7 @@ namespace Server.Items
 		[Constructable]
 		public SpinningwheelEastAddon()
 		{
-            Name = "roda de fiar";
-            AddComponent( new AddonComponent( 0x1019 ), 0, 0, 0 );
+			AddComponent( new AddonComponent( 0x1019 ), 0, 0, 0 );
 		}
 
 		public SpinningwheelEastAddon( Serial serial ) : base( serial )
@@ -43,9 +40,8 @@ namespace Server.Items
 		}
 
 		private Timer m_Timer;
-        private Point3D m_startLoc;
 
-        public override void OnComponentLoaded( AddonComponent c )
+		public override void OnComponentLoaded( AddonComponent c )
 		{
 			switch ( c.ItemID )
 			{
@@ -58,34 +54,26 @@ namespace Server.Items
 
 		public bool Spinning{ get{ return m_Timer != null; } }
 
-		public void BeginSpin( SpinCallback callback, Mobile from, Item yarn)
+		public void BeginSpin( SpinCallback callback, Mobile from, Item yarn )
 		{
-            PlayerMobile pm = from as PlayerMobile;
-            pm.SendMessage(55, "Você não deve se mover enquanto transforma o(s) item(s). Caso contrário, falhará na transformação!");
-
-            m_Timer = new SpinTimer( this, callback, from, yarn );
+			m_Timer = new SpinTimer( this, callback, from, yarn );
 			m_Timer.Start();
 
-			m_startLoc = pm.Location;
-
-            foreach (AddonComponent c in Components)
+			foreach ( AddonComponent c in Components )
 			{
-                switch (c.ItemID)
-                {
-                    case 0x1015:
-                    case 0x1019:
-                    case 0x101C:
-                    case 0x10A4: ++c.ItemID; break;
-                }
-            }
+				switch ( c.ItemID )
+				{
+					case 0x1015:
+					case 0x1019:
+					case 0x101C:
+					case 0x10A4: ++c.ItemID; break;
+				}
+			}
+		}
 
-        }
-
-        public void EndSpin( SpinCallback callback, Mobile from, Item yarn )
+		public void EndSpin( SpinCallback callback, Mobile from, Item yarn )
 		{
-            PlayerMobile pm = from as PlayerMobile;
-
-            if ( m_Timer != null )
+			if ( m_Timer != null )
 				m_Timer.Stop();
 
 			m_Timer = null;
@@ -102,7 +90,7 @@ namespace Server.Items
 			}
 
 			if ( callback != null )
-				callback( this, from, yarn, m_startLoc);
+				callback( this, from, yarn );
 		}
 
 		private class SpinTimer : Timer
@@ -111,18 +99,14 @@ namespace Server.Items
 			private SpinCallback m_Callback;
 			private Mobile m_From;
 			private Item m_Yarn;
-			private Point3D m_originLoc;
 
-			public SpinTimer( SpinningwheelEastAddon wheel, SpinCallback callback, Mobile from, Item yarn ) : base( TimeSpan.FromSeconds( (yarn.Amount >= 30) ? 45 : (int)(1.5 * yarn.Amount) ) )
+			public SpinTimer( SpinningwheelEastAddon wheel, SpinCallback callback, Mobile from, Item yarn ) : base( TimeSpan.FromSeconds( 3.0 ) )
 			{
-                PlayerMobile pm = from as PlayerMobile;
-
-                m_Wheel = wheel;
+				m_Wheel = wheel;
 				m_Callback = callback;
 				m_From = from;
 				m_Yarn = yarn;
-				m_originLoc = pm.Location;
-                Priority = TimerPriority.TwoFiftyMS;
+				Priority = TimerPriority.TwoFiftyMS;
 			}
 
 			protected override void OnTick()

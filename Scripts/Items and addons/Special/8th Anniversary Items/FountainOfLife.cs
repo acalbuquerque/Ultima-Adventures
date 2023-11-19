@@ -27,16 +27,16 @@ namespace Server.Items
 		{
 		}
 
-/*		public override bool Dye( Mobile from, DyeTub sender )
+		public override bool Dye( Mobile from, DyeTub sender )
 		{
 			return false;
-		}*/
+		}
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
 			base.GetProperties( list );
-            list.Add(1070722, ItemNameHue.UnifiedItemProps.SetColor("essas bandagens foram aprimoradas.", "#8be4fc"));
-            //list.Add( 1075216 ); // these bandages have been enhanced
+
+			list.Add( 1075216 ); // these bandages have been enhanced
 		}
 
 		public override void Serialize( GenericWriter writer )

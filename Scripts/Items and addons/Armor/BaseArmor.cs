@@ -1939,7 +1939,7 @@ m_MaxHits
 			if ( m_HitPoints >= 0 && m_MaxHitPoints > 0 )
 				list.Add( 1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints ); // durability ~1_val~ / ~2_val~
 
-            list.Add(ItemNameHue.UnifiedItemProps.SetColor("Este item considerado como armadura", "#8be4fc"));
+            list.Add(ItemNameHue.UnifiedItemProps.SetColor("Item considerado como armadura", "#8be4fc"));
 		}
 
 		public override void OnSingleClick( Mobile from )

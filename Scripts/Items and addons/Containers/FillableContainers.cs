@@ -929,7 +929,7 @@ namespace Server.Items
 				new FillableEntry( 1, typeof( Wool ) ),
 				new FillableEntry( 1, typeof( DarkYarn ) ),
 				new FillableEntry( 1, typeof( LightYarn ) ),
-				/*new FillableEntry( 1, typeof( LightYarnUnraveled ) ),*/
+				new FillableEntry( 1, typeof( LightYarnUnraveled ) ),
 				new FillableEntry( 1, typeof( SpoolOfThread ) ),
 				// Four different types
 				//new FillableEntry( 1, typeof( FoldedCloth ) ),

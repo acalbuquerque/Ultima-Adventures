@@ -1,6 +1,6 @@
 using System;
 using Server;
-using Server.Mobiles;
+
 namespace Server.Items
 {
 	public class ElvenSpinningwheelEastAddon : BaseAddon, ISpinningWheel
@@ -10,8 +10,7 @@ namespace Server.Items
 		[Constructable]
 		public ElvenSpinningwheelEastAddon()
 		{
-            Name = "roda de fiar";
-            AddComponent( new AddonComponent( 0x2DD9 ), 0, 0, 0 );
+			AddComponent( new AddonComponent( 0x2DD9 ), 0, 0, 0 );
 		}
 
 		public ElvenSpinningwheelEastAddon( Serial serial ) : base( serial )
@@ -33,9 +32,8 @@ namespace Server.Items
 		}
 
 		private Timer m_Timer;
-        private Point3D m_startLoc;
 
-        public override void OnComponentLoaded( AddonComponent c )
+		public override void OnComponentLoaded( AddonComponent c )
 		{
 			switch ( c.ItemID )
 			{
@@ -49,15 +47,10 @@ namespace Server.Items
 
 		public void BeginSpin( SpinCallback callback, Mobile from, Item yarn )
 		{
-            PlayerMobile pm = from as PlayerMobile;
-            pm.SendMessage(55, "Você não deve se mover enquanto transforma o(s) item(s). Caso contrário, falhará na transformação!");
-
-            m_Timer = new SpinTimer( this, callback, from, yarn );
+			m_Timer = new SpinTimer( this, callback, from, yarn );
 			m_Timer.Start();
 
-            m_startLoc = pm.Location;
-
-            foreach ( AddonComponent c in Components )
+			foreach ( AddonComponent c in Components )
 			{
 				switch ( c.ItemID )
 				{
@@ -70,8 +63,7 @@ namespace Server.Items
 
 		public void EndSpin( SpinCallback callback, Mobile from, Item yarn )
 		{
-            PlayerMobile pm = from as PlayerMobile;
-            if ( m_Timer != null )
+			if ( m_Timer != null )
 				m_Timer.Stop();
 
 			m_Timer = null;
@@ -88,8 +80,8 @@ namespace Server.Items
 			}
 
 			if ( callback != null )
-                callback(this, from, yarn, m_startLoc);
-        }
+				callback( this, from, yarn );
+		}
 
 		private class SpinTimer : Timer
 		{
@@ -98,7 +90,7 @@ namespace Server.Items
 			private Mobile m_From;
 			private Item m_Yarn;
 
-			public SpinTimer( ElvenSpinningwheelEastAddon wheel, SpinCallback callback, Mobile from, Item yarn ) : base(TimeSpan.FromSeconds((yarn.Amount >= 30) ? 45 : (int)(1.5 * yarn.Amount)) )
+			public SpinTimer( ElvenSpinningwheelEastAddon wheel, SpinCallback callback, Mobile from, Item yarn ) : base( TimeSpan.FromSeconds( 3.0 ) )
 			{
 				m_Wheel = wheel;
 				m_Callback = callback;
