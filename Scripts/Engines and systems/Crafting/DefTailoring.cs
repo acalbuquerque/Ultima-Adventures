@@ -64,8 +64,10 @@ namespace Server.Engines.Craft
 
 		private static Type[] m_TailorNonColorables = new Type[]
 			{
-				//typeof( OrcHelm )
-			};
+				//
+				typeof( MinersPouch ), typeof( LumberjackPouch ), 
+				typeof( OrcHelm ), typeof( BoneHelm ),typeof( BoneGloves ),typeof( BoneArms ),typeof( BoneLegs ),typeof( BoneChest )
+            };
 
 		private static Type[] m_TailorColorables = new Type[]
 			{
@@ -283,85 +285,136 @@ namespace Server.Engines.Craft
             #endregion
 
             #region Leather Armor
-            AddCraft( typeof( LeatherGorget ), "Armadura de Couro", 1025063, 53.9, 78.9, typeof( Leather ), 1044462, 4, 1044463 );
-			AddCraft( typeof( LeatherCap ), "Armadura de Couro", 1027609, 6.2, 31.2, typeof( Leather ), 1044462, 2, 1044463 );
-			AddCraft( typeof( LeatherGloves ), "Armadura de Couro", 1025062, 51.8, 76.8, typeof( Leather ), 1044462, 3, 1044463 );
-			AddCraft( typeof( LeatherArms ), "Armadura de Couro", 1025061, 53.9, 78.9, typeof( Leather ), 1044462, 4, 1044463 );
-			AddCraft( typeof( LeatherLegs ), "Armadura de Couro", 1025067, 66.3, 91.3, typeof( Leather ), 1044462, 10, 1044463 );
-			AddCraft( typeof( LeatherChest ), "Armadura de Couro", 1025068, 70.5, 95.5, typeof( Leather ), 1044462, 12, 1044463 );
-			AddCraft( typeof( LeatherCloak ), "Armadura de Couro", "leather cloak", 66.3, 91.3, typeof( Leather ), 1044462, 10, 1044463 );
-			AddCraft( typeof( LeatherRobe ), "Armadura de Couro", "leather robe", 76.3, 101.3, typeof( Leather ), 1044462, 18, 1044463 );
-			AddCraft( typeof( LeatherShorts ), "Armadura de Couro", 1027168, 62.2, 87.2, typeof( Leather ), 1044462, 8, 1044463 );
-			AddCraft( typeof( LeatherSkirt ), "Armadura de Couro", 1027176, 58.0, 83.0, typeof( Leather ), 1044462, 6, 1044463 );
-			AddCraft( typeof( LeatherBustierArms ), "Armadura de Couro", 1027178, 58.0, 83.0, typeof( Leather ), 1044462, 6, 1044463 );
-			AddCraft( typeof( FemaleLeatherChest ), "Armadura de Couro", 1027174, 62.2, 87.2, typeof( Leather ), 1044462, 8, 1044463 );
-			AddCraft( typeof( LeatherJingasa ), "Armadura de Couro", 1030177, 45.0, 70.0, typeof( Leather ), 1044462, 4, 1044463 );
-			AddCraft( typeof( LeatherMempo ), "Armadura de Couro", 1030181, 80.0, 105.0, typeof( Leather ), 1044462, 8, 1044463 );
-			AddCraft( typeof( LeatherDo ), "Armadura de Couro", 1030182, 75.0, 100.0, typeof( Leather ), 1044462, 12, 1044463 );
-			AddCraft( typeof( LeatherHiroSode ), "Armadura de Couro", 1030185, 55.0, 80.0, typeof( Leather ), 1044462, 5, 1044463 );
-			AddCraft( typeof( LeatherSuneate ), "Armadura de Couro", 1030193, 68.0, 93.0, typeof( Leather ), 1044462, 12, 1044463 );
-			AddCraft( typeof( LeatherHaidate ), "Armadura de Couro", 1030197, 68.0, 93.0, typeof( Leather ), 1044462, 12, 1044463 );
-			AddCraft( typeof( LeatherNinjaPants ), "Armadura de Couro", 1030204, 80.0, 105.0, typeof( Leather ), 1044462, 13, 1044463 );
-			AddCraft( typeof( LeatherNinjaJacket ), "Armadura de Couro", 1030206, 85.0, 110.0, typeof( Leather ), 1044462, 13, 1044463 );
-			AddCraft( typeof( LeatherNinjaBelt ), "Armadura de Couro", 1030203, 50.0, 75.0, typeof( Leather ), 1044462, 5, 1044463 );
-			AddCraft( typeof( LeatherNinjaMitts ), "Armadura de Couro", 1030205, 65.0, 90.0, typeof( Leather ), 1044462, 12, 1044463 );
-			AddCraft( typeof( LeatherNinjaHood ), "Armadura de Couro", 1030201, 90.0, 115.0, typeof( Leather ), 1044462, 14, 1044463 );
+			// Couro 
+            index = AddCraft(typeof(LeatherCap), "Armadura de Couro", 1027609, 50.0, 55.2, typeof(Leather), 1044462, 4, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft( typeof( LeatherGorget ), "Armadura de Couro", 1025063, 53.9, 58.9, typeof( Leather ), 1044462, 4, 1044463 );
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(LeatherGloves), "Armadura de Couro", 1025062, 61.8, 66.8, typeof(Leather), 1044462, 6, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(LeatherArms), "Armadura de Couro", 1025061, 63.9, 68.9, typeof(Leather), 1044462, 10, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(LeatherLegs), "Armadura de Couro", 1025067, 66.3, 71.3, typeof(Leather), 1044462, 12, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(LeatherChest), "Armadura de Couro", 1025068, 70.5, 75.5, typeof(Leather), 1044462, 16, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(LeatherSkirt), "Armadura de Couro", 1027176, 74.0, 78.0, typeof(Leather), 1044462, 7, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(LeatherShorts), "Armadura de Couro", 1027168, 72.2, 77.2, typeof(Leather), 1044462, 8, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(LeatherBustierArms), "Armadura de Couro", 1027178, 78.0, 83.0, typeof(Leather), 1044462, 9, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(FemaleLeatherChest), "Armadura de Couro", 1027174, 82.2, 87.2, typeof(Leather), 1044462, 11, 1044463);
+            SetUseSubRes2(index, true);
 
+            // Couro-Reforçado
+            index = AddCraft(typeof(StuddedGorget), "Armadura de Couro", 1025078, 68.8, 73.8, typeof(Leather), 1044462, 6, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(StuddedGloves), "Armadura de Couro", 1025077, 72.9, 77.9, typeof(Leather), 1044462, 8, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(StuddedArms), "Armadura de Couro", 1025076, 77.1, 82.1, typeof(Leather), 1044462, 12, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(StuddedLegs), "Armadura de Couro", 1025082, 81.2, 86.2, typeof(Leather), 1044462, 14, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(StuddedChest), "Armadura de Couro", 1025083, 84.0, 89.0, typeof(Leather), 1044462, 18, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(StuddedSkirt), "Armadura de Couro", "saia de couro-reforçado", 71.2, 76.2, typeof(Leather), 1044462, 9, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(StuddedBustierArms), "Armadura de Couro", 1027180, 82.9, 87.9, typeof(Leather), 1044462, 11, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(FemaleStuddedChest), "Armadura de Couro", 1027170, 87.1, 92.1, typeof(Leather), 1044462, 13, 1044463);
+            SetUseSubRes2(index, true);
+            
+
+
+            /*AddCraft(typeof(LeatherCloak), "Armadura de Couro", "leather cloak", 66.3, 91.3, typeof(Leather), 1044462, 10, 1044463);
+			AddCraft(typeof(LeatherRobe), "Armadura de Couro", "leather robe", 76.3, 101.3, typeof(Leather), 1044462, 18, 1044463);
             AddCraft(typeof(PugilistMits), "Armadura de Couro", "pugilist gloves", 32.9, 57.9, typeof(Leather), 1044462, 8, 1044463);
             AddCraft(typeof(ThrowingGloves), "Armadura de Couro", "throwing gloves", 32.9, 57.9, typeof(Leather), 1044462, 8, 1044463);
 
-            AddCraft(typeof(StuddedGorget), "Armadura de Couro", 1025078, 78.8, 103.8, typeof(Leather), 1044462, 6, 1044463);
-            AddCraft(typeof(StuddedGloves), "Armadura de Couro", 1025077, 82.9, 107.9, typeof(Leather), 1044462, 8, 1044463);
-            AddCraft(typeof(StuddedArms), "Armadura de Couro", 1025076, 87.1, 112.1, typeof(Leather), 1044462, 10, 1044463);
-            AddCraft(typeof(StuddedLegs), "Armadura de Couro", 1025082, 91.2, 116.2, typeof(Leather), 1044462, 12, 1044463);
-            AddCraft(typeof(StuddedSkirt), "Armadura de Couro", "studded skirt", 91.2, 116.2, typeof(Leather), 1044462, 12, 1044463);
-            AddCraft(typeof(StuddedChest), "Armadura de Couro", 1025083, 94.0, 119.0, typeof(Leather), 1044462, 14, 1044463);
-            AddCraft(typeof(StuddedBustierArms), "Armadura de Couro", 1027180, 82.9, 107.9, typeof(Leather), 1044462, 8, 1044463);
-            AddCraft(typeof(FemaleStuddedChest), "Armadura de Couro", 1027170, 87.1, 112.1, typeof(Leather), 1044462, 10, 1044463);
-            AddCraft(typeof(StuddedMempo), "Armadura de Couro", 1030216, 80.0, 105.0, typeof(Leather), 1044462, 8, 1044463);
-            AddCraft(typeof(StuddedDo), "Armadura de Couro", 1030183, 95.0, 120.0, typeof(Leather), 1044462, 14, 1044463);
-            AddCraft(typeof(StuddedHiroSode), "Armadura de Couro", 1030186, 85.0, 110.0, typeof(Leather), 1044462, 8, 1044463);
-            AddCraft(typeof(StuddedSuneate), "Armadura de Couro", 1030194, 92.0, 117.0, typeof(Leather), 1044462, 14, 1044463);
-            AddCraft(typeof(StuddedHaidate), "Armadura de Couro", 1030198, 92.0, 117.0, typeof(Leather), 1044462, 14, 1044463);
+            AddCraft(typeof(LeatherJingasa), "Armadura de Couro", 1030177, 45.0, 70.0, typeof(Leather), 1044462, 4, 1044463);
+			AddCraft(typeof(LeatherMempo), "Armadura de Couro", 1030181, 80.0, 105.0, typeof(Leather), 1044462, 8, 1044463);
+			AddCraft(typeof(LeatherDo), "Armadura de Couro", 1030182, 75.0, 100.0, typeof(Leather), 1044462, 12, 1044463);
+			AddCraft(typeof(LeatherHiroSode), "Armadura de Couro", 1030185, 55.0, 80.0, typeof(Leather), 1044462, 5, 1044463);
+			AddCraft(typeof(LeatherSuneate), "Armadura de Couro", 1030193, 68.0, 93.0, typeof(Leather), 1044462, 12, 1044463);
+			AddCraft(typeof(LeatherHaidate), "Armadura de Couro", 1030197, 68.0, 93.0, typeof(Leather), 1044462, 12, 1044463);
+			
+			AddCraft(typeof(StuddedMempo), "Armadura de Couro", 1030216, 80.0, 105.0, typeof(Leather), 1044462, 8, 1044463);
+			AddCraft(typeof(StuddedDo), "Armadura de Couro", 1030183, 95.0, 120.0, typeof(Leather), 1044462, 14, 1044463);
+			AddCraft(typeof(StuddedHiroSode), "Armadura de Couro", 1030186, 85.0, 110.0, typeof(Leather), 1044462, 8, 1044463);
+			AddCraft(typeof(StuddedSuneate), "Armadura de Couro", 1030194, 92.0, 117.0, typeof(Leather), 1044462, 14, 1044463);
+			AddCraft(typeof(StuddedHaidate), "Armadura de Couro", 1030198, 92.0, 117.0, typeof(Leather), 1044462, 14, 1044463);
+
+            AddCraft(typeof(LeatherNinjaPants), "Armadura de Couro", 1030204, 80.0, 105.0, typeof(Leather), 1044462, 13, 1044463);
+            AddCraft(typeof(LeatherNinjaJacket), "Armadura de Couro", 1030206, 85.0, 110.0, typeof(Leather), 1044462, 13, 1044463);
+            AddCraft(typeof(LeatherNinjaBelt), "Armadura de Couro", 1030203, 50.0, 75.0, typeof(Leather), 1044462, 5, 1044463);
+            AddCraft(typeof(LeatherNinjaMitts), "Armadura de Couro", 1030205, 65.0, 90.0, typeof(Leather), 1044462, 12, 1044463);
+            AddCraft(typeof(LeatherNinjaHood), "Armadura de Couro", 1030201, 90.0, 115.0, typeof(Leather), 1044462, 14, 1044463);*/
+
             #endregion
 
             #region Bone Armor
-            index = AddCraft( typeof( BoneHelm ), "Armadura de Ossos", 1025206, 85.0, 110.0, typeof( Leather ), 1044462, 4, 1044463 );
-				AddRes( index, typeof( PolishedSkull ), "Polished Skull", 1, 1049063 );
-				AddRes( index, typeof( PolishedBone ), "Polished Bone", 1, 1049063 );
-			index = AddCraft( typeof( BoneGloves ), "Armadura de Ossos", 1025205, 89.0, 114.0, typeof( Leather ), 1044462, 6, 1044463 );
-				AddRes( index, typeof( PolishedBone ), "Polished Bone", 2, 1049063 );
-			index = AddCraft( typeof( BoneArms ), "Armadura de Ossos", 1025203, 92.0, 117.0, typeof( Leather ), 1044462, 8, 1044463 );
-				AddRes( index, typeof( PolishedBone ), "Polished Bone", 4, 1049063 );
-			index = AddCraft( typeof( BoneLegs ), "Armadura de Ossos", 1025202, 95.0, 120.0, typeof( Leather ), 1044462, 10, 1044463 );
-				AddRes( index, typeof( PolishedBone ), "Polished Bone", 6, 1049063 );
-			index = AddCraft( typeof( BoneSkirt ), "Armadura de Ossos", "bone skirt", 95.0, 120.0, typeof( Leather ), 1044462, 10, 1044463 );
-				AddRes( index, typeof( PolishedBone ), "Polished Bone", 6, 1049063 );
-			index = AddCraft( typeof( BoneChest ), "Armadura de Ossos", 1025199, 96.0, 121.0, typeof( Leather ), 1044462, 12, 1044463 );
-				AddRes( index, typeof( PolishedBone ), "Polished Bone", 10, 1049063 );
-			index = AddCraft(typeof(OrcHelm), "Armadura de Ossos", "horned helm", 90.0, 115.0, typeof(Leather), 1044462, 6, 1044463);
-				AddRes( index, typeof( PolishedSkull ), "Polished Skull", 1, 1049063 );
-				AddRes( index, typeof( PolishedBone ), "Polished Bone", 3, 1049063 );
-			#endregion
-
-			#region "Sacos/Sacolas/Mochilas"
-			AddCraft( typeof( Backpack ), "Sacos/Sacolas/Mochilas", "backpack", 8.2, 33.2, typeof( Leather ), 1044462, 3, 1044463 );
-			AddCraft( typeof( RuggedBackpack ), "Sacos/Sacolas/Mochilas", "backpack, rugged", 10.7, 40.7, typeof( Leather ), 1044462, 4, 1044463 );
-			AddCraft( typeof( Pouch ), "Sacos/Sacolas/Mochilas", "pouch", 0.0, 25.0, typeof( Leather ), 1044462, 2, 1044463 );
-			AddCraft( typeof( Bag ), "Sacos/Sacolas/Mochilas", "bag", 0.0, 25.0, typeof( Leather ), 1044462, 3, 1044463 );
-			AddCraft( typeof( LargeBag ), "Sacos/Sacolas/Mochilas", "bag, large", 16.5, 41.5, typeof( Leather ), 1044462, 6, 1044463 );
-			AddCraft( typeof( GiantBag ), "Sacos/Sacolas/Mochilas", "bag, giant", 26.0, 51.0, typeof( Leather ), 1044462, 9, 1044463 );
-			AddCraft( typeof( LargeSack ), "Sacos/Sacolas/Mochilas", "rucksack", 20.7, 45.7, typeof( Leather ), 1044462, 7, 1044463 );
-			AddCraft(typeof(AlchemyPouch), "Sacos/Sacolas/Mochilas", "Alchemy Rucksack", 90.0, 115.0, typeof(GoliathLeather), 1044462, 25, 1049311);
-			AddCraft(typeof(MinersPouch), "Sacos/Sacolas/Mochilas", "Miners Rucksack", 90.0, 115.0, typeof(GoliathLeather), 1044462, 50, 1049311);
-			AddCraft(typeof(LumberjackPouch), "Sacos/Sacolas/Mochilas", "Lumberjacks Rucksack", 90.0, 115.0, typeof(GoliathLeather), 1044462, 50, 1049311);
-			AddCraft(typeof(CoinPouch), "Sacos/Sacolas/Mochilas", "Coin Pouch", 90.0, 115.0, typeof(GoliathLeather), 1044462, 25, 1049311);
+            index = AddCraft( typeof( BoneHelm ), "Armadura de Ossos", 1025206, 35.0, 40.1, typeof( Leather ), 1044462, 4, 1044463 );
+				AddRes( index, typeof( PolishedSkull ), "Caveira Polida", 1, 1049063 );
+				AddRes( index, typeof( PolishedBone ), "Osso Polido", 1, 1049063 );
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(OrcHelm), "Armadura de Ossos", "elmo com chifres", 40.0, 45.1, typeof(Leather), 1044462, 5, 1044463);
+				AddRes(index, typeof(PolishedSkull), "Caveira Polida", 1, 1049063);
+				AddRes(index, typeof(PolishedBone), "Osso Polido", 3, 1049063);
+            SetUseSubRes2(index, true);
+            index = AddCraft( typeof( BoneGloves ), "Armadura de Ossos", 1025205, 39.0, 44.1, typeof( Leather ), 1044462, 6, 1044463 );
+				AddRes( index, typeof( PolishedBone ), "Osso Polido", 4, 1049063 );
+            SetUseSubRes2(index, true);
+            index = AddCraft( typeof( BoneArms ), "Armadura de Ossos", 1025203, 52.0, 57.1, typeof( Leather ), 1044462, 10, 1044463 );
+				AddRes( index, typeof( PolishedBone ), "Osso Polido", 8, 1049063 );
+            SetUseSubRes2(index, true);
+            index = AddCraft( typeof( BoneLegs ), "Armadura de Ossos", 1025202, 45.0, 50.1, typeof( Leather ), 1044462, 10, 1044463 );
+				AddRes( index, typeof( PolishedBone ), "Osso Polido", 12, 1049063 );
+            SetUseSubRes2(index, true);
+            index = AddCraft( typeof( BoneChest ), "Armadura de Ossos", 1025199, 56.0, 61.0, typeof( Leather ), 1044462, 12, 1044463 );
+				AddRes( index, typeof( PolishedBone ), "Osso Polido", 16, 1049063 );
+            SetUseSubRes2(index, true);
+            /*index = AddCraft( typeof( BoneSkirt ), "Armadura de Ossos", "bone skirt", 95.0, 120.0, typeof( Leather ), 1044462, 10, 1044463 );
+				AddRes( index, typeof( PolishedBone ), "Polished Bone", 6, 1049063 );*/
 
             #endregion
 
+            #region "Sacos/Sacolas/Mochilas"
+
+            index = AddCraft( typeof( Bag ), "Bolsas/Sacolas/Mochilas", "sacola", 30.0, 40.1, typeof( Leather ), 1044462, 11, 1044463 );
+            SetUseSubRes2(index, true);
+            index = AddCraft( typeof( LargeBag ), "Bolsas/Sacolas/Mochilas", "sacola grande", 50.0, 60.1, typeof( Leather ), 1044462, 21, 1044463 );
+            SetUseSubRes2(index, true);
+            index = AddCraft( typeof( GiantBag ), "Bolsas/Sacolas/Mochilas", "sacola gigante", 70.0, 80.1, typeof(GoliathLeather), 1061740, 20, 1044463 );
+            SetUseSubRes2(index, true);
+
+            index = AddCraft(typeof(Backpack), "Bolsas/Sacolas/Mochilas", "mochila", 50.0, 60.1, typeof(Leather), 1044462, 15, 1044463);
+            SetUseSubRes2(index, true);
+            index = AddCraft(typeof(RuggedBackpack), "Bolsas/Sacolas/Mochilas", "mochila reforçada", 60.0, 70.1, typeof(Leather), 1044462, 25, 1044463);
+            SetUseSubRes2(index, true);
+
+            index = AddCraft(typeof(MinersPouch), "Bolsas/Sacolas/Mochilas", "bolsa mágica de minérios", 90.0, 100.1, typeof(GoliathLeather), 1061740, 50, 1049311);
+				AddSkill(index, SkillName.Magery, 90.0, 100.0);
+				AddRes(index, typeof(PlatinumIngot), "Lingotes de Platina", 8, 1042081);
+            SetUseSubRes2(index, true);
+
+            index = AddCraft(typeof(LumberjackPouch), "Bolsas/Sacolas/Mochilas", "bolsa mágica de madeiras", 90.0, 100.1, typeof(GoliathLeather), 1061740, 50, 1049311);
+				AddSkill(index, SkillName.Magery, 90.0, 100.0);
+				AddRes(index, typeof(RosewoodBoard), "Tábuas de Pau-Brasil", 8, 1042081);
+            SetUseSubRes2(index, true);
+
+            /*AddCraft(typeof(Pouch), "Sacos/Sacolas/Mochilas", "pouch", 0.0, 25.0, typeof(Leather), 1044462, 2, 1044463);
+            AddCraft(typeof(LargeSack), "Sacos/Sacolas/Mochilas", "rucksack", 20.7, 45.7, typeof(Leather), 1044462, 7, 1044463);
+            AddCraft(typeof(CoinPouch), "Sacos/Sacolas/Mochilas", "Coin Pouch", 90.0, 115.0, typeof(GoliathLeather), 1044462, 25, 1049311);
+            AddCraft(typeof(AlchemyPouch), "Sacos/Sacolas/Mochilas", "Alchemy Rucksack", 90.0, 115.0, typeof(GoliathLeather), 1044462, 25, 1049311);*/
+
+            #endregion
+
+
             // Set the overridable material
             SetSubRes(typeof(CottonCloth), 1067440);
-
+            // Add every material you want the player to be able to choose from
+            // This will override the overridable material
             AddSubRes(typeof(CottonCloth), 1067440, 0.0, 1044458, 1054019);
             AddSubRes(typeof(WoolCloth), 1067443, 60.0, 1044458, 1054019);
             AddSubRes(typeof(FlaxCloth), 1067441, 70.0, 1044458, 1054019);
@@ -369,24 +422,23 @@ namespace Server.Engines.Craft
             AddSubRes(typeof(PoliesterCloth), 1067444, 80.0, 1044458, 1054019);
 
             // Set the overridable material
-            SetSubRes2( typeof( Leather ), 1049150 );
+            SetSubRes2(typeof(Leather), 1049150);
+            // Add every material you want the player to be able to choose from
+            // This will override the overridable material
+            AddSubRes2(typeof(Leather), 1049150, 00.0, 1044462, 1049311);
+            AddSubRes2(typeof(SpinedLeather), 1049151, 70.0, 1044462, 1049311);
+            AddSubRes2(typeof(HornedLeather), 1049152, 85.0, 1044462, 1049311);
+            AddSubRes2(typeof(BarbedLeather), 1049153, 80.0, 1044462, 1049311);
+            AddSubRes2(typeof(AlienLeather), 1034444, 110.0, 1044462, 1049311);
+            /* AddSubRes2(typeof(NecroticLeather), 1034403, 90.0, 1044462, 1049311);
+            AddSubRes2(typeof(VolcanicLeather), 1034414, 90.0, 1044462, 1049311);
+            AddSubRes2(typeof(FrozenLeather), 1034425, 95.0, 1044462, 1049311);
+            AddSubRes2(typeof(GoliathLeather), 1034370, 95.0, 1044462, 1049311);
+            AddSubRes2(typeof(DraconicLeather), 1034381, 100.0, 1044462, 1049311);
+            AddSubRes2(typeof(HellishLeather), 1034392, 100.0, 1044462, 1049311);
+            AddSubRes2(typeof(DinosaurLeather), 1036104, 105.0, 1044462, 1049311); */
 
-			// Add every material you want the player to be able to choose from
-			// This will override the overridable material
-			AddSubRes2( typeof( Leather ),			1049150, 00.0, 1044462, 1049311 );
-            AddSubRes2( typeof( SpinedLeather),		1049151, 70.0, 1044462, 1049311);
-            AddSubRes2( typeof( BarbedLeather),		1049153, 80.0, 1044462, 1049311);
-            AddSubRes2( typeof( HornedLeather ),	1049152, 85.0, 1044462, 1049311 );
-			AddSubRes2( typeof( NecroticLeather ),	1034403, 90.0, 1044462, 1049311 );
-			AddSubRes2( typeof( VolcanicLeather ),	1034414, 90.0, 1044462, 1049311 );
-			AddSubRes2( typeof( FrozenLeather ),	1034425, 95.0, 1044462, 1049311 );
-			AddSubRes2( typeof( GoliathLeather ),	1034370, 95.0, 1044462, 1049311 );
-			AddSubRes2( typeof( DraconicLeather ),	1034381, 100.0, 1044462, 1049311 );
-			AddSubRes2( typeof( HellishLeather ),	1034392, 100.0, 1044462, 1049311 );
-			AddSubRes2( typeof( DinosaurLeather ),	1036104, 105.0, 1044462, 1049311 );
-			AddSubRes2( typeof( AlienLeather ),		1034444, 110.0, 1044462, 1049311 );
-
-            
+                    
 
             MarkOption = true;
 			Repair = Core.AOS;
