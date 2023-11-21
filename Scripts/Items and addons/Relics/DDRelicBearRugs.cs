@@ -250,10 +250,10 @@ namespace Server.Items
 					case 12:sLook = "a splendid";	break;
 					case 13:sLook = "a wonderful";	break;
 					case 14:sLook = "an extraordinary";	break;
-					case 15:sLook = "a strange";	break;
-					case 16:sLook = "an odd";	break;
+					case 15:sLook = "estranho";	break;
+					case 16:sLook = "estranho";	break;
 					case 17:sLook = "a unique";	break;
-					case 18:sLook = "an unusual";	break;
+					case 18:sLook = "incomum";	break;
 				}
 				switch ( Utility.RandomMinMax( 0, 5 ) )
 				{

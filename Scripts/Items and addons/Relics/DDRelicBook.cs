@@ -23,7 +23,7 @@ namespace Server.Items
 
 		public override void OnDoubleClick( Mobile from )
 		{
-			from.SendMessage( "This is just another story, but it may be worth something." );
+			from.SendMessage(55, "Esta é apenas mais uma história, mas pode valer alguma coisa.");
 			return;
 		}
 

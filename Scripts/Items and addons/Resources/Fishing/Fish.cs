@@ -8,7 +8,7 @@ namespace Server.Items
 	{
 		public void Carve( Mobile from, Item item )
 		{
-			base.ScissorHelper( from, new RawFishSteak(), 4 );
+			base.ScissorHelper( from, new RawFishSteak(), (int)Weight * 2, false);
 		}
 
 		[Constructable]
@@ -20,7 +20,7 @@ namespace Server.Items
 		public Fish( int amount ) : base( Utility.Random( 0x09CC, 4 ) )
 		{
 			Stackable = true;
-			Weight = 1.0;
+			Weight = 2.0;
 			Amount = amount;
 		}
 

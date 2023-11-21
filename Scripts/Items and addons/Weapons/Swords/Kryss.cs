@@ -38,7 +38,9 @@ namespace Server.Items
 		public Kryss() : base( 0x1401 )
 		{
 			Weight = 2.0;
-		}
+			Name = "khopesh";
+
+        }
 
 		public Kryss( Serial serial ) : base( serial )
 		{

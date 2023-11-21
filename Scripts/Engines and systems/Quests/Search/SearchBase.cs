@@ -44,7 +44,7 @@ namespace Server.Items
 
 			int iColor = 0;
 			int iThing = 0x9AA;
-			string sArty = "a strange";
+			string sArty = "estranho";
 			switch( Utility.RandomMinMax( 0, 6 ) )
 			{
 				case 0: sArty = "an odd ";		break;
@@ -123,13 +123,13 @@ namespace Server.Items
 				case 25: sLanguage = "magic"; break;
 			}
 
-			string sPart = "a strange";
+			string sPart = "estranho";
 			switch( Utility.RandomMinMax( 0, 5 ) )
 			{
-				case 0:	sPart = "a strange";	break;
-				case 1:	sPart = "an odd";		break;
+				case 0:	sPart = "estranho";	break;
+				case 1:	sPart = "estranho";		break;
 				case 2:	sPart = "an ancient";	break;
-				case 3:	sPart = "a weird";		break;
+				case 3:	sPart = "estranho";		break;
 				case 4:	sPart = "a cryptic";	break;
 				case 5:	sPart = "a mystical";	break;
 			}

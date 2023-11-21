@@ -40,19 +40,19 @@ namespace Server.Engines.Harvest
 			HarvestVein[] veins;
 
 			#region Fishing
-			HarvestDefinition fish = new HarvestDefinition();
+			HarvestDefinition fish = m_Definition = new HarvestDefinition();
 
-			// Resource banks are every 8x8 tiles
-			fish.BankWidth = 8;
-			fish.BankHeight = 8;
+			// Resource banks are every 4x4 tiles
+			fish.BankWidth = 4;
+			fish.BankHeight = 4;
 
-			// Every bank holds from 5 to 15 fish
-			fish.MinTotal = 5;
-			fish.MaxTotal = 15;
+			// Every bank holds from 4 to 16 fish
+			fish.MinTotal = 1;
+			fish.MaxTotal = 9;
 
 			// A resource bank will respawn its content every 10 to 20 minutes
-			fish.MinRespawn = TimeSpan.FromMinutes( 10.0 );
-			fish.MaxRespawn = TimeSpan.FromMinutes( 20.0 );
+			fish.MinRespawn = TimeSpan.FromMinutes( 15.0 );
+			fish.MaxRespawn = TimeSpan.FromMinutes( 30.0 );
 
 			// Skill checking is done on the Fishing skill
 			fish.Skill = SkillName.Fishing;
@@ -72,8 +72,8 @@ namespace Server.Engines.Harvest
 			fish.EffectActions = new int[]{ 12 };
 			fish.EffectSounds = new int[0];
 			fish.EffectCounts = new int[]{ 1 };
-			fish.EffectDelay = TimeSpan.Zero;
-			fish.EffectSoundDelay = TimeSpan.FromSeconds( 8.0 );
+			fish.EffectDelay = TimeSpan.FromSeconds(4);
+			fish.EffectSoundDelay = TimeSpan.FromSeconds( 2 );
 
 			fish.NoResourcesMessage = 503172; // The fish don't seem to be biting here.
 			fish.FailMessage = 503171; // You fish a while, but fail to catch anything.
@@ -84,51 +84,287 @@ namespace Server.Engines.Harvest
 
 			res = new HarvestResource[]
 				{
-					new HarvestResource( 00.0, 00.0, 100.0, 1043297, typeof( Fish ) )
-				};
+					new HarvestResource( 00.0, 00.0, 100.0, "Você pescou um peixe comum!", typeof( Fish ) )
+                };
 
-			veins = new HarvestVein[]
+            // the sum chance Needs to be 100%
+            veins = new HarvestVein[]
 				{
-					new HarvestVein( 100.0, 0.0, res[0], null )
-				};
+                    new HarvestVein( 100.0, 0.0, res[0], null )
+                };
 
 			fish.Resources = res;
 			fish.Veins = veins;
 
-			fish.BonusResources = new BonusHarvestResource[]
+            fish.BonusResources = new BonusHarvestResource[]
 			{
-				new BonusHarvestResource( 0, 99.4, null, null ), //set to same chance as mining ml gems
-				new BonusHarvestResource( 80.0, .6, 1072597, typeof( MysticalPearl ) )
-			};
+				new BonusHarvestResource( 0, 99.0, null, null ),
+				new BonusHarvestResource( 75.0, 1.0, "Eba! Você encontrou uma pérola negra.", typeof( BlackPearl ) ),
+            };
 
-			m_Definition = fish;
+			fish.RaceBonus = false;
+            fish.RandomizeVeins = false;
+
 			Definitions.Add( fish );
 			#endregion
 		}
 
-		public override void OnConcurrentHarvest( Mobile from, Item tool, HarvestDefinition def, object toHarvest )
+        public override Type GetResourceType(Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, HarvestResource resource)
+        {
+            if (def == m_Definition)
+            {
+                PlayerMobile pm = from as PlayerMobile;
+/*                if (pm != null &&
+                    pm.StoneMining &&
+                    pm.ToggleMiningStone &&
+                    from.Skills[SkillName.Mining].Base >= 100.0 && 0.5 > Utility.RandomDouble())
+                {
+                    //from.SendMessage(20, "Mining =>" + resource.Types[1]);
+                    return resource.Types[1];
+                }*/
+
+                return resource.Types[0];
+            }
+
+            return base.GetResourceType(from, tool, def, map, loc, resource);
+        }
+
+        public override bool CheckHarvest(Mobile from, Item tool)
+        {
+            PlayerMobile pm = from as PlayerMobile;
+            if (!base.CheckHarvest(from, tool))
+                return false;
+
+            if (from.Mounted)
+            {
+                pm.SendMessage(55, "Não é possível pescar em cima de um cavalo."); // You can't fish while riding.
+                return false;
+            }
+            else if (from.IsBodyMod && !from.Body.IsHuman)
+            {
+                pm.SendMessage(55, "Não é possível pescar enquanto está sob efeito de polimorfismo.");//from.SendLocalizedMessage(501865); // You can't mine while polymorphed.
+                return false;
+            }
+
+            return true;
+        }
+
+        public override void SendSuccessTo(Mobile from, Item item, HarvestResource resource)
+        {
+            if (item is PearlSkull)
+            {
+                from.SendMessage(55, "Hmmmm...o crânio de alguém está preso no seu gancho!");
+            }
+            else if (item is NewFish)
+            {
+                from.SendMessage(55, "Você tirou um peixe exótico dessas águas!");
+            }
+            else if (item is RustyJunk)
+            {
+                from.SendMessage(55, "Você pescou um lixo enferrujado!");
+            }
+            else if (item is HighSeasRelic)
+            {
+                from.SendMessage(55, "Você pescou algo especial do naufrágio próximo a você!");
+            }
+            else if (item is WoodenChest || item is MetalGoldenChest || item is SunkenChest)
+            {
+                from.SendMessage(55, "Você tira um baú pesado dessas águas profundas!");
+            }
+            else
+            {
+                int number;
+                string name;
+
+                if (item is BaseMagicFish)
+                {
+                    number = 1008124;
+                    name = "peixe mágico";
+                }
+                else if (item is Fish)
+                {
+                    number = 1008124;
+					name = "peixe comum";//item.ItemData.Name;
+                }
+                else if (item is BigFish)
+                {
+                    number = 1008124;
+                    name = "Peixe Gigante";//item.ItemData.Name;
+                }
+                else if (item is BaseShoes)
+                {
+                    number = 1008124;
+                    name = "Calçados";//item.ItemData.Name;
+                }
+                else if (item is TreasureMap)
+                {
+                    number = 1008125;
+                    name = "um pergaminho encharcado";
+                }
+                else if (item is MessageInABottle)
+                {
+                    number = 1008125;
+                    name = "uma garrafa com pedido de socorro (SOS)";
+                }
+                else if (item is FishingNet || item is SpecialFishingNet || item is FabledFishingNet || item is NeptunesFishingNet)
+                {
+                    number = 1008125;
+                    name = "uma rede de pesca";
+                }
+                else
+                {
+                    number = 1043297;
+
+                    if (item.Name != null && item.Name != "")
+                        name = item.Name;
+                    else if ((item.ItemData.Flags & TileFlag.ArticleA) != 0)
+                        name = "" + item.ItemData.Name;
+                    else if ((item.ItemData.Flags & TileFlag.ArticleAn) != 0)
+                        name = "" + item.ItemData.Name;
+                    else
+                        name = item.ItemData.Name;
+                }
+
+                // THIS HOPEFULLY FIXES THE ~1_val~a fish ISSUE
+                NetState ns = from.NetState;
+
+                if (ns == null)
+                    return;
+
+                if (number == 1043297 || ns.HighSeas)
+                    from.SendLocalizedMessage(number, name);
+                else
+                    from.SendLocalizedMessage(number, true, name);
+            }
+        }
+
+        public override bool CheckHarvest(Mobile from, Item tool, HarvestDefinition def, object toHarvest)
+        {
+            PlayerMobile pm = from as PlayerMobile;
+
+            if (!base.CheckHarvest(from, tool, def, toHarvest))
+                return false;
+
+            if (from.Mounted)
+            {
+                pm.SendMessage(55, "Não é possível pescar em cima de um cavalo."); //from.SendLocalizedMessage(500971); // You can't fish while riding!
+                return false;
+            }
+            else if (from.IsBodyMod && !from.Body.IsHuman)
+            {
+                pm.SendMessage(55, "Não é possível pescar enquanto está sob efeito de polimorfismo.");//from.SendLocalizedMessage(501865); // You can't mine while polymorphed.
+                return false;
+            }
+
+            return true;
+        }
+
+        public override HarvestVein MutateVein(Mobile from, Item tool, HarvestDefinition def, HarvestBank bank, object toHarvest, HarvestVein vein)
+        {
+/*            if (tool is GargoylesPickaxe && def == m_OreAndStone)
+            {
+                int veinIndex = Array.IndexOf(def.Veins, vein);
+
+                if (veinIndex >= 0 && veinIndex < (def.Veins.Length - 1))
+                    return def.Veins[veinIndex + 1];
+            }
+            else if (tool is OreShovel && def == m_OreAndStone) // WIZARD ADDED
+            {
+                int veinIndex = Array.IndexOf(def.Veins, vein);
+                return def.Veins[0];
+            }*/
+
+            return base.MutateVein(from, tool, def, bank, toHarvest, vein);
+        }
+
+        private static int[] m_Offsets = new int[] 
 		{
-			from.SendLocalizedMessage( 500972 ); // You are already fishing.
+			-1, -1,
+			-1,  0,
+			-1,  1,
+			0, -1,
+            0,  1,
+			1, -1,
+			1,  0,
+			1,  1
+		};
+
+        public override void OnHarvestFinished(Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested)
+        {
+            from.RevealingAction();
+            base.OnHarvestFinished(from, tool, def, vein, bank, resource, harvested);
+        }
+
+        public override bool BeginHarvesting(Mobile from, Item tool)
+        {
+            if (from.FindItemOnLayer(Layer.OneHanded) == null || tool != from.FindItemOnLayer(Layer.OneHanded))
+            {
+                from.SendMessage(55, "Você precisa estar segurando sua vara de pesca para pescar.");
+                return false;
+            }
+            else if (!base.BeginHarvesting(from, tool))
+                return false;
+
+            from.SendMessage(55, "Onde você deseja pescar?");
+            //from.SendLocalizedMessage(500974); // What water do you want to fish in?
+            return true;
+        }
+
+        public override void OnHarvestStarted(Mobile from, Item tool, HarvestDefinition def, object toHarvest)
+        {
+            base.OnHarvestStarted(from, tool, def, toHarvest);
+            from.RevealingAction();
+
+			int tileID;
+			Map map;
+			Point3D loc;
+
+			if (GetHarvestDetails(from, tool, toHarvest, out tileID, out map, out loc))
+
+				Timer.DelayCall(TimeSpan.FromSeconds(1.5),
+				delegate
+				{
+					if (Core.ML)
+						from.RevealingAction();
+
+					Effects.SendLocationEffect(loc, map, 0x352D, 16, 4);
+					Effects.PlaySound(loc, map, 0x364);
+				});
 		}
 
-		public static void FishingSkill( Mobile from, int c )
+        public override void OnBadHarvestTarget(Mobile from, Item tool, object toHarvest)
+        {
+            from.SendMessage(55, "Não é possível pescar ali.");
+/*            if (toHarvest is LandTarget)
+                from.SendMessage(55, "Não é possível pescar ali.");*/
+        }
+
+        public static void FishingSkill(Mobile from, int c)
+        {
+            while (c > 0)
+            {
+                c--;
+                from.CheckSkill(SkillName.Fishing, 0, 120);
+            }
+        }
+
+		public override void OnConcurrentHarvest(Mobile from, Item tool, HarvestDefinition def, object toHarvest)
 		{
-			while ( c > 0 )
-			{
-				c--;
-				from.CheckSkill( SkillName.Fishing, 0, 125 );
-			}
+            from.SendMessage(55, "Você já está pescando!");
+            //from.SendLocalizedMessage(500972); // You are already fishing.
 		}
 
 		private class MutateEntry
 		{
+			public string m_group;
 			public double m_ReqSkill, m_MinSkill, m_MaxSkill;
 			public bool m_DeepWater;
 			public Type[] m_Types;
 
-			public MutateEntry( double reqSkill, double minSkill, double maxSkill, bool deepWater, params Type[] types )
+			public MutateEntry(string group, double reqSkill, double minSkill, double maxSkill, bool deepWater, params Type[] types)
 			{
-				m_ReqSkill = reqSkill;
+				m_group = group;
+                m_ReqSkill = reqSkill;
 				m_MinSkill = minSkill;
 				m_MaxSkill = maxSkill;
 				m_DeepWater = deepWater;
@@ -137,53 +373,68 @@ namespace Server.Engines.Harvest
 		}
 
 		private static MutateEntry[] m_MutateTable = new MutateEntry[]
-			{
-				new MutateEntry(  80.0,  80.0,  4080.0,  true, typeof( SpecialFishingNet ), typeof( SpecialFishingNet ), typeof( NeptunesFishingNet ), typeof( FabledFishingNet ), typeof( FabledFishingNet ) ),
-				new MutateEntry(  90.0,  80.0,  4080.0,  true, typeof( TreasureMap ), typeof( PearlSkull ), typeof( MessageInABottle ) ),
-				new MutateEntry(   0.0, 125.0, -2375.0, false, typeof( PrizedFish ), typeof( WondrousFish ), typeof( TrulyRareFish ), typeof( PeculiarFish ) ),
-				new MutateEntry(   0.0, 105.0,  -420.0, false, typeof( WetClothes ), typeof( RustyJunk ), typeof( SpecialSeaweed ) ),
-				new MutateEntry(  50.0, 125.0, -1000.0, false, typeof( FishingNet ), typeof( CorpseSailor ), typeof( SunkenBag ), typeof( NewFish ) ),
-				new MutateEntry(   0.0, 200.0,  -200.0, false, new Type[1]{ null } )
-			};
+		{
+			new MutateEntry("grupo1", 70.0, 70.0, 75.0, false, typeof( RustyJunk ), typeof( WetClothes ) ), //min 0,02% - max 10%
+            new MutateEntry("grupo2", 75.0, 75.0, 80, false, typeof( FishingNet ), typeof( SpecialSeaweed ) , typeof( BlackPearl ) ), //min 0,02% - max 9%
+            new MutateEntry("grupo3", 80.0, 80.0, 85.0, true, typeof( PrizedFish ), typeof( InvisibleFish ), typeof( PoisonFish ), typeof( BigFish ) ), //min 0,02% - max 8%
+            new MutateEntry("grupo4", 85.0, 85.0, 90.0, true, typeof( WondrousFish ), typeof( StaminaFish ), typeof( HealFish ), typeof( ManaFish ) ), //min 0,02% - max 7%
+            new MutateEntry("grupo5", 90.0, 90.0, 95.0, true, typeof( CorpseSailor ), typeof( TrulyRareFish ), typeof( PeculiarFish ) ), //min 0,02% - max 6%
+            new MutateEntry("grupo6", 95.0, 95.0, 100.0, true, typeof( NewFish ), typeof( PearlSkull ) ), //min 0,02% - max 5% 
+			new MutateEntry("grupo7", 100.0, 100.0,  105.0, true,typeof( SunkenBag )), //min 0,02% - max 4% 
+            new MutateEntry("grupo8", 105.0,  105.0,  110.0,  true, typeof( SpecialFishingNet ), typeof( NeptunesFishingNet ), typeof( FabledFishingNet ) ), //min 0,2% - max 3%
+            new MutateEntry("grupo9", 110.0, 110.0,  120.0, true, typeof( MessageInABottle ) ) //min 0,02% - max 1% 
+        };
 
-		public override Type MutateType( Type type, Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, HarvestResource resource )
+		public override Type MutateType(Type type, Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, HarvestResource resource)
 		{
 			bool deepWater = false;
+            PlayerMobile pm = (PlayerMobile)from;
 
-			if ( Server.Misc.Worlds.IsOnBoat( from ) && !Server.Misc.Worlds.BoatToCloseToTown( from ) )
+            if (Server.Misc.Worlds.IsOnBoat(from) && !Server.Misc.Worlds.BoatToCloseToTown(from))
 				deepWater = true;
 
 			double skillBase = from.Skills[SkillName.Fishing].Base;
 			double skillValue = from.Skills[SkillName.Fishing].Value;
 
-			for ( int i = 0; i < m_MutateTable.Length; ++i )
+            for (int i = 0; i < m_MutateTable.Length; ++i)
 			{
 				MutateEntry entry = m_MutateTable[i];
 
-				if ( !deepWater && entry.m_DeepWater )
+				if (!deepWater && entry.m_DeepWater)
 					continue;
 
-				if ( skillBase >= entry.m_ReqSkill )
-				{
-					double chance = (skillValue - entry.m_MinSkill) / (entry.m_MaxSkill - entry.m_MinSkill);
+				if (skillBase >= entry.m_ReqSkill)
+                { //min 0,02%
 
-					if ( chance > Utility.RandomDouble() )
-						return entry.m_Types[Utility.Random( entry.m_Types.Length )];
+                    //from.SendMessage(33, "*** NOME: " + entry.m_group);
+
+                    double chance = ( (skillValue - entry.m_MinSkill) / (entry.m_MaxSkill - entry.m_MinSkill) ) / 100;
+                    double random = Utility.RandomDouble();
+
+                    //from.SendMessage(65, "*** CHANCE: " + chance + "*** RANDOM: " + random);
+                    
+					if (chance >= random) 
+					{
+                        pm.PlaySound(pm.Female ? 783 : 1054);
+                        pm.Say("*woohoo!*");
+                        from.SendMessage(55, "Que sorte! Você pescou algo inesperado e colocou em sua mochila!");
+                        return entry.m_Types[Utility.Random(entry.m_Types.Length)];
+                    }
 				}
 			}
 
 			return type;
 		}
 
-		private static Map SafeMap( Map map )
+		private static Map SafeMap(Map map)
 		{
-			if ( map == null || map == Map.Internal )
+			if (map == null || map == Map.Internal)
 				return Map.Trammel;
 
 			return map;
 		}
 
-		public static bool IsNearHugeShipWreck( Mobile from )
+		/*public static bool IsNearHugeShipWreck( Mobile from )
 		{
 			if ( from.InRange( new Point3D(578, 1370, -5), 36 ) && from.Map == Map.Ilshenar )
 				return true;
@@ -249,10 +500,10 @@ namespace Server.Engines.Harvest
 				return true;
 
 			return false;
-		}
+		}*/
 
 
-		public static bool IsNearSpaceCrash( Mobile from )
+		/*public static bool IsNearSpaceCrash( Mobile from )
 		{
 			if ( from.X >= 457 && from.X <= 494 && from.Y >= 1785 && from.Y <= 1821 && from.Map == Map.Trammel )
 				return true;
@@ -263,10 +514,10 @@ namespace Server.Engines.Harvest
 
 
 			return false;
-		}
+		}*/
 
 
-		public static bool IsNearUnderwaterRuins( Mobile from )
+		/*public static bool IsNearUnderwaterRuins( Mobile from )
 		{
 			if ( from.X >= 4342 && from.X <= 4420 && from.Y >= 2766 && from.Y <= 2845 && from.Map == Map.Trammel )
 				return true;
@@ -289,10 +540,10 @@ namespace Server.Engines.Harvest
 
 
 			return false;
-		}
+		}*/
 
 
-		public static void FishUpFromSpaceship( Mobile from )
+		/*public static void FishUpFromSpaceship( Mobile from )
 		{
 			int nGuild = 0;
 
@@ -313,10 +564,10 @@ namespace Server.Engines.Harvest
 				from.AddToBackpack ( preLoot );
 				from.SendMessage("You fish up something from the wreckage below.");
 			}
-		}
+		}*/
 
 
-		public static void FishUpFromRuins( Mobile from )
+		/*public static void FishUpFromRuins( Mobile from )
 		{
 			int nGuild = 1;
 
@@ -364,10 +615,10 @@ namespace Server.Engines.Harvest
 
 			from.AddToBackpack ( preLoot );
 			from.SendMessage("You fish up something from the ruins below.");
-		}
+		}*/
 
 
-		public static void FishUpFromMajorWreck( Mobile from )
+		/*public static void FishUpFromMajorWreck( Mobile from )
 		{
 			string ship = Server.Misc.RandomThings.GetRandomShipName( "", 0 );
 
@@ -554,459 +805,470 @@ namespace Server.Engines.Harvest
 
 			from.AddToBackpack ( preLoot );
 			from.SendMessage("You fish up something from the wreckage below.");
-		}
+		}*/
 
-		public override bool CheckResources( Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, bool timed )
+		public override bool CheckResources(Mobile from, Item tool, HarvestDefinition def, Map map, Point3D loc, bool timed)
 		{
 			Container pack = from.Backpack;
-
-			if ( pack != null )
+            PlayerMobile pm = (PlayerMobile)from;
+            if (pack != null)
 			{
 				List<SOS> messages = pack.FindItemsByType<SOS>();
 
-				for ( int i = 0; i < messages.Count; ++i )
+				for (int i = 0; i < messages.Count; ++i)
 				{
 					SOS sos = messages[i];
 
-					if ( from.Map == sos.TargetMap && from.InRange( sos.TargetLocation, 60 ) )
-						return true;
+					if (from.Map == sos.TargetMap && from.InRange(sos.TargetLocation, 60)) 
+					{
+                        //pm.SendMessage(55, "Você encontrou destroços de um naufrágio!");
+                        return true; break;
+                    }
 				}
 			}
 
-			return base.CheckResources( from, tool, def, map, loc, timed );
+			return base.CheckResources(from, tool, def, map, loc, timed);
 		}
 
-		private static void GetRandomAOSStats( out int attributeCount, out int min, out int max, int level )
+		private static void GetRandomAOSStats(out int attributeCount, out int min, out int max, int level)
 		{
-			int rnd = Utility.Random( 15 );
-			attributeCount = Utility.RandomMinMax( 1, level );
-			min = level*3; max = level*7;
+			int rnd = Utility.Random(15);
+			attributeCount = Utility.RandomMinMax(1, level);
+			min = level * 3; max = level * 7;
 		}
 
-		public override Item Construct( Type type, Mobile from )
+		public override Item Construct(Type type, Mobile from)
 		{
-			if ( type == typeof( TreasureMap ) )
+/*			if (type == typeof(TreasureMap))
 			{
-				int level = Utility.RandomMinMax( 1, 3 );
+				int level = Utility.RandomMinMax(1, 3);
 
-				return new TreasureMap( level, from.Map, from.Location, from.X, from.Y );
-			}
-			else if ( type == typeof( MessageInABottle ) )
+				return new TreasureMap(level, from.Map, from.Location, from.X, from.Y);
+			}*/
+            
+            if (type == typeof(MessageInABottle))
 			{
-				return new MessageInABottle( from.Map, 0, from.Location, from.X, from.Y );
+				return new MessageInABottle(from.Map, 0, from.Location, from.X, from.Y);
 			}
+            Container pack = from.Backpack;
 
-			Container pack = from.Backpack;
-
-			if ( pack != null )
+			if (pack != null)
 			{
 				List<SOS> messages = pack.FindItemsByType<SOS>();
 
-				for ( int i = 0; i < messages.Count; ++i )
+				for (int i = 0; i < messages.Count; ++i)
 				{
 					SOS sos = messages[i];
 
-					if ( from.Map == sos.TargetMap && from.InRange( sos.TargetLocation, 60 ) ) // WIZARD ADDED FOR MULTI-FACET SOS
+					if (from.Map == sos.TargetMap && from.InRange(sos.TargetLocation, 60)) // WIZARD ADDED FOR MULTI-FACET SOS
 					{
-						int nWave = Utility.Random( 8 );
+						int nWave = Utility.Random(8);
 						int nGuild = 0;
 
-						PlayerMobile pc = (PlayerMobile)from;
-						if ( pc.NpcGuild != NpcGuild.FishermensGuild )
+						PlayerMobile pm = (PlayerMobile)from;
+
+						if (pm.NpcGuild != NpcGuild.FishermensGuild)
 						{
-							nWave = Utility.Random( 11 );
-							nGuild = (int)(from.Skills[SkillName.Fishing].Value/4);
+							nWave = Utility.Random(11);
+							nGuild = (int)(from.Skills[SkillName.Fishing].Value / 4);
 						}
 
-						int mLevel = (int)(from.Skills[SkillName.Fishing].Value/10) + 1;
+						int mLevel = (int)(from.Skills[SkillName.Fishing].Value / 10) + 1;
 
 						Item preLoot = null;
-						int nChance = (int)(from.Skills[SkillName.Fishing].Value/4) + nGuild;
-
-						switch ( nWave )
+						int nChance = (int)(from.Skills[SkillName.Fishing].Value / 4) + nGuild;
+                        //pm.SendMessage(66, "*** nWAVE: "+ nWave + " - Chance: "+ nChance);
+                        #region LOOT in treasure
+                        switch (nWave)
 						{
 							case 1: // Body parts
-							{
-								if ( nChance > Utility.Random(100) )
-									preLoot = new RustyJunk();
-								else
 								{
-									int[] list = new int[]
-										{
-											0x1CDD, 0x1CE5, // arm
-											0x1CE0, 0x1CE8, // torso
-											0x1CE1, 0x1CE9, // head
-											0x1CE2, 0x1CEC, // leg
-											0x1AE0, 0x1AE1, 0x1AE2, 0x1AE3, 0x1AE4, // skulls
-											0x1B09, 0x1B0A, 0x1B0B, 0x1B0C, 0x1B0D, 0x1B0E, 0x1B0F, 0x1B10, // bone piles
-											0x1B15, 0x1B16 // pelvis bones
-										};
+									if (nChance > Utility.Random(100))
+										preLoot = new RustyJunk();
+									else
+									{
+										int[] list = new int[]
+											{
+													0x1CDD, 0x1CE5, // arm
+													0x1CE0, 0x1CE8, // torso
+													0x1CE1, 0x1CE9, // head
+													0x1CE2, 0x1CEC, // leg
+													0x1AE0, 0x1AE1, 0x1AE2, 0x1AE3, 0x1AE4, // skulls
+													0x1B09, 0x1B0A, 0x1B0B, 0x1B0C, 0x1B0D, 0x1B0E, 0x1B0F, 0x1B10, // bone piles
+													0x1B15, 0x1B16 // pelvis bones
+											};
 
-									preLoot = new ShipwreckedItem( Utility.RandomList( list ), sos.ShipName );
-									preLoot.Hue = Utility.RandomList( 0xB97, 0xB98, 0xB99, 0xB9A, 0xB88 );
+										preLoot = new ShipwreckedItem(Utility.RandomList(list), sos.ShipName);
+										preLoot.Hue = Utility.RandomList(0xB97, 0xB98, 0xB99, 0xB9A, 0xB88);
+									}
+									break;
 								}
-								break;
-							}
 							case 2: // Paintings and portraits
-							{
-								if ( nChance > Utility.Random(100) )
 								{
-									preLoot = new DDRelicPainting();
-									preLoot.Hue = Utility.RandomList( 0xB97, 0xB98, 0xB99, 0xB9A, 0xB88 );
-									preLoot.Name = preLoot.Name + " (covered in muck)";
-								}
-								else
-									preLoot = new ShipwreckedItem( Utility.Random( 0xE9F, 10 ), sos.ShipName );
+									if (nChance > Utility.Random(100))
+									{
+										preLoot = new DDRelicPainting();
+										preLoot.Hue = Utility.RandomList(0xB97, 0xB98, 0xB99, 0xB9A, 0xB88);
+										preLoot.Name = preLoot.Name + " (coberto de lodo)";
+									}
+									else
+										preLoot = new ShipwreckedItem(Utility.Random(0xE9F, 10), sos.ShipName);
 
-								break;
-							}
+									break;
+								}
 							case 3: // Misc
-							{
-								if ( nChance > Utility.Random(100) )
 								{
-									switch ( Utility.Random( 4 ) )
+									if (nChance > Utility.Random(100))
 									{
-										case 0: preLoot = new DDRelicArts(); break;
-										case 1: preLoot = new DDRelicDrink(); break;
-										case 2: preLoot = new DDRelicInstrument(); break;
-										case 3: preLoot = new DDRelicJewels(); break;
-									}
-								}
-								else
-								{
-									if ( Utility.Random( 20 ) == 1 )
-									{
-										preLoot = new ShipwreckedItem( Utility.RandomList( 0x4FE8, 0x4FE9 ), sos.ShipName );
+										switch (Utility.Random(4))
+										{
+											case 0: preLoot = new DDRelicArts(); break;
+											case 1: preLoot = new DDRelicDrink(); break;
+											case 2: preLoot = new DDRelicInstrument(); break;
+											case 3: preLoot = new DDRelicJewels(); break;
+										}
 									}
 									else
 									{
-										preLoot = new ShipwreckedItem( Utility.Random( 0x13A4, 11 ), sos.ShipName );
-										preLoot.Hue = RandomThings.GetRandomColor(0);
+										if (Utility.Random(20) == 1)
+										{
+                                            //preLoot = new ShipwreckedItem(Utility.RandomList(0x4FE8, 0x4FE9), sos.ShipName);
+                                            preLoot = new ShipwreckedItem(Utility.RandomList(0x12AD), sos.ShipName);
+                                        }
+										else
+										{
+											preLoot = new ShipwreckedItem(Utility.Random(0x13A4, 11), sos.ShipName);
+											preLoot.Hue = RandomThings.GetRandomColor(0);
+										}
 									}
+									break;
 								}
-								break;
-							}
 							case 4: // Shells
-							{
-								if ( nChance > Utility.Random(100) )
-									preLoot = new NewFish();
-								else
-									preLoot = new ShipwreckedItem( Utility.Random( 0xFC4, 9 ), sos.ShipName );
-								break;
-							}
-							case 5:	// Hats
-							{
-								if ( nChance > Utility.Random(100) )
 								{
-									preLoot = new MagicHat();
-									string sAdj = "magical";
-									switch( Utility.RandomMinMax( 1, 7 ) )
-									{
-										case 1: sAdj = "magical "; break;
-										case 2: sAdj = "magic "; break;
-										case 3: sAdj = "mystical "; break;
-										case 4: sAdj = "enchanted "; break;
-										case 5: sAdj = "mysterious "; break;
-										case 6: sAdj = "mythical "; break;
-										case 7: sAdj = "unusual "; break;
-									}
-									if ( Utility.RandomBool() ){ preLoot.Name = sAdj + "skullcap"; preLoot.ItemID = 5444; }
-									else { preLoot.Name = sAdj + "pirate hat"; preLoot.ItemID = 5915; }
-
-									int attributeCount;
-									int min, max;
-									GetRandomAOSStats( out attributeCount, out min, out max, mLevel );
-									BaseRunicTool.ApplyAttributesTo( (BaseJewel)preLoot, attributeCount, min, max );
+									if (nChance > Utility.Random(100))
+										preLoot = new NewFish();
+									else
+										preLoot = new ShipwreckedItem(Utility.Random(0xFC4, 9), sos.ShipName);
+									break;
 								}
-								else
+							case 5: // Hats
 								{
-									if ( Utility.RandomBool() )
+									if (nChance > Utility.Random(100))
 									{
-										preLoot = new SkullCap();
-										if ( Utility.Random(4) == 1 )
+										preLoot = new MagicHat();
+										string sAdj = "magical";
+										switch (Utility.RandomMinMax(1, 7))
 										{
-											preLoot.Hue = Utility.RandomList( 0xB97, 0xB98, 0xB99, 0xB9A, 0xB88 );
-											preLoot.Name = "soggy skullcap";
+											case 1: sAdj = "magical "; break;
+											case 2: sAdj = "magic "; break;
+											case 3: sAdj = "mystical "; break;
+											case 4: sAdj = "enchanted "; break;
+											case 5: sAdj = "mysterious "; break;
+											case 6: sAdj = "mythical "; break;
+											case 7: sAdj = "unusual "; break;
 										}
-										else
-										{
-											preLoot.Hue = RandomThings.GetRandomColor(0);
-											preLoot.Name = "skullcap";
-										}
+										if (Utility.RandomBool()) { preLoot.Name = sAdj + "skullcap"; preLoot.ItemID = 5444; }
+										else { preLoot.Name = sAdj + "pirate hat"; preLoot.ItemID = 5915; }
+
+										int attributeCount;
+										int min, max;
+										GetRandomAOSStats(out attributeCount, out min, out max, mLevel);
+										BaseRunicTool.ApplyAttributesTo((BaseJewel)preLoot, attributeCount, min, max);
 									}
 									else
 									{
-										preLoot = new TricorneHat();
-										if ( Utility.Random(4) == 1 )
+										if (Utility.RandomBool())
 										{
-											preLoot.Hue = Utility.RandomList( 0xB97, 0xB98, 0xB99, 0xB9A, 0xB88 );
-											preLoot.Name = "soggy pirate hat";
+											preLoot = new SkullCap();
+											if (Utility.Random(4) == 1)
+											{
+												preLoot.Hue = Utility.RandomList(0xB97, 0xB98, 0xB99, 0xB9A, 0xB88);
+												preLoot.Name = "soggy skullcap";
+											}
+											else
+											{
+												preLoot.Hue = RandomThings.GetRandomColor(0);
+												preLoot.Name = "skullcap";
+											}
 										}
 										else
 										{
-											preLoot.Hue = RandomThings.GetRandomColor(0);
-											preLoot.Name = "pirate hat";
+											preLoot = new TricorneHat();
+											if (Utility.Random(4) == 1)
+											{
+												preLoot.Hue = Utility.RandomList(0xB97, 0xB98, 0xB99, 0xB9A, 0xB88);
+												preLoot.Name = "soggy pirate hat";
+											}
+											else
+											{
+												preLoot.Hue = RandomThings.GetRandomColor(0);
+												preLoot.Name = "pirate hat";
+											}
 										}
 									}
+									break;
 								}
-								break;
-							}
 							case 6: // Sea Relic
-							{
-								if ( nChance > Utility.Random(100) )
 								{
-									preLoot = new HighSeasRelic();
-									HighSeasRelic relic = (HighSeasRelic)preLoot;
-									relic.RelicOrigin = "Recovered From " + sos.ShipName;
-									int nGold = (int)(from.Skills[SkillName.Fishing].Value/20);
-									relic.RelicGoldValue = relic.RelicGoldValue * nGold;
-								}
-								else
-								{
-									int[] list = new int[]
-										{
-											0x1EB5, // unfinished barrel
-											0xA2A, // stool
-											0xC1F, // broken clock
-											0x1047, 0x1048, // globe
-											0x1EB1, 0x1EB2, 0x1EB3, 0x1EB4 // barrel staves
-										};
-
-									if ( Utility.Random( list.Length + 1 ) == 0 )
-										preLoot = new Candelabra();
+									if (nChance > Utility.Random(100))
+									{
+										preLoot = new HighSeasRelic();
+										HighSeasRelic relic = (HighSeasRelic)preLoot;
+										relic.RelicOrigin = "Resgatado do Naufrágio: [ " + sos.ShipName + " ]";
+										int nGold = (int)(from.Skills[SkillName.Fishing].Value / 20);
+										relic.RelicGoldValue = relic.RelicGoldValue * nGold;
+									}
 									else
-										preLoot = new ShipwreckedItem( Utility.RandomList( list ), sos.ShipName );
-								}
-								break;
-							}
-							case 7:	// Boots
-							{
-								if ( nChance > Utility.Random(100) )
-								{
-									preLoot = new MagicBoots();
-									int attributeCount;
-									int min, max;
-									GetRandomAOSStats( out attributeCount, out min, out max, mLevel );
-									BaseRunicTool.ApplyAttributesTo( (BaseJewel)preLoot, attributeCount, min, max );
-								}
-								else
-								{
-									preLoot = new ThighBoots(); preLoot.Name = "boots";
-									switch ( Utility.Random( 4 ) )
 									{
-										case 1: preLoot = new Sandals(); preLoot.Name = "sandals"; break;
-										case 2: preLoot = new Shoes(); preLoot.Name = "shoes"; break;
-										case 3: preLoot = new Boots(); preLoot.Name = "boots"; break;
+										int[] list = new int[]
+											{
+													0x1EB5, // unfinished barrel
+													0xA2A, // stool
+													0xC1F, // broken clock
+													0x1047, 0x1048, // globe
+													0x1EB1, 0x1EB2, 0x1EB3, 0x1EB4 // barrel staves
+											};
+
+										if (Utility.Random(list.Length + 1) == 0)
+											preLoot = new Candelabra();
+										else
+											preLoot = new ShipwreckedItem(Utility.RandomList(list), sos.ShipName);
 									}
-									if ( Utility.Random(2) == 1 )
-									{
-										preLoot.Hue = Utility.RandomList( 0xB97, 0xB98, 0xB99, 0xB9A, 0xB88 );
-										preLoot.Name = "soggy " + preLoot.Name;
-									}
-								}
-								break;
-							}
-							case 8:	// Random Relic
-							{
-								int goldBoost = (int)from.Skills[SkillName.Fishing].Value;
-								switch ( Utility.Random( 20 ) )
-								{
-									case 0: preLoot = new DDRelicLeather(); DDRelicLeather RL0 = (DDRelicLeather)preLoot; RL0.RelicGoldValue = RL0.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 1: preLoot = new DDRelicOrbs(); DDRelicOrbs RL1 = (DDRelicOrbs)preLoot; RL1.RelicGoldValue = RL1.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 2: preLoot = new DDRelicPainting(); DDRelicPainting RL2 = (DDRelicPainting)preLoot; RL2.RelicGoldValue = RL2.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 3: preLoot = new DDRelicRugAddonDeed(); DDRelicRugAddonDeed RL3 = (DDRelicRugAddonDeed)preLoot; RL3.RelicGoldValue = RL3.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 4: preLoot = new DDRelicScrolls(); DDRelicScrolls RL4 = (DDRelicScrolls)preLoot; RL4.RelicGoldValue = RL4.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 5: preLoot = new DDRelicStatue(); DDRelicStatue RL5 = (DDRelicStatue)preLoot; RL5.RelicGoldValue = RL5.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 6: preLoot = new DDRelicVase(); DDRelicVase RL6 = (DDRelicVase)preLoot; RL6.RelicGoldValue = RL6.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 7: preLoot = new DDRelicWeapon(); DDRelicWeapon RL7 = (DDRelicWeapon)preLoot; RL7.RelicGoldValue = RL7.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 8: preLoot = new DDRelicArmor(); DDRelicArmor RL8 = (DDRelicArmor)preLoot; RL8.RelicGoldValue = RL8.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 9: preLoot = new DDRelicArts(); DDRelicArts RL9 = (DDRelicArts)preLoot; RL9.RelicGoldValue = RL9.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 10: preLoot = new DDRelicBanner(); DDRelicBanner RL10 = (DDRelicBanner)preLoot; RL10.RelicGoldValue = RL10.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 11: preLoot = new DDRelicBearRugsAddonDeed(); DDRelicBearRugsAddonDeed RL11 = (DDRelicBearRugsAddonDeed)preLoot; RL11.RelicGoldValue = RL11.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 12: preLoot = new DDRelicBook(); DDRelicBook RL12 = (DDRelicBook)preLoot; RL12.RelicGoldValue = RL12.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 13: preLoot = new DDRelicCloth(); DDRelicCloth RL13 = (DDRelicCloth)preLoot; RL13.RelicGoldValue = RL13.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 14: preLoot = new DDRelicFur(); DDRelicFur RL14 = (DDRelicFur)preLoot; RL14.RelicGoldValue = RL14.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 15: preLoot = new DDRelicInstrument(); DDRelicInstrument RL15 = (DDRelicInstrument)preLoot; RL15.RelicGoldValue = RL15.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 16: preLoot = new DDRelicJewels(); DDRelicJewels RL16 = (DDRelicJewels)preLoot; RL16.RelicGoldValue = RL16.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-									case 17: 
-										switch ( Utility.Random( 3 ) )
-										{
-											case 0: preLoot = new DDRelicClock1(); DDRelicClock1 RL17 = (DDRelicClock1)preLoot; RL17.RelicGoldValue = RL17.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-											case 1: preLoot = new DDRelicClock2(); DDRelicClock2 RL18 = (DDRelicClock2)preLoot; RL18.RelicGoldValue = RL18.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-											case 2: preLoot = new DDRelicClock3(); DDRelicClock3 RL19 = (DDRelicClock3)preLoot; RL19.RelicGoldValue = RL19.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
-										}
-									break;
-									case 18: 
-										switch ( Utility.Random( 8 ) )
-										{
-											case 0: preLoot = new TreasurePile01AddonDeed(); break;
-											case 1: preLoot = new TreasurePileAddonDeed(); break;
-											case 2: preLoot = new TreasurePile2AddonDeed(); break;
-											case 3: preLoot = new TreasurePile2AddonDeed(); break;
-											case 4: preLoot = new TreasurePile03AddonDeed(); break;
-											case 5: preLoot = new TreasurePile3AddonDeed(); break;
-											case 6: preLoot = new TreasurePile04AddonDeed(); break;
-											case 7: preLoot = new TreasurePile05AddonDeed(); break;
-										}
-									break;
-									case 19: 
-										switch ( Utility.Random( 8 ) )
-										{
-											case 0: preLoot = new GalleonAddonDeed(); break;
-											case 1: preLoot = new PirateShipAddonDeed(); break;
-											case 2: preLoot = new VikingBoatAddonDeed(); break;
-											case 3: preLoot = new VikingBoatSailAddonDeed(); break;
-										}
 									break;
 								}
-								break;
-							}
-							case 9:	// Container with Items
-							{
-								int golden = (int)(from.Skills[SkillName.Fishing].Value / 10) + 3; 
-								if ( Utility.RandomBool() )
+							case 7: // Boots
 								{
-									switch ( Utility.Random( 2 ) )
+									if (nChance > Utility.Random(100))
 									{
-										case 0: preLoot = new CorpseSailor(golden); break;
-										case 1: preLoot = new SunkenBag(golden); break;
+										preLoot = new MagicBoots();
+										int attributeCount;
+										int min, max;
+										GetRandomAOSStats(out attributeCount, out min, out max, mLevel);
+										BaseRunicTool.ApplyAttributesTo((BaseJewel)preLoot, attributeCount, min, max);
 									}
+									else
+									{
+										preLoot = new ThighBoots(); preLoot.Name = "botas";
+										switch (Utility.Random(4))
+										{
+											case 1: preLoot = new Sandals(); preLoot.Name = "sandálias"; break;
+											case 2: preLoot = new Shoes(); preLoot.Name = "sapatos"; break;
+											case 3: preLoot = new Boots(); preLoot.Name = "botas"; break;
+										}
+										if (Utility.Random(2) == 1)
+										{
+											preLoot.Hue = Utility.RandomList(0xB97, 0xB98, 0xB99, 0xB9A, 0xB88);
+											preLoot.Name = preLoot.Name + "encharcada(o)s";
+										}
+									}
+									break;
 								}
-								else
+							case 8: // Random Relic
 								{
-									preLoot = new LootChest(golden);
-									preLoot.Hue = 0; 
-									switch ( Utility.Random( 7 ) )
+									int goldBoost = (int)from.Skills[SkillName.Fishing].Value;
+									switch (Utility.Random(20))
 									{
-										case 0: preLoot.ItemID = Utility.RandomList ( 0x4FDB, 0x4FDC ); preLoot.Name = "sea captain shelf"; break;
-										case 1: preLoot.ItemID = Utility.RandomList ( 0x4FF4, 0x4FF5 ); preLoot.Name = "barnacled chest"; break;
-										case 2: preLoot.ItemID = Utility.RandomList ( 0x4FEA, 0x4FEB ); preLoot.Name = "royal chest"; break;
-										case 3: preLoot.ItemID = Utility.RandomList ( 0x4FEC, 0x4FED ); preLoot.Name = "royal cabinet"; break;
-										case 4: preLoot.ItemID = Utility.RandomList ( 0x4FEE, 0x4FEF ); preLoot.Name = "royal cabinet"; break;
-										case 5: preLoot.ItemID = Utility.RandomList ( 0x4FF0, 0x4FF0 ); preLoot.Name = "royal dresser"; break;
-										case 6: preLoot.ItemID = Utility.RandomList ( 0x4FF2, 0x4FF3 ); preLoot.Name = "royal trunk"; break;
+										case 0: preLoot = new DDRelicLeather(); DDRelicLeather RL0 = (DDRelicLeather)preLoot; RL0.RelicGoldValue = RL0.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 1: preLoot = new DDRelicOrbs(); DDRelicOrbs RL1 = (DDRelicOrbs)preLoot; RL1.RelicGoldValue = RL1.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 2: preLoot = new DDRelicPainting(); DDRelicPainting RL2 = (DDRelicPainting)preLoot; RL2.RelicGoldValue = RL2.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 3: preLoot = new DDRelicRugAddonDeed(); DDRelicRugAddonDeed RL3 = (DDRelicRugAddonDeed)preLoot; RL3.RelicGoldValue = RL3.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 4: preLoot = new DDRelicScrolls(); DDRelicScrolls RL4 = (DDRelicScrolls)preLoot; RL4.RelicGoldValue = RL4.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 5: preLoot = new DDRelicStatue(); DDRelicStatue RL5 = (DDRelicStatue)preLoot; RL5.RelicGoldValue = RL5.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 6: preLoot = new DDRelicVase(); DDRelicVase RL6 = (DDRelicVase)preLoot; RL6.RelicGoldValue = RL6.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 7: preLoot = new DDRelicWeapon(); DDRelicWeapon RL7 = (DDRelicWeapon)preLoot; RL7.RelicGoldValue = RL7.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 8: preLoot = new DDRelicArmor(); DDRelicArmor RL8 = (DDRelicArmor)preLoot; RL8.RelicGoldValue = RL8.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 9: preLoot = new DDRelicArts(); DDRelicArts RL9 = (DDRelicArts)preLoot; RL9.RelicGoldValue = RL9.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 10: preLoot = new DDRelicBanner(); DDRelicBanner RL10 = (DDRelicBanner)preLoot; RL10.RelicGoldValue = RL10.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 11: preLoot = new DDRelicBearRugsAddonDeed(); DDRelicBearRugsAddonDeed RL11 = (DDRelicBearRugsAddonDeed)preLoot; RL11.RelicGoldValue = RL11.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 12: preLoot = new DDRelicBook(); DDRelicBook RL12 = (DDRelicBook)preLoot; RL12.RelicGoldValue = RL12.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 13: preLoot = new DDRelicCloth(); DDRelicCloth RL13 = (DDRelicCloth)preLoot; RL13.RelicGoldValue = RL13.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 14: preLoot = new DDRelicFur(); DDRelicFur RL14 = (DDRelicFur)preLoot; RL14.RelicGoldValue = RL14.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 15: preLoot = new DDRelicInstrument(); DDRelicInstrument RL15 = (DDRelicInstrument)preLoot; RL15.RelicGoldValue = RL15.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 16: preLoot = new DDRelicJewels(); DDRelicJewels RL16 = (DDRelicJewels)preLoot; RL16.RelicGoldValue = RL16.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+										case 17:
+											switch (Utility.Random(3))
+											{
+												case 0: preLoot = new DDRelicClock1(); DDRelicClock1 RL17 = (DDRelicClock1)preLoot; RL17.RelicGoldValue = RL17.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+												case 1: preLoot = new DDRelicClock2(); DDRelicClock2 RL18 = (DDRelicClock2)preLoot; RL18.RelicGoldValue = RL18.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+												case 2: preLoot = new DDRelicClock3(); DDRelicClock3 RL19 = (DDRelicClock3)preLoot; RL19.RelicGoldValue = RL19.RelicGoldValue + goldBoost; preLoot.InvalidateProperties(); break;
+											}
+											break;
+										case 18:
+											switch (Utility.Random(8))
+											{
+												case 0: preLoot = new TreasurePile01AddonDeed(); break;
+												case 1: preLoot = new TreasurePileAddonDeed(); break;
+												case 2: preLoot = new TreasurePile2AddonDeed(); break;
+												case 3: preLoot = new TreasurePile2AddonDeed(); break;
+												case 4: preLoot = new TreasurePile03AddonDeed(); break;
+												case 5: preLoot = new TreasurePile3AddonDeed(); break;
+												case 6: preLoot = new TreasurePile04AddonDeed(); break;
+												case 7: preLoot = new TreasurePile05AddonDeed(); break;
+											}
+											break;
+										case 19:
+											switch (Utility.Random(8))
+											{
+												case 0: preLoot = new GalleonAddonDeed(); break;
+												case 1: preLoot = new PirateShipAddonDeed(); break;
+												case 2: preLoot = new VikingBoatAddonDeed(); break;
+												case 3: preLoot = new VikingBoatSailAddonDeed(); break;
+											}
+											break;
 									}
+									break;
 								}
-								break;
-							}
+							case 9: // Container with Items
+								{
+									int golden = (int)(from.Skills[SkillName.Fishing].Value / 10) + 3;
+									if (Utility.RandomBool())
+									{
+										switch (Utility.Random(2))
+										{
+											case 0: preLoot = new CorpseSailor(golden); break;
+											case 1: preLoot = new SunkenBag(golden); break;
+										}
+									}
+									else
+									{
+										preLoot = new LootChest(golden);
+										preLoot.Hue = 0;
+										switch (Utility.Random(7))
+										{
+											case 0: preLoot.ItemID = Utility.RandomList(0x4FDB, 0x4FDC); preLoot.Name = "estante do capitão do mar"; break;
+											case 1: preLoot.ItemID = Utility.RandomList(0x4FF4, 0x4FF5); preLoot.Name = "baú com cracas"; break;
+											case 2: preLoot.ItemID = Utility.RandomList(0x4FEA, 0x4FEB); preLoot.Name = "baú real"; break;
+											case 3: preLoot.ItemID = Utility.RandomList(0x4FEC, 0x4FED); preLoot.Name = "gabinete real"; break;
+											case 4: preLoot.ItemID = Utility.RandomList(0x4FEE, 0x4FEF); preLoot.Name = "gabinete real"; break;
+											case 5: preLoot.ItemID = Utility.RandomList(0x4FF0, 0x4FF0); preLoot.Name = "armário real"; break;
+											case 6: preLoot.ItemID = Utility.RandomList(0x4FF2, 0x4FF3); preLoot.Name = "baú real"; break;
+										}
+									}
+									break;
+								}
 						}
+                        #endregion
 
-						if ( preLoot != null )
+                        if (preLoot != null)
 						{
-							if ( preLoot is IShipwreckedItem )
-								( (IShipwreckedItem)preLoot ).IsShipwreckedItem = true;
+							if (preLoot is IShipwreckedItem)
+								((IShipwreckedItem)preLoot).IsShipwreckedItem = true;
 
-							return preLoot;
+                            pm.SendMessage(55, "Você encontrou destroços de um naufrágio!");
+                            return preLoot;
 						}
 
 						int IamAncient = 0;
-							if ( sos.IsAncient )
-								IamAncient = 1;
+						if (sos.IsAncient)
+							IamAncient = 1;
 
-						SunkenChest chest = new SunkenChest( sos.Level, from, IamAncient );
-						FishingSkill( from, 10 );
-						LoggingFunctions.LogQuestSea( from, sos.Level, sos.ShipName );
+						SunkenChest chest = new SunkenChest(sos.Level, from, IamAncient);
+						FishingSkill(from, 10);
+						LoggingFunctions.LogQuestSea(from, sos.Level, sos.ShipName);
 
 						// ------------------------------------------------------------------------
 
 						BaseCreature creature = new DeepSeaSerpent();
-						string Screature = "Shipwreck Serpent";
+						string Screature = "Serpente Marinha";
 
-						int monster = Utility.RandomMinMax( 16, 19 );
+						int monster = Utility.RandomMinMax(16, 19);
 
-						if ( sos.Level < 2 ){ monster = Utility.RandomMinMax( 1, 4 ); }
-						else if ( sos.Level == 2 ){ monster = Utility.RandomMinMax( 5, 9 ); }
-						else if ( sos.Level == 3 ){ monster = Utility.RandomMinMax( 10, 11 ); }
-						else if ( sos.Level == 4 ){ monster = Utility.RandomMinMax( 12, 15 ); }
+						if (sos.Level < 2) { monster = Utility.RandomMinMax(1, 4); }
+						else if (sos.Level == 2) { monster = Utility.RandomMinMax(5, 9); }
+						else if (sos.Level == 3) { monster = Utility.RandomMinMax(10, 11); }
+						else if (sos.Level == 4) { monster = Utility.RandomMinMax(12, 15); }
 
-						switch ( monster )
+						switch (monster)
 						{
-							case 1: creature = new WaterNaga(); 		Screature = "Shipwreck Naga";				break; // 1
-							case 2: creature = new GiantEel(); 			Screature = "Shipwreck Eel";				break; // 1
-							case 3: creature = new SeaSerpent(); 		Screature = "Shipwreck Serpent";			break; // 1
-							case 4: creature = new Shark(); 			Screature = "Shipwreck Shark";				break; // 1
-							case 5: creature = new SeaDrake(); 			Screature = "Shipwreck Drake";				break; // 2
-							case 6: creature = new DeepSeaSerpent(); 	Screature = "Shipwreck Serpent";			break; // 2
-							case 7: creature = new GreatWhite(); 		Screature = "Shipwreck Great White Shark";	break; // 2
-							case 8: creature = new SeaHag(); 			Screature = "Shipwreck Hag";				break; // 2
-							case 9: creature = new EyeOfTheDeep(); 		Screature = "Shipwreck Eye";				break; // 2
-							case 10: creature = new SeaDragon(); 		Screature = "Shipwreck Dragon";				break; // 3
-							case 11: creature = new DemonOfTheSea(); 	Screature = "Shipwreck Demon";				break; // 3
-							case 12: creature = new SeaGiant(); 		Screature = "Shipwreck Giant";				break; // 4
-							case 13: creature = new StormGiant(); 		Screature = "Shipwreck Giant";				break; // 4
-							case 14: creature = new GiantSquid(); 		Screature = "Shipwreck Squid";				break; // 4
-							case 15: creature = new SeaHagGreater(); 	Screature = "Shipwreck Hag";				break; // 4
-							case 16: creature = new Calamari(); 			Screature = "Shipwreck Calamari";		break; // 5
-							case 17: creature = new Kraken(); 			Screature = "Shipwreck Kraken";				break; // 5
-							case 18: creature = new Megalodon(); 		Screature = "Shipwreck Megalodon";			break; // 5
-							case 19: creature = new DeepSeaDragon(); 	Screature = "Shipwreck Wyrm";				break; // 5
+							case 1: creature = new WaterNaga(); Screature = "Naga d´agua"; break; // 1
+							case 2: creature = new GiantEel(); Screature = "Enguia de Gigante"; break; // 1
+							case 3: creature = new SeaSerpent(); Screature = "Serpente Marinha"; break; // 1
+							case 4: creature = new Shark(); Screature = "Tubarão-Martelo"; break; // 1
+							case 5: creature = new SeaDrake(); Screature = "Draconete Marinho"; break; // 2
+							case 6: creature = new DeepSeaSerpent(); Screature = "Grande Serpente Marinha"; break; // 2
+							case 7: creature = new GreatWhite(); Screature = "Tubarão-Branco"; break; // 2
+							case 8: creature = new SeaHag(); Screature = "Bruxa do mar"; break; // 2
+							case 9: creature = new EyeOfTheDeep(); Screature = "Observador Marinho"; break; // 2
+							case 10: creature = new SeaDragon(); Screature = "Dragão Marinho"; break; // 3
+							case 11: creature = new DemonOfTheSea(); Screature = "Demônio Marinho"; break; // 3
+							case 12: creature = new SeaGiant(); Screature = "Kaiju Marinho"; break; // 4
+							case 13: creature = new StormGiant(); Screature = "Kaiju Marinho"; break; // 4
+							case 14: creature = new GiantSquid(); Screature = "Lula Gigante"; break; // 4
+							case 15: creature = new SeaHagGreater(); Screature = "Bruxa Marinha"; break; // 4
+							case 16: creature = new Calamari(); Screature = "Calamari Gigante"; break; // 5
+							case 17: creature = new Kraken(); Screature = "Kraken"; break; // 5
+							case 18: creature = new Megalodon(); Screature = "Megalodon"; break; // 5
+							case 19: creature = new DeepSeaDragon(); Screature = "Leviatã"; break; // 5
 						}
 
 						int x = from.X, y = from.Y;
 
 						Map map = from.Map;
 
-						for ( int c = 0; map != null && c < 20; ++c )
+						for (int c = 0; map != null && c < 20; ++c)
 						{
-							int tx = from.X - 10 + Utility.Random( 21 );
-							int ty = from.Y - 10 + Utility.Random( 21 );
+							int tx = from.X - 10 + Utility.Random(21);
+							int ty = from.Y - 10 + Utility.Random(21);
 
-							LandTile t = map.Tiles.GetLandTile( tx, ty );
+							LandTile t = map.Tiles.GetLandTile(tx, ty);
 
-							if ( t.Z == -5 && Server.Misc.Worlds.IsWaterTile( t.ID, 0 ) && !Spells.SpellHelper.CheckMulti( new Point3D( tx, ty, -5 ), map ) )
+							if (t.Z == -5 && Server.Misc.Worlds.IsWaterTile(t.ID, 0) && !Spells.SpellHelper.CheckMulti(new Point3D(tx, ty, -5), map))
 							{
 								x = tx;
 								y = ty;
 								break;
 							}
 						}
-
-						creature.MoveToWorld( new Point3D( x, y, -5 ), map );
+                        
+						pm.SendMessage(66, "Você encontra um monstro marinho que guarda o naufrágio.");
+                        
+						creature.MoveToWorld(new Point3D(x, y, -5), map);
 						creature.Home = creature.Location;
 						creature.WhisperHue = 999;
 						creature.Name = Screature;
 						creature.RangeHome = 10;
-						creature.PackItem( chest );
+						creature.PackItem(chest);
 
 						// ------------------------------------------------------------------------
 
 						sos.Delete();
 
-						switch ( Utility.Random( 9 ) )
+						switch (Utility.Random(9))
 						{
-							case 0: preLoot = ArtifactBuilder.CreateArtifact( "driftwood" ); break;
-							case 1: preLoot = ArtifactBuilder.CreateArtifact( "kelp" ); break;
-							case 2: preLoot = ArtifactBuilder.CreateArtifact( "barnacle" ); break;
-							case 3: preLoot = ArtifactBuilder.CreateArtifact( "bronzed" ); break;
-							case 4: preLoot = ArtifactBuilder.CreateArtifact( "neptune" ); break;
-							case 5: preLoot = new ShipwreckedItem( Utility.Random( 0xE9F, 10 ), sos.ShipName ); break;
-							case 6: preLoot = new ShipwreckedItem( Utility.Random( 0x13A4, 11 ), sos.ShipName ); break;
-							case 7: preLoot = new ShipwreckedItem( Utility.Random( 0xFC4, 9 ), sos.ShipName ); break;
-							case 8: preLoot = new HighSeasRelic();
-									HighSeasRelic relic = (HighSeasRelic)preLoot;
-									relic.RelicOrigin = "Recovered From " + sos.ShipName;
-									int nGold = (int)(from.Skills[SkillName.Fishing].Value/20);
-									relic.RelicGoldValue = relic.RelicGoldValue * nGold;
+							case 0: preLoot = ArtifactBuilder.CreateArtifact("driftwood"); break;
+							case 1: preLoot = ArtifactBuilder.CreateArtifact("kelp"); break;
+							case 2: preLoot = ArtifactBuilder.CreateArtifact("barnacle"); break;
+							case 3: preLoot = ArtifactBuilder.CreateArtifact("bronzed"); break;
+							case 4: preLoot = ArtifactBuilder.CreateArtifact("neptune"); break;
+							case 5: preLoot = new ShipwreckedItem(Utility.Random(0xE9F, 10), sos.ShipName); break;
+							case 6: preLoot = new ShipwreckedItem(Utility.Random(0x13A4, 11), sos.ShipName); break;
+							case 7: preLoot = new ShipwreckedItem(Utility.Random(0xFC4, 9), sos.ShipName); break;
+							case 8:
+								preLoot = new HighSeasRelic();
+								HighSeasRelic relic = (HighSeasRelic)preLoot;
+								relic.RelicOrigin = "Resgatado do Naufrágio: [ " + sos.ShipName + " ]";
+								int nGold = (int)(from.Skills[SkillName.Fishing].Value / 20);
+								relic.RelicGoldValue = relic.RelicGoldValue * nGold;
 								break;
 						}
 
-						from.SendMessage( "Your hook got caught on a creature from the wreck below!" );
+						from.SendMessage(55, "Seu gancho pescou uma criatura no naufrágio abaixo!");
 
 						return preLoot;
 					}
 				}
 			}
 
-			return base.Construct( type, from );
+			return base.Construct(type, from);
 		}
 
-		public override bool Give( Mobile m, Item item, bool placeAtFeet )
+		public override bool Give(Mobile m, Item item, bool placeAtFeet)
 		{
-			if ( item is TreasureMap || item is MessageInABottle || item is FishingNet || item is SpecialFishingNet || item is FabledFishingNet || item is NeptunesFishingNet  )
+			if (item is TreasureMap || item is MessageInABottle || /*item is FishingNet ||*/ item is SpecialFishingNet || item is FabledFishingNet || item is NeptunesFishingNet)
 			{
 				BaseCreature serp = new DeepSeaSerpent();
 
-				switch ( Utility.Random( 5 ) )
+				switch (Utility.Random(5))
 				{
 					case 0: serp = new GiantEel(); break;
 					case 1: serp = new GiantSquid(); break;
@@ -1019,14 +1281,14 @@ namespace Server.Engines.Harvest
 
 				Map map = m.Map;
 
-				for ( int i = 0; map != null && i < 20; ++i )
+				for (int i = 0; map != null && i < 20; ++i)
 				{
-					int tx = m.X - 10 + Utility.Random( 21 );
-					int ty = m.Y - 10 + Utility.Random( 21 );
+					int tx = m.X - 10 + Utility.Random(21);
+					int ty = m.Y - 10 + Utility.Random(21);
 
-					LandTile t = map.Tiles.GetLandTile( tx, ty );
+					LandTile t = map.Tiles.GetLandTile(tx, ty);
 
-					if ( t.Z == -5 && Server.Misc.Worlds.IsWaterTile( t.ID, 0 ) && !Spells.SpellHelper.CheckMulti( new Point3D( tx, ty, -5 ), map ) )
+					if (t.Z == -5 && Server.Misc.Worlds.IsWaterTile(t.ID, 0) && !Spells.SpellHelper.CheckMulti(new Point3D(tx, ty, -5), map))
 					{
 						x = tx;
 						y = ty;
@@ -1034,191 +1296,58 @@ namespace Server.Engines.Harvest
 					}
 				}
 
-				serp.MoveToWorld( new Point3D( x, y, -5 ), map );
+				serp.MoveToWorld(new Point3D(x, y, -5), map);
 
 				serp.Home = serp.Location;
 				serp.RangeHome = 10;
 				serp.WhisperHue = 999;
 
-				serp.PackItem( item );
+				serp.PackItem(item);
 
-				m.SendLocalizedMessage( 503170 ); // Uh oh! That doesn't look like a fish!
+                PlayerMobile pm = (PlayerMobile)m;
 
-				return true; // we don't want to give the item to the player, it's on the serpent
+				if (item is TreasureMap || item is MessageInABottle)
+				{
+
+                    m.SendMessage(55, "Um monstro marinho surge e engole o tesouro que você pescou!");
+                }
+				else 
+				{
+                    m.SendMessage(55, "Um monstro marinho foi atraido pela sua rede de pesca!");
+                }
+                
+                pm.PlaySound(pm.Female ? 0x32E : 0x440);
+                pm.Say("*MINHA NOSSA!*");
+                //m.SendLocalizedMessage(503170); // Uh oh! That doesn't look like a fish!
+
+                return true; // we don't want to give the item to the player, it's on the serpent
 			}
 
-			if ( item is WoodenChest || item is MetalGoldenChest || item is SunkenChest )
+			if (item is WoodenChest || item is MetalGoldenChest || item is SunkenChest)
 				placeAtFeet = true;
 
-			if ( item is NewFish )
+			if (item is NewFish)
 			{
-				int nFishingSkill = (int)(m.Skills[SkillName.Fishing].Value/5);
-				NewFish fishy = (NewFish)item;
-				fishy.FishGoldValue = fishy.FishGoldValue * nFishingSkill;
+                NewFish fishy = (NewFish)item;
+
+				double scale = 1.2;
+                int nFishingSkill = (int)(m.Skills[SkillName.Fishing].Value / 10);
+				if (nFishingSkill >= 10) 
+				{
+                    scale = 1.5;
+                }
+                fishy.FishGoldValue = (int)(fishy.FishGoldValue * scale);
 			}
 
-			return base.Give( m, item, placeAtFeet );
+			return base.Give(m, item, placeAtFeet);
 		}
 
-		public override void SendSuccessTo( Mobile from, Item item, HarvestResource resource )
-		{
-			if ( item is PearlSkull )
-			{
-				from.SendMessage("Hmmmm...someone's skull is stuck on your hook!");
-			}
-			else if ( item is NewFish )
-			{
-				from.SendMessage("You pulled an exotic fish from these waters!");
-			}
-			else if ( item is RustyJunk )
-			{
-				from.SendMessage("You fished up some old rusty junk!");
-			}
-			else if ( item is HighSeasRelic )
-			{
-				from.SendMessage("You fished up something special from the wreck below!");
-			}
-			else if ( item is WoodenChest || item is MetalGoldenChest || item is SunkenChest )
-			{
-				// from.SendLocalizedMessage( 503175 ); // You pull up a heavy chest from the depths of the ocean!
-			}
-			else
-			{
-				int number;
-				string name;
-
-				if ( item is BaseMagicFish )
-				{
-					number = 1008124;
-					name = "a mess of small fish";
-				}
-				else if ( item is Fish )
-				{
-					number = 1008124;
-					name = item.ItemData.Name;
-				}
-				else if ( item is BaseShoes )
-				{
-					number = 1008124;
-					name = item.ItemData.Name;
-				}
-				else if ( item is TreasureMap )
-				{
-					number = 1008125;
-					name = "a sodden piece of parchment";
-				}
-				else if ( item is MessageInABottle )
-				{
-					number = 1008125;
-					name = "a bottle, with a message in it";
-				}
-				else if ( item is FishingNet || item is SpecialFishingNet || item is FabledFishingNet || item is NeptunesFishingNet )
-				{
-					number = 1008125;
-					name = "a fishing net";
-				}
-				else
-				{
-					number = 1043297;
-
-					if ( item.Name != null && item.Name != "" )
-						name = item.Name;
-					else if ( (item.ItemData.Flags & TileFlag.ArticleA) != 0 )
-						name = "a " + item.ItemData.Name;
-					else if ( (item.ItemData.Flags & TileFlag.ArticleAn) != 0 )
-						name = "an " + item.ItemData.Name;
-					else
-						name = item.ItemData.Name;
-				}
-
-				// THIS HOPEFULLY FIXES THE ~1_val~a fish ISSUE
-				NetState ns = from.NetState;
-				 
-				if ( ns == null )
-				return;
-				 
-				if ( number == 1043297 || ns.HighSeas )
-					from.SendLocalizedMessage( number, name );
-				else
-					from.SendLocalizedMessage( number, true, name );
-			}
-		}
-
-		public override void OnHarvestStarted( Mobile from, Item tool, HarvestDefinition def, object toHarvest )
-		{
-			base.OnHarvestStarted( from, tool, def, toHarvest );
-
-			int tileID;
-			Map map;
-			Point3D loc;
-
-			if ( GetHarvestDetails( from, tool, toHarvest, out tileID, out map, out loc ) )
-				Timer.DelayCall( TimeSpan.FromSeconds( 1.5 ), 
-				delegate
-				{
-					if( Core.ML )
-						from.RevealingAction();
-
-					Effects.SendLocationEffect( loc, map, 0x352D, 16, 4 );
-					Effects.PlaySound( loc, map, 0x364 );
-				} );
-		}
-
-		public override void OnHarvestFinished( Mobile from, Item tool, HarvestDefinition def, HarvestVein vein, HarvestBank bank, HarvestResource resource, object harvested )
-		{
-			base.OnHarvestFinished( from, tool, def, vein, bank, resource, harvested );
-
-			if ( Core.ML )
-				from.RevealingAction();
-		}
-
-		public override object GetLock( Mobile from, Item tool, HarvestDefinition def, object toHarvest )
+		public override object GetLock(Mobile from, Item tool, HarvestDefinition def, object toHarvest)
 		{
 			return this;
 		}
 
-		public override bool BeginHarvesting( Mobile from, Item tool )
-		{
-			if ( from.FindItemOnLayer( Layer.OneHanded ) == null || tool != from.FindItemOnLayer( Layer.OneHanded ) )
-			{
-				from.SendMessage("You need to be holding your fishing pole to fish.");
-				return false;
-			}
-			else if ( !base.BeginHarvesting( from, tool ) )
-				return false;
-
-			from.SendLocalizedMessage( 500974 ); // What water do you want to fish in?
-			return true;
-		}
-
-		public override bool CheckHarvest( Mobile from, Item tool )
-		{
-			if ( !base.CheckHarvest( from, tool ) )
-				return false;
-
-			if ( from.Mounted )
-			{
-				from.SendLocalizedMessage( 500971 ); // You can't fish while riding!
-				return false;
-			}
-
-			return true;
-		}
-
-		public override bool CheckHarvest( Mobile from, Item tool, HarvestDefinition def, object toHarvest )
-		{
-			if ( !base.CheckHarvest( from, tool, def, toHarvest ) )
-				return false;
-
-			if ( from.Mounted )
-			{
-				from.SendLocalizedMessage( 500971 ); // You can't fish while riding!
-				return false;
-			}
-
-			return true;
-		}
-
+		#region Tile lists
 		public static int[] m_WaterTiles = new int[]
 			{
 				0xA8, 0xA9, 0xAA, 0xAB, 0x136, 0x137, 0x40A8, 0x40A9, 0x40AA, 0x40AB, 0x4136, 0x4137, 
@@ -1234,5 +1363,6 @@ namespace Server.Engines.Harvest
 				0x9642, 0x9643, 0x9644, 0x9645, 0x9646, 0x9647, 0x9648, 0x9649, 0x964A, 0x9657, 0x9658, 0x9659, 0x965A, 0x965B, 0x965C, 0x965D, 0x965E, 0x965F, 0x9660, 0x9661, 
 				0x9662, 0x9663, 0x9664, 0x9665, 0x9666, 0x9667, 0x9668, 0x9669, 0x966A, 0x966B, 0x966C, 0x966D, 0x966E, 0x966F
 			};
-	}
+        #endregion
+    }
 }

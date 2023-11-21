@@ -9,8 +9,9 @@ namespace Server.Items
 		[Constructable]
 		public Dyes() : base( 0xFA9 )
 		{
-			Weight = 2.0;
-		}
+			Weight = 1.0;
+            Name = "Lata de Tinta";
+        }
 
 		public Dyes( Serial serial ) : base( serial )
 		{
@@ -30,7 +31,7 @@ namespace Server.Items
 			int version = reader.ReadInt();
 
 			if ( Weight == 0.0 )
-				Weight = 2.0;
+				Weight = 1.0;
 		}
 
 		public override void OnDoubleClick( Mobile from )
@@ -85,12 +86,12 @@ namespace Server.Items
 					}
 					else
 					{
-						from.SendMessage( "That dye tub may not be redyed." );
+						from.SendMessage(55, "Não é possível aplicar cor neste balde de tinta." );
 					}
 				}
 				else
 				{
-					from.SendLocalizedMessage( 500857 ); // Use this on a dye tub.
+                    from.SendMessage(55, "Utilize a tinta em um balde de tinta."); //from.SendLocalizedMessage( 500857 ); // Use this on a dye tub.
 				}
 			}
 		}

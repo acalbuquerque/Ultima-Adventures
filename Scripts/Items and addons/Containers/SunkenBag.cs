@@ -28,9 +28,9 @@ namespace Server.Items
 			GumpID = 0x3D;
 			switch ( Utility.RandomMinMax( 0, 2 ) )
 			{
-				case 0: Name = "bag"; break;
-				case 1:	Name = "sack"; break;
-				case 2:	Name = "pouch"; break;
+				case 0: Name = "bolsa"; break;
+				case 1:	Name = "saco"; break;
+				case 2:	Name = "pochete"; break;
 			}
 
 			if ( Utility.Random( 2 ) == 1 )
@@ -39,28 +39,26 @@ namespace Server.Items
 				GumpID = 0x3C;
 				switch ( Utility.RandomMinMax( 0, 2 ) )
 				{
-					case 0: Name = "pack"; break;
-					case 1:	Name = "backpack"; break;
-					case 2:	Name = "satchel"; break;
+					case 0: Name = "pacote"; break;
+					case 1:	Name = "mochila"; break;
+					case 2:	Name = "sacola"; break;
 				}
 			}
 
-			string sAdjective = "wet";
+			string sAdjective = "molhado(a)";
 
-			switch ( Utility.RandomMinMax( 0, 6 ) )
+			switch ( Utility.RandomMinMax( 0, 4 ) )
 			{
-				case 0: sAdjective = "soggy"; break;
-				case 1:	sAdjective = "wet"; break;
-				case 2:	sAdjective = "soaked"; break;
-				case 3:	sAdjective = "sopping"; break;
-				case 4:	sAdjective = "dripping"; break;
-				case 5:	sAdjective = "waterlogged"; break;
-				case 6:	sAdjective = "drenched"; break;
+				case 0: sAdjective = "encharcado(a)"; break;
+				case 1:	sAdjective = "molhado(a)"; break;
+				case 2:	sAdjective = "ensopado(a)"; break;
+				case 3:	sAdjective = "úmido(a)"; break;
+				case 4:	sAdjective = "alagado(a)"; break;
 			}
 
 			string sSack = ContainerFunctions.GetOwner( "SunkenBag" );
 
-			Name = "The " + sAdjective + " " + Name + " of " + sSack;
+			Name = Name + " " + sAdjective + " de " + sSack;
 
 			TrapType = TrapType.None;
 			TrapPower = 0;

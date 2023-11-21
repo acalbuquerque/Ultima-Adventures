@@ -58,7 +58,7 @@ namespace Server.Items
 		public void UpdateHue()
 		{
 			if ( IsAncient )
-				Hue = Utility.RandomList( 0xB8E, 0xB8F, 0xB90, 0xB91, 0xB92, 0xB89, 0xB8B );
+				Hue = Utility.RandomList( 149, 150, 249 );
 			else
 				Hue = 0;
 		}
@@ -72,6 +72,7 @@ namespace Server.Items
 			else if ( world == "the Moon of Luna" ){ world = "the Land of Sosaria"; } // NO SOSs ON THE MOON
 			else if ( world == "the Underworld" ){ world = "the Land of Sosaria"; } // NO SOSs IN THE UNDERWORLD
 
+			Name = "Um Pedido de Socorro (SOS)";
 			Weight = 1.0;
 
 			Point3D loc = Worlds.GetRandomLocation( world, "sea" );
@@ -89,32 +90,26 @@ namespace Server.Items
 			ShipName = RandomThings.GetRandomShipName( "", 0 );
 
 
-			string Beast = "a sea dragon";
-			switch ( Utility.Random( 12 ) )
+			string Beast = "uma besta marinha";
+			switch ( Utility.Random( 6 ) )
 			{
-				case 0: Beast = "a gigantic monster"; break;
-				case 1: Beast = "a sea hag"; break;
-				case 2: Beast = "a leviathan"; break;
-				case 3: Beast = "a sea dragon"; break;
-				case 4: Beast = "a sea giant"; break;
-				case 5: Beast = "a storm giant"; break;
-				case 6: Beast = "a sea serpent"; break;
-				case 7: Beast = "a demon of the sea"; break;
-				case 8: Beast = "a rotting squid"; break;
-				case 9: Beast = "a giant beast"; break;
-				case 10: Beast = "a dragon turtle"; break;
-				case 11: Beast = "a huge creature"; break;
+				case 0: Beast = "um monstro gigante"; break;
+				case 1: Beast = "um monstro marinho"; break;
+				case 2: Beast = "um leviatã"; break;
+				case 3: Beast = "uma coisa enorme"; break;
+				case 4: Beast = "uma besta marinha"; break;
+				case 5: Beast = "uma criatura enorme"; break;
 			}
 
-			if ( IsAncient ){ ShipStory = "This parchment is very old and almost crumbles in your hand. You know that whoever wrote this has been dead for possibly centuries, but it reads... "; }
+			if ( IsAncient ){ ShipStory = "Este pergaminho é muito antigo e quase se desfaz na sua mão. Você sabe que quem escreveu isso está morto possivelmente há séculos... "; }
 
 			switch ( Utility.Random( 5 ) )
 			{
-				case 0: ShipStory = ShipStory + "We were sailing in " + MapWorld + " when " + Beast + " rose from the depths of the ocean and attacked our ship! The hull has taken alot of damage and '" + ShipName + "' is slowly sinking into the depths of the sea! Whoever finds this, send a ship to the coordinates below! Hurry! I am not sure how long we will last out here!"; break;
-				case 1: ShipStory = ShipStory + "If ya never seen " + Beast + " before, consider yerself lucky. There be little warning before they hit our ship, '" + ShipName + "', while sailing in " + MapWorld + ". We thought we hit a reef but we were wrong. It tore the ship apart. Only me and " + QuestCharacters.ParchmentWriter() + " managed to survive the onslaught of the beast. Now we sit here, on some island. The coordinates I last remember is where your ship went down. We may be close to there if you can send a ship. There be gold for payment if you do."; break;
-				case 2: ShipStory = ShipStory + "I am writing this with my dying strength on board '" + ShipName + "'. " + QuestCharacters.ParchmentWriter() + " the Pirate came upon us in the night while far from land in " + MapWorld + ". We didn't stand a chance. We tried to outrun er but the wind was against us to be sure. He set our ship ablaze and fled off into the distance. Now we slowly sink into the ocean. If you find this, I wrote our coordinates below. You may still get here in time to save the others. If you can, tell " + QuestCharacters.ParchmentWriter() + " my tale so they never live wondering my fate. They live somewhere in " + RandomThings.GetRandomCity() + "."; break;
-				case 3: ShipStory = ShipStory + "'" + ShipName + "' be sinking far from land. What we thought was a merchant ship was actually a war ship in disguise. They be hunting us pirates on the high seas in " + MapWorld + "...and today our luck ran out. Their cannons ripped through our sails, and tore holes in our hull. They killed most of the crew, where only " + Utility.RandomMinMax( 3, 16 ) + " of us survived. They be gone now, but the sharks started circling the wreck. I just saw " + QuestCharacters.ParchmentWriter() + " being pulled below the waves, blood gushing up from below. I be on the largest piece of flotsam and can only hope I survive till ya get here."; break;
-				case 4: ShipStory = ShipStory + "I knew " + QuestCharacters.ParchmentWriter() + " weren't no good at being a captain of '" + ShipName + "'. Now this probably be our end here in " + MapWorld + ". We be under attack by " + Beast + " and we have no chance of making it to " + RandomThings.GetRandomCity() + " now. I fear that me never see me wife again. If ye find this note, please find us before we sink. I have an ancient artifact I could trade for yer help."; break;
+				case 0: ShipStory = ShipStory + "Estavamos navegando em " + MapWorld + " quando " + Beast + " surgiu das profundezas do oceano e atacou nosso navio! O casco sofreu muitos danos e " + ShipName + " está afundando lentamente nas profundezas do mar! Quem encontrar isso, mande um navio para as coordenadas abaixo! Rápido! Não tenho certeza de quanto tempo vamos durar aqui!"; break;
+				case 1: ShipStory = ShipStory + "Se você nunca viu " + Beast + " antes, considere-se com sorte. Houve poucos avisos antes de atingirem nosso navio, " + ShipName + ", enquanto navegavam em " + MapWorld + ". Achavamos que tinhamos atingido um recife, mas erramos. Somente eu e " + QuestCharacters.ParchmentWriter() + " conseguimos sobreviver ao ataque da fera. Agora estamos sentados aqui, em alguma ilha. As últimas coordenadas de que me lembro são onde a sua nave afundou. Envie um resgate e haverá ouro para pagamento se você fizer isso."; break;
+				case 2: ShipStory = ShipStory + "Estou escrevendo isso com minhas últimas forças a bordo '" + ShipName + "'. " + QuestCharacters.ParchmentWriter() + " o Pirata veio até nós durante a noite, longe da terra em " + MapWorld + ". Não tivemos a menor chance. Tentamos fugir, mas o vento estava contra nós, com certeza. Ele incendiou nosso navio e fugiu para longe. Agora afundamos lentamente no oceano. Se você encontrar isso, escrevi nossas coordenadas abaixo. Você ainda pode chegar aqui a tempo de salvar os outros. Se puder, conte " + QuestCharacters.ParchmentWriter() + " minha história para que eles nunca vivam se perguntando sobre meu destino. Eles moram em algum lugar em " + RandomThings.GetRandomCity() + "."; break;
+				case 3: ShipStory = ShipStory + "'" + ShipName + "' estar afundando longe da terra. O que pensávamos ser um navio mercante era na verdade um navio de guerra disfarçado. Eles estão caçando piratas em alto mar em " + MapWorld + "...e hoje nossa sorte acabou. Seus canhões rasgaram nossas velas e abriram buracos em nosso casco. Eles mataram a maior parte da tripulação, onde apenas " + Utility.RandomMinMax(3, 16) + " de nós sobreviveu. Eles já se foram, mas os tubarões começaram a cercar os destroços. Acabei de ver " + QuestCharacters.ParchmentWriter() + " sendo puxado para baixo das ondas, o sangue jorrando de baixo. Estou no maior pedaço de destroços e só posso esperar sobreviver até você chegar aqui."; break;
+				case 4: ShipStory = ShipStory + "Eu sabia que " + QuestCharacters.ParchmentWriter() + " não era bom em ser capitão de '" + ShipName + "'. Agora este provavelmente será o nosso fim aqui em " + MapWorld + ". Estamos sob ataque de " + Beast + " e não temos chance de chegar a " + RandomThings.GetRandomCity() + " agora. Temo nunca mais ver minha esposa. Se você encontrar esta nota, por favor, encontre-nos antes que afundemos. Tenho um artefato antigo que poderia trocar pela sua ajuda."; break;
 			}
 		}
 
@@ -122,7 +117,16 @@ namespace Server.Items
 		{
 		}
 
-		public override void Serialize( GenericWriter writer )
+        public override void AddNameProperties(ObjectPropertyList list)
+        {
+            base.AddNameProperties(list);
+            if (IsAncient)
+                list.Add(1070722, ItemNameHue.UnifiedItemProps.SetColor("Pergaminho Ancestral", "#8be4fc"));
+
+            list.Add(1049644, ItemNameHue.UnifiedItemProps.SetColor("Para encontrar o naufrágio basta navegar para a localização e usar a vara de pescar.", "#ffe066"));
+        }
+
+        public override void Serialize( GenericWriter writer )
 		{
 			base.Serialize( writer );
 			writer.Write( (int) 4 ); // version
@@ -144,7 +148,7 @@ namespace Server.Items
             MapWorld = reader.ReadString();
             ShipName = reader.ReadString();
             ShipStory = reader.ReadString();
-			ItemID = 0x12AD;
+			//ItemID = 0x12AD;
 		}
 		
 		public override void OnDoubleClick( Mobile from )
@@ -157,8 +161,9 @@ namespace Server.Items
 			}
 			else
 			{
-				from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
-			}
+                from.SendMessage(55, "O item precisa estar em sua mochila para que você possa ler");
+                //from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
+            }
 		}
 
 		private class MessageGump : Gump
@@ -171,7 +176,7 @@ namespace Server.Items
 				string fmt;
 
 				if ( Sextant.Format( loc, map, ref xLong, ref yLat, ref xMins, ref yMins, ref xEast, ref ySouth ) )
-					fmt = String.Format( "{0}°{1}'{2},{3}°{4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W" );
+					fmt = String.Format( "{0}°{1}'{2}, {3}°{4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W" );
 				else
 					fmt = "?????";
 
@@ -183,7 +188,7 @@ namespace Server.Items
 				AddPage(0);
 				AddImage(46, 26, 1247);
 				AddHtml( 102, 58, 284, 202, @"<BODY><BASEFONT Color=#111111><BIG>" + story + "</BIG></BASEFONT></BODY>", (bool)false, (bool)true);
-				AddHtml( 102, 264, 280, 22, @"<BODY><BASEFONT Color=#111111><BIG>" + fmt + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 102, 264, 280, 22, @"<BODY><BASEFONT Color=#000000><BIG><b>" + fmt + "</b></BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 			}
 
 			public override void OnResponse( NetState state, RelayInfo info ) 

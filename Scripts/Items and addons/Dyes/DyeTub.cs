@@ -148,7 +148,8 @@ namespace Server.Items
 		[Constructable] 
 		public DyeTub() : base( 0xFAB )
 		{
-			Weight = 10.0;
+            Name = "Balde de Tinta";
+            Weight = 6.0;
 			m_Redyable = true;
 			m_UsesRemaining = 15;
 		}
