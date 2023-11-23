@@ -127,25 +127,32 @@ namespace Server.Engines.Craft
 			int index = -1;
 
 			#region Hats
-			AddCraft( typeof( SkullCap ), "Máscara/Chapéu/Boné", 1025444, 0.0, 25.0, typeof( CottonCloth ), 1044286, 2, 1044287 );
-			AddCraft( typeof( Bandana ), "Máscara/Chapéu/Boné", 1025440, 0.0, 25.0, typeof( CottonCloth ), 1044286, 2, 1044287 );
-			AddCraft( typeof( FloppyHat ), "Máscara/Chapéu/Boné", 1025907, 6.2, 31.2, typeof( CottonCloth ), 1044286, 11, 1044287 );
-			AddCraft( typeof( Cap ), "Máscara/Chapéu/Boné", 1025909, 6.2, 31.2, typeof( CottonCloth ), 1044286, 11, 1044287 );
-			AddCraft( typeof( WideBrimHat ), "Máscara/Chapéu/Boné", 1025908, 6.2, 31.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( StrawHat ), "Máscara/Chapéu/Boné", 1025911, 6.2, 31.2, typeof( CottonCloth ), 1044286, 10, 1044287 );
-			AddCraft( typeof( TallStrawHat ), "Máscara/Chapéu/Boné", 1025910, 6.7, 31.7, typeof( CottonCloth ), 1044286, 13, 1044287 );
-			AddCraft( typeof( WizardsHat ), "Máscara/Chapéu/Boné", 1025912, 7.2, 32.2, typeof( CottonCloth ), 1044286, 15, 1044287 );
-			AddCraft( typeof( WitchHat ), "Máscara/Chapéu/Boné", "witch hat", 7.2, 32.2, typeof( CottonCloth ), 1044286, 15, 1044287 );
-			AddCraft( typeof( Bonnet ), "Máscara/Chapéu/Boné", 1025913, 6.2, 31.2, typeof( CottonCloth ), 1044286, 11, 1044287 );
-			AddCraft( typeof( FeatheredHat ), "Máscara/Chapéu/Boné", 1025914, 6.2, 31.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( TricorneHat ), "Máscara/Chapéu/Boné", 1025915, 6.2, 31.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( PirateHat ), "Máscara/Chapéu/Boné", "pirate hat", 6.2, 31.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( JesterHat ), "Máscara/Chapéu/Boné", 1025916, 7.2, 32.2, typeof( CottonCloth ), 1044286, 15, 1044287 );
-			AddCraft( typeof( ClothHood ), "Máscara/Chapéu/Boné", "cloth hood", 7.2, 32.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( FancyHood ), "Máscara/Chapéu/Boné", "fancy hood", 7.2, 32.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( ClothCowl ), "Máscara/Chapéu/Boné", "cloth cowl", 7.2, 32.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
-            AddCraft(typeof(WizardHood), "Máscara/Chapéu/Boné", "wizard hood", 7.2, 32.2, typeof(CottonCloth), 1044286, 12, 1044287);
+			AddCraft( typeof( SkullCap ), "Máscara/Chapéu/Boné", 1025444, 0.0, 25.0, typeof( CottonCloth ), 1044286, 3, 1044287 );
+			AddCraft( typeof( Bandana ), "Máscara/Chapéu/Boné", 1025440, 0.0, 18.0, typeof( CottonCloth ), 1044286, 2, 1044287 );
+			AddCraft( typeof( FloppyHat ), "Máscara/Chapéu/Boné", 1025907, 16.2, 31.2, typeof( CottonCloth ), 1044286, 9, 1044287 );
+			AddCraft( typeof( Cap ), "Máscara/Chapéu/Boné", 1025909, 16.2, 31.2, typeof( CottonCloth ), 1044286, 9, 1044287 );
+            index = AddCraft( typeof( WideBrimHat ), "Máscara/Chapéu/Boné", 1025908, 16.2, 31.2, typeof( CottonCloth ), 1044286, 10, 1044287 );
+            AddRes(index, typeof(Leather), "Couro ou Peles", 3, 1042081);
+            AddCraft( typeof( StrawHat ), "Máscara/Chapéu/Boné", 1025911, 16.2, 31.2, typeof( CottonCloth ), 1044286, 10, 1044287 );
+			AddCraft( typeof( TallStrawHat ), "Máscara/Chapéu/Boné", 1025910, 16.7, 31.7, typeof( CottonCloth ), 1044286, 12, 1044287 );
+			
+			AddCraft( typeof( Bonnet ), "Máscara/Chapéu/Boné", 1025913, 16.2, 31.2, typeof( CottonCloth ), 1044286, 9, 1044287 );
+			AddCraft( typeof( FeatheredHat ), "Máscara/Chapéu/Boné", 1025914, 16.2, 31.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
+			AddCraft( typeof( TricorneHat ), "Máscara/Chapéu/Boné", 1025915, 16.2, 31.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
+			AddCraft( typeof( PirateHat ), "Máscara/Chapéu/Boné", "chapéu de pirata", 16.2, 31.2, typeof( CottonCloth ), 1044286, 12, 1044287 );
+			AddCraft( typeof( JesterHat ), "Máscara/Chapéu/Boné", 1025916, 27.2, 42.2, typeof( CottonCloth ), 1044286, 15, 1044287 );
 
+            index = AddCraft(typeof(WizardsHat), "Máscara/Chapéu/Boné", 1025912, 77.2, 92.2, typeof(CottonCloth), 1044286, 21, 1044287);
+            AddSkill(index, SkillName.Magery, 90.0, 100.0);
+            // TODO: ADD SCROLL
+            index = AddCraft(typeof(WitchHat), "Máscara/Chapéu/Boné", "chapéu de bruxa", 77.2, 92.2, typeof(CottonCloth), 1044286, 21, 1044287);
+            AddSkill(index, SkillName.Magery, 90.0, 100.0);
+
+
+            /*AddCraft(typeof(ClothHood), "Máscara/Chapéu/Boné", "cloth hood", 7.2, 32.2, typeof(CottonCloth), 1044286, 12, 1044287);
+            AddCraft(typeof(FancyHood), "Máscara/Chapéu/Boné", "fancy hood", 7.2, 32.2, typeof(CottonCloth), 1044286, 12, 1044287);
+            AddCraft(typeof(ClothCowl), "Máscara/Chapéu/Boné", "cloth cowl", 7.2, 32.2, typeof(CottonCloth), 1044286, 12, 1044287);
+            AddCraft(typeof(WizardHood), "Máscara/Chapéu/Boné", "wizard hood", 7.2, 32.2, typeof(CottonCloth), 1044286, 12, 1044287);
             AddCraft(typeof(FurCap), "Máscara/Chapéu/Boné", "fur cap", 0.0, 25.0, typeof(Furs), "Fur", 2, 1042081);
             AddCraft(typeof(WhiteFurCap), "Máscara/Chapéu/Boné", "white fur cap", 12.0, 48.0, typeof(FursWhite), "White Fur", 9, 1042081);
 
@@ -155,137 +162,147 @@ namespace Server.Engines.Craft
 
             
             index = AddCraft(typeof(DeadMask), "Máscara/Chapéu/Boné", "mask of the dead", 7.2, 32.2, typeof(CottonCloth), 1044286, 12, 1044287);
-            AddRes(index, typeof(PolishedSkull), "Polished Skull", 1, 1049063);
+            AddRes(index, typeof(PolishedSkull), "Polished Skull", 1, 1049063);*/
             #endregion
 
             #region Shirts
-            AddCraft( typeof( Doublet ), "Robes/Camisas/Capas", 1028059, 0, 25.0, typeof( CottonCloth ), 1044286, 8, 1044287 );
+            AddCraft( typeof( Doublet ), "Robes/Camisas/Capas", 1028059, 0, 25.0, typeof( CottonCloth ), 1044286, 7, 1044287 );
 			AddCraft( typeof( Shirt ), "Robes/Camisas/Capas", 1025399, 20.7, 45.7, typeof( CottonCloth ), 1044286, 8, 1044287 );
-			AddCraft( typeof( BeggarVest ), "Robes/Camisas/Capas", "beggar vest", 20.7, 45.7, typeof( CottonCloth ), 1044286, 8, 1044287 );
-			AddCraft( typeof( RoyalVest ), "Robes/Camisas/Capas", "royal vest", 20.7, 45.7, typeof( CottonCloth ), 1044286, 8, 1044287 );
-			AddCraft( typeof( RusticVest ), "Robes/Camisas/Capas", "rustic vest", 20.7, 45.7, typeof( CottonCloth ), 1044286, 8, 1044287 );
+			
 			AddCraft( typeof( Tunic ), "Robes/Camisas/Capas", 1028097, 00.0, 25.0, typeof( CottonCloth ), 1044286, 12, 1044287 );
 			AddCraft( typeof( Surcoat ), "Robes/Camisas/Capas", 1028189, 8.2, 33.2, typeof( CottonCloth ), 1044286, 14, 1044287 );
-			AddCraft( typeof( PlainDress ), "Robes/Camisas/Capas", 1027937, 12.4, 37.4, typeof( CottonCloth ), 1044286, 10, 1044287 );
-			AddCraft( typeof( FancyDress ), "Robes/Camisas/Capas", 1027935, 33.1, 58.1, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( GildedDress ), "Robes/Camisas/Capas", 1028973, 37.5, 62.5, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( Cloak ), "Robes/Camisas/Capas", 1025397, 41.4, 66.4, typeof( CottonCloth ), 1044286, 14, 1044287 );
-			AddCraft( typeof( RoyalCape ), "Robes/Camisas/Capas", "royal cloak", 91.4, 120.4, typeof( CottonCloth ), 1044286, 14, 1044287 );
-			AddCraft( typeof( Robe ), "Robes/Camisas/Capas", 1027939, 53.9, 78.9, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( ArchmageRobe ), "Robes/Camisas/Capas", "archmage robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( AssassinRobe ), "Robes/Camisas/Capas", "assassin robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( AssassinShroud ), "Robes/Camisas/Capas", "assassin shroud", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( ChaosRobe ), "Robes/Camisas/Capas", "chaos robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( CultistRobe ), "Robes/Camisas/Capas", "cultist robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( DragonRobe ), "Robes/Camisas/Capas", "dragon robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( ElegantRobe ), "Robes/Camisas/Capas", "elegant robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( ExquisiteRobe ), "Robes/Camisas/Capas", "exquisite robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( FancyRobe ), "Robes/Camisas/Capas", "fancy robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( FoolsCoat ), "Robes/Camisas/Capas", "fool's coat", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( FormalRobe ), "Robes/Camisas/Capas", "formal robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( GildedRobe ), "Robes/Camisas/Capas", "gilded robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( GildedDarkRobe ), "Robes/Camisas/Capas", "gilded dark robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( GildedLightRobe ), "Robes/Camisas/Capas", "gilded light robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( JesterGarb ), "Robes/Camisas/Capas", "jester garb", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( JesterSuit ), "Robes/Camisas/Capas", 1028095, 8.2, 33.2, typeof( CottonCloth ), 1044286, 24, 1044287 );
-			AddCraft( typeof( JokerRobe ), "Robes/Camisas/Capas", "jester coat", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( MagistrateRobe ), "Robes/Camisas/Capas", "magistrate robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( NecromancerRobe ), "Robes/Camisas/Capas", "necromancer robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( OrnateRobe ), "Robes/Camisas/Capas", "ornate robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( PirateCoat ), "Robes/Camisas/Capas", "pirate coat", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( PriestRobe ), "Robes/Camisas/Capas", "priest robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( ProphetRobe ), "Robes/Camisas/Capas", "prophet robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( RoyalRobe ), "Robes/Camisas/Capas", "royal robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( SageRobe ), "Robes/Camisas/Capas", "sage robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( SorcererRobe ), "Robes/Camisas/Capas", "sorcerer robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( SpiderRobe ), "Robes/Camisas/Capas", "spider robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( VagabondRobe ), "Robes/Camisas/Capas", "vagabond robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( VampireRobe ), "Robes/Camisas/Capas", "vampire robe", 70.0, 95.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( FancyShirt ), "Robes/Camisas/Capas", 1027933, 24.8, 49.8, typeof( CottonCloth ), 1044286, 8, 1044287 );
-			AddCraft( typeof( FormalShirt ), "Robes/Camisas/Capas", 1028975, 26.0, 51.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( FormalCoat ), "Robes/Camisas/Capas", "formal coat", 26.0, 51.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( RoyalCoat ), "Robes/Camisas/Capas", "royal coat", 26.0, 51.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( RoyalShirt ), "Robes/Camisas/Capas", "royal shirt", 26.0, 51.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( RusticShirt ), "Robes/Camisas/Capas", "rustic shirt", 26.0, 51.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( SquireShirt ), "Robes/Camisas/Capas", "squire shirt", 26.0, 51.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( WizardShirt ), "Robes/Camisas/Capas", "wizard shirt", 26.0, 51.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( ClothNinjaJacket ), "Robes/Camisas/Capas", 1030207, 75.0, 100.0, typeof( CottonCloth ), 1044286, 12, 1044287 );
-			AddCraft( typeof( Kamishimo ), "Robes/Camisas/Capas", 1030212, 75.0, 100.0, typeof( CottonCloth ), 1044286, 15, 1044287 );
-			AddCraft( typeof( HakamaShita ), "Robes/Camisas/Capas", 1030215, 40.0, 65.0, typeof( CottonCloth ), 1044286, 14, 1044287 );
-			AddCraft( typeof( MaleKimono ), "Robes/Camisas/Capas", 1030189, 50.0, 75.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( FemaleKimono ), "Robes/Camisas/Capas", 1030190, 50.0, 75.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( JinBaori ), "Robes/Camisas/Capas", 1030220, 30.0, 55.0, typeof( CottonCloth ), 1044286, 12, 1044287 );
+			AddCraft( typeof( PlainDress ), "Robes/Camisas/Capas", 1027937, 12.4, 37.4, typeof( CottonCloth ), 1044286, 16, 1044287 );
+			AddCraft( typeof( FancyDress ), "Robes/Camisas/Capas", 1027935, 33.1, 58.1, typeof( CottonCloth ), 1044286, 18, 1044287 );
+			
+			AddCraft( typeof( Cloak ), "Robes/Camisas/Capas", 1025397, 41.4, 66.4, typeof( CottonCloth ), 1044286, 15, 1044287 );
+			AddCraft( typeof( Robe ), "Robes/Camisas/Capas", 1027939, 53.9, 78.9, typeof( CottonCloth ), 1044286, 18, 1044287 );
+			AddCraft( typeof( FoolsCoat ), "Robes/Camisas/Capas", "camisa de palhaço", 70.0, 95.0, typeof( CottonCloth ), 1044286, 13, 1044287 );
+			AddCraft( typeof( FancyShirt ), "Robes/Camisas/Capas", 1027933, 24.8, 49.8, typeof( CottonCloth ), 1044286, 10, 1044287 );
+			
 
+/*            AddCraft(typeof(BeggarVest), "Robes/Camisas/Capas", "beggar vest", 20.7, 45.7, typeof(CottonCloth), 1044286, 8, 1044287);
+            AddCraft(typeof(RoyalVest), "Robes/Camisas/Capas", "royal vest", 20.7, 45.7, typeof(CottonCloth), 1044286, 8, 1044287);
+            AddCraft(typeof(RusticVest), "Robes/Camisas/Capas", "rustic vest", 20.7, 45.7, typeof(CottonCloth), 1044286, 8, 1044287);
+            AddCraft(typeof(GildedDress), "Robes/Camisas/Capas", 1028973, 37.5, 62.5, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(RoyalCape), "Robes/Camisas/Capas", "royal cloak", 91.4, 120.4, typeof(CottonCloth), 1044286, 14, 1044287);
+            AddCraft(typeof(ArchmageRobe), "Robes/Camisas/Capas", "archmage robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(AssassinRobe), "Robes/Camisas/Capas", "assassin robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(AssassinShroud), "Robes/Camisas/Capas", "assassin shroud", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(ChaosRobe), "Robes/Camisas/Capas", "chaos robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(CultistRobe), "Robes/Camisas/Capas", "cultist robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(DragonRobe), "Robes/Camisas/Capas", "dragon robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(ElegantRobe), "Robes/Camisas/Capas", "elegant robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(ExquisiteRobe), "Robes/Camisas/Capas", "exquisite robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(FancyRobe), "Robes/Camisas/Capas", "fancy robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(FormalRobe), "Robes/Camisas/Capas", "formal robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(GildedRobe), "Robes/Camisas/Capas", "gilded robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(GildedDarkRobe), "Robes/Camisas/Capas", "gilded dark robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(GildedLightRobe), "Robes/Camisas/Capas", "gilded light robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(JesterGarb), "Robes/Camisas/Capas", "jester garb", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(JesterSuit), "Robes/Camisas/Capas", 1028095, 8.2, 33.2, typeof(CottonCloth), 1044286, 24, 1044287);
+            AddCraft(typeof(JokerRobe), "Robes/Camisas/Capas", "jester coat", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(MagistrateRobe), "Robes/Camisas/Capas", "magistrate robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(NecromancerRobe), "Robes/Camisas/Capas", "necromancer robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(OrnateRobe), "Robes/Camisas/Capas", "ornate robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(PirateCoat), "Robes/Camisas/Capas", "pirate coat", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(PriestRobe), "Robes/Camisas/Capas", "priest robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(ProphetRobe), "Robes/Camisas/Capas", "prophet robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(RoyalRobe), "Robes/Camisas/Capas", "royal robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(SageRobe), "Robes/Camisas/Capas", "sage robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(SorcererRobe), "Robes/Camisas/Capas", "sorcerer robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(SpiderRobe), "Robes/Camisas/Capas", "spider robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(VagabondRobe), "Robes/Camisas/Capas", "vagabond robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(VampireRobe), "Robes/Camisas/Capas", "vampire robe", 70.0, 95.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(FormalShirt), "Robes/Camisas/Capas", 1028975, 26.0, 51.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(FormalCoat), "Robes/Camisas/Capas", "formal coat", 26.0, 51.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(RoyalCoat), "Robes/Camisas/Capas", "royal coat", 26.0, 51.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(RoyalShirt), "Robes/Camisas/Capas", "royal shirt", 26.0, 51.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(RusticShirt), "Robes/Camisas/Capas", "rustic shirt", 26.0, 51.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(SquireShirt), "Robes/Camisas/Capas", "squire shirt", 26.0, 51.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(WizardShirt), "Robes/Camisas/Capas", "wizard shirt", 26.0, 51.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(ClothNinjaJacket), "Robes/Camisas/Capas", 1030207, 75.0, 100.0, typeof(CottonCloth), 1044286, 12, 1044287);
+            AddCraft(typeof(Kamishimo), "Robes/Camisas/Capas", 1030212, 75.0, 100.0, typeof(CottonCloth), 1044286, 15, 1044287);
+            AddCraft(typeof(HakamaShita), "Robes/Camisas/Capas", 1030215, 40.0, 65.0, typeof(CottonCloth), 1044286, 14, 1044287);
+            AddCraft(typeof(MaleKimono), "Robes/Camisas/Capas", 1030189, 50.0, 75.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(FemaleKimono), "Robes/Camisas/Capas", 1030190, 50.0, 75.0, typeof(CottonCloth), 1044286, 16, 1044287);
+            AddCraft(typeof(JinBaori), "Robes/Camisas/Capas", 1030220, 30.0, 55.0, typeof(CottonCloth), 1044286, 12, 1044287);
 
             AddCraft(typeof(WhiteFurTunic), "Robes/Camisas/Capas", "white fur tunic", 70.5, 95.5, typeof(FursWhite), "White Fur", 12, 1042081);
             AddCraft(typeof(WhiteFurCape), "Robes/Camisas/Capas", "white fur cape", 35.0, 60.0, typeof(FursWhite), "White Fur", 13, 1042081);
             AddCraft(typeof(WhiteFurRobe), "Robes/Camisas/Capas", "white fur robe", 55.0, 80.0, typeof(FursWhite), "White Fur", 16, 1042081);
             AddCraft(typeof(FurTunic), "Robes/Camisas/Capas", "fur tunic", 70.5, 95.5, typeof(Furs), "Fur", 12, 1042081);
             AddCraft(typeof(FurCape), "Robes/Camisas/Capas", "fur cape", 35.0, 60.0, typeof(Furs), "Fur", 13, 1042081);
-            AddCraft(typeof(FurRobe), "Robes/Camisas/Capas", "fur robe", 55.0, 80.0, typeof(Furs), "Fur", 16, 1042081);
+            AddCraft(typeof(FurRobe), "Robes/Camisas/Capas", "fur robe", 55.0, 80.0, typeof(Furs), "Fur", 16, 1042081);*/
+
             #endregion
 
             #region Pants
-            AddCraft( typeof( ShortPants ), "Calças/Shorts", 1025422, 24.8, 49.8, typeof( CottonCloth ), 1044286, 6, 1044287 );
-			AddCraft( typeof( LongPants ), "Calças/Shorts", 1025433, 24.8, 49.8, typeof( CottonCloth ), 1044286, 8, 1044287 );
-			AddCraft( typeof( SailorPants ), "Calças/Shorts", "sailor pants", 24.8, 49.8, typeof( CottonCloth ), 1044286, 6, 1044287 );
-			AddCraft( typeof( PiratePants ), "Calças/Shorts", "pirate pants", 24.8, 49.8, typeof( CottonCloth ), 1044286, 8, 1044287 );
+            AddCraft( typeof( ShortPants ), "Calças/Shorts", 1025422, 24.8, 49.8, typeof( CottonCloth ), 1044286, 8, 1044287 );
+			AddCraft( typeof( LongPants ), "Calças/Shorts", 1025433, 24.8, 49.8, typeof( CottonCloth ), 1044286, 10, 1044287 );
+						
 			AddCraft( typeof( Kilt ), "Calças/Shorts", 1025431, 20.7, 45.7, typeof( CottonCloth ), 1044286, 8, 1044287 );
 			AddCraft( typeof( Skirt ), "Calças/Shorts", 1025398, 29.0, 54.0, typeof( CottonCloth ), 1044286, 10, 1044287 );
-			AddCraft( typeof( RoyalSkirt ), "Calças/Shorts", "royal skirt", 20.7, 45.7, typeof( CottonCloth ), 1044286, 8, 1044287 );
-			AddCraft( typeof( RoyalLongSkirt ), "Calças/Shorts", "royal long skirt", 29.0, 54.0, typeof( CottonCloth ), 1044286, 10, 1044287 );
-			
-			
-			AddCraft( typeof( Hakama ), "Calças/Shorts", 1030213, 50.0, 75.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
-			AddCraft( typeof( TattsukeHakama ), "Calças/Shorts", 1030214, 50.0, 75.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
+			AddCraft( typeof( RoyalSkirt ), "Calças/Shorts", "mini-saia", 20.7, 45.7, typeof( CottonCloth ), 1044286, 6, 1044287 );
+			//AddCraft( typeof( RoyalLongSkirt ), "Calças/Shorts", "saia longa", 29.0, 54.0, typeof( CottonCloth ), 1044286, 10, 1044287 );
+
+            /*AddCraft(typeof(SailorPants), "Calças/Shorts", "sailor pants", 24.8, 49.8, typeof(CottonCloth), 1044286, 6, 1044287);
+            AddCraft(typeof(PiratePants), "Calças/Shorts", "pirate pants", 24.8, 49.8, typeof(CottonCloth), 1044286, 8, 1044287);
+            AddCraft( typeof( Hakama ), "Calças/Shorts", 1030213, 50.0, 75.0, typeof( CottonCloth ), 1044286, 16, 1044287 );
+			AddCraft( typeof( TattsukeHakama ), "Calças/Shorts", 1030214, 50.0, 75.0, typeof( CottonCloth ), 1044286, 16, 1044287 );*/
             #endregion
 
             #region Footwear
 
-            AddCraft(typeof(FurBoots), "Calçados", 1028967, 50.0, 75.0, typeof(Furs), "Fur", 12, 1042081);
+            AddCraft(typeof(Sandals), "Calçados", 1025901, 22.4, 37.4, typeof(Leather), 1044462, 6, 1044463);
+            AddCraft(typeof(Shoes), "Calçados", 1025904, 26.5, 41.5, typeof(Leather), 1044462, 8, 1044463);
+            AddCraft(typeof(Boots), "Calçados", 1025899, 33.1, 58.1, typeof(Leather), 1044462, 10, 1044463);
+            //AddCraft(typeof(ThighBoots), "Calçados", 1025906, 41.4, 66.4, typeof(Leather), 1044462, 13, 1044463);
+
+            AddCraft(typeof(LeatherSandals), "Calçados", "sandálias de couro", 42.4, 67.4, typeof(Leather), 1044462, 5, 1044463);
+            AddCraft(typeof(LeatherShoes), "Calçados", "sapatos de couro", 56.5, 71.5, typeof(Leather), 1044462, 7, 1044463);
+            AddCraft(typeof(LeatherBoots), "Calçados", "botas de couro", 63.1, 88.1, typeof(Leather), 1044462, 9, 1044463);
+            AddCraft(typeof(LeatherThighBoots), "Calçados", "botas de cano alto", 71.4, 96.4, typeof(Leather), 1044462, 12, 1044463);
+            //AddCraft(typeof(LeatherSoftBoots), "Calçados", "soft leather boots", 81.4, 106.4, typeof(Leather), 1044462, 8, 1044463);
+
+            /*AddCraft(typeof(FurBoots), "Calçados", 1028967, 50.0, 75.0, typeof(Furs), "Fur", 12, 1042081);
             AddCraft(typeof(WhiteFurBoots), "Calçados", "white fur boots", 50.0, 75.0, typeof(FursWhite), "White Fur", 12, 1042081);
             AddCraft(typeof(NinjaTabi), "Calçados", 1030210, 70.0, 95.0, typeof(CottonCloth), 1044286, 10, 1044287);
             AddCraft(typeof(SamuraiTabi), "Calçados", 1030209, 20.0, 45.0, typeof(CottonCloth), 1044286, 6, 1044287);
-            AddCraft(typeof(Sandals), "Calçados", 1025901, 12.4, 37.4, typeof(Leather), 1044462, 4, 1044463);
-            AddCraft(typeof(Shoes), "Calçados", 1025904, 16.5, 41.5, typeof(Leather), 1044462, 6, 1044463);
-            AddCraft(typeof(Boots), "Calçados", 1025899, 33.1, 58.1, typeof(Leather), 1044462, 8, 1044463);
-            AddCraft(typeof(ThighBoots), "Calçados", 1025906, 41.4, 66.4, typeof(Leather), 1044462, 10, 1044463);
-            AddCraft(typeof(BarbarianBoots), "Calçados", "barbarian boots", 50.0, 75.0, typeof(Furs), "Fur", 12, 1042081);
-            AddCraft(typeof(LeatherSandals), "Calçados", "leather sandals", 42.4, 67.4, typeof(Leather), 1044462, 4, 1044463);
-            AddCraft(typeof(LeatherShoes), "Calçados", "leather shoes", 56.5, 71.5, typeof(Leather), 1044462, 6, 1044463);
-            AddCraft(typeof(LeatherBoots), "Calçados", "leather boots", 63.1, 88.1, typeof(Leather), 1044462, 8, 1044463);
-            AddCraft(typeof(LeatherThighBoots), "Calçados", "leather thigh boots", 71.4, 96.4, typeof(Leather), 1044462, 10, 1044463);
-            AddCraft(typeof(LeatherSoftBoots), "Calçados", "soft leather boots", 81.4, 106.4, typeof(Leather), 1044462, 8, 1044463);
+            AddCraft(typeof(BarbarianBoots), "Calçados", "barbarian boots", 50.0, 75.0, typeof(Furs), "Fur", 12, 1042081);*/
+            
             #endregion
 
             #region Misc
-            AddCraft( typeof( BodySash ), "Variados", 1025441, 4.1, 29.1, typeof( CottonCloth ), 1044286, 4, 1044287 );
-			AddCraft( typeof( LoinCloth ), "Variados", "loin cloth", 20.7, 45.7, typeof( CottonCloth ), 1044286, 6, 1044287 );
-			AddCraft( typeof( HalfApron ), "Variados", 1025435, 20.7, 45.7, typeof( CottonCloth ), 1044286, 6, 1044287 );
-			AddCraft( typeof( FullApron ), "Variados", 1025437, 29.0, 54.0, typeof( CottonCloth ), 1044286, 10, 1044287 );
-			AddCraft( typeof( Obi ), "Variados", 1030219, 20.0, 45.0, typeof( CottonCloth ), 1044286, 6, 1044287 );
-			AddCraft( typeof( HarpoonRope ), "Variados", "harpoon rope", 0.0, 40.0, typeof( CottonCloth ), 1044286, 1, 1044287 );
-			AddCraft( typeof( OilCloth ), "Variados", 1041498, 74.6, 99.6, typeof( CottonCloth ), 1044286, 1, 1044287 );
-			AddCraft( typeof( GozaMatEastDeed ), "Variados", 1030404, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
-			AddCraft( typeof( GozaMatSouthDeed ), "Variados", 1030405, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
-			AddCraft( typeof( SquareGozaMatEastDeed ), "Variados", 1030407, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
-			AddCraft( typeof( SquareGozaMatSouthDeed ), "Variados", 1030406, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
-			AddCraft( typeof( BrocadeGozaMatEastDeed ), "Variados", 1030408, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
-			AddCraft( typeof( BrocadeGozaMatSouthDeed ), "Variados", 1030409, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
-			AddCraft( typeof( BrocadeSquareGozaMatEastDeed ), "Variados", 1030411, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
-			AddCraft( typeof( BrocadeSquareGozaMatSouthDeed ), "Variados", 1030410, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+            AddCraft( typeof( BodySash ), "Variados", 1025441, 20.0, 29.1, typeof( CottonCloth ), 1044286, 4, 1044287 );
+			AddCraft( typeof( HalfApron ), "Variados", 1025435, 25.7, 45.7, typeof( CottonCloth ), 1044286, 6, 1044287 );
+			AddCraft( typeof( FullApron ), "Variados", 1025437, 29.0, 54.0, typeof( CottonCloth ), 1044286, 12, 1044287 );
+            AddCraft(typeof(OilCloth), "Variados", "pano para óleos", 74.6, 99.6, typeof(CottonCloth), 1044286, 1, 1044287);
+            
+            /*
+                        AddCraft(typeof(Obi), "Variados", 1030219, 20.0, 45.0, typeof(CottonCloth), 1044286, 6, 1044287);
+                        AddCraft(typeof(HarpoonRope), "Variados", "harpoon rope", 0.0, 40.0, typeof(CottonCloth), 1044286, 1, 1044287);
+                        AddCraft( typeof( GozaMatEastDeed ), "Variados", 1030404, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+                        AddCraft( typeof( GozaMatSouthDeed ), "Variados", 1030405, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+                        AddCraft( typeof( SquareGozaMatEastDeed ), "Variados", 1030407, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+                        AddCraft( typeof( SquareGozaMatSouthDeed ), "Variados", 1030406, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+                        AddCraft( typeof( BrocadeGozaMatEastDeed ), "Variados", 1030408, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+                        AddCraft( typeof( BrocadeGozaMatSouthDeed ), "Variados", 1030409, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+                        AddCraft( typeof( BrocadeSquareGozaMatEastDeed ), "Variados", 1030411, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
+                        AddCraft( typeof( BrocadeSquareGozaMatSouthDeed ), "Variados", 1030410, 55.0, 80.0, typeof( CottonCloth ), 1044286, 25, 1044287 );
 
-            AddCraft(typeof(FurArms), "Variados", "fur arms", 53.9, 78.9, typeof(Furs), "Fur", 4, 1042081);
-            AddCraft(typeof(FurLegs), "Variados", "fur leggings", 66.3, 91.3, typeof(Furs), "Fur", 10, 1042081);
-            AddCraft(typeof(FurSarong), "Variados", "fur sarong", 35.0, 60.0, typeof(Furs), "Fur", 13, 1042081);
+                        AddCraft(typeof(LoinCloth), "Variados", "loin cloth", 20.7, 45.7, typeof(CottonCloth), 1044286, 6, 1044287);*/
 
-            AddCraft(typeof(WhiteFurArms), "Variados", "white fur arms", 53.9, 78.9, typeof(FursWhite), "White Fur", 4, 1042081);
-            AddCraft(typeof(WhiteFurLegs), "Variados", "white fur leggings", 66.3, 91.3, typeof(FursWhite), "White Fur", 10, 1042081);
-            AddCraft(typeof(WhiteFurSarong), "Variados", "white fur sarong", 35.0, 60.0, typeof(FursWhite), "White Fur", 13, 1042081);
+            /*            AddCraft(typeof(FurArms), "Variados", "fur arms", 53.9, 78.9, typeof(Furs), "Fur", 4, 1042081);
+                        AddCraft(typeof(FurLegs), "Variados", "fur leggings", 66.3, 91.3, typeof(Furs), "Fur", 10, 1042081);
+                        AddCraft(typeof(FurSarong), "Variados", "fur sarong", 35.0, 60.0, typeof(Furs), "Fur", 13, 1042081);
+
+                        AddCraft(typeof(WhiteFurArms), "Variados", "white fur arms", 53.9, 78.9, typeof(FursWhite), "White Fur", 4, 1042081);
+                        AddCraft(typeof(WhiteFurLegs), "Variados", "white fur leggings", 66.3, 91.3, typeof(FursWhite), "White Fur", 10, 1042081);
+                        AddCraft(typeof(WhiteFurSarong), "Variados", "white fur sarong", 35.0, 60.0, typeof(FursWhite), "White Fur", 13, 1042081);*/
             #endregion
 
             #region Leather Armor
-			// Couro 
+            // Couro 
             index = AddCraft(typeof(LeatherCap), "Armadura de Couro", 1027609, 50.0, 55.2, typeof(Leather), 1044462, 4, 1044463);
             SetUseSubRes2(index, true);
             index = AddCraft( typeof( LeatherGorget ), "Armadura de Couro", 1025063, 53.9, 58.9, typeof( Leather ), 1044462, 4, 1044463 );
@@ -429,7 +446,7 @@ namespace Server.Engines.Craft
             AddSubRes2(typeof(SpinedLeather), 1049151, 70.0, 1044462, 1049311);
             AddSubRes2(typeof(HornedLeather), 1049152, 85.0, 1044462, 1049311);
             AddSubRes2(typeof(BarbedLeather), 1049153, 80.0, 1044462, 1049311);
-            AddSubRes2(typeof(AlienLeather), 1034444, 110.0, 1044462, 1049311);
+            //AddSubRes2(typeof(AlienLeather), 1034444, 110.0, 1044462, 1049311);
             /* AddSubRes2(typeof(NecroticLeather), 1034403, 90.0, 1044462, 1049311);
             AddSubRes2(typeof(VolcanicLeather), 1034414, 90.0, 1044462, 1049311);
             AddSubRes2(typeof(FrozenLeather), 1034425, 95.0, 1044462, 1049311);
