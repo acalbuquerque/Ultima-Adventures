@@ -83,71 +83,76 @@ namespace Server.Engines.Craft
 			int index = -1;
 
 			/* Begin Ingredients */
-			index = AddCraft( typeof( SackFlour ), 1044495, 1024153, 0.0, 50.0, typeof( WheatSheaf ), 1044489, 5, 1044490 );
+			index = AddCraft( typeof( SackFlour ), 1044495, 1024153, 0.0, 40.0, typeof( WheatSheaf ), 1044489, 5, 1044490 );
 			SetNeedMill( index, true );
 
-			index = AddCraft( typeof( Dough ), 1044495, 1024157, 00.0, 60.0, typeof( SackFlour ), 1044468, 1, 1044253 );
+			index = AddCraft( typeof( Dough ), 1044495, 1024157, 20.0, 50.0, typeof( SackFlour ), 1044468, 1, 1044253 );
 			AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
 
-			index = AddCraft( typeof( SweetDough ), 1044495, 1041340, 50.0, 80.0, typeof( Dough ), 1044469, 1, 1044253 );
+			index = AddCraft( typeof( SweetDough ), 1044495, 1041340, 30.0, 60.0, typeof( Dough ), 1044469, 1, 1044253 );
 			AddRes( index, typeof( JarHoney ), 1044472, 1, 1044253 );
 
-			index = AddCraft( typeof( CakeMix ), 1044495, 1041002, 70.0, 90.0, typeof( SackFlour ), 1044468, 1, 1044253 );
+			index = AddCraft( typeof( CakeMix ), 1044495, 1041002, 40.0, 70.0, typeof( SackFlour ), 1044468, 1, 1044253 );
 			AddRes( index, typeof( SweetDough ), 1044475, 1, 1044253 );
 
-			index = AddCraft( typeof( CookieMix ), 1044495, 1024159, 70.0, 90.0, typeof( JarHoney ), 1044472, 1, 1044253 );
+			index = AddCraft( typeof( CookieMix ), 1044495, 1024159, 40.0, 70.0, typeof( JarHoney ), 1044472, 1, 1044253 );
 			AddRes( index, typeof( SweetDough ), 1044475, 1, 1044253 );
-			/* End Ingredients */
+            /* End Ingredients */
 
-			/* Begin Preparations */
-			index = AddCraft( typeof( UnbakedQuiche ), 1044496, 1041339, 30.0, 85.0, typeof( Dough ), 1044469, 1, 1044253 );
+            /* Begin Preparations */
+            index = AddCraft(typeof(FruitBasket), 1044496, "Cesta de Frutas", 40.0, 85.0, typeof(Basket), "Basket", 1, 1044253);
+            AddRes(index, typeof(Pear), 1044481, 2, 1044253);
+            AddRes(index, typeof(Peach), 1044480, 2, 1044253);
+            AddRes(index, typeof(Apple), 1044479, 2, 1044253);
+
+            index = AddCraft( typeof( UnbakedQuiche ), 1044496, 1041339, 30.0, 65.0, typeof( Dough ), 1044469, 1, 1044253 );
 			AddRes( index, typeof( Eggs ), 1044477, 1, 1044253 );
-			AddRes( index, typeof( Carrot ), "Carrot", 1, 1044253 );
+			AddRes( index, typeof( Carrot ), "Cenoura", 1, 1044253 );
 
 			// TODO: This must also support chicken and lamb legs
-			index = AddCraft( typeof( UnbakedMeatPie ), 1044496, 1041338, 30.0, 80.0, typeof( Dough ), 1044469, 1, 1044253 );
+			index = AddCraft( typeof( UnbakedMeatPie ), 1044496, 1041338, 30.0, 60.0, typeof( Dough ), 1044469, 1, 1044253 );
 			AddRes( index, typeof( RawRibs ), 1044482, 1, 1044253 );
-			AddRes( index, typeof( FoodPotato ), "Potato", 1, 1044253 );
+			AddRes( index, typeof( FoodPotato ), "Batata", 1, 1044253 );
 
-			index = AddCraft( typeof( UncookedSausagePizza ), 1044496, 1041337, 40.0, 90.0, typeof( Dough ), 1044469, 1, 1044253 );
+			index = AddCraft( typeof( UncookedSausagePizza ), 1044496, 1041337, 40.0, 60.0, typeof( Dough ), 1044469, 1, 1044253 );
 			AddRes( index, typeof( Sausage ), 1044483, 1, 1044253 );
-			AddRes( index, typeof( Tomato ), "Tomatoes", 2, 1044253 );
+			AddRes( index, typeof( Tomato ), "Tomate", 2, 1044253 );
 			AddRes( index, typeof( CheeseWheel ), 1044486, 1, 1044253 );
 
-			index = AddCraft( typeof( UncookedCheesePizza ), 1044496, 1041341, 30.0, 75.0, typeof( Dough ), 1044469, 1, 1044253 );
+			index = AddCraft( typeof( UncookedCheesePizza ), 1044496, 1041341, 30.0, 65.0, typeof( Dough ), 1044469, 1, 1044253 );
 			AddRes( index, typeof( CheeseWheel ), 1044486, 1, 1044253 );
-			AddRes( index, typeof( Tomato ), "Tomatoes", 2, 1044253 );
+			AddRes( index, typeof( Tomato ), "Tomate", 2, 1044253 );
 
 			index = AddCraft( typeof( UnbakedFruitPie ), 1044496, 1041334, 40.0, 85.0, typeof( SweetDough ), 1044475, 1, 1044253 );
-			AddRes( index, typeof( Pear ), 1044481, 1, 1044253 );
+			AddRes( index, typeof( Pear ), 1044481, 2, 1044253 );
 
 			index = AddCraft( typeof( UnbakedPeachCobbler ), 1044496, 1041335, 40.0, 85.0, typeof( SweetDough ), 1044475, 1, 1044253 );
-			AddRes( index, typeof( Peach ), 1044480, 1, 1044253 );
+			AddRes( index, typeof( Peach ), 1044480, 2, 1044253 );
 
 			index = AddCraft( typeof( UnbakedApplePie ), 1044496, 1041336, 40.0, 85.0, typeof( SweetDough ), 1044475, 1, 1044253 );
-			AddRes( index, typeof( Apple ), 1044479, 1, 1044253 );
+			AddRes( index, typeof( Apple ), 1044479, 2, 1044253 );
 
 			index = AddCraft( typeof( UnbakedPumpkinPie ), 1044496, 1041342, 40.0, 85.0, typeof( SweetDough ), 1044475, 1, 1044253 );
-			AddRes( index, typeof( Pumpkin ), 1044484, 1, 1044253 );
+			AddRes( index, typeof( Pumpkin ), 1044484, 2, 1044253 );
 
-				index = AddCraft( typeof( GreenTea ), 1044496, 1030315, 80.0, 125.0, typeof( GreenTeaBasket ), 1030316, 1, 1044253 );
-				AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				SetNeedOven( index, true );
+			index = AddCraft( typeof( GreenTea ), 1044496, 1030315, 70.0, 100.0, typeof( GreenTeaBasket ), 1030316, 1, 1044253 );
+			AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			SetNeedOven( index, true );
 
-				index = AddCraft( typeof( WasabiClumps ), 1044496, 1029451, 70.0, 100.0, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				AddRes( index, typeof( WoodenBowlOfPeas ), 1025633, 3, 1044253 );
+			index = AddCraft( typeof( WasabiClumps ), 1044496, 1029451, 70.0, 100.0, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			AddRes( index, typeof( WoodenBowlOfPeas ), 1025633, 3, 1044253 );
 
-				index = AddCraft( typeof( SushiRolls ), 1044496, 1030303, 50.0, 80.0, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				AddRes( index, typeof( RawFishSteak ), 1044476, 10, 1044253 );
+			index = AddCraft( typeof( SushiRolls ), 1044496, 1030303, 50.0, 90.0, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			AddRes( index, typeof( RawFishSteak ), 1044476, 6, 1044253 );
 
-				index = AddCraft( typeof( SushiPlatter ), 1044496, 1030305, 50.0, 80.0, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				AddRes( index, typeof( RawFishSteak ), 1044476, 10, 1044253 );
+			index = AddCraft( typeof( SushiPlatter ), 1044496, 1030305, 50.0, 90.0, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			AddRes( index, typeof( RawFishSteak ), 1044476, 10, 1044253 );
 
-			index = AddCraft( typeof( TribalPaint ), 1044496, 1040000, Core.ML? 55.0 : 80.0, Core.ML? 105.0 : 80.0, typeof( SackFlour ), 1044468, 1, 1044253 );
-			AddRes( index, typeof( TribalBerry ), 1046460, 1, 1044253 );
+			index = AddCraft( typeof( TribalPaint ), 1044496, 1040000, Core.ML? 55.0 : 70.0, Core.ML? 95.0 : 90.0, typeof( SackFlour ), 1044468, 1, 1044253 );
+			AddRes( index, typeof( TribalBerry ), 1046460, 3, 1044253 );
 
-				index = AddCraft( typeof( EggBomb ), 1044496, 1030249, 90.0, 120.0, typeof( Eggs ), 1044477, 1, 1044253 );
-				AddRes( index, typeof( SackFlour ), 1044468, 3, 1044253 );
+			index = AddCraft( typeof( EggBomb ), 1044496, 1030249, 75.0, 100.0, typeof( Eggs ), 1044477, 1, 1044253 );
+			AddRes( index, typeof( SackFlour ), 1044468, 3, 1044253 );
 			/* End Preparations */
 
 			/* Begin Baking */
@@ -158,7 +163,7 @@ namespace Server.Engines.Craft
 			AddRes( index, typeof( CheeseWheel ), 1044486, 1, 1044253 );
 			SetNeedOven( index, true );
 
-			index = AddCraft( typeof( Cookies ), 1044497, 1025643, 80.0, 115.0, typeof( CookieMix ), 1044474, 1, 1044253 );
+			index = AddCraft( typeof( Cookies ), 1044497, 1025643, 70.0, 100.0, typeof( CookieMix ), 1044474, 1, 1044253 );
 			SetNeedOven( index, true );
 
 			index = AddCraft( typeof( Cake ), 1044497, 1022537, 80.0, 120.0, typeof( CakeMix ), 1044471, 1, 1044253 );
@@ -191,76 +196,76 @@ namespace Server.Engines.Craft
 			index = AddCraft( typeof( PumpkinPie ), 1044497, 1041348, 60.0, 100.0, typeof( UnbakedPumpkinPie ), 1046461, 1, 1044253 );
 			SetNeedOven( index, true );
 
-				index = AddCraft( typeof( MisoSoup ), 1044497, 1030317, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
-				AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				SetNeedOven( index, true );
+			index = AddCraft( typeof( MisoSoup ), 1044497, 1030317, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
+			AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			SetNeedOven( index, true );
 
-				index = AddCraft( typeof( WhiteMisoSoup ), 1044497, 1030318, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
-				AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				SetNeedOven( index, true );
+			index = AddCraft( typeof( WhiteMisoSoup ), 1044497, 1030318, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
+			AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			SetNeedOven( index, true );
 
-				index = AddCraft( typeof( RedMisoSoup ), 1044497, 1030319, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
-				AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				SetNeedOven( index, true );
+			index = AddCraft( typeof( RedMisoSoup ), 1044497, 1030319, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
+			AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			SetNeedOven( index, true );
 
-				index = AddCraft( typeof( AwaseMisoSoup ), 1044497, 1030320, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
-				AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-				SetNeedOven( index, true );
+			index = AddCraft( typeof( AwaseMisoSoup ), 1044497, 1030320, 40.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
+			AddRes( index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
+			SetNeedOven( index, true );
 			/* End Baking */
 
 			/* Begin Barbecue */
-			index = AddCraft( typeof( CookedBird ), 1044498, 1022487, 0.0, 70.0, typeof( RawBird ), 1044470, 1, 1044253 );
+			index = AddCraft( typeof( CookedBird ), 1044498, 1022487, 20.0, 70.0, typeof( RawBird ), 1044470, 1, 1044253 );
 			SetNeedHeat( index, true );
 			SetUseAllRes( index, true );
 
-			index = AddCraft( typeof( ChickenLeg ), 1044498, 1025640, 0.0, 70.0, typeof( RawChickenLeg ), 1044473, 1, 1044253 );
+			index = AddCraft( typeof( ChickenLeg ), 1044498, 1025640, 20.0, 70.0, typeof( RawChickenLeg ), 1044473, 1, 1044253 );
 			SetNeedHeat( index, true );
 			SetUseAllRes( index, true );
 
-			index = AddCraft( typeof( FishSteak ), 1044498, 1022427, 0.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
+			index = AddCraft( typeof( FishSteak ), 1044498, 1022427, 10.0, 70.0, typeof( RawFishSteak ), 1044476, 1, 1044253 );
 			SetNeedHeat( index, true );
 			SetUseAllRes( index, true );
 
-			index = AddCraft( typeof( FriedEggs ), 1044498, 1022486, 0.0, 70.0, typeof( Eggs ), 1044477, 1, 1044253 );
+			index = AddCraft( typeof( FriedEggs ), 1044498, 1022486, 10.0, 70.0, typeof( Eggs ), 1044477, 1, 1044253 );
 			SetNeedHeat( index, true );
 			SetUseAllRes( index, true );
 
-			index = AddCraft( typeof( LambLeg ), 1044498, 1025642, 0.0, 70.0, typeof( RawLambLeg ), 1044478, 1, 1044253 );
+			index = AddCraft( typeof( LambLeg ), 1044498, 1025642, 30.0, 70.0, typeof( RawLambLeg ), 1044478, 1, 1044253 );
 			SetNeedHeat( index, true );
 			SetUseAllRes( index, true );
 
-			index = AddCraft( typeof( Ribs ), 1044498, 1022546, 0.0, 70.0, typeof( RawRibs ), 1044485, 1, 1044253 );
+			index = AddCraft( typeof( Ribs ), 1044498, 1022546, 40.0, 80.0, typeof( RawRibs ), 1044485, 1, 1044253 );
 			SetNeedHeat( index, true );
 			SetUseAllRes( index, true );
 			/* End Barbecue */
 
 			/* Rations By Krystofer */
-			index = AddCraft( typeof(FoodSmallRation),"Rations", "small ration", 70.0, 100.0, typeof( RawFishSteak ),1044476, 1, 1044253);
+			index = AddCraft( typeof(FoodSmallRation), "Ração", "Ração de Peixe", 70.0, 100.0, typeof( RawFishSteak ),1044476, 1, 1044253);
 			AddRes(index, typeof( BreadLoaf ), 1024156, 1, 1024156);
 			AddRes(index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
 			SetNeedOven( index, true);
 
-			index = AddCraft( typeof(FoodSmallRation),"Rations", "small ration", 70.0, 100.0, typeof( RawLambLeg ), 1044478, 1, 1044253 );
+			index = AddCraft( typeof(FoodSmallRation), "Ração", "Ração de Carneiro", 70.0, 100.0, typeof( RawLambLeg ), 1044478, 1, 1044253 );
 			AddRes(index, typeof( BreadLoaf ), 1024156, 1, 1024156);
 			AddRes(index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
 			SetNeedOven( index, true);
 
-			index = AddCraft( typeof(FoodSmallRation),"Rations", "small ration", 70.0, 100.0, typeof( RawRibs ), 1044485, 1, 1044253 );
+			index = AddCraft( typeof(FoodSmallRation), "Ração", "Ração de Porco", 70.0, 100.0, typeof( RawRibs ), 1044485, 1, 1044253 );
 			AddRes(index, typeof( BreadLoaf ), 1024156, 1, 1024156);
 			AddRes(index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
 			SetNeedOven( index, true);
 
-			index = AddCraft( typeof(FoodSmallRation),"Rations", "small ration", 70.0, 100.0, typeof( RawChickenLeg ), 1044473, 1, 1044253 );
+			index = AddCraft( typeof(FoodSmallRation), "Ração", "Ração de Galinha", 70.0, 100.0, typeof( RawChickenLeg ), 1044473, 1, 1044253 );
 			AddRes(index, typeof( BreadLoaf ), 1024156, 1, 1024156);
 			AddRes(index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
 			SetNeedOven( index, true);
 
-			index = AddCraft( typeof(FoodSmallRation),"Rations", "small ration", 70.0, 100.0, typeof( RawBird ), 1044470, 1, 1044253 );
+			index = AddCraft( typeof(FoodSmallRation), "Ração", "Ração de Pássaro", 70.0, 100.0, typeof( RawBird ), 1044470, 1, 1044253 );
 			AddRes(index, typeof( BreadLoaf ), 1024156, 1, 1024156);
 			AddRes(index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
 			SetNeedOven( index, true);
 
-			index = AddCraft( typeof(FoodLargeRation),"Rations", "large ration", 95.0, 120.0, typeof( Cookies ),"cookies", 2, 1044253);
+/*			index = AddCraft( typeof(FoodLargeRation),"Rations", "large ration", 95.0, 120.0, typeof( Cookies ),"cookies", 2, 1044253);
 			AddRes(index, typeof( BreadLoaf ), 1024156, 2, 1024156);
 			AddRes(index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
 			SetNeedOven( index, true);
@@ -283,16 +288,13 @@ namespace Server.Engines.Craft
 			index = AddCraft( typeof(FoodLargeRation),"Rations", "large ration", 90.0, 120.0, typeof( CheesePizza ), "cheese pizza", 2, 1044253 );
 			AddRes(index, typeof( BreadLoaf ), 1024156, 2, 1024156);
 			AddRes(index, typeof( BaseBeverage ), 1046458, 1, 1044253 );
-			SetNeedOven( index, true);
+			SetNeedOven( index, true);*/
 
 			/* End Rations */
 
-			index = AddCraft( typeof(FruitBasket),"Preparations", "fruit basket", 40.0, 85.0, typeof( Basket ), "Basket", 1, 1044253 );
-			AddRes( index, typeof( Pear ), 1044481, 2, 1044253 );
-			AddRes( index, typeof( Peach ), 1044480, 2, 1044253 );
-			AddRes( index, typeof( Apple ), 1044479, 2, 1044253 );
+			
 
-
+/*
 			AddCraft( typeof( CarvedPumpkin ), "Halloween", "jack-o-lantern", 80.0, 110.0, typeof( PumpkinLarge ), "Large Pumpkin", 1, 1042081 );
 			AddCraft( typeof( CarvedPumpkin2 ), "Halloween", "jack-o-lantern", 80.0, 110.0, typeof( PumpkinLarge ), "Large Pumpkin", 1, 1042081 );
 			AddCraft( typeof( CarvedPumpkin16 ), "Halloween", "jack-o-lantern", 80.0, 110.0, typeof( PumpkinLarge ), "Large Pumpkin", 1, 1042081 );
@@ -316,7 +318,7 @@ namespace Server.Engines.Craft
 			AddCraft( typeof( CarvedPumpkin14 ), "Halloween", "jack-o-lantern", 95.0, 120.0, typeof( PumpkinGreen ), "Green Pumpkin", 1, 1042081 );
 			AddCraft( typeof( CarvedPumpkin15 ), "Halloween", "jack-o-lantern", 95.0, 120.0, typeof( PumpkinGreen ), "Green Pumpkin", 1, 1042081 );
 
-			AddCraft( typeof( CarvedPumpkin20 ), "Halloween", "jack-o-lantern", 99.0, 125.0, typeof( PumpkinGiant ), "Giant Pumpkin", 1, 1042081 );
+			AddCraft( typeof( CarvedPumpkin20 ), "Halloween", "jack-o-lantern", 99.0, 125.0, typeof( PumpkinGiant ), "Giant Pumpkin", 1, 1042081 );*/
 		}
 	}
 }
