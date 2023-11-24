@@ -84,50 +84,51 @@ namespace Server.Engines.Craft
 			int index = -1;
 
 			// Materials
-			AddCraft( typeof( Kindling ), 1044457, "gravetos", 0.0, 05.0, typeof( Log ), 1015101, 1, 1044351 );
+			AddCraft( typeof( Kindling ), 1044457, "gravetos", 0.0, 30.0, typeof( Log ), 1015101, 1, 1044351 );
 
-			index = AddCraft( typeof( Kindling ), 1044457, "lote de gravetos", 5.0, 10.0, typeof( Log ), 1015101, 1, 1044351 );
+			index = AddCraft( typeof( Kindling ), 1044457, "lote de gravetos", 15.0, 40.0, typeof( Log ), 1015101, 1, 1044351 );
 			SetUseAllRes( index, true );
 
 			index = AddCraft( typeof( Shaft ), 1044457, 1027124, 0.0, 30.0, typeof( Log ), 1015101, 1, 1044351 );
-			SetUseAllRes( index, true );
+			//SetUseAllRes( index, true );
 
 			// Ammunition
-			index = AddCraft( typeof( Arrow ), 1044565, 1023903, 0.0, 40.0, typeof( Shaft ), 1044560, 1, 1044561 );
+			index = AddCraft( typeof( Arrow ), 1044565, 1023903, 30.0, 60.0, typeof( Shaft ), 1044560, 1, 1044561 );
 			AddRes( index, typeof( Feather ), 1044562, 1, 1044563 );
-			SetUseAllRes( index, true );
+			//SetUseAllRes( index, true );
 
-			index = AddCraft( typeof( Bolt ), 1044565, 1027163, 0.0, 40.0, typeof( Shaft ), 1044560, 1, 1044561 );
+			index = AddCraft( typeof( Bolt ), 1044565, 1027163, 50.0, 70.0, typeof( Shaft ), 1044560, 1, 1044561 );
 			AddRes( index, typeof( Feather ), 1044562, 1, 1044563 );
-			SetUseAllRes( index, true );
+            AddRes(index, typeof(IronIngot), 1044562, 1, 1044563);
+            //SetUseAllRes( index, true );
 
-			if( Core.SE )
+            if ( Core.SE )
 			{
-				index = AddCraft( typeof( FukiyaDarts ), 1044565, 1030246, 0.0, 40.0, typeof( Log ), 1015101, 1, 1044351 );
-				SetUseAllRes( index, true );
-                index = AddCraft(typeof(ThrowingWeapon), 1044565, 1044117, 0.0, 40.0, typeof(IronIngot), 1074904, 1, 1044037);
-                SetUseAllRes(index, true);
+				index = AddCraft( typeof( FukiyaDarts ), 1044565, 1030246, 60.0, 80.0, typeof( Log ), 1015101, 1, 1044351 );
+				//SetUseAllRes( index, true );
+                index = AddCraft(typeof(ThrowingWeapon), 1044565, 1044117, 70.0, 90.0, typeof(IronIngot), 1074904, 1, 1044037);
+                //SetUseAllRes(index, true);
             }
 
 			// Weapons
-			AddCraft( typeof( Bow ), 1044566, 1025042, 30.0, 70.0, typeof( Board ), 1015101, 7, 1044351 );
-			AddCraft( typeof( Crossbow ), 1044566, 1023919, 60.0, 100.0, typeof( Board ), 1015101, 7, 1044351 );
-			AddCraft( typeof( HeavyCrossbow ), 1044566, 1025117, 80.0, 120.0, typeof( Board ), 1015101, 10, 1044351);
+			AddCraft( typeof( Bow ), 1044566, 1025042, 40.0, 75.0, typeof( Board ), 1015101, 8, 1044351 );
+			AddCraft( typeof( Crossbow ), 1044566, 1023919, 60.0, 90.0, typeof( Board ), 1015101, 12, 1044351 );
+			AddCraft( typeof( HeavyCrossbow ), 1044566, 1025117, 80.0, 110.0, typeof( Board ), 1015101, 15, 1044351);
 
 			if ( Core.AOS )
 			{
-				AddCraft( typeof( CompositeBow ), 1044566, 1029922, 70.0, 110.0, typeof( Board ), 1015101, 7, 1044351 );
-				AddCraft( typeof( RepeatingCrossbow ), 1044566, 1029923, 90.0, 130.0, typeof( Board ), 1015101, 10, 1044351 );
+				AddCraft( typeof( CompositeBow ), 1044566, 1029922, 70.0, 100.0, typeof( Board ), 1015101, 11, 1044351 );
+				AddCraft( typeof( RepeatingCrossbow ), 1044566, 1029923, 90.0, 110.0, typeof( Board ), 1015101, 14, 1044351 );
 			}
 
 			if( Core.SE )
 			{
-				index = AddCraft( typeof( Yumi ), 1044566, 1030224, 90.0, 130.0, typeof( Board ), 1015101, 10, 1044351 );
+				index = AddCraft( typeof( Yumi ), 1044566, 1030224, 90.0, 120.0, typeof( Board ), 1015101, 13, 1044351 );
 				 
 			}
 
-			AddCraft( typeof( MagicalShortbow ), 1044566, "woodland shortbow", 50.0, 80.0, typeof( Board ), 1015101, 7, 1044351 );
-			AddCraft( typeof( ElvenCompositeLongbow ), 1044566, "woodland longbow", 50.0, 80.0, typeof( Board ), 1015101, 7, 1044351 );
+			AddCraft( typeof( MagicalShortbow ), 1044566, "Arco curto da floresta", 55.0, 85.0, typeof( Board ), 1015101, 9, 1044351 );
+			AddCraft( typeof( ElvenCompositeLongbow ), 1044566, "Arco longo da floresta", 70.0, 95.0, typeof( Board ), 1015101, 16, 1044351 );
 
 			Repair = true;
 			MarkOption = true;
