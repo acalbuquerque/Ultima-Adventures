@@ -153,87 +153,92 @@ namespace Server.Engines.Craft
 			int index = -1;
 
 			// Agility Potion
-			index = AddCraft( typeof( AgilityPotion ), "Potions", "agility", 15.0, 65.0, typeof( Bloodmoss ), 1044354, 1, 1044362 );
+			index = AddCraft( typeof( AgilityPotion ), "Poções", "agilidade", 35.0, 65.0, typeof( Bloodmoss ), 1044354, 1, 1044362 );
 			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( GreaterAgilityPotion ), "Potions", "agility, greater", 35.0, 85.0, typeof( Bloodmoss ), 1044354, 3, 1044362 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-
-			// Conflagration Potions
-			index = AddCraft( typeof(ConflagrationPotion), "Potions", "conflagration", 55.0, 105.0, typeof(GraveDust), 1023983, 5, 1044253 );
-			AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
-			index = AddCraft( typeof(GreaterConflagrationPotion), "Potions", "conflagration, greater", 65.0, 115.0, typeof(GraveDust), 1023983, 10, 1044253 );
-			AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
-
-			// Confusion Blast Potions
-			index = AddCraft( typeof(ConfusionBlastPotion), "Potions", "confusion blast", 55.0, 105.0, typeof(PigIron), 1023978, 5, 1044253 );
-			AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
-			index = AddCraft( typeof(GreaterConfusionBlastPotion), "Potions", "confusion blast, greater", 65.0, 115.0, typeof(PigIron), 1023978, 10, 1044253 );
-			AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
-
-			// Cure Potion
-			index = AddCraft( typeof( LesserCurePotion ), "Potions", "cure, lesser", -10.0, 40.0, typeof( Garlic ), 1044355, 1, 1044363 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( CurePotion ), "Potions", "cure", 25.0, 75.0, typeof( Garlic ), 1044355, 3, 1044363 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( GreaterCurePotion ), "Potions", "cure, greater", 65.0, 115.0, typeof( Garlic ), 1044355, 6, 1044363 );
+			index = AddCraft( typeof( GreaterAgilityPotion ), "Poções", "agilidade maior", 55.0, 85.0, typeof( Bloodmoss ), 1044354, 3, 1044362 );
 			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
 
-			// Explosion Potion
-			index = AddCraft( typeof( LesserExplosionPotion ), "Potions", "explosion, lesser", 5.0, 55.0, typeof( SulfurousAsh ), 1044359, 3, 1044367 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( ExplosionPotion ), "Potions", "explosion", 35.0, 85.0, typeof( SulfurousAsh ), 1044359, 5, 1044367 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( GreaterExplosionPotion ), "Potions", "explosion, greater", 65.0, 115.0, typeof( SulfurousAsh ), 1044359, 10, 1044367 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
+            // Cure Potion
+            index = AddCraft(typeof(LesserCurePotion), "Poções", "cura menor", 10.0, 45.0, typeof(Garlic), 1044355, 2, 1044363);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(CurePotion), "Poções", "cura", 30.0, 75.0, typeof(Garlic), 1044355, 3, 1044363);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(GreaterCurePotion), "Poções", "cura maior", 60.0, 90.0, typeof(Garlic), 1044355, 6, 1044363);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
-			// Frostbite Potions
-			index = AddCraft( typeof(FrostbitePotion), "Potions", "frostbite", 55.0, 105.0, typeof(MoonCrystal), "moon crystal", 5, 1042081 );
-			AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
-			index = AddCraft( typeof(GreaterFrostbitePotion), "Potions", "frostbite, greater", 65.0, 115.0, typeof(MoonCrystal), "moon crystal", 10, 1042081 );
-			AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
+            // Explosion Potion
+            index = AddCraft(typeof(LesserExplosionPotion), "Poções", "explosão menor", 15.0, 55.0, typeof(SulfurousAsh), 1044359, 3, 1044367);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(ExplosionPotion), "Poções", "explosão", 40.0, 85.0, typeof(SulfurousAsh), 1044359, 5, 1044367);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(GreaterExplosionPotion), "Poções", "explosão maior", 65.0, 95.0, typeof(SulfurousAsh), 1044359, 10, 1044367);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
-			// Heal Potion
-			index = AddCraft( typeof( LesserHealPotion ), "Potions", "heal, lesser", -25.0, 25.0, typeof( Ginseng ), 1044356, 1, 1044364 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( HealPotion ), "Potions", "heal", 15.0, 65.0, typeof( Ginseng ), 1044356, 3, 1044364 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( GreaterHealPotion ), "Potions", "heal, greater", 55.0, 105.0, typeof( Ginseng ), 1044356, 7, 1044364 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
+            // Heal Potion
+            index = AddCraft(typeof(LesserHealPotion), "Poções", "vida menor", 15.0, 45.0, typeof(Ginseng), 1044356, 2, 1044364);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(HealPotion), "Poções", "vida", 35.0, 70.0, typeof(Ginseng), 1044356, 4, 1044364);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(GreaterHealPotion), "Poções", "vida maior", 55.0, 95.0, typeof(Ginseng), 1044356, 7, 1044364);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
-			// Nightsight Potion
-			index = AddCraft( typeof( NightSightPotion ), "Potions", "night sight", -25.0, 25.0, typeof( SpidersSilk ), 1044360, 1, 1044368 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
+            // Nightsight Potion
+            index = AddCraft(typeof(NightSightPotion), "Poções", "visão noturna", 5.0, 30.0, typeof(SpidersSilk), 1044360, 1, 1044368);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
-			// Poison Potion
-			index = AddCraft( typeof( LesserPoisonPotion ), "Potions", "poison, lesser", -5.0, 45.0, typeof( Nightshade ), 1044358, 1, 1044366 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( PoisonPotion ), "Potions", "poison", 15.0, 65.0, typeof( Nightshade ), 1044358, 2, 1044366 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( GreaterPoisonPotion ), "Potions", "poison, greater", 35.0, 85.0, typeof( Nightshade ), 1044358, 4, 1044366 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( DeadlyPoisonPotion ), "Potions", "poison, deadly", 55.0, 105.0, typeof( Nightshade ), 1044358, 8, 1044366 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( LethalPoisonPotion ), "Potions", "poison, lethal", 75.0, 125.0, typeof( Nightshade ), 1044358, 12, 1044366 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
+            // Refresh Potion
+            index = AddCraft(typeof(RefreshPotion), "Poções", "refresh", 10, 45.0, typeof(BlackPearl), 1044353, 2, 1044361);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(TotalRefreshPotion), "Poções", "refresh, total", 45.0, 80.0, typeof(BlackPearl), 1044353, 5, 1044361);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
-			// Refresh Potion
-			index = AddCraft( typeof( RefreshPotion ), "Potions", "refresh", -25, 25.0, typeof( BlackPearl ), 1044353, 1, 1044361 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( TotalRefreshPotion ), "Potions", "refresh, total", 25.0, 75.0, typeof( BlackPearl ), 1044353, 5, 1044361 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
+            // Strength Potion
+            index = AddCraft(typeof(StrengthPotion), "Poções", "força", 25.0, 65.0, typeof(MandrakeRoot), 1044357, 2, 1044365);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(GreaterStrengthPotion), "Poções", "força maior", 45.0, 90.0, typeof(MandrakeRoot), 1044357, 5, 1044365);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
-			index = AddCraft( typeof( SmokeBomb ), "Potions", "smoke bomb", 90.0, 120.0, typeof( Eggs ), 1044477, 1, 1044253 );
-			AddRes( index, typeof ( Ginseng ), 1044356, 3, 1044364 );
+            // Poison Potion
+            index = AddCraft(typeof(LesserPoisonPotion), "Poções", "veneno menor", 15.0, 50.0, typeof(Nightshade), 1044358, 1, 1044366);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(PoisonPotion), "Poções", "veneno", 25.0, 70.0, typeof(Nightshade), 1044358, 2, 1044366);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(GreaterPoisonPotion), "Poções", "veneno maior", 40.0, 80.0, typeof(Nightshade), 1044358, 4, 1044366);
+            AddRes(index, typeof(NoxCrystal), 1023982, 1, 1017346);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(DeadlyPoisonPotion), "Poções", "veneno mortal", 65.0, 95.0, typeof(Nightshade), 1044358, 8, 1044366);
+            AddRes(index, typeof(NoxCrystal), 1023982, 2, 1017346);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+            index = AddCraft(typeof(LethalPoisonPotion), "Poções", "veneno letal", 80.0, 110.0, typeof(Nightshade), 1044358, 12, 1044366);
+            AddRes(index, typeof(NoxCrystal), 1023982, 3, 1017346);
+            AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
-			// Strength Potion
-			index = AddCraft( typeof( StrengthPotion ), "Potions", "strength", 25.0, 75.0, typeof( MandrakeRoot ), 1044357, 2, 1044365 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
-			index = AddCraft( typeof( GreaterStrengthPotion ), "Potions", "strength, greater", 45.0, 95.0, typeof( MandrakeRoot ), 1044357, 5, 1044365 );
-			AddRes( index, typeof ( Bottle ), 1044529, 1, 500315 );
+            /*            // Conflagration Potions
+                        index = AddCraft( typeof(ConflagrationPotion), "Potions", "conflagration", 55.0, 105.0, typeof(GraveDust), 1023983, 5, 1044253 );
+                        AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
+                        index = AddCraft( typeof(GreaterConflagrationPotion), "Potions", "conflagration, greater", 65.0, 115.0, typeof(GraveDust), 1023983, 10, 1044253 );
+                        AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
 
-			// -------------------------------------------------------------------------------------------------------------------------------------------
+                        // Confusion Blast Potions
+                        index = AddCraft( typeof(ConfusionBlastPotion), "Potions", "confusion blast", 55.0, 105.0, typeof(PigIron), 1023978, 5, 1044253 );
+                        AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
+                        index = AddCraft( typeof(GreaterConfusionBlastPotion), "Potions", "confusion blast, greater", 65.0, 115.0, typeof(PigIron), 1023978, 10, 1044253 );
+                        AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
 
-			index = AddCraft( typeof( ElixirAlchemy ), "Elixirs", "alchemy", 60.0, 120.0, typeof( MoonCrystal ), "moon crystal", 3, 1042081 );
+                        // Frostbite Potions
+                        index = AddCraft( typeof(FrostbitePotion), "Potions", "frostbite", 55.0, 105.0, typeof(MoonCrystal), "moon crystal", 5, 1042081 );
+                        AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
+                        index = AddCraft( typeof(GreaterFrostbitePotion), "Potions", "frostbite, greater", 65.0, 115.0, typeof(MoonCrystal), "moon crystal", 10, 1042081 );
+                        AddRes( index, typeof(Bottle), 1044529, 1, 500315 );
+
+                        // SMOKE BOMB
+                        index = AddCraft( typeof( SmokeBomb ), "Potions", "smoke bomb", 90.0, 120.0, typeof( Eggs ), 1044477, 1, 1044253 );
+                        AddRes( index, typeof ( Ginseng ), 1044356, 3, 1044364 );*/
+
+            // -------------------------------------------------------------------------------------------------------------------------------------------
+            // ELIXIR
+
+            /*index = AddCraft( typeof( ElixirAlchemy ), "Elixirs", "alchemy", 60.0, 120.0, typeof( MoonCrystal ), "moon crystal", 3, 1042081 );
 				AddRes( index, typeof ( Bottle ), "empty bottle", 1, 1042081 );
 				AddRes( index, typeof ( Garlic ), "garlic", 1, 1042081 );
 				AddRes( index, typeof ( Sapphire ), "sapphire", 1, 1042081 );
@@ -428,9 +433,17 @@ namespace Server.Engines.Craft
 			index = AddCraft( typeof( ElixirWrestling ), "Elixirs", "wrestling", 60.0, 120.0, typeof( MoonCrystal ), "moon crystal", 3, 1042081 );
 				AddRes( index, typeof ( Bottle ), "empty bottle", 1, 1042081 );
 				AddRes( index, typeof ( SpidersSilk ), "spider silk", 1, 1042081 );
-				AddRes( index, typeof ( StarSapphire ), "star sapphire", 1, 1042081 );
+				AddRes( index, typeof ( StarSapphire ), "star sapphire", 1, 1042081 );*/
 
-			index = AddCraft( typeof( LiquidFire ), "Mixtures", "liquid, fire", 50.0, 120.0, typeof( Brimstone ), "brimstone", 2, 1042081 );
+            // -------------------------------------------------------------------------------------------------------------------------------------------
+            // MIXTURES
+
+            /*index = AddCraft(typeof(OilTransmutation), "Óleos", "Óleo de Transmutação", 70.0, 120.0, typeof(RedLotus), "lotus vermelha", 2, 1042081);
+            AddRes(index, typeof(Bottle), "Garrafa Vazia", 1, 1042081);
+            AddRes(index, typeof(DaemonBlood), "daemon blood", 1, 1042081);
+            AddRes(index, typeof(BlackPearl), "black pearl", 3, 1042081);*/
+
+            /*index = AddCraft( typeof( LiquidFire ), "Mixtures", "liquid, fire", 50.0, 120.0, typeof( Brimstone ), "brimstone", 2, 1042081 );
 				AddRes( index, typeof ( Jar ), "empty jar", 1, 1042081 );
 				AddRes( index, typeof ( ExplosionPotion ), "regular explosion potion", 1, 1042081 );
 				AddRes( index, typeof ( BlackPearl ), "black pearl", 1, 1042081 );
@@ -478,40 +491,56 @@ namespace Server.Engines.Craft
 
 			index = AddCraft( typeof( BottleOil ), "Mixtures", "technomancer oil", 95, 120.0, typeof( PigIron ), "pig iron", 20, 1042081 );
 				AddRes( index, typeof ( LiquidGoo ), "liquid goo", 10, 1042081 );
-				AddRes( index, typeof ( MixtureSlime ), "slime", 2, 1042081 );
+				AddRes( index, typeof ( MixtureSlime ), "slime", 2, 1042081 );*/
 
+            // -------------------------------------------------------------------------------------------------------------------------------------------
+            //Transmutations - Created by Krystofer Robin (Kelton Grespair)
+            /*index = AddCraft( typeof(DullCopperIngot), "Transmutações", "Cobre Rústico", 50, 60, typeof( IronIngot), "lingote de ferro", 10, 1042081);
+			AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(CopperIngot), "Transmutações", "Cobre", 60, 70, typeof(DullCopperIngot), "lingote de cobre rústico", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft(typeof(ShadowIronIngot), "Transmutações", "Ferro Negro", 70, 80, typeof(CopperIngot), "lingote de cobre", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(BronzeIngot), "Transmutações", "Bronze", 80, 90, typeof(ShadowIronIngot), "lingote de ferro negro", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(GoldIngot), "Transmutações", "Dourado", 90, 100, typeof( BronzeIngot), "lingote de bronze", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(AgapiteIngot), "Transmutações", "Agapite", 100, 120, typeof( GoldIngot), "lingote de dourado", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(VeriteIngot), "Transmutações", "Verite", 110, 120, typeof( AgapiteIngot), "lingote de agapite", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
 
-			//Transmutations - Created by Krystofer Robin (Kelton Grespair)
-			index = AddCraft( typeof(DullCopperIngot), "Transmutations", "Dull Copper", 40, 60, typeof( IronIngot), "iron ingot", 10, 1042081);
-			index = AddCraft( typeof(ShadowIronIngot), "Transmutations", "Shadow Iron", 50, 70, typeof( DullCopperIngot), "dull copper ingot", 10, 1042081);
-			index = AddCraft( typeof(CopperIngot), "Transmutations", "Copper", 60, 80, typeof( ShadowIronIngot), "shadow iron ingot", 10, 1042081);
-			index = AddCraft( typeof(BronzeIngot), "Transmutations", "Bronze", 70, 90, typeof( CopperIngot), "copper ingot", 10, 1042081);
-			index = AddCraft( typeof(GoldIngot), "Transmutations", "Gold", 90, 100, typeof( BronzeIngot), "bronze ingot", 10, 1042081);
-			index = AddCraft( typeof(AgapiteIngot), "Transmutations", "Agapite", 100, 120, typeof( GoldIngot), "gold ingot", 10, 1042081);
-			index = AddCraft( typeof(VeriteIngot), "Transmutations", "Verite", 110, 120, typeof( AgapiteIngot), "agapite ingot", 10, 1042081);
-			index = AddCraft( typeof(SpinedLeather), "Transmutations", "Spined Leather", 40, 80, typeof( Leather), "leather", 10, 1042081);
-			index = AddCraft( typeof(HornedLeather), "Transmutations", "Horned Leather", 60, 100, typeof( SpinedLeather), "spined leather", 10, 1042081);
-			index = AddCraft( typeof(BarbedLeather), "Transmutations", "Barbed Leather", 80, 120, typeof( HornedLeather), "horned leather", 10, 1042081);
-			index = AddCraft( typeof(AshBoard), "Transmutations", "Ash", 30, 50, typeof( BaseWoodBoard), "wood board", 10, 1042081);
-			index = AddCraft( typeof(EbonyBoard), "Transmutations", "Ebony", 40, 60, typeof(AshBoard), "ash board", 10, 1042081);
-			index = AddCraft( typeof(GoldenOakBoard), "Transmutations", "Golden Oak", 50, 70, typeof( EbonyBoard), "ebony board", 10, 1042081);
-            index = AddCraft(typeof(CherryBoard), "Transmutations", "Cherry", 60, 80, typeof(GoldenOakBoard), "golden oak board", 10, 1042081);
-            index = AddCraft( typeof(RosewoodBoard), "Transmutations", "Rosewood", 70, 90, typeof( CherryBoard), "cherry oak board", 10, 1042081);
-			/*index = AddCraft( typeof(MahoganyBoard), "Transmutations", "Mahogany", 80, 100, typeof( HickoryBoard), "hickory board", 10, 1042081);
+            index = AddCraft( typeof(SpinedLeather), "Transmutações", "Couro Spined", 60, 80, typeof( Leather), "couro normal", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(HornedLeather), "Transmutações", "Couro Horned", 70, 100, typeof( SpinedLeather), "couro spined", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(BarbedLeather), "Transmutações", "Couro Barbed", 80, 120, typeof( HornedLeather), "couro horned", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+
+            index = AddCraft( typeof(AshBoard), "Transmutações", "Carvalho Cinza", 30, 50, typeof( BaseWoodBoard), "tábua de Madeira", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(EbonyBoard), "Transmutações", "Ébano", 40, 60, typeof(AshBoard), "tábua de Carvalho Cinza", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(GoldenOakBoard), "Transmutações", "Ipê-Amarelo", 50, 70, typeof( EbonyBoard), "tábua de Ébano", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(CherryBoard), "Transmutações", "Cerejeira", 60, 80, typeof(GoldenOakBoard), "tábua de Ipê-Amarelo", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);
+            index = AddCraft( typeof(RosewoodBoard), "Transmutações", "Pau-Brasil", 70, 90, typeof( CherryBoard), "tábua de Cerejeira", 10, 1042081);
+            AddRes(index, typeof(OilTransmutation), "Óleo de Transmutação", 1, 1148260);*/
+            /*index = AddCraft( typeof(MahoganyBoard), "Transmutations", "Mahogany", 80, 100, typeof( HickoryBoard), "hickory board", 10, 1042081);
 			index = AddCraft( typeof(DriftwoodBoard), "Transmutations", "Driftwood", 90, 110, typeof( MahoganyBoard), "mahogany board", 10, 1042081);
 			index = AddCraft( typeof(OakBoard), "Transmutations", "Oak", 100, 120, typeof( DriftwoodBoard), "driftwood board", 10, 1042081);*/
 
-			index = AddCraft( typeof(PowerCrystal), "Transmutation", "Power Crystal", 95, 120, typeof( ArcaneGem), "arcane gem", 10, 1042081);
+            /*index = AddCraft( typeof(PowerCrystal), "Transmutações", "Power Crystal", 95, 120, typeof( ArcaneGem), "arcane gem", 10, 1042081);
 				AddRes( index, typeof (BottleOil), "technomancer oil", 10, 1042081);
-				AddRes( index, typeof ( NoxCrystal), "nox crystal", 50, 1042081);
+				AddRes( index, typeof ( NoxCrystal), "nox crystal", 50, 1042081);*/
 
 
-
-			// Hair Potion
-			index = AddCraft( typeof( HairOilPotion ), "Hair", "hair styling potion", 80, 110.0, typeof( PixieSkull ), "pixie skull", 2, 1042081 );
+            // Hair Potion
+            index = AddCraft( typeof( HairOilPotion ), "Cosmético", "poção de corte de cabelo", 80, 110.0, typeof( PixieSkull ), "pixie skull", 2, 1042081 );
 			AddRes( index, typeof ( Bottle ), "empty bottle", 1, 500315 );
 
-			index = AddCraft( typeof( HairDyePotion ), "Hair", "hair dye potion", 80, 110.0, typeof( FairyEgg ), "fairy egg", 3, 1042081 );
+			index = AddCraft( typeof( HairDyePotion ), "Cosmético", "tinta de cabelo", 80, 110.0, typeof( FairyEgg ), "fairy egg", 3, 1042081 );
 			AddRes( index, typeof ( Bottle ), "empty bottle", 1, 500315 );
 		}
 	}
