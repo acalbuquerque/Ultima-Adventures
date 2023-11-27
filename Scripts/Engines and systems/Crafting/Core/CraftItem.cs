@@ -1470,16 +1470,18 @@ namespace Server.Engines.Craft
 					}
 					else if (item is HorseArmor)
 					{
-						int color = MaterialInfo.GetMaterialColor("silver", "monster", 0);
-						string material = "Iron";
-
-						Type resourceType = typeRes;
+                        Type resourceType = typeRes;
 						if (resourceType == null)
 							resourceType = Resources.GetAt(0).ItemType;
 
 						CraftResource thisResource = CraftResources.GetFromType(resourceType);
 
-						switch (thisResource)
+                        ((HorseArmor)item).Crafter = from;
+                        ((HorseArmor)item).Exceptional = Utility.RandomBool();
+                        ((HorseArmor)item).Resource = thisResource;
+
+
+                        /*switch (thisResource)
 						{
 							case CraftResource.DullCopper: color = MaterialInfo.GetMaterialColor("dull copper", "classic", 0); material = "Dull Copper"; break;
 							case CraftResource.ShadowIron: color = MaterialInfo.GetMaterialColor("shadow iron", "classic", 0); material = "Shadow Iron"; break;
@@ -1499,10 +1501,10 @@ namespace Server.Engines.Craft
 							case CraftResource.Mithril: color = MaterialInfo.GetMaterialColor("mithril", "classic", 0); material = "Mithril"; break;
 							case CraftResource.Xormite: color = MaterialInfo.GetMaterialColor("xormite", "classic", 0); material = "Xormite"; break;
 							case CraftResource.Dwarven: color = MaterialInfo.GetMaterialColor("dwarven", "classic", 0); material = "Dwarven"; break;
-						}
+						}*/
 
-						((HorseArmor)item).ArmorMaterial = material;
-						item.Hue = color;
+						/*((HorseArmor)item).ArmorMaterial = material;
+						item.Hue = color;*/
 					}
 					else if (item is BaseStatue)
 					{
