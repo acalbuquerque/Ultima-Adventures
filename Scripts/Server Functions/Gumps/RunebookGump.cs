@@ -63,7 +63,7 @@ namespace Server.Gumps
 		public string GetName( string name )
 		{
 			if ( name == null || (name = name.Trim()).Length <= 0 )
-				return "Marked Location";
+				return "Local Sem Nome";
 
 			return name;
 		}
@@ -81,7 +81,7 @@ namespace Server.Gumps
 			AddImage(0, 0, 1054);
 
 			// Charges
-			AddHtml( 136, 26, 143, 20, @"<BODY><BASEFONT Color=#111111><H3>Charges: " + m_Book.CurCharges.ToString() + "/" + m_Book.MaxCharges.ToString() + "</H3></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( 136, 26, 143, 20, @"<BODY><BASEFONT Color=#111111><H3>Cargas: " + m_Book.CurCharges.ToString() + "/" + m_Book.MaxCharges.ToString() + "</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 		}
 
 		private void AddNavigation()
@@ -119,7 +119,7 @@ namespace Server.Gumps
 			AddNavigation();
 
 			// Rename button
-			AddHtml( 450, 26, 126, 20, @"<BODY><BASEFONT Color=#111111><H3>Rename Book</H3></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( 450, 26, 126, 20, @"<BODY><BASEFONT Color=#111111><H3>Renomear Livro</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 			AddButton(430, 28, 30008, 30008, 1, GumpButtonType.Reply, 0);
 
 			// List of entries
@@ -259,17 +259,41 @@ namespace Server.Gumps
 
 		private void AddInstructions()
 		{
-			AddHtml( 73, 70, 257, 299, @"<BODY><BASEFONT Color=#111111><H3>Rune Books are designed to help reduce the total number of carried runes and to assist rune libraries.<br><br>General Features:<br><br>- A rune book can hold a total of 16 locations.<br><br>- One of these locations can be set as the 'default' location.<br><br>- Casting the recall, gate, ethereal travel, or sacred journey spell on the rune book will treat the book like a rune marked with the default location.<br><br>- Using the astral travel skill on the rune book will treat the book like a rune marked with the default location.<br><br>- Using potions of nature fury, mushroom gateway, demonic fire, and black gate on the rune book will treat the book like a rune marked with the default location.<br><br>- Books can have charges that will allow you to recall to locations in the book without using spells, skills, or potions.<br><br>- Rune Books can be recharged with recall, gate, or astral travel scrolls. They can also be recharged with potions of nature fury, mushroom gateway, demonic fire, and black gate. Dragging such items onto the book will add one charge (up to its maximum).<br><br>- Books cannot be recharged while open.<br><br>- Dragging a rune onto a book will add that location to the book.<br><br>- You can name the rune book by opening the book and selecting 'Rename Book'. After selecting that, simply type in the name of the book and hit enter.</H3></BASEFONT></BODY>", (bool)false, (bool)true);
-			AddHtml( 380, 70, 257, 299, @"<BODY><BASEFONT Color=#111111><H3>Using the Rune Book:<br><br>- On the top right of the first index page is an option to rename the book.<br><br>- Casting recall, ethereal travel, or sacred journey directly on the rune book will transport you to the location set as the 'default'.<br><br>- Using the astral travel skill directly on the rune book will transport you to the location set as the 'default'.<br><br>- Using potions of nature fury and demonic fire directly on the rune book will transport you to the location set as the 'default'.<br><br>- Casting gate directly on the rune book will open a gate with the destination to the 'default' location of the book.<br><br>- Using potions of mushroom gateway and black gate directly on the rune book will open a gate with the destination to the 'default' location of the book.<br><br>- To access the non-default locations, you will be able to open the book by double clicking on it.<br><br>- When open, the book will display two index pages with 8 locations on each page.<br><br>- Each page will have the current number of charges listed on the top left side.<br><br>- Each location entry will have a button that will use a charge and transport you to that location. If the book has no charges left, you will not be able to do this.<br><br>- The index pages will display the first 18 characters from the marked rune’s name.<br><br>- The side of the book has book markers. Clicking these numbers will bring you to that page.<br><br>- After each use (success or failure) the rune book needs a few seconds to recharge.<br><br>Rune Book Pages:<br><br>Each rune page will contain buttons that...<br><br>- will use a charge and recall to that location.<br><br>- will set that location as the book's default location.<br><br>- will remove the rune from the book.<br><br>- will cast the recall spell if you know it.<br><br>- will cast the gate travel spell if you know it.<br><br>- will cast the sacred journey spell if you know it.<br><br>- will use a nature passage potion if you have one.<br><br>- will use a mushroom gateway potion if you have one.<br><br>- will use a demonic fire potion if you have one.<br><br>- will use a black gate potion if you have one.<br><br>- will use the astral travel ability if you know it.<br><br>- will use the etheral travel spell if you have it prepared.</H3></BASEFONT></BODY>", (bool)false, (bool)true);
+			AddHtml( 73, 70, 257, 299, @"<BODY><BASEFONT Color=#111111><H3>Livros de Runas são projetados para ajudar a reduzir o número total de runas transportadas e para auxiliar viagens astrais.
+										<br><br><u>Características Gerais:</u>
+										<br><br>- Um livro de runas pode conter um total de 16 locais.
+										<br><br>- Um desses locais pode ser definido como o local 'padrão'.
+										<br><br>- Lançar o feitiço de Recall ou Gate Travel no livro de runas tratará o livro como uma runa marcada com o local padrão.
+										<br><br>- Os livros de runas podem ter cargas(pergaminhos) para utilizar os destinos. Podem ser recarregados com pergaminhos de recall, gate ou viagens astrais arrastando-os para o livro.
+										<br><br>- Livros abertos não podem ser recarregados.
+										<br><br>- Arrastar uma runa para o livro irá adiciona-la ao mesmo.
+										<br><br>- Você pode renomear um livro clicando no botão de renomear.</H3></BASEFONT></BODY>", (bool)false, (bool)true);
+			AddHtml( 380, 70, 257, 299, @"<BODY><BASEFONT Color=#111111><H3>Usando o Livro de Runas:
+										<br><br>- No canto superior direito da primeira página de índice há uma opção para renomear o livro.
 
-			string title = "Runebook";
+										<br><br>- Quando aberto, o livro exibirá duas páginas de índice com 8 locais em cada página.
+										<br><br>- Cada página terá o número atual de cobranças listado no canto superior esquerdo.
+										<br><br>- Cada entrada de local terá um botão que usará uma carga e transportará você para esse local. Se o livro não tiver mais cobranças, você não poderá fazer isso.
+										<br><br>- As páginas de índice exibirão os primeiros 18 caracteres do nome da runa marcada.
+										<br><br>- O lado do livro tem marcadores de livros. Clicar nesses números levará você a essa página.
+										<br><br>- Após cada uso (sucesso ou fracasso) o livro de runas precisa de alguns segundos para recarregar.
+										<br><br><u>Paginas:</u>
+										<br><br>Cada página runa conterá botões que...
+										<br><br>- Usará uma carga e irá transportar para este local
+										<br><br>- definirá esse local como o local padrão do livro.
+										<br><br>- removerá a runa do livro.
+										<br><br>- lançará o feitiço de recall se você souber.
+										<br><br>- lançará o feitiço de portal/viagem astral se você souber.
+										</H3></BASEFONT></BODY>", (bool)false, (bool)true);
+
+			string title = "Livro de Runas";
 				if ( m_Book.Description != null && m_Book.Description != "" ){ title = m_Book.Description; }
 			AddHtml( 377, 26, 196, 20, @"<BODY><BASEFONT Color=#111111><H3>" + title + "</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 		}
 
 		private void AddDetails( int index, int half )
 		{
-			string title = "Runebook";
+			string title = "Livro de Runas";
 				if ( m_Book.Description != null && m_Book.Description != "" ){ title = m_Book.Description; }
 			AddHtml( 377, 26, 196, 20, @"<BODY><BASEFONT Color=#111111><H3>" + title + "</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 
@@ -302,7 +326,7 @@ namespace Server.Gumps
 			}
 			else
 			{
-				desc = "Empty";
+				desc = "Vazio";
 				hue = "#111111";
 				filled = 0;
 			}
@@ -312,15 +336,15 @@ namespace Server.Gumps
 			int w = 7;
 			if ( half == 1 ){ v = 440; }
 
-			AddHtml( v-20, 62, 217, 20, @"<BODY><BASEFONT Color=" + hue + "><H3>" + desc + "</H3></BASEFONT></BODY>", (bool)false, (bool)false);
+			AddHtml( v-20, 62, 217, 20, @"<BODY><BASEFONT Color=" + hue + "><H3><u>" + desc + "</u></H3></BASEFONT></BODY>", (bool)false, (bool)false);
 			if ( filled > 0 )
 			{
 				AddButton(v-40, 65, 30008, 30008, 2 + (index * 6) + 0, GumpButtonType.Reply, 0);
-				AddHtml( v-25, 84, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>" + Sextants + "</H3></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( v-25, 84, 217, 20, @"<BODY><BASEFONT Color=#111111><H4>Localização: " + Sextants + "</H4></BASEFONT></BODY>", (bool)false, (bool)false);
 				AddButton(v-20, 115-w, defButtonID, defButtonID, 2 + (index * 6) + 2, GumpButtonType.Reply, 0);
-				AddHtml( v, 115-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Set As Default</H3></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( v, 115-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Marcar como Padrão</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 
-				AddHtml( v, 140-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Remove Rune</H3></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( v, 140-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Remover Runa</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 				AddButton(v-20, 140-w, 30008, 30008, 2 + (index * 6) + 1, GumpButtonType.Reply, 0);
 
 				AddHtml( v, 165-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Recall</H3></BASEFONT></BODY>", (bool)false, (bool)false);
@@ -329,7 +353,7 @@ namespace Server.Gumps
 				AddHtml( v, 190-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Gate</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 				AddButton(v-20, 190-w, 30008, 30008, 2 + (index * 6) + 4, GumpButtonType.Reply, 0);
 
-				AddHtml( v, 215-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Sacred Journey</H3></BASEFONT></BODY>", (bool)false, (bool)false);
+				/*AddHtml( v, 215-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Sacred Journey</H3></BASEFONT></BODY>", (bool)false, (bool)false);
 				AddButton(v-20, 215-w, 30008, 30008, 2 + (index * 6) + 5, GumpButtonType.Reply, 0);
 
 				AddHtml( v, 240-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Nature Passage</H3></BASEFONT></BODY>", (bool)false, (bool)false);
@@ -348,7 +372,7 @@ namespace Server.Gumps
 				AddButton(v-20, 340-w, 30008, 30008, 602 + (index * 6) + 5, GumpButtonType.Reply, 0);
 
 				AddHtml( v, 365-t, 217, 20, @"<BODY><BASEFONT Color=#111111><H3>Ethereal Travel</H3></BASEFONT></BODY>", (bool)false, (bool)false);
-				AddButton(v-20, 365-w, 30008, 30008, 702 + (index * 6) + 1, GumpButtonType.Reply, 0);
+				AddButton(v-20, 365-w, 30008, 30008, 702 + (index * 6) + 1, GumpButtonType.Reply, 0);*/
 			}
 		}
 
@@ -410,7 +434,7 @@ namespace Server.Gumps
 					from.CloseGump( typeof( RunebookGump ) );
 					from.SendGump( new RunebookGump( from, m_Book ) );
 
-					from.SendMessage( "The book's title has been changed." );
+					from.SendMessage("O título do livro foi alterado.");
 				}
 				else
 				{
@@ -595,7 +619,7 @@ namespace Server.Gumps
 							}
 							else
 							{
-								from.SendMessage( "You do not have that skill!" );
+								from.SendMessage("Você não tem essa habilidade!");
 							}
 							
 							m_Book.Openers.Remove( from );
