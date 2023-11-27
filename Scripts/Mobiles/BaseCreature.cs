@@ -4458,7 +4458,7 @@ namespace Server.Mobiles
 
 			CheckBasicSkills();
 			DynamicFameKarma();
-			DynamicTaming(true);
+			//DynamicTaming(false); // TODO: COOP3R
 			DynamicGold();
 			NameColor();
 
