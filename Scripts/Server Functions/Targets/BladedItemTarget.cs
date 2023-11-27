@@ -61,7 +61,19 @@ namespace Server.Targets
 				else
 					pet.HasBarding = false;
 			}
-			else
+            else if (targeted is Horse && ((Horse)targeted).HasBarding)
+            {
+                Horse pet = (Horse)targeted;
+
+                if (!pet.Controlled || pet.ControlMaster != from)
+                    from.SendMessage(55, "Você não pode remover uma armadura de uma montaria que não é sua.");
+                else
+				{
+                    Server.Items.HorseArmor.DropArmorInBackPack(pet, from);
+                    pet.HasBarding = false;
+                } 
+            }
+            else
 			{
 				HarvestSystem system = Lumberjacking.System;
 				HarvestDefinition def = Lumberjacking.System.Definition;

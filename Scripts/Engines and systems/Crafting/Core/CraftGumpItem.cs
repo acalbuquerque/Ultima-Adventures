@@ -190,7 +190,8 @@ namespace Server.Engines.Craft
 		}
 
 		private static Type typeofBlankScroll = typeof( BlankScroll );
-		private static Type typeofSpellScroll = typeof( SpellScroll );
+        private static Type typeofRunebook = typeof(Runebook);
+        private static Type typeofSpellScroll = typeof( SpellScroll );
 
 		public void DrawResource()
 		{
@@ -208,7 +209,9 @@ namespace Server.Engines.Craft
 				&& m_CraftItem.Resources.GetAt( m_CraftItem.Resources.Count - 1 ).ItemType == typeofBlankScroll
 				&& typeofSpellScroll.IsAssignableFrom( m_CraftItem.ItemType );
 
-			for ( int i = 0; i < m_CraftItem.Resources.Count - (cropScroll ? 1 : 0) && i < 4; i++ )
+            //bool cropRunebook = m_CraftItem.Resources.GetAt(m_CraftItem.Resources.Count - 1).ItemType == typeofRunebook;
+
+            for ( int i = 0; i < m_CraftItem.Resources.Count - (cropScroll ? 1 : 0) && i < 4; i++ )
 			{
 				Type type;
 				string nameString;
@@ -258,7 +261,10 @@ namespace Server.Engines.Craft
 */
 			if ( cropScroll )
 				AddHtmlLocalized( 170, 302 + (m_OtherCount++ * 20), 360, 18, 1044379, LabelColor, false, false ); // Inscribing scrolls also requires a blank scroll and mana.
-		}
+
+			if (m_CraftItem.ItemType == typeofRunebook)
+                AddHtmlLocalized(170, 302 + (m_OtherCount++ * 20), 360, 18, 1109025, LabelColor, false, false);
+        }
 
 		public override void OnResponse( NetState sender, RelayInfo info )
 		{

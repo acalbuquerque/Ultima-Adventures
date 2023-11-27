@@ -12,7 +12,7 @@ namespace Server.Items
 		[Constructable]
 		public BlankScroll( int amount ) : base( 0xEF3 )
 		{
-			Name = "blank scroll";
+			Name = "Pergaminho em Branco";
 			Stackable = true;
 			Weight = 0.2;
 			Amount = amount;
