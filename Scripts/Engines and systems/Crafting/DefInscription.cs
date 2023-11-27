@@ -133,21 +133,22 @@ namespace Server.Engines.Craft
 		private void AddSpell(Type type, params Reg[] regs)
 		{
 			double minSkill, maxSkill;
+			int circleMenu;
 
 			switch (m_Circle)
 			{
 				default:
-				case 0: minSkill = -25.0; maxSkill = 25.0; break;
-				case 1: minSkill = -10.8; maxSkill = 39.2; break;
-				case 2: minSkill = 03.5; maxSkill = 53.5; break;
-				case 3: minSkill = 17.8; maxSkill = 67.8; break;
-				case 4: minSkill = 32.1; maxSkill = 82.1; break;
-				case 5: minSkill = 46.4; maxSkill = 96.4; break;
-				case 6: minSkill = 60.7; maxSkill = 110.7; break;
-				case 7: minSkill = 75.0; maxSkill = 125.0; break;
+				case 0: minSkill = 0.0; maxSkill = 20.0; circleMenu = 1044369;  break;
+				case 1: minSkill = 10.0; maxSkill = 30.0; circleMenu = 1044369; break;
+				case 2: minSkill = 20.0; maxSkill = 40.0; circleMenu = 1044371; break;
+				case 3: minSkill = 30.0; maxSkill = 50.0; circleMenu = 1044371; break;
+				case 4: minSkill = 40.0; maxSkill = 60.0; circleMenu = 1044373; break;
+				case 5: minSkill = 50.0; maxSkill = 70.0; circleMenu = 1044373; break;
+				case 6: minSkill = 60.0; maxSkill = 80.0; circleMenu = 1044375; break;
+				case 7: minSkill = 70.0; maxSkill = 90.0; circleMenu = 1044375; break;
 			}
 
-			int index = AddCraft(type, 1044369 + m_Circle, 1044381 + m_Index++, minSkill, maxSkill, m_RegTypes[(int)regs[0]], 1044353 + (int)regs[0], 1, 1044361 + (int)regs[0]);
+			int index = AddCraft(type, circleMenu, 1044381 + m_Index++, minSkill, maxSkill, m_RegTypes[(int)regs[0]], 1044353 + (int)regs[0], 1, 1044361 + (int)regs[0]);
 
 			for (int i = 1; i < regs.Length; ++i)
 				AddRes(index, m_RegTypes[(int)regs[i]], 1044353 + (int)regs[i], 1, 1044361 + (int)regs[i]);
@@ -272,7 +273,7 @@ namespace Server.Engines.Craft
 			AddSpell(typeof(SummonFireElementalScroll), Reg.Bloodmoss, Reg.MandrakeRoot, Reg.SpidersSilk, Reg.SulfurousAsh);
 			AddSpell(typeof(SummonWaterElementalScroll), Reg.Bloodmoss, Reg.MandrakeRoot, Reg.SpidersSilk);
 
-			if (Core.SE)
+			/*if (Core.SE)
 			{
 				AddNecroSpell(0, 23, 39.6, typeof(AnimateDeadScroll), Reagent.GraveDust, Reagent.DaemonBlood);
 				AddNecroSpell(1, 13, 19.6, typeof(BloodOathScroll), Reagent.DaemonBlood);
@@ -291,35 +292,40 @@ namespace Server.Engines.Craft
 				AddNecroSpell(14, 23, 59.6, typeof(WitherScroll), Reagent.GraveDust, Reagent.NoxCrystal, Reagent.PigIron);
 				AddNecroSpell(15, 17, 79.6, typeof(WraithFormScroll), Reagent.NoxCrystal, Reagent.PigIron);
 				AddNecroSpell(16, 40, 79.6, typeof(ExorcismScroll), Reagent.NoxCrystal, Reagent.GraveDust);
-			}
+			}*/
 
 			int index;
 
 			// Blank Scrolls
-			index = AddCraft( typeof( BlankScroll ), 1044294, 1044377, 40.0, 70.0, typeof( BarkFragment ), 1073477, 1, 1073478 );
-			SetUseAllRes( index, true );
+			index = AddCraft( typeof( BlankScroll ), 1044294, 1044377, 30.0, 65.0, typeof( BarkFragment ), 1073477, 1, 1073478 );
+            AddRes(index, typeof(Leather), 1044462, 1, 1044253);
+            //SetUseAllRes( index, true );
 
 			// Runebook
-			index = AddCraft( typeof( Runebook ), 1044294, 1041267, 45.0, 95.0, typeof( BlankScroll ), 1044377, 8, 1044378 );
-			AddRes( index, typeof( RecallScroll ), 1044445, 1, 1044253 );
-			AddRes( index, typeof( Beeswax ), 1025154, 5, 1044253 );
+			index = AddCraft( typeof( Runebook ), 1044294, 1041267, 60.0, 90.0, typeof( BlankScroll ), 1044377, 16, 1044378 );
+            AddRes(index, typeof(Beeswax), 1025154, 8, 1044253);
+            AddRes( index, typeof( RecallScroll ), 1044445, 1, 1044253 );
 			AddRes( index, typeof( GateTravelScroll ), 1044446, 1, 1044253 );
+            AddRes(index, typeof(RecallRune), 1027958, 1, 1044253);
+            SetManaReq(index, 25);
 
-			index = AddCraft(typeof(Engines.BulkOrders.BulkOrderBook), 1044294, 1028793, 65.0, 115.0, typeof(BlankScroll), 1044377, 10, 1044378);
+            /*index = AddCraft(typeof(Engines.BulkOrders.BulkOrderBook), 1044294, 1028793, 65.0, 115.0, typeof(BlankScroll), 1044377, 10, 1044378);
+			AddRes( index, typeof( Beeswax ), 1025154, 5, 1044253 );*/
+
+            index = AddCraft(typeof(Spellbook), 1044294, 1023834, 50.0, 80.0, typeof(BlankScroll), 1044377, 12, 1044378);
+			AddRes( index, typeof( Beeswax ), 1025154, 8, 1044253 );
+            AddRes(index, typeof(Leather), 1044462, 2, 1044253);
+            SetManaReq(index, 10);
+
+            /*index = AddCraft(typeof(NecromancerSpellbook), 1044294, 1028787, 50.0, 126, typeof(BlankScroll), 1044377, 10, 1044378);
 			AddRes( index, typeof( Beeswax ), 1025154, 5, 1044253 );
 
-			index = AddCraft(typeof(Spellbook), 1044294, 1023834, 50.0, 126, typeof(BlankScroll), 1044377, 10, 1044378);
-			AddRes( index, typeof( Beeswax ), 1025154, 5, 1044253 );
+			index = AddCraft(typeof(SongBook), 1095590, 1028787, 50.0, 126, typeof(BlankScroll), 1044377, 10, 1044378);
+			AddRes( index, typeof( Beeswax ), 1025154, 5, 1044253 );*/
 
-			index = AddCraft(typeof(NecromancerSpellbook), 1044294, 1028787, 50.0, 126, typeof(BlankScroll), 1044377, 10, 1044378);
-			AddRes( index, typeof( Beeswax ), 1025154, 5, 1044253 );
+            MarkOption = true;
 
-			index = AddCraft(typeof(SongBook), 1044294, 1028787, 50.0, 126, typeof(BlankScroll), 1044377, 10, 1044378);
-			AddRes( index, typeof( Beeswax ), 1025154, 5, 1044253 );
-
-			MarkOption = true;
-
-			index = AddCraft(typeof(ArmysPaeonScroll), 1044294, "Armys Paeon Scroll", 75.0, 95.0, typeof (BlankScroll), 1044377, 1, 1044378);
+			/*index = AddCraft(typeof(ArmysPaeonScroll), 1044294, "Armys Paeon Scroll", 75.0, 95.0, typeof (BlankScroll), 1044377, 1, 1044378);
 			AddRes( index, typeof(Lute), "lute", 1, 1044253);
 			AddSkill( index, SkillName.Musicianship, 95.0, 120.0);
 
@@ -381,9 +387,9 @@ namespace Server.Engines.Craft
 
 			index = AddCraft(typeof(SinewyEtudeScroll), 1044294, "Sinewy Etude", 75.0, 95.0, typeof (BlankScroll), 1044377, 1, 1044378);
 			AddRes( index, typeof(Lute), "lute", 1, 1044253);
-			AddSkill( index, SkillName.Musicianship, 95.0, 120.0);
+			AddSkill( index, SkillName.Musicianship, 95.0, 120.0);*/
 
-			//Expert Study Books
+			/*//Expert Study Books
 			index = AddCraft( typeof(StandardAlchemyStudyBook), "Expert Study Books", "Expert Alchemy", 65.0, 85.0, typeof(BlankScroll), 1044377, 10, 1044378);
 			AddRes( index, typeof( Beeswax ), 1025154, 1, 1044253 );
 			AddRes( index, typeof( Leather ),1044462, 2, 1044253 );
@@ -967,7 +973,7 @@ namespace Server.Engines.Craft
 			AddRes( index, typeof( ArcaneGem ), "arcane gem", 5, 1044253 );
 			AddRes( index, typeof( ElixirAlchemy ), "alchemy elixir", 1, 1044253 );
 			AddSkill( index, SkillName.Alchemy, 120.0, 120.0 );
-			SetManaReq(index, 150);		
+			SetManaReq(index, 150);	*/	
 
 
 
