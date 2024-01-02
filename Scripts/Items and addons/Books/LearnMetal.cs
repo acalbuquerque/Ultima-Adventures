@@ -14,13 +14,13 @@ namespace Server.Items
 		public LearnMetalBook( ) : base( 0x4C5B )
 		{
 			Weight = 1.0;
-			Name = "Scroll of Various Metals";
+			Name = "Pergaminho do Conhecimento";
 		}
 
 		public override void GetProperties( ObjectPropertyList list )
 		{
 			base.GetProperties( list );
-			list.Add( "A Listing Of Metals" );
+			list.Add( "Guia sobre Mineração, Minérios & Metais" );
 		}
 
 		public class LearnMetalGump : Gump
@@ -71,30 +71,47 @@ namespace Server.Items
 				AddItem(730, 117, 4015);
 				AddItem(502, 126, 3718);
 
-				AddHtml( 170, 70, 600, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>INFORMATION ON VARIOUS TYPES OF METAL</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 170, 70, 600, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>GUIA SOBRE MINERAÇÃO E OS TIPOS DE MINÉRIOS & METAIS</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
 				int i = 115;
 				int o = 32;
 
 				AddItem(100, i, 7153, 0);
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Iron</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ferro</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "dull copper", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Dull Copper</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "shadow iron", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Shadow Iron</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "copper", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Copper</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Cobre Rústico</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+
+                AddItem(100, i, 7153, MaterialInfo.GetMaterialColor("copper", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Cobre</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+
+                AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "shadow iron", "", 0 ));
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Ferro Negro</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "bronze", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Bronze</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "gold", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Gold</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+
+                AddItem(100, i, 7153, MaterialInfo.GetMaterialColor("platinum", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Platinum</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+
+                AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "gold", "", 0 ));
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Dourado</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "agapite", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Agapite</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "verite", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Verite</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "valorite", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Valorite</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
-				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "nepturite", "", 0 ));
+
+                AddItem(100, i, 7153, MaterialInfo.GetMaterialColor("rosenium", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Rosenium</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+
+                AddItem(100, i, 7153, MaterialInfo.GetMaterialColor("titanium", "", 0));
+                AddHtml(150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Titanium</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i = i + o;
+
+                /*AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "nepturite", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Nepturite</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "obsidian", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Obsidian</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
@@ -107,9 +124,9 @@ namespace Server.Items
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "xormite", "", 0 ));
 				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Xormite</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
 				AddItem(100, i, 7153, MaterialInfo.GetMaterialColor( "dwarven", "", 0 ));
-				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Dwarven</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;
+				AddHtml( 150, i, 137, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>Dwarven</BIG></BASEFONT></BODY>", (bool)false, (bool)false); i=i+o;*/
 
-				AddHtml( 303, 198, 573, 466, @"<BODY><BASEFONT Color=#FCFF00><BIG><br>Mining is the skill one needs to find ore within caves and mountains. With this ore, ingot can be crafted and then blacksmiths and tinkers can then create weapons, armor, and tools. You simply need to get a pick axe or a shovel, double-click it, and then target a mountain side or caven floor. Although you will normally get regular ore, you will eventually get skilled enough to dig up other types of ore.<br><br>The many types of metal are listed here, starting up and then going down to higher quality metal. Making a shield out of valorite will be a much better shield than one made of copper, for example. The same goes for weapons forged from metal. Whatever the color of metal you use, the weapon or armor will retain the color of the metal. The same goes for many of the containers you can make from metal. A metal chest made from shadow iron will be black in color.<br><br>In order to make things from the ore, you need to turn the ore into ingots. To do this, double-click the ingots and target a forge. These forges are commonly found in blacksmith shops. Then you can begin crafting with a blacksmith hammer, or tinker with tinker tools. Keep in mind that in order to smith items, you will need to be near a forge and anvil.</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 303, 198, 573, 466, @"<BODY><BASEFONT Color=#FBFBFB><BIG>A mineração é a habilidade necessária para encontrar minério dentro de cavernas e montanhas. Com o minério extraído, é possível fundi-lo e criar os lingotes e, em seguida, com a habilidade de metalurgia e funilaria pode-se criar armas, armaduras e ferramentas.<br/><br/>Você simplesmente precisa uma picareta, marreta ou uma pá, clicar duas vezes nela e, em seguida, mirar em um lado da montanha ou no chão de cavernas. Embora normalmente se obtenha minério regular (ferro), você acabará ficando habilidoso o suficiente para desenterrar outros tipos de minério mais raros.<br/>Os muitos tipos de metal estão listados aqui, começando do mais simples para o de maior qualidade. Um escudo de valorite será um escudo muito melhor do que um feito de cobre, por exemplo.<br/><br/>Entretanto, cada metal possui propriedades distintas e que podem, se bem utilizados, dar vantagens e certos aspectos como ajudar a criar e ativar atributos mágicos em armas e itens especiais.<br/>Seja qual for a cor do metal que você usar, a arma, ferramenta ou armadura manterá a cor do metal.<br/><br/>Para fazer coisas a partir do minério, você precisa transformar o minério em lingotes. Para fazer isso, clique duas vezes nos lingotes e direcione uma forja. Estas forjas são comumente encontradas em ferrarias. Então você pode começar a criar com um martelo de ferreiro, ou mexer com ferramentas de funilaria.<br/>Tenha em mente que, para fabricar itens, você precisará estar perto de uma forja e bigorna.</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 			}
 		}
 
@@ -117,7 +134,7 @@ namespace Server.Items
 		{
 			if ( !IsChildOf( e.Backpack ) ) 
 			{
-				e.SendMessage( "This must be in your backpack to read." );
+				e.SendMessage("Para ler, isso precisa estar na sua mochila.");
 			}
 			else
 			{
@@ -141,7 +158,7 @@ namespace Server.Items
 		{
 			base.Deserialize(reader);
 			int version = reader.ReadInt();
-			Name = "Scroll of Various Metals";
+			Name = "Pergaminho do Conhecimento";
 			ItemID = 0x4C5B;
 		}
 	}
