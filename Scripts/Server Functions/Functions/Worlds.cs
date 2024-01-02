@@ -50,7 +50,7 @@ namespace Server.Misc
 			else if ( map == Map.Trammel && reg.IsPartOf( "the Mausoleum" ) ){ worldLocation = "the Island of Umber Veil"; }
 			else if ( map == Map.Trammel && reg.IsPartOf( "the Tower of Brass" ) ){ worldLocation = "the Island of Umber Veil"; }
 
-			else if ( map == Map.Trammel && x > 6127 && y > 828 && x < 7168 && y < 2736 ){ worldLocation = "the Bottle World of Kuldar"; }
+			else if ( map == Map.Trammel && x > 6127 && y > 980 && x < 7168 && y < 2460 ){ worldLocation = "the Bottle World of Kuldar"; }
 			else if ( map == Map.Trammel && ( reg.IsPartOf( "Highrock Mine" ) || 
 												reg.IsPartOf( "Waterfall Cavern" ) || 
 												reg.IsPartOf( "the Crumbling Cave" ) || 

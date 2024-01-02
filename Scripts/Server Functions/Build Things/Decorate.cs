@@ -52,26 +52,29 @@ namespace Server.Commands
 			///// BUILD THE QUEST TELEPORTERS //////////////////////////////////////
 			BuildQuestItems.CreateQuestItems();
 
-			Generate( "Data/Decoration/Sosaria", Map.Trammel );
-			Generate( "Data/Decoration/Lodor", Map.Felucca );
-			Generate( "Data/Decoration/Underworld", Map.Ilshenar );
-			Generate( "Data/Decoration/Serpent", Map.Malas );
-			Generate( "Data/Decoration/IslesOfDread", Map.Tokuno );
-			Generate( "Data/Decoration/Savage", Map.TerMur );
+            Generate("Data/Decoration/NMS/Common/", Map.Trammel);
+            Generate("Data/Decoration/NMS/BottleOfWorld/", Map.Trammel);
 
-			///// BUILD THE SEARCH PEDESTALS ///////////////////////////////////////
-			BuildQuests.SearchCreate();
+            //Generate( "Data/Decoration/Sosaria", Map.Trammel );
+            //Generate( "Data/Decoration/Lodor", Map.Felucca );
+            //Generate( "Data/Decoration/Underworld", Map.Ilshenar );
+            //Generate( "Data/Decoration/Serpent", Map.Malas );
+            //Generate( "Data/Decoration/IslesOfDread", Map.Tokuno );
+            //Generate( "Data/Decoration/Savage", Map.TerMur );
 
-			///// BUILD THE STEAL PEDESTALS ////////////////////////////////////////
-			BuildSteadPeds.CreateStealPeds();
+            ///// BUILD THE SEARCH PEDESTALS ///////////////////////////////////////
+            //BuildQuests.SearchCreate();
 
-			///// BUILD THE DUNGEON CHEST SPAWNERS /////////////////////////////////
-			BuildTreasureChests.CreateTreasureChests();
+            ///// BUILD THE STEAL PEDESTALS ////////////////////////////////////////
+            //BuildSteadPeds.CreateStealPeds();
 
-			///// PLANT THE GARDENS //////////////////////////////////////
-			Farms.PlantGardens();
+            ///// BUILD THE DUNGEON CHEST SPAWNERS /////////////////////////////////
+            //BuildTreasureChests.CreateTreasureChests();
 
-			m_Mobile.SendMessage( "World generating complete. {0} items were generated.", m_Count );
+            ///// PLANT THE GARDENS //////////////////////////////////////
+            //Farms.PlantGardens();
+
+            m_Mobile.SendMessage( "World generating complete. {0} items were generated.", m_Count );
 		}
 
 		public static void Generate( string folder, params Map[] maps )

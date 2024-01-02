@@ -830,8 +830,8 @@
 		<region type="PublicRegion" priority="50" name="the Tavern">
 			<rect x="3634" y="3414" width="89" height="103" />
 		</region>
-		<region type="PublicRegion" priority="50" name="the Bank">
-			<rect x="3421" y="3370" width="56" height="87" />
+		<region type="PublicRegion" priority="80" name="the Bank">
+			<rect x="3421" y="3338" width="56" height="110" />
 		</region>
 		<region type="PublicRegion" priority="50" name="the Lost Glade">
 			<rect x="3885" y="3940" width="45" height="45" />
@@ -1147,8 +1147,16 @@
 		<region type="SafeRegion" priority="100" name="Anchor Rock Docks">
 		  <rect x="223" y="1229" width="235" height="235" />
 		</region>
+		
+		// TESTER
+		<region type="ProtectedRegion" priority="100" name="Museu dos Minérios">
+			<rect x="6126" y="2469" width="45" height="40" />
+		</region>
+		<region type="ProtectedRegion" priority="100" name="Museu da Lenharia">
+			<rect x="6175" y="2471" width="32" height="35" />
+		</region>
 
-	// SHRINES
+		// SHRINES
 		<region type="OutDoorRegion" priority="80" name="Shrine of Intelligence">
 			<rect x="5170" y="3106" width="9" height="9" />
 		</region>
