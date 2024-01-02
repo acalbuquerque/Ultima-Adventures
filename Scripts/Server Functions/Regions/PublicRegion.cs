@@ -24,17 +24,17 @@ namespace Server.Regions
 
 		public override TimeSpan GetLogoutDelay( Mobile m )
 		{
-			return TimeSpan.Zero;
-		}
+			return TimeSpan.FromMinutes(1.0); //TimeSpan.Zero;
+        }
 
 		public override void AlterLightLevel( Mobile m, ref int global, ref int personal )
 		{
 			if ( this.Name != "the Lost Glade" && this.Name != "the Port" ){ global = LightCycle.NightLevel; }
 		}
 
-		public override bool AllowHarmful( Mobile from, Mobile target )
+        public override bool AllowHarmful( Mobile from, Mobile target )
 		{
-			if (target is TrainingElemental || target is TrainingElemental1 || from is TrainingElemental || from is TrainingElemental1)
+			if ( (this.Name != "the Bank") && (target is TrainingElemental || target is TrainingElemental1 || from is TrainingElemental || from is TrainingElemental1))
 				return true;
 
 			return false;

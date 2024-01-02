@@ -667,7 +667,7 @@ namespace Server.Items
 		[Constructable]
 		public WorldMapBottle( ) : base( 0x4CC2 )
 		{
-			Name = "World Map of Kuldar";
+			Name = "Mapa Geral de Kuldar";
 			ItemID = Utility.RandomList( 0x4CC2, 0x4CC3 );
 			Hue = 0xB63;
 		}

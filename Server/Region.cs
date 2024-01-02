@@ -703,7 +703,7 @@ namespace Server
 			return true;
 		}
 
-		public virtual void OnCriminalAction( Mobile m, bool message )
+        public virtual void OnCriminalAction( Mobile m, bool message )
 		{
 			if ( m_Parent != null )
 				m_Parent.OnCriminalAction( m, message );
