@@ -116,7 +116,7 @@ namespace Server
 
 		public override void OnEnter(Mobile m)
 		{
-			m.SendMessage("Welcome to {0}", Name);
+			m.SendMessage("Bem vindo ao {0}", Name);
 
 			base.OnEnter(m);
 
@@ -125,7 +125,7 @@ namespace Server
 
 		public override void OnExit(Mobile m)
 		{
-			m.SendMessage("You have left {0}", Name);
+			m.SendMessage(55, "Você saiu do(a) {0}", Name);
 
 			base.OnExit(m);
 		}

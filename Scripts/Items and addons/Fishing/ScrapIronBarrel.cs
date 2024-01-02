@@ -19,7 +19,7 @@ namespace Server.Items
 		{
 			ItemID = Utility.RandomList( 0x4D05, 0x4D06 );
 			Weight = 10.0;
-			Name = "Scrap Iron Barrel";
+			Name = "Barril Sucata de Ferro";
 			Hue = 0xACF;
 		}
 
@@ -31,7 +31,7 @@ namespace Server.Items
 				int nPay = (int)(dropped.Weight*5);
 				if ( pc.NpcGuild == NpcGuild.BlacksmithsGuild ){ nPay = (int)(dropped.Weight*10); }
 				from.AddToBackpack ( new Gold( nPay ) );
-				from.SendMessage("You are paid " + nPay.ToString() + " gold.");
+				from.SendMessage(55, "Você recebeu " + nPay.ToString() + " moeda(s) de ouro.");
 				from.PlaySound( 0x042 );
 				dropped.Delete();
 			}
@@ -49,7 +49,7 @@ namespace Server.Items
 
 			if ( !from.HasGump( typeof( SpeechGump ) ) )
 			{
-				from.SendGump(new SpeechGump( "Rusty Gold", SpeechFunctions.SpeechText( from.Name, from.Name, "ScrapMetal" ) ));
+				from.SendGump(new SpeechGump( "Ouro Enferrujado", SpeechFunctions.SpeechText( from.Name, from.Name, "ScrapMetal" ) ));
 			}
 		}
 

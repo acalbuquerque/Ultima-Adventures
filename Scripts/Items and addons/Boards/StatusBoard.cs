@@ -24,7 +24,7 @@ namespace Server.Items
 		public StatusBoard( ) : base( 0x1E5E )
 		{
 			Weight = 1.0;
-			Name = "Status Board";
+			Name = "Quadro de Informações - Jogadores";
 			Hue = 0xB98;
 		}
 
@@ -106,6 +106,7 @@ namespace Server.Gumps
          AddImageTiled( 15, 15, 770, 17, 5154 );
          AddHtml( 15, 15, 770, 17, "<div align=\"center\" color=\"2100\">"+ ServerList.ServerName +"</div>", false, false );
 
+		// total players + staff
 		int t = NetState.Instances.Count;
 		if (t != 0)
 		{
@@ -129,29 +130,54 @@ namespace Server.Gumps
 				}
 			}
 		}
+		// staffs
+		int st = 0;
+        if (t != 0)
+        {
+            ArrayList KList = new ArrayList(NetState.Instances);
+            for (int s = 0; s < t; ++s)
+            {
+                NetState nsk = KList[s] as NetState;
+                if (nsk == null)
+                    continue;
+                Mobile mk = nsk.Mobile;
+                if (mk == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (mk.AccessLevel >= AccessLevel.Counselor)
+                    {
+                        st++;
+                    }
+                }
+            }
+        }
 
-		AddImageTiled( 15, 37, 190, 17, 5154 );
-		AddLabel( 17, 36, 0x25, "Online :" );
+        AddImageTiled( 15, 37, 190, 17, 5154 );
+		AddLabel( 17, 36, 0x25, "Jogadores Online :" );
 		AddHtml( 160, 37, 30, 17, "<div align=\"right\" color=\"2100\">"+ t.ToString() +"</div>", false, false );
 
 		AddImageTiled( 210, 37, 190, 17, 5154 );
-		AddLabel( 212, 36, 0x68, "Accounts :" );
-		AddHtml( 357, 37, 30, 17, "<div align=\"right\" color=\"2100\">"+ Accounts.Count.ToString() +"</div>", false, false );
+		AddLabel( 212, 36, 0x68, "Staff Team Online :" );
+        AddHtml(357, 37, 30, 17, "<div align=\"right\" color=\"2100\">" + st.ToString() + "</div>", false, false);
+        //AddHtml( 357, 37, 30, 17, "<div align=\"right\" color=\"2100\">"+ Accounts.Count.ToString() +"</div>", false, false );
 
-		AddImageTiled( 405, 37, 190, 17, 5154 );
+        /*AddImageTiled( 405, 37, 190, 17, 5154 );
 		AddLabel( 407, 36, 2100, "Uptime :" );
 		AddHtml( 485, 37, 109, 17, "<div align=\"right\" color=\"2100\">"+ FormatTimeSpan( DateTime.UtcNow - Clock.ServerStart) +"</div>", false, false );
 
 		AddImageTiled( 600, 37, 185, 17, 5154 );
 		AddLabel( 602, 36, 2100, "RAM in use :" );
-		AddHtml( 700, 37, 75, 17, "<div align=\"right\" color=\"2100\">"+ FormatByteAmount( GC.GetTotalMemory( false ) ) +"</div>", false, false );
+		AddHtml( 700, 37, 75, 17, "<div align=\"right\" color=\"2100\">"+ FormatByteAmount( GC.GetTotalMemory( false ) ) +"</div>", false, false );*/
 		// A3C BB8 DAC E10 13BE 13EC 1400 1432 23F0 238C 23BE 2422 242C 2436 2454 2486 24A4 24AE 24B8 24EA 251C 254E 2557 2560 ?2776?
 		AddBackground( 15, 59, 770, 526, 0x2454);
 		AddBlackAlpha( 18, 62, 763, 520);
-		AddLabelCropped(  20, 60, 220, 20, 2100, "Name" );
-		AddLabelCropped( 222, 60, 209, 20, 2100, "Guild" );
-		AddLabelCropped( 453, 60, 60, 20, 2100, "Stats" );
-		AddLabelCropped( 515, 60, 60, 20, 2100, "Skills" );
+		AddLabelCropped(  20, 60, 220, 20, 2100, "Nome" );
+		AddLabelCropped( 222, 60, 209, 20, 2100, "Confraria" );
+		//AddLabelCropped( 453, 60, 60, 20, 2100, "Stats" );
+		//AddLabelCropped( 515, 60, 60, 20, 2100, "Skills" );
 		AddLabelCropped( 577, 60, 60, 20, 2100, "Karma" );
 		AddLabelCropped( 639, 60, 60, 20, 2100, "Fame" );
 		AddLabelCropped( 701, 60, 60, 20, 2100, "Kills" );
@@ -173,7 +199,7 @@ namespace Server.Gumps
             AddImage( 761, 62, 0x25E6 );
 
          if ( m_List.Count == 0 )
-            AddLabel( 20, 80, 0x25, "There are no clients to display." );
+            AddLabel( 20, 80, 0x25, "N/A clients to display." );
 
          int k = 0;
 
@@ -239,8 +265,8 @@ namespace Server.Gumps
                      AddLabelCropped( 222, offset, 209, 20, 2100, GetPlayerInfo.GetStatusGuild( m ) );
 				  }
 
-                  AddLabelCropped( 453, offset,  60, 20, 2100, m.RawStatTotal.ToString() );
-                  AddLabelCropped( 515, offset,  60, 20, 2100, m.SkillsTotal.ToString() );
+                  //AddLabelCropped( 453, offset,  60, 20, 2100, m.RawStatTotal.ToString() );
+                  //AddLabelCropped( 515, offset,  60, 20, 2100, m.SkillsTotal.ToString() );
                   AddLabelCropped( 577, offset,  60, 20, 2100, m.Karma.ToString() );
                   AddLabelCropped( 639, offset,  60, 20, 2100, m.Fame.ToString() );
                   AddLabelCropped( 701, offset,  60, 20, 2100, m.Kills.ToString() );

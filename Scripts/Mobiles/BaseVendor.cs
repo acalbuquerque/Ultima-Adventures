@@ -28,23 +28,22 @@ namespace Server.Mobiles
         private static bool m_Talked;
         string[] VendorSay = new string[] 
 		{ 
-			"Greetings",
-            "Hello there",
-            "I have what ye needs.",
-            "Look here!",
-            "Shop ye here!",
-			"Hey there what can I do for you?",
+			"Saudações",
+            "Olá você",
+            "Eu tenho coisas boas aqui.",
+            "Venha olhe!",
+            "Compre aqui!",
+			"Opa! Em que posso te ajudar?",
 			"I might have that thing you were looking for...",
-			"Ahoy!",
-			"Best prices... I think",
-			"yes?",
-			"Quick, I'm busy",
-			"People used to say Vendor this and that... I have a name",
-			"My inventory refreshed just now!",
-			"Welcome to my shoppe",
-			"*Grumble*",
-			"Weather's acting up lately",
-			"Nice armor, is it for sale?"
+			"Opa!",
+			"Os melhores preços aqui!",
+			"sim?",
+			"Rápido, Estou ocupado!",
+			"Meu estoque está cheio!",
+			"Bemvindo a minha loja",
+			"*Hmm?*",
+			"O tempo está bom para compras",
+			"Bela vestimenta. Está vendendo?"
 		};
 
         public override void OnMovement(Mobile m, Point3D oldLocation)
@@ -108,9 +107,10 @@ namespace Server.Mobiles
 
 		private bool m_sellingpriceadjusted;
 
-		public override bool CanTeach { get { return true; } }
-
-		public override bool BardImmune { get { return false; } }
+        //private bool m_canTeach;
+        //public override bool CanTeach { get { return m_canTeach; } set { m_canTeach = value; } }
+        public override bool CanTeach { get { return true; } }
+        public override bool BardImmune { get { return false; } }
 
 		public override bool PlayerRangeSensitive { get { return true; } }
 
@@ -120,7 +120,7 @@ namespace Server.Mobiles
 
 		public virtual NpcGuild NpcGuild { get { return NpcGuild.None; } }
 
-		public virtual bool IsInvulnerable { get { return false; } }
+		public virtual bool IsInvulnerable { get { return true; } }
 		public override bool Unprovokable { get { return false; } }
 		public override bool Uncalmable{ get{ return false; } }
 
@@ -972,13 +972,13 @@ namespace Server.Mobiles
 			if ( !CheckVendorAccess( from ) )
 			{
 				//Say( 501522 ); // I shall not treat with scum like thee!
-				this.Say( "I have no business with you." );
+				this.Say("Eu não faço negócios com você!");
 				return;
 			}
 
 			if (AdventuresFunctions.IsInMidland((object)this))
 			{
-				this.Say( "Apologies but I don't sell anything M'lord." );
+				this.Say("Me desculpe mas eu não estou negociando nada, milorde.");
 				return;
 			}	
 
@@ -1195,13 +1195,13 @@ namespace Server.Mobiles
 			if ( !CheckVendorAccess( from ) )
 			{
 				//Say( 501522 ); // I shall not treat with scum like thee!
-				this.Say( "I have no business with you." );
+				this.Say( "Eu não faço negócios com você!" );
 				return;
 			}
 
 			if (AdventuresFunctions.IsInMidland((object)this))
 			{
-				this.Say( "Apologies but I don't sell anything M'lord." );
+				this.Say( "Me desculpe mas eu não estou negociando nada, milorde." );
 				return;
 			}				
 
@@ -1277,7 +1277,8 @@ namespace Server.Mobiles
 				}
 				else
 				{
-					Say( true, "You have nothing I would be interested in." );
+                    string sSay = "Não acredito que você tenha algo do meu interesse.";
+                    this.PublicOverheadMessage(MessageType.Regular, 1153, false, sSay);
 				}
 			}
 		}
@@ -1286,13 +1287,13 @@ namespace Server.Mobiles
 		{
 			if ( from.Blessed )
 			{
-				string sSay = "I cannot deal with you while you are in that state.";
+				string sSay = "Eu não posso negociar com você enquanto você estiver neste estado.";
 				this.PrivateOverheadMessage(MessageType.Regular, 1153, false, sSay, from.NetState);
 				return false;
 			}
 			else if ( IntelligentAction.GetMyEnemies( from, this, false ) == true )
 			{
-				string sSay = "I don't think I should accept that from you.";
+				string sSay = "Não acredito que possa aceitar isto de você.";
 				this.PrivateOverheadMessage(MessageType.Regular, 1153, false, sSay, from.NetState);
 				return false;
 			}
@@ -1362,7 +1363,7 @@ namespace Server.Mobiles
 						dropped.Delete();
 						Coffee cof = new Coffee();
 						from.Backpack.DropItem(cof);
-						this.Say("Ohhh... yes... this will brew well!");
+						this.Say("Ohhh... sim... isso vai servir!");
 						return true;
 					}	
 				}
@@ -2525,7 +2526,7 @@ namespace Server.Mobiles
 			if ( !CheckVendorAccess( buyer ) )
 			{
 				//Say( 501522 ); // I shall not treat with scum like thee!
-				this.Say( "I have no business with you." );
+				this.Say("Eu não faço negócios com você!");
 				return false;
 			}
 
@@ -2731,11 +2732,11 @@ namespace Server.Mobiles
 		{
 			PlayerMobile pm = (PlayerMobile)from;
 
-			if ( from.Blessed )
-				return false;
+			/*if ( from.Blessed )
+				return false;*/
 
-			if ( IntelligentAction.GetMyEnemies( from, this, false ) == true )
-				return false;
+			/*if ( IntelligentAction.GetMyEnemies( from, this, false ) == true )
+				return false;*/
 
 			if ( this is BaseGuildmaster && this.NpcGuild != pm.NpcGuild ) // ONLY GUILD MEMBERS CAN BUY FROM GUILD MASTERS
 				return false;
@@ -2753,8 +2754,11 @@ namespace Server.Mobiles
 
 			if ( !CheckVendorAccess( seller ) )
 			{
-				//Say( 501522 ); // I shall not treat with scum like thee!
-				this.Say( "I have no business with you." );
+                //Say( 501522 ); // I shall not treat with scum like thee!
+                string sSay = "Eu não faço negócios com você!";
+                this.PrivateOverheadMessage(MessageType.Regular, 1153, false, sSay, seller.NetState);
+
+                //this.Say( "I have no business with you." );
 				return false;
 			}
 
@@ -2971,8 +2975,8 @@ namespace Server.Mobiles
 					}
 				}
 			}
-
-			writer.WriteEncodedInt( 0 );
+            //writer.Write((bool)m_canTeach);
+            writer.WriteEncodedInt( 0 );
 		}
 
 		public override void Deserialize( GenericReader reader )
@@ -2989,7 +2993,9 @@ namespace Server.Mobiles
 			{
 				case 1:
 					{
-						int index;
+                        //m_canTeach = reader.ReadBool();
+
+                        int index;
 
 						while ( ( index = reader.ReadEncodedInt() ) > 0 )
 						{

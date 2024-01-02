@@ -5087,7 +5087,66 @@ namespace Server.Mobiles
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public class SBSage: SBInfo
+	public class NMS_SBMuseumGuide : SBInfo
+	{
+		private List<GenericBuyInfo> m_BuyInfo = new InternalBuyInfo();
+		private IShopSellInfo m_SellInfo = new InternalSellInfo();
+
+		public NMS_SBMuseumGuide()
+		{
+		}
+
+		public override IShopSellInfo SellInfo { get { return m_SellInfo; } }
+		public override List<GenericBuyInfo> BuyInfo { get { return m_BuyInfo; } }
+
+		public class InternalBuyInfo : List<GenericBuyInfo>
+		{
+			public InternalBuyInfo()
+			{
+				Add(new GenericBuyInfo(typeof(LoreGuidetoAdventure), 5, Utility.Random(5, 100), 0x1C11, 0));
+				Add(new GenericBuyInfo(typeof(LearnMetalBook), 5, Utility.Random(1, 100), 0x4C5B, 0));
+				Add(new GenericBuyInfo(typeof(LearnGraniteBook), 5, Utility.Random(1, 100), 0x4C5C, 0));
+			}
+		}
+
+		public class InternalSellInfo : GenericSellInfo
+		{
+			public InternalSellInfo()
+			{
+			}
+		}
+	}
+    public class NMS_SBMinerBSMuseumGuide : SBInfo
+    {
+        private List<GenericBuyInfo> m_BuyInfo = new InternalBuyInfo();
+        private IShopSellInfo m_SellInfo = new InternalSellInfo();
+
+        public NMS_SBMinerBSMuseumGuide()
+        {
+        }
+
+        public override IShopSellInfo SellInfo { get { return m_SellInfo; } }
+        public override List<GenericBuyInfo> BuyInfo { get { return m_BuyInfo; } }
+
+        public class InternalBuyInfo : List<GenericBuyInfo>
+        {
+            public InternalBuyInfo()
+            {
+                //Add(new GenericBuyInfo(typeof(LoreGuidetoAdventure), 5, Utility.Random(5, 100), 0x1C11, 0));
+                Add(new GenericBuyInfo(typeof(LearnMetalBook), 5, Utility.Random(1, 100), 0x4C5B, 0));
+                Add(new GenericBuyInfo(typeof(LearnGraniteBook), 5, Utility.Random(1, 100), 0x4C5C, 0));
+            }
+        }
+
+        public class InternalSellInfo : GenericSellInfo
+        {
+            public InternalSellInfo()
+            {
+            }
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public class SBSage: SBInfo
 	{
 		private List<GenericBuyInfo> m_BuyInfo = new InternalBuyInfo();
 		private IShopSellInfo m_SellInfo = new InternalSellInfo();

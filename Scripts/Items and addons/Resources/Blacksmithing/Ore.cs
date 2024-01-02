@@ -707,6 +707,7 @@ namespace Server.Items
 		[Constructable]
 		public ValoriteOre() : this( 1 )
 		{
+
 		}
 
 		[Constructable]

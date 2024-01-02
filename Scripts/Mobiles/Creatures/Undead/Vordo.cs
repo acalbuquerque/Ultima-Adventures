@@ -11,7 +11,7 @@ using Server.Engines.PartySystem;
 
 namespace Server.Mobiles
 {
-	[CorpseName( "a ghostly essence" )]
+	[CorpseName( "essência espectral" )]
 	public class Vordo : BaseCreature 
 	{ 
 		[Constructable] 
@@ -19,7 +19,7 @@ namespace Server.Mobiles
 		{
 			Body = 400;
 			Name = "Vordo";
-			Title = "of the darkest magic";
+			Title = "o necromacer de Kuldar";
 			Hue = 0x47E;
 
 			AddItem( new Robe() );
@@ -140,14 +140,14 @@ namespace Server.Mobiles
 							if ( pmi.Mobile is PlayerMobile && pmi.Mobile.InRange(this.Location, 20) && pmi.Mobile.Map == this.Map )
 							{
 								pmi.Mobile.AddToBackpack( new VordoScroll() );
-								pmi.Mobile.SendMessage("An item has appeared in your backpack!");
+								pmi.Mobile.SendMessage(55, "Um estranho pergaminho surgiu na sua mochila!");
 							}
 						}
 					}
 					else
 					{
 						killer.AddToBackpack( new VordoScroll() );
-						killer.SendMessage("An item has appeared in your backpack!");
+						killer.SendMessage(55, "Um estranho pergaminho surgiu na sua mochila!");
 					}
 				}
 			}
@@ -211,7 +211,7 @@ namespace Server.Items
 		[Constructable]
 		public VordoScroll() : base( 0x227A )
 		{
-			Name = "Vordo's Magical Gate Research";
+			Name = "Passaporte Mágico de Vordo";
 			Weight = 1;
 		}
 
@@ -225,21 +225,21 @@ namespace Server.Items
 
 			if ( !IsChildOf( from.Backpack ) ) 
 			{
-				from.SendMessage( "This spell must be in your backpack to use." );
+				from.SendMessage(55, "O item precisa estar na sua mochila." );
 			}
 			else if ( world == "the Bottle World of Kuldar" )
 			{
 				Server.Items.CharacterDatabase.SetKeys( from, "VordoKey", true );
 				from.PlaySound( 0x249 );
-				from.SendMessage( "You learned Vordo's secrets to escaping this place." );
-				from.SendMessage( "The parchment crumbles to dust." );
+				from.SendMessage( "Agora você possui um passaporte para entrar e sair da Ilha de Kuldar." );
+				from.SendMessage("* O pergaminho se transforma em pó. *");
 				this.Delete();
 			}
 			else
 			{
 				from.PlaySound( 0x249 );
-				from.SendMessage( "This seems like a bunch of scribbles." );
-				from.SendMessage( "The parchment crumbles to dust." );
+				from.SendMessage(55, "Neste mundo, as letras escritas aqui não fazem o menor sentido." );
+				from.SendMessage("* O pergaminho se transforma em pó. *");
 				this.Delete();
 			}
 		}
@@ -248,8 +248,8 @@ namespace Server.Items
 		{
             base.AddNameProperties(list);
 
-			list.Add( 1070722, "Vordo's notes on escaping the bottle.");
-			list.Add( 1049644, "Learn to use teleporting magic here.");
+			//list.Add( 1070722, "Passaporte para entrar ou escapar da Ilha da Kuldar.");
+			list.Add( 1049644, "Possibilita entrar ou sair da Ilha de Kuldar.");
         }
 
 		public override void Serialize( GenericWriter writer )

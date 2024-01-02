@@ -1317,7 +1317,7 @@ namespace Server.Misc
 				else if ( color == "steel" ){ hue = 0x515; }
 				else if ( color == "valorite" ){ hue = 0x8AB; }
 				else if ( color == "verite" ){ hue = 0x89F; }
-                else if ( color == "titanium" ) { hue = 0x4C; }
+                else if ( color == "titanium" ) { hue = 0x565; }
                 else if (color == "rosenium") { hue = 0xEC; }
                 else if ( color == "xormite" ){ hue = 0xB96; }
 				else if ( color == "jade" ){ hue = 0xB94; }
@@ -1356,7 +1356,7 @@ namespace Server.Misc
 				else if ( color == "steel" ){ hue = 0x99F; }
 				else if ( color == "valorite" ){ hue = 0x95D; }
 				else if ( color == "verite" ){ hue = 0x95E; }
-                else if ( color == "titanium" ) { hue = 0x4C; }
+                else if ( color == "titanium" ) { hue = 0x565; }
                 else if (color == "rosenium") { hue = 0xEC; }
                 else if ( color == "xormite" ){ hue = 0x7C7; }
 				else if ( color == "jade" ){ hue = 0xB94; }

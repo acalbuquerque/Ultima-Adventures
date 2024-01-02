@@ -180,7 +180,8 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				if ( m_PriceScalar != 0 )
+				// TODO: checar essa maluquice do caralho
+				/*if ( m_PriceScalar != 0 )
 				{
 					if ( m_Price > 5000000 )
 					{
@@ -197,7 +198,7 @@ namespace Server.Mobiles
 					}
 
 					return ( ((m_Price * m_PriceScalar) + 50) / 100 );
-				}
+				}*/
 
 				return m_Price;
 			}
@@ -240,7 +241,8 @@ namespace Server.Mobiles
 
 		public GenericBuyInfo( string name, Type type, int price, int amount, int itemID, int hue ) : this( name, type, price, amount, itemID, hue, null )
 		{
-		}
+            m_Name = name;
+        }
 
 		public GenericBuyInfo( Type type, int price, int amount, int itemID, int hue, object[] args ) : this( null, type, price, amount, itemID, hue, args )
 		{
@@ -250,13 +252,14 @@ namespace Server.Mobiles
 		{
 			m_Type = type;
 			m_Price = price;// GetRandBuyPriceFor( price );
-            m_MaxAmount = m_Amount = GetRandBuyAmountFor( amount );
-			m_ItemID = itemID;
+			m_MaxAmount = m_Amount = amount;//GetRandBuyAmountFor( amount );
+
+            m_ItemID = itemID;
 			m_Hue = hue;
 			m_Args = args;
 
-			if ( name == null )
-				m_Name = itemID < 0x4000 ? (1020000 + itemID).ToString() : (1078872 + itemID).ToString();
+			if (name == null)
+				m_Name = "indefinido";//itemID < 0x4000 ? (1020000 + itemID).ToString() : (1078872 + itemID).ToString();
 			else
 				m_Name = name;
 		}

@@ -27,7 +27,7 @@ namespace Server.Items
 
 				if ( m is PlayerMobile && world == "the Bottle World of Kuldar" && !( Server.Items.CharacterDatabase.GetKeys( m, "VordoKey" ) ) )
 				{
-					m.SendMessage( "This magical gate doesn't seem to do anything." );
+					m.SendMessage(55, "Você não possui permissão para utilizar este portal. Talvez lhe falte um passaporte." );
 				}
 				else if ( Worlds.AllowEscape( m, m.Map, m.Location, m.X, m.Y ) == false && Worlds.GetMyWorld( m.Map, m.Location, m.X, m.Y ) != "the Bottle World of Kuldar" )
 				{
@@ -56,7 +56,7 @@ namespace Server.Items
 					m.PlaySound( 0x20E );
 					m.CloseGump( typeof( MoonGateGump ) );
 					m.SendGump( new MoonGateGump( m, false ) );
-					m.SendMessage( "Choose a destination." );
+					m.SendMessage( "Escolha um dos destinos possíveis." );
 				}
 			}
 			return true;
@@ -96,14 +96,14 @@ namespace Server.Items
 				AddImage(753, 444, 5608);
 				AddImage(566, 353, 147);
 				
-				string mainTitle = "MOONGATE DESTINATIONS";
-					if ( IsBlackrock ){ mainTitle = "BLACKROCK GATE DESTINATIONS"; AddItem(697, 362, 6248); } else { AddItem(709, 371, 19586); } 
+				string mainTitle = "DESTINOS DO PORTAL MÁGICO";
+					if ( IsBlackrock ){ mainTitle = "DESTINOS DO PORTAL DE BLACKROCK"; AddItem(697, 362, 6248); } else { AddItem(709, 371, 19586); } 
 
-				AddHtml( 140, 72, 600, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG><CENTER>" + mainTitle + "</CENTER></BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+				AddHtml( 140, 72, 600, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG><CENTER>" + mainTitle + "</CENTER></BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
 				/////////////////////////////////////////////////////////////////////////////
 
-				int GateAmount = 31; // THE AMOUNT OF MOONGATES IN THE GAME - MAX 30
+				int GateAmount = 2; //31 // THE AMOUNT OF MOONGATES IN THE GAME - MAX 30
 				int GateNumber = 0;
 				string sPlace = "";
 				int counter = 0;
@@ -121,101 +121,101 @@ namespace Server.Items
 
 						if ( counter == 1 ){
 							AddButton(104, 114, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 114, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 114, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 2 ){
 							AddButton(104, 144, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 144, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 144, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 3 ){
 							AddButton(104, 174, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 174, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 174, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 4 ){
 							AddButton(104, 204, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 204, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 204, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 5 ){
 							AddButton(104, 234, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 234, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 234, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 6 ){
 							AddButton(104, 264, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 264, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 264, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 7 ){
 							AddButton(104, 294, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 294, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 294, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 8 ){
 							AddButton(104, 324, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 324, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 324, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 9 ){
 							AddButton(104, 354, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 354, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 354, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 10 ){
 							AddButton(104, 384, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 139, 384, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 139, 384, 205, 21, @"<BODY><BASEFONT Color=#FBFBFB><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
 
 						} else if ( counter == 11 ){
 							AddButton(366, 114, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 114, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 114, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 12 ){
 							AddButton(366, 144, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 144, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 144, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 13 ){
 							AddButton(366, 174, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 174, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 174, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 14 ){
 							AddButton(366, 204, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 204, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 204, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 15 ){
 							AddButton(366, 234, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 234, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 234, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 16 ){
 							AddButton(366, 264, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 264, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 264, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 17 ){
 							AddButton(366, 294, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 294, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 294, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 18 ){
 							AddButton(366, 324, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 324, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 324, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 19 ){
 							AddButton(366, 354, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 354, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 354, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 20 ){
 							AddButton(366, 384, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 384, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 384, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 21 ){
 							AddButton(366, 414, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 414, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 414, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 22 ){
 							AddButton(366, 444, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 401, 444, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 401, 444, 205, 21, @"<BODY><BASEFONT Color=#A533FF><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 
 
 						} else if ( counter == 23 ){
 							AddButton(632, 114, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 114, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 114, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 24 ){
 							AddButton(632, 144, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 144, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 144, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 25 ){
 							AddButton(632, 174, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 174, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 174, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 26 ){
 							AddButton(632, 204, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 204, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 204, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 27 ){
 							AddButton(632, 234, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 234, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 234, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 28 ){
 							AddButton(632, 264, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 264, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 264, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 29 ){
 							AddButton(632, 294, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 294, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 294, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 30 ){
 							AddButton(632, 324, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 324, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 324, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						} else if ( counter == 31 ){
 							AddButton(632, 354, 4005, 4005, GateNumber, GumpButtonType.Reply, 0);
-								AddHtml( 667, 354, 205, 21, @"<BODY><BASEFONT Color=#FCFF00><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
+								AddHtml( 667, 354, 205, 21, @"<BODY><BASEFONT Color=#33FF93><BIG>" + sPlace + "</BIG></BASEFONT></BODY>", (bool)false, (bool)false);
 						}
 					}
 				}
@@ -233,7 +233,7 @@ namespace Server.Items
 				{
 					bool gate1 = info.ButtonID == 1;
 					bool gate2 = info.ButtonID == 2;
-					bool gate3 = info.ButtonID == 3;
+					/*bool gate3 = info.ButtonID == 3;
 					bool gate4 = info.ButtonID == 4;
 					bool gate5 = info.ButtonID == 5;
 					bool gate6 = info.ButtonID == 6;
@@ -261,11 +261,14 @@ namespace Server.Items
 					bool gate28 = info.ButtonID == 28;
 					bool gate29 = info.ButtonID == 29;
 					bool gate30 = info.ButtonID == 30;
-					bool gate31 = info.ButtonID == 31;
+					bool gate31 = info.ButtonID == 31;*/
 
 					int gX = 0; int gY = 0; int gZ = 0; Map map = Map.Trammel;
 
-					if (gate1 && CharacterDatabase.GetDiscovered( from, "the Land of Sosaria" )){gX = 2518; gY = 1529; gZ = 3; map = Map.Trammel;  }
+                    if (gate1 && CharacterDatabase.GetDiscovered(from, "the Bottle World of Kuldar")) { gX = 6603; gY = 1082; gZ = 2; map = Map.Trammel; }
+                    if (gate2 && CharacterDatabase.GetDiscovered(from, "the Bottle World of Kuldar")) { gX = 6841; gY = 2212; gZ = 2; map = Map.Trammel; }
+
+                    /*if (gate1 && CharacterDatabase.GetDiscovered( from, "the Land of Sosaria" )){gX = 2518; gY = 1529; gZ = 3; map = Map.Trammel;  }
 					else if (gate2 && CharacterDatabase.GetDiscovered( from, "the Land of Sosaria" )){gX = 3723; gY = 2155; gZ = 4; map = Map.Trammel;  }
 					else if (gate3 && CharacterDatabase.GetDiscovered( from, "the Land of Sosaria" )){gX = 1779; gY = 1714; gZ = 6; map = Map.Trammel;  }
 					else if (gate4 && CharacterDatabase.GetDiscovered( from, "the Land of Sosaria" )){gX = 3718; gY = 1136; gZ = 0; map = Map.Trammel;  }
@@ -295,9 +298,9 @@ namespace Server.Items
 					else if (gate28 && CharacterDatabase.GetDiscovered( from, "the Savaged Empire" )){gX = 303; gY = 1269; gZ = 3; map = Map.TerMur;  }
 					else if (gate29 && CharacterDatabase.GetDiscovered( from, "the Bottle World of Kuldar" )){gX = 6603; gY = 1082; gZ = 2; map = Map.Trammel;  }
 					else if (gate30 && CharacterDatabase.GetDiscovered( from, "the Bottle World of Kuldar" )){gX = 6377; gY = 302; gZ = 15; map = Map.Felucca;  }
-					else if (gate31 && CharacterDatabase.GetDiscovered( from, "DarkMoor" )){gX = 603; gY = 709; gZ = -38; map = Map.Ilshenar;  }
+					else if (gate31 && CharacterDatabase.GetDiscovered( from, "DarkMoor" )){gX = 603; gY = 709; gZ = -38; map = Map.Ilshenar;  }*/
 
-					if ( gX > 0 )
+                    if ( gX > 0 )
 					{
 						/*
 						IPooledEnumerable eable = map.GetObjectsInRange( from.Location, 2 );
@@ -329,7 +332,7 @@ namespace Server.Items
 							GateMoonTeleport( from, loc, map );
 						}
 						else
-							from.SendMessage( "There is no MoonGate nearby." ); 
+							from.SendMessage( "Não há um portal próximo." ); 
 					}
 				}
 			}
@@ -344,7 +347,10 @@ namespace Server.Items
 			string sGate = "";
 
 			if ( world == "the Bottle World of Kuldar" && !(CharacterDatabase.GetDiscovered( m, "the Bottle World of Kuldar" )) ){}
-			else if ( gate == 1 && CharacterDatabase.GetDiscovered( m, "the Land of Sosaria" ) ){ sGate = "Sosaria - Central"; }
+            else if (gate == 1 && CharacterDatabase.GetDiscovered(m, "the Bottle World of Kuldar")) { sGate = "Ilha de Kuldar - Norte"; }
+            else if (gate == 2 && CharacterDatabase.GetDiscovered(m, "the Bottle World of Kuldar")) { sGate = "Ilha de Kuldar - Sul"; }
+
+            /*else if ( gate == 1 && CharacterDatabase.GetDiscovered( m, "the Land of Sosaria" ) ){ sGate = "Sosaria - Central"; }
 			else if ( gate == 2 && CharacterDatabase.GetDiscovered( m, "the Land of Sosaria" )){ sGate = "Sosaria - Clues"; }
 			else if ( gate == 3 && CharacterDatabase.GetDiscovered( m, "the Land of Sosaria" )){ sGate = "Sosaria - Devil Guard"; }
 			else if ( gate == 4 && CharacterDatabase.GetDiscovered( m, "the Land of Sosaria" )){ sGate = "Sosaria - East"; }
@@ -378,9 +384,9 @@ namespace Server.Items
 			else if ( gate == 27 && CharacterDatabase.GetDiscovered( m, "the Savaged Empire" ) ){ sGate = "Savaged Empire - South"; }
 			else if ( gate == 28 && CharacterDatabase.GetDiscovered( m, "the Savaged Empire" ) ){ sGate = "Savaged Empire - West"; }
 
-			else if ( gate == 29 && CharacterDatabase.GetDiscovered( m, "the Bottle World of Kuldar" ) ){ sGate = "Bottle World of Kuldar"; }
+			else if ( gate == 29 && CharacterDatabase.GetDiscovered( m, "the Bottle World of Kuldar" ) ){ sGate = "Ilha de Kuldar - Norte"; }
 			else if ( gate == 30 && CharacterDatabase.GetDiscovered( m, "the Bottle World of Kuldar" ) ){ sGate = "Black Knight's Vault"; }
-			else if ( gate == 31 && CharacterDatabase.GetDiscovered( m, "DarkMoor" ) ){ sGate = "The Lands of DarkMoor"; }
+			else if ( gate == 31 && CharacterDatabase.GetDiscovered( m, "DarkMoor" ) ){ sGate = "The Lands of DarkMoor"; }*/
 
 			return sGate;
 		}

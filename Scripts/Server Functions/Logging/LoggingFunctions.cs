@@ -562,19 +562,19 @@ namespace Server.Misc
 				int nDifficulty = MyServerSettings.GetDifficultyLevel( m.Location, m.Map );
 				string sDifficulty = "";
 
-				if ( nDifficulty == -1 ){ sDifficulty = " (Easy)"; }
-				else if ( nDifficulty == 0 ){ sDifficulty = " (Normal)"; }
-				else if ( nDifficulty == 1 ){ sDifficulty = " (Difficult)"; }
-				else if ( nDifficulty == 2 ){ sDifficulty = " (Challenging)"; }
-				else if ( nDifficulty == 3 ){ sDifficulty = " (Hard)"; }
-				else if ( nDifficulty == 4 ){ sDifficulty = " (Deadly)"; }
+				if ( nDifficulty == -1 ){ sDifficulty = " * (Easy)"; }
+				else if ( nDifficulty == 0 ){ sDifficulty = " * (Normal)"; }
+				else if ( nDifficulty == 1 ){ sDifficulty = " * (Difficult)"; }
+				else if ( nDifficulty == 2 ){ sDifficulty = " * (Challenging)"; }
+				else if ( nDifficulty == 3 ){ sDifficulty = " * (Hard)"; }
+				else if ( nDifficulty == 4 ){ sDifficulty = " * (Deadly)"; }
 
 				if ( sDirection == "enter" )
 				{
-					m.SendMessage("You have entered " + sRegion + sDifficulty + "."); 
+					m.SendMessage(55, "Você entrou em " + sRegion + sDifficulty + "."); 
 					//((PlayerMobile)m).lastdeeds = " entered " + sRegion + sDifficulty + "."; 
 				}
-				else { m.SendMessage("You have left " + sRegion + "."); }
+				else { m.SendMessage(55, "Você saiu do(a) " + sRegion + "."); }
 			}
 
 			if ( ( m is PlayerMobile ) && ( m.AccessLevel < AccessLevel.GameMaster ) )
